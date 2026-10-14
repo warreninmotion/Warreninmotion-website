@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Warren in Motion</title>
-<meta name="description" content="Warren fietst in mei 2027 ruim 1.500 km van Lucca naar Veenendaal, door 7 landen, voor Voedselbanken Nederland.">
+<meta name="description" content="Warren fietst in mei 2027 ruim 1.500 km van Lucca naar Veenendaal, door 7 landen, voor Voedselbanken Nederland. Sponsor als bedrijf of doneer als particulier.">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,72 +20,89 @@
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav class="site-nav" id="site-nav" aria-label="Hoofdmenu">
       <ul>
+        <li><a href="/sponsoren/">Sponsoren</a></li>
+        <li><a href="/doneren/">Doneren</a></li>
+        <li><a href="/tussenstand/">Tussenstand</a></li>
         <li><a href="/route/">De route</a></li>
-        <li><a href="/elke-kilometer-telt/">Elke kilometer telt</a></li>
-        <li><a href="/eindsprint/">Eindsprint &amp; diner</a></li>
         <li><a href="/over-warren/">Over Warren</a></li>
         <li><a href="/contact/">Contact</a></li>
       </ul>
-      <a class="btn" href="https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion" target="_blank" rel="noopener">Doneer</a>
     </nav>
   </div>
 </header>
 
 <main id="main">
+<style>
+.hero{display:grid;gap:4px;padding-top:12px}
+.hero h1{font-size:clamp(42px,8.5vw,72px)}
+.choose{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:720px){.choose{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.choice{display:grid;gap:6px;align-content:start;text-decoration:none;color:var(--fg);background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:22px 22px 20px;transition:border-color .15s,transform .15s}
+.choice:hover{border-color:var(--groen);transform:translateY(-2px)}
+@media (prefers-reduced-motion:reduce){.choice{transition:none}.choice:hover{transform:none}}
+.choice .who{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.choice .what{font-family:var(--display);font-size:clamp(28px,4.6vw,36px);line-height:1.1}
+.choice p{color:var(--muted);font-size:15px;margin-top:2px}
+.choice .go{margin-top:12px;justify-self:start;background:var(--groen);color:var(--bg);border-radius:999px;padding:9px 20px;font-weight:600;font-size:15px}
+.story{display:grid;gap:22px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:820px){.story{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.story>div{display:grid;gap:8px;align-content:start;border-top:2px solid var(--groen);padding-top:14px}
+.story p{color:var(--muted);font-size:15px}
+.story .num{font-family:var(--display);font-size:20px;color:var(--fg)}
+.mini{display:grid;gap:6px;border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.mini .line{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px}
+.mini .big{font-size:clamp(38px,7vw,54px)}
+.mini .bar{margin:18px 0 30px}
+</style>
 <div class="wrap">
   <header class="hero">
     <div class="eyebrow">Lucca → Veenendaal · 15–22 mei 2027</div>
-    <h1>Ruim 1.500 km voor de voedselbank</h1>
-    <p class="lead">Warren van der Ploeg fietst in acht dagen van Lucca in Italië naar huis in Veenendaal, door zeven landen. Alles wat de tocht opbrengt, gaat naar Voedselbanken Nederland.</p>
-    <div class="btns">
-      <a class="btn" href="/elke-kilometer-telt/">Sponsor kilometers</a>
-      <a class="btn ghost" href="https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion" target="_blank" rel="noopener">Doneer</a>
-    </div>
+    <h1>Welkom bij Warren in Motion</h1>
+    <p class="lead">In mei 2027 fietst Warren van der Ploeg ruim 1.500 km van Lucca in Italië naar huis in Veenendaal. Alles wat hij onderweg ophaalt, gaat naar Voedselbanken Nederland. Rij je mee?</p>
   </header>
 
-  <dl class="facts" aria-label="De tocht in cijfers">
-    <div><dt>1.576</dt><dd>kilometer, gemeten langs de echte route</dd></div>
-    <div><dt>8</dt><dd>etappes, van zaterdag tot zaterdag</dd></div>
-    <div><dt>7</dt><dd>landen, van Italië tot Nederland</dd></div>
-    <div><dt>1.915 m</dt><dd>hoogste punt: de Lukmanierpas</dd></div>
-  </dl>
+  <nav class="choose" aria-label="Kies hoe je meedoet">
+    <a class="choice" href="/sponsoren/">
+      <span class="who">Ik ben een bedrijf</span>
+      <span class="what">Ik wil sponsoren</span>
+      <p>Koop kilometers voor €20 per km en zet je bedrijfsnaam op de route. Met je logo op het shirt en de volgbus.</p>
+      <span class="go">Sponsor als bedrijf →</span>
+    </a>
+    <a class="choice" href="/doneren/">
+      <span class="who">Ik ben particulier</span>
+      <span class="what">Ik wil doneren</span>
+      <p>Elk bedrag telt: €5 is al 250 meter. Of fiets op 22 mei de laatste 50 km mee naar de finish.</p>
+      <span class="go">Doneer als particulier →</span>
+    </a>
+  </nav>
 
-  <section class="sec stand" aria-labelledby="h-stand">
-    <h2 id="h-stand">De stand</h2>
+  <section class="sec" aria-labelledby="h-verhaal">
+    <h2 id="h-verhaal">Het verhaal in het kort</h2>
+    <div class="story">
+      <div>
+        <div class="eyebrow">Wie</div>
+        <h3>Warren van der Ploeg</h3>
+        <p>Warren laat zien dat gezond eten en een actief leven passen in een druk bestaan. Want dat hoort haalbaar te zijn voor iedereen, wat je budget ook is.</p>
+        <a class="more" href="/over-warren/">Over Warren →</a>
+      </div>
+      <div>
+        <div class="eyebrow">Wat</div>
+        <h3>Acht dagen fietsen</h3>
+        <p><span class="num">1.576 km</span> in 8 etappes, door 7 landen. Van de Ligurische kust over de Lukmanierpas (1.915 m) en door de Ardennen naar huis.</p>
+        <a class="more" href="/route/">Bekijk de route →</a>
+      </div>
+      <div>
+        <div class="eyebrow">Waarvoor</div>
+        <h3>Voedselbanken Nederland</h3>
+        <p><span class="num">155.600</span> mensen kregen in 2025 hulp van de voedselbank, 10% meer huishoudens dan een jaar eerder. Elke euro gaat naar hen.</p>
+        <a class="more" href="/doneren/">Doneer →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="mini" aria-labelledby="h-stand">
+    <div class="line"><h2 id="h-stand" class="eyebrow" style="font-family:var(--body);font-size:12px">Tussenstand</h2><a class="more" href="/tussenstand/">Bekijk de tussenstand →</a></div>
     <div data-stand aria-live="polite"></div>
-    <a class="more" href="/elke-kilometer-telt/">Bekijk wie er meerijdt →</a>
-  </section>
-
-  <section class="sec" aria-labelledby="h-waarom">
-    <h2 id="h-waarom">Waarom de voedselbank</h2>
-    <div class="prose">
-      <p>Gezond eten en bewegen horen haalbaar te zijn voor iedereen, ook met een krap budget of een vol leven. Voor steeds meer mensen in Nederland is dat niet vanzelfsprekend.</p>
-    </div>
-    <dl class="facts">
-      <div><dt>155.600</dt><dd>mensen kregen in 2025 hulp van de voedselbank</dd></div>
-      <div><dt>35.860</dt><dd>huishoudens krijgen elke week een pakket</dd></div>
-      <div><dt>+10%</dt><dd>meer huishoudens met hulp in 2025 dan in 2024</dd></div>
-      <div><dt>551.000</dt><dd>mensen leven onder de armoedegrens (CBS, 2024)</dd></div>
-    </dl>
-    <div class="prose">
-      <p>Elke kilometer die een bedrijf sponsort, is €20 voor Voedselbanken Nederland. Particuliere donaties gaan rechtstreeks naar de voedselbank, niet via Warren.</p>
-      <p class="muted">Ons doel: een hoofdsponsor die elke gedoneerde euro verdubbelt. Daarover zijn we in gesprek.</p>
-    </div>
-  </section>
-
-  <section class="sec" aria-labelledby="h-live">
-    <h2 id="h-live">Live volgen</h2>
-    <p class="muted">Tijdens de tocht zie je hier waar Warren rijdt.</p>
-    <div data-live></div>
-  </section>
-
-  <section class="sec" aria-labelledby="h-meer">
-    <h2 id="h-meer">Meer over de tocht</h2>
-    <div class="cards c3">
-      <a class="card" href="/route/"><div class="eyebrow">8 etappes</div><h3>De route</h3><p>Van de Ligurische kust over de Alpen en door de Ardennen naar Veenendaal.</p><span class="more">Bekijk de route →</span></a>
-      <a class="card" href="/eindsprint/"><div class="eyebrow">Za 22 mei 2027</div><h3>Eindsprint &amp; diner</h3><p>Fiets de laatste 50 km mee vanaf Den Bosch, of schuif aan bij het diner.</p><span class="more">Meld je aan →</span></a>
-      <a class="card" href="/over-warren/"><div class="eyebrow">Wie fietst er</div><h3>Over Warren</h3><p>Wie Warren is en waarom hij deze tocht fietst.</p><span class="more">Lees meer →</span></a>
-    </div>
   </section>
 </div>
 </main>
@@ -100,9 +117,10 @@
     <nav aria-label="Pagina's">
       <ul>
         <li><a href="/">Home</a></li>
+        <li><a href="/sponsoren/">Sponsoren</a></li>
+        <li><a href="/doneren/">Doneren</a></li>
+        <li><a href="/tussenstand/">Tussenstand</a></li>
         <li><a href="/route/">De route</a></li>
-        <li><a href="/elke-kilometer-telt/">Elke kilometer telt</a></li>
-        <li><a href="/eindsprint/">Eindsprint &amp; diner</a></li>
         <li><a href="/over-warren/">Over Warren</a></li>
         <li><a href="/contact/">Contact</a></li>
       </ul>

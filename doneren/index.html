@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Doneren als particulier · Warren in Motion</title>
+<meta name="description" content="Doneer aan Voedselbanken Nederland en rijd mee in het peloton, of fiets op 22 mei 2027 de eindsprint mee van Den Bosch naar Veenendaal.">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&amp;display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+<a class="skip" href="#main">Naar de inhoud</a>
+<header class="site-head">
+  <div class="site-head__in">
+    <a class="brand" href="/"><svg class="mono" aria-hidden="true"></svg><span>Warren in Motion</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Hoofdmenu">
+      <ul>
+        <li><a href="/sponsoren/">Sponsoren</a></li>
+        <li><a href="/doneren/" aria-current="page">Doneren</a></li>
+        <li><a href="/tussenstand/">Tussenstand</a></li>
+        <li><a href="/route/">De route</a></li>
+        <li><a href="/over-warren/">Over Warren</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<style>
+.give{display:grid;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:22px}
+.give .btn{font-size:17px;padding:12px 28px;justify-self:start}
+.amounts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin:0;border-top:1px solid var(--line)}
+@media (min-width:620px){.amounts{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.amounts>div{padding:12px 10px 12px 0;border-bottom:1px solid var(--line)}
+.amounts dt{font-family:var(--display);font-size:28px;line-height:1;font-variant-numeric:lining-nums tabular-nums}
+.amounts dd{margin:4px 0 0;font-size:14px;color:var(--muted)}
+#eindsprint{scroll-margin-top:84px}
+</style>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Voor particulieren</div>
+    <h1>Doneren als particulier</h1>
+    <p class="lead">Elk bedrag telt. Samen met alle andere donateurs vorm je het peloton dat achter de bedrijven aan naar Veenendaal rijdt. Je donatie gaat rechtstreeks naar Voedselbanken Nederland.</p>
+  </header>
+
+  <section class="give" aria-labelledby="h-doneer">
+    <h2 id="h-doneer">Doneer en rijd mee in het peloton</h2>
+    <dl class="amounts" aria-label="Wat je donatie betekent">
+      <div><dt>€5</dt><dd>250 meter</dd></div>
+      <div><dt>€20</dt><dd>1 kilometer</dd></div>
+      <div><dt>€50</dt><dd>2,5 kilometer</dd></div>
+      <div><dt>€100</dt><dd>5 kilometer</dd></div>
+    </dl>
+    <a class="btn" href="https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion" target="_blank" rel="noopener">Doneer nu</a>
+    <p class="muted small">Je doneert via de actiepagina van Warren in Motion bij Kom in actie voor de voedselbank. Het geld komt dus niet bij Warren terecht, maar gaat direct naar Voedselbanken Nederland. Donaties worden wekelijks bijgeteld in de tussenstand.</p>
+    <div data-peloton></div>
+  </section>
+
+  <section class="sec" id="eindsprint" aria-labelledby="h-sprint">
+    <div class="eyebrow">Zaterdag 22 mei 2027</div>
+    <h2 id="h-sprint">Fiets de eindsprint mee, of schuif aan bij het diner</h2>
+    <p class="muted" style="max-width:62ch">Fiets de laatste 50 km mee, van Den Bosch naar de finish in Veenendaal. Daarna vieren we het samen bij het diner, met de cheque-overhandiging aan Voedselbanken Nederland en een feest.</p>
+    <div data-sprint aria-live="polite"></div>
+    <div class="cards c2">
+      <div class="card">
+        <div class="eyebrow">Fiets mee</div>
+        <h3>Meefietsen</h3>
+        <div class="price">€150 <small>per persoon</small></div>
+        <ul class="incl">
+          <li>De laatste 50 km samen naar de finish</li>
+          <li>Het officiële fietsshirt van Warren in Motion, dat je houdt</li>
+          <li>Een plek bij het diner, de cheque-overhandiging en het feest</li>
+        </ul>
+        <p>Maximaal 50 fietsplekken.</p>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Schuif aan</div>
+        <h3>Alleen diner</h3>
+        <div class="price">€100 <small>per persoon</small></div>
+        <ul class="incl">
+          <li>Een plek aan tafel bij het diner</li>
+          <li>De cheque-overhandiging aan Voedselbanken Nederland</li>
+          <li>Het feest na afloop</li>
+        </ul>
+      </div>
+    </div>
+    <dl class="rows">
+      <div><dt>Start</dt><dd><b>Den Bosch</b> · tijd en startplek volgen</dd></div>
+      <div><dt>Afstand</dt><dd><b>Ongeveer 50 km</b> · het laatste stuk van de etappe Lommel → Veenendaal</dd></div>
+      <div><dt>Finish</dt><dd><b>Veenendaal</b> · verwacht rond 18:00 (onder voorbehoud)</dd></div>
+      <div><dt>Diner</dt><dd><b>Aansluitend</b> · locatie volgt</dd></div>
+    </dl>
+    <p class="muted">Aanmelden: mail Warren met je naam, met hoeveel personen je komt en of je meefietst of alleen aanschuift bij het diner.</p>
+    <div class="contact"><a class="btn" href="mailto:warreninmotion@outlook.com?subject=Eindsprint%20en%20diner">Meld je aan</a><span class="addr">warreninmotion@outlook.com</span><button type="button" class="copy">Kopieer</button></div>
+  </section>
+
+  <section class="sec" aria-labelledby="h-deel">
+    <h2 id="h-deel">Vertel het door</h2>
+    <p class="muted" style="max-width:62ch">Hoe meer mensen meedoen, hoe verder het peloton komt. Volg Warren op <a href="https://www.instagram.com/warreninmotion/" target="_blank" rel="noopener">Instagram</a>, <a href="https://www.tiktok.com/@warreninmotion" target="_blank" rel="noopener">TikTok</a> en <a href="https://www.facebook.com/warreninmotion" target="_blank" rel="noopener">Facebook</a> en deel zijn berichten. Ken je een bedrijf dat wil sponsoren? Stuur ze naar <a href="/sponsoren/">Sponsoren</a>.</p>
+  </section>
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="site-foot__in">
+    <div>
+      <svg class="mono" aria-hidden="true"></svg>
+      <p><b>Warren in Motion</b><br>Lucca → Veenendaal · 15–22 mei 2027<br>Ten bate van Voedselbanken Nederland</p>
+      <p style="margin-top:10px">Stichting Warren in Motion (in oprichting)</p>
+    </div>
+    <nav aria-label="Pagina's">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/sponsoren/">Sponsoren</a></li>
+        <li><a href="/doneren/">Doneren</a></li>
+        <li><a href="/tussenstand/">Tussenstand</a></li>
+        <li><a href="/route/">De route</a></li>
+        <li><a href="/over-warren/">Over Warren</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </nav>
+    <div>
+      <ul>
+        <li><a href="mailto:warreninmotion@outlook.com">warreninmotion@outlook.com</a></li>
+        <li><a href="https://www.instagram.com/warreninmotion/" target="_blank" rel="noopener">Instagram · @warreninmotion</a></li>
+        <li><a href="https://www.tiktok.com/@warreninmotion" target="_blank" rel="noopener">TikTok · @warreninmotion</a></li>
+        <li><a href="https://www.facebook.com/warreninmotion" target="_blank" rel="noopener">Facebook · @warreninmotion</a></li>
+        <li><a href="https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion" target="_blank" rel="noopener">Doneer aan Voedselbanken Nederland</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/assets/site.js"></script>
+</body>
+</html>

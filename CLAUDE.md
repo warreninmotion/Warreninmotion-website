@@ -26,17 +26,23 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
 - Externe scripts alleen van cdnjs (d3 3.5.17, topojson 1.6.20, datamaps 0.5.9 voor de landkaart); fonts via Google Fonts.
 
 ## Pagina's en bestanden
-- `index.html` Home · `route/` De route · `elke-kilometer-telt/` · `eindsprint/` Eindsprint & diner ·
-  `over-warren/` · `contact/`. Elke pagina is een map met `index.html` (nette adressen op Netlify).
-- Kop, menu en voet staan in elke pagina hetzelfde; wijzig ze op alle zes pagina's tegelijk.
+- Opbouw naar bezoeker: Home (`index.html`) is de landingspagina met twee keuzes: "Ik ben een bedrijf → Ik wil
+  sponsoren" (`sponsoren/`) en "Ik ben particulier → Ik wil doneren" (`doneren/`, met daarin de eindsprint en het
+  diner onder `#eindsprint`). Verder `tussenstand/`, `route/`, `over-warren/`, `contact/`.
+- Menu: Sponsoren · Doneren · Tussenstand · De route · Over Warren · Contact. Kop, menu en voet staan in elke
+  pagina hetzelfde; wijzig ze op alle zeven pagina's tegelijk.
+- `_redirects` (Netlify) stuurt de oude adressen `/elke-kilometer-telt/` en `/eindsprint/` door.
 - `assets/site.css` = huisstijl en gedeelde onderdelen; `assets/site.js` = monogram, menu, kopieerknoppen,
-  stand op Home en Eindsprint, en vaste gegevens (`WIM_SITE`: mail, doneerlink, `liveUrl` voor Garmin LiveTrack).
-- `assets/route.js` = routepunten, etappes, kaartprojectie en landkaart (voor De route en Elke kilometer telt).
+  stand op Home, peloton en eindsprint op Doneren, en vaste gegevens (`WIM_SITE`: mail, doneerlink, `liveUrl`
+  voor Garmin LiveTrack, doelen).
+- `assets/route.js` = routepunten, etappes, kaartprojectie en landkaart (De route, Tussenstand).
+- `assets/actie.js` + `actie.css` = kaart die volloopt, kopgroep en peloton, rekenhulp, shirtplekken en volgbus
+  (Tussenstand en Sponsoren). Toont `CUR` (standaard de echte stand uit `data.js`).
+- Tussenstand heeft twee knoppen: "Echte tussenstand" (standaard) en "Zo ziet het eruit als het gelukt is": een
+  verzonnen volle route (`FULL` in `tussenstand/index.html`) die zich opbouwt en eindigt met confetti. Het
+  voorbeeld speelt nooit vanzelf af en staat altijd gemarkeerd als verzonnen. Geen fictief voorbeeld elders.
 - Links altijd absoluut (`/route/`, `/assets/...`); lokaal testen met `python3 -m http.server` in de repo-root.
-- `elke-kilometer-telt/` = routekaart die volloopt (bedrijven op volgorde van aanmelding,
-  daarachter "het peloton" = particuliere vrienden van de tocht), rekenhulp voor bedrijven, sponsorplekken op
-  het shirt (voor/achter, shirt Warren / shirt meefietsers), volgbus (Mercedes-Benz Citan, zij- en achterkant).
-- De stand staat in `data.js` (`window.WIM_DATA`). Zolang die leeg is, toont de pagina een fictief voorbeeld (DEMO).
+- De stand staat in `data.js` (`window.WIM_DATA`).
 
 ## HubSpot is leidend (BELANGRIJK)
 Alles over sponsors, kilometers, dinerplekken, shirtplekken, losse tickets en particuliere donaties staat in

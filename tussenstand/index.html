@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tussenstand · Warren in Motion</title>
+<meta name="description" content="De echte tussenstand van Warren in Motion: welke bedrijven en hoeveel particulieren meerijden op de route Lucca–Veenendaal.">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&amp;display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="/assets/actie.css">
+</head>
+<body>
+<a class="skip" href="#main">Naar de inhoud</a>
+<header class="site-head">
+  <div class="site-head__in">
+    <a class="brand" href="/"><svg class="mono" aria-hidden="true"></svg><span>Warren in Motion</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Hoofdmenu">
+      <ul>
+        <li><a href="/sponsoren/">Sponsoren</a></li>
+        <li><a href="/doneren/">Doneren</a></li>
+        <li><a href="/tussenstand/" aria-current="page">Tussenstand</a></li>
+        <li><a href="/route/">De route</a></li>
+        <li><a href="/over-warren/">Over Warren</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<style>
+.modes{display:grid;grid-template-columns:auto auto;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px;justify-self:start;max-width:100%}
+.modes button{font:inherit;font-size:15px;line-height:1.25;border:0;background:transparent;color:var(--muted);padding:9px 18px;border-radius:999px;cursor:pointer;min-height:40px}
+@media (max-width:560px){.modes{justify-self:stretch;grid-template-columns:1fr 1fr;border-radius:14px}.modes button{border-radius:10px;padding:9px 10px;font-size:14px}}
+.modes button[aria-pressed="true"]{background:var(--groen);color:var(--bg);font-weight:600}
+.demo{border-style:dashed}
+.demo b{font-weight:600}
+.spots{display:grid;gap:0;border-top:1px solid var(--line)}
+.spots>div{display:flex;justify-content:space-between;gap:12px;padding:10px 4px;border-bottom:1px solid var(--line);font-size:15px}
+.spots span:last-child{font-variant-numeric:tabular-nums;font-weight:600}
+.done{display:grid;gap:6px;text-align:center;padding:22px 16px;border:1.5px solid var(--groen);border-radius:10px;background:var(--card)}
+.done h2{font-size:clamp(28px,5vw,38px)}
+.done p{color:var(--muted)}
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+</style>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Tussenstand · Lucca – Veenendaal</div>
+    <h1>Elke kilometer telt</h1>
+    <p class="lead">Elke €20 is een kilometer. Bedrijven kopen hun eigen stuk van de route, op volgorde van aanmelding. Alle particuliere donateurs samen vormen het peloton dat erachter rijdt.</p>
+  </header>
+
+  <div class="modes" role="group" aria-label="Welke stand wil je zien">
+    <button type="button" id="modeReal" aria-pressed="true">Echte tussenstand</button>
+    <button type="button" id="modeFull" aria-pressed="false">Zo ziet het eruit als het gelukt is</button>
+  </div>
+
+  <div class="demo" id="demo" hidden>
+    <span id="demoTxt">Voorbeeld: deze bedrijven en bedragen zijn verzonnen. Zo ziet het eruit als de hele route vol is.</span>
+    <button type="button" id="skipBtn">Sla over</button>
+  </div>
+
+  <div class="done" id="done" hidden aria-live="polite">
+    <h2>Gelukt! Samen naar Veenendaal</h2>
+    <p>1.576 km gevuld · €31.520 voor Voedselbanken Nederland · alle plekken bezet. Dit is een voorbeeld; help je mee om het echt te maken?</p>
+    <div class="btns" style="justify-content:center;margin-top:8px"><a class="btn" href="/sponsoren/">Sponsor als bedrijf</a><a class="btn ghost" href="/doneren/">Doneer als particulier</a></div>
+  </div>
+
+  <div class="grid">
+    <div class="mapbox"><svg id="map" role="img" aria-label="Routekaart van Lucca naar Veenendaal"></svg></div>
+
+    <div style="display:grid;gap:36px;min-width:0">
+      <section class="stat" aria-live="polite">
+        <div class="eyebrow">Gevuld</div>
+        <div class="big"><span id="km">0</span> <small>van 1.576 km</small></div>
+        <div class="sub" id="eur"></div>
+        <div class="bar" id="bar"></div>
+        <div class="sub" id="next"></div>
+      </section>
+
+      <section id="sec-list" style="display:grid;gap:10px;min-width:0">
+        <h2>Kopgroep en peloton</h2>
+        <p class="hint">Tik op een naam om dat stuk op de kaart te zien.</p>
+        <div class="listbox" id="listbox"><div class="list" id="list"></div></div>
+      </section>
+
+      <section style="display:grid;gap:10px">
+        <h2>Plekken</h2>
+        <div class="spots" id="spots"></div>
+        <div class="sub" id="sprint" hidden></div>
+      </section>
+
+      <section style="display:grid;gap:12px">
+        <h2>Rij mee</h2>
+        <div class="btns" style="margin-top:0"><a class="btn" href="/sponsoren/">Sponsor als bedrijf</a><a class="btn ghost" href="/doneren/">Doneer als particulier</a></div>
+      </section>
+
+      <p class="foot" id="foot"></p>
+    </div>
+  </div>
+</div>
+<canvas id="confetti" hidden aria-hidden="true"></canvas>
+</main>
+
+<footer class="site-foot">
+  <div class="site-foot__in">
+    <div>
+      <svg class="mono" aria-hidden="true"></svg>
+      <p><b>Warren in Motion</b><br>Lucca → Veenendaal · 15–22 mei 2027<br>Ten bate van Voedselbanken Nederland</p>
+      <p style="margin-top:10px">Stichting Warren in Motion (in oprichting)</p>
+    </div>
+    <nav aria-label="Pagina's">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/sponsoren/">Sponsoren</a></li>
+        <li><a href="/doneren/">Doneren</a></li>
+        <li><a href="/tussenstand/">Tussenstand</a></li>
+        <li><a href="/route/">De route</a></li>
+        <li><a href="/over-warren/">Over Warren</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </nav>
+    <div>
+      <ul>
+        <li><a href="mailto:warreninmotion@outlook.com">warreninmotion@outlook.com</a></li>
+        <li><a href="https://www.instagram.com/warreninmotion/" target="_blank" rel="noopener">Instagram · @warreninmotion</a></li>
+        <li><a href="https://www.tiktok.com/@warreninmotion" target="_blank" rel="noopener">TikTok · @warreninmotion</a></li>
+        <li><a href="https://www.facebook.com/warreninmotion" target="_blank" rel="noopener">Facebook · @warreninmotion</a></li>
+        <li><a href="https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion" target="_blank" rel="noopener">Doneer aan Voedselbanken Nederland</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/assets/site.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.20/topojson.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.9/datamaps.world.hires.min.js"></script>
+<script src="/assets/route.js"></script>
+<script src="/assets/actie.js"></script>
+<script>
+// Tussenstand: echte stand, of een voorbeeld van een volle route dat zich opbouwt en eindigt met confetti.
+// Het voorbeeld is verzonnen en staat alleen hier; de echte stand komt uit data.js.
+const FULL = {
+  pelotonEuro: 7520, eindsprint: 50, diner: 100,
+  tenue: {
+    hoofd: { status: "bezet", sponsor: "Bouwbedrijf Hendriks" },
+    mouwL: { status: "bezet", sponsor: "Accountantskantoor De Vries" },
+    mouwR: { status: "bezet", sponsor: "Transport Van Dijk" },
+    zak1: { status: "bezet", sponsor: "Sportschool Kracht" },
+    zak2: { status: "bezet", sponsor: "Installatietechniek Bosman" },
+    zak3: { status: "bezet", sponsor: "IT-bureau Bitwerk" },
+    buik: { status: "bezet", sponsor: "Makelaardij Het Erf" },
+  },
+  sponsors: [
+    ["Bakkerij De Korenschoof", 60], ["Fietsenmakerij Van Rijn", 25], ["Bouwbedrijf Hendriks", 100, "Hoofdsponsor"],
+    ["Studio Lijn & Vlak", 20], ["Kapsalon Knipwerk", 15], ["", 75], ["Installatietechniek Bosman", 50],
+    ["Bloemenhuis De Tuinkamer", 10], ["Accountantskantoor De Vries", 50], ["Koffiebar Het Hoekje", 20],
+    ["Garage Van Ommeren", 40], ["Fysiopraktijk Soepel", 30], ["Drukkerij Puntgaaf", 25], ["Transport Van Dijk", 100],
+    ["Makelaardij Het Erf", 75], ["Hoveniersbedrijf Groen & Zo", 35], ["", 20], ["Schildersbedrijf Kwast", 45],
+    ["IT-bureau Bitwerk", 80], ["Restaurant De Gouden Lepel", 50], ["Advocatenkantoor Smit", 60],
+    ["Sportschool Kracht", 100], ["Zonnepanelen Oost", 70], ["Tandartspraktijk Wit", 45],
+  ].map(([name, km, pakket]) => ({ name, km, pakket: pakket || `Vrije kilometers · ${eur(km * 20)}` })),
+};
+const KIT_IDS = ["hoofd", "mouwL", "mouwR", "zak1", "zak2", "zak3", "buik"];
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function renderSpots() {
+  const s = CUR, taken = KIT_IDS.filter(id => (s.tenue[id] || {}).status === "bezet").length;
+  $("spots").innerHTML = [
+    ["Shirtplekken bezet", `${taken} van ${KIT_IDS.length}`],
+    ["Eindsprint: meefietsers", `${s.eindsprint} van ${SPRINT}`],
+    ["Gasten aan het diner", `${s.diner}`],
+  ].map(([a, b]) => `<div><span>${a}</span><span>${b}</span></div>`).join("");
+  $("foot").textContent = CUR === DATA
+    ? `Echte stand, bijgewerkt op ${DATA.updated}. Donaties van particulieren worden wekelijks bijgeteld. Alle kilometers zijn echte kilometers van de route (1.576 km).`
+    : "Voorbeeld: alle bedrijven en bedragen op deze pagina zijn verzonnen. Druk op Echte tussenstand voor de echte stand.";
+}
+function show() { render(); renderSpots(); }
+
+let timer = null;
+function stop() { clearTimeout(timer); timer = null; }
+function setMode(full) {
+  stop();
+  $("modeReal").setAttribute("aria-pressed", String(!full));
+  $("modeFull").setAttribute("aria-pressed", String(full));
+  $("demo").hidden = !full; $("done").hidden = true; $("skipBtn").hidden = !full;
+  sel = null;
+  if (!full) { CUR = DATA; show(); return; }
+  if (reduce) return finish(false);
+  play();
+}
+// Opbouw: bedrijven één voor één, dan het peloton, dan de eindsprint en de shirtplekken.
+function play() {
+  const steps = [];
+  FULL.sponsors.forEach((_, i) => steps.push([450, s => { s.sponsors = FULL.sponsors.slice(0, i + 1); s.diner = i + 1; }]));
+  for (let f = 1; f <= 10; f++) steps.push([140, s => { s.pelotonEuro = Math.round(FULL.pelotonEuro * f / 10 / 20) * 20; }]);
+  for (let r = 5; r <= 50; r += 5) steps.push([90, s => { s.eindsprint = r; s.diner = FULL.sponsors.length + r; }]);
+  KIT_IDS.forEach(id => steps.push([160, s => { s.tenue = { ...s.tenue, [id]: FULL.tenue[id] }; }]));
+  CUR = { pelotonEuro: 0, eindsprint: 0, diner: 0, tenue: {}, sponsors: [] };
+  show();
+  let i = 0;
+  const next = () => {
+    if (i >= steps.length) return finish(true);
+    const [ms, fn] = steps[i++];
+    fn(CUR); show();
+    const lb = $("listbox"); lb.scrollTop = lb.scrollHeight;
+    timer = setTimeout(next, ms);
+  };
+  timer = setTimeout(next, 600);
+}
+function finish(party) {
+  stop();
+  CUR = FULL; show();
+  $("skipBtn").hidden = true; $("done").hidden = false;
+  if (party) confetti();
+}
+$("modeReal").addEventListener("click", () => setMode(false));
+$("modeFull").addEventListener("click", () => setMode(true));
+$("skipBtn").addEventListener("click", () => finish(true));
+
+// Confetti in de huisstijlkleuren, ongeveer drie seconden
+function confetti() {
+  if (reduce) return;
+  const cv = $("confetti"), cx = cv.getContext("2d"), dpr = Math.min(2, devicePixelRatio || 1);
+  cv.hidden = false; cv.width = innerWidth * dpr; cv.height = innerHeight * dpr;
+  const cols = ["#1E4034", "#4A7560", "#C08A3E", "#F2EEE4", "#9CC2AA", "#14201C"];
+  const P = Array.from({ length: 180 }, () => ({
+    x: innerWidth * (.2 + Math.random() * .6), y: innerHeight * .35, vx: (Math.random() - .5) * 14, vy: -6 - Math.random() * 12,
+    w: 6 + Math.random() * 6, h: 8 + Math.random() * 8, r: Math.random() * 6, vr: (Math.random() - .5) * .3, c: cols[Math.floor(Math.random() * cols.length)],
+  }));
+  const t0 = performance.now();
+  (function frame(t) {
+    const age = t - t0;
+    cx.setTransform(dpr, 0, 0, dpr, 0, 0); cx.clearRect(0, 0, innerWidth, innerHeight);
+    for (const p of P) {
+      p.vy += .32; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+      cx.save(); cx.translate(p.x, p.y); cx.rotate(p.r); cx.globalAlpha = Math.max(0, 1 - age / 3400);
+      cx.fillStyle = p.c; cx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h * Math.abs(Math.cos(p.r))); cx.restore();
+    }
+    if (age < 3400) requestAnimationFrame(frame); else cv.hidden = true;
+  })(t0);
+}
+renderSpots();
+</script>
+</body>
+</html>

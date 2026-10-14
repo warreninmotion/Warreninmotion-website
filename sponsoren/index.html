@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sponsoren als bedrijf · Warren in Motion</title>
+<meta name="description" content="Koop kilometers van de route Lucca–Veenendaal voor €20 per km, met je logo op het shirt en de volgbus. Alles gaat naar Voedselbanken Nederland.">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&amp;display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="/assets/actie.css">
+</head>
+<body>
+<a class="skip" href="#main">Naar de inhoud</a>
+<header class="site-head">
+  <div class="site-head__in">
+    <a class="brand" href="/"><svg class="mono" aria-hidden="true"></svg><span>Warren in Motion</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Hoofdmenu">
+      <ul>
+        <li><a href="/sponsoren/" aria-current="page">Sponsoren</a></li>
+        <li><a href="/doneren/">Doneren</a></li>
+        <li><a href="/tussenstand/">Tussenstand</a></li>
+        <li><a href="/route/">De route</a></li>
+        <li><a href="/over-warren/">Over Warren</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<style>
+.sp-grid{display:grid;gap:32px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:900px){.sp-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}}
+.how{counter-reset:how}
+.how .card{position:relative;padding-top:52px}
+.how .card::before{counter-increment:how;content:counter(how);position:absolute;top:16px;left:18px;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--groen);color:var(--groen);display:grid;place-items:center;font-size:14px;font-weight:600}
+.calc-card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;display:grid;gap:10px}
+.calc-card p{font-size:14px;color:var(--muted)}
+.calc-card .contact a{display:inline-block;background:var(--groen);color:var(--bg);text-decoration:none;border-radius:999px;padding:8px 18px;font-size:14px;font-weight:600}
+.big-ask{display:grid;gap:8px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0}
+</style>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Voor bedrijven</div>
+    <h1>Sponsoren als bedrijf</h1>
+    <p class="lead">Koop je eigen stuk van de route: €20 per kilometer. Je bedrijfsnaam staat op jouw kilometers, op volgorde van aanmelding. Je kilometers gaan volledig naar Voedselbanken Nederland.</p>
+    <div class="btns">
+      <a class="btn" href="#rekenhulp">Bereken je sponsorbedrag</a>
+      <a class="btn ghost" href="/tussenstand/">Bekijk wie er al meerijdt</a>
+    </div>
+  </header>
+
+  <section class="sec" aria-labelledby="h-hoe">
+    <h2 id="h-hoe">Zo werkt het</h2>
+    <div class="cards c3 how">
+      <div class="card"><h3>Kies je kilometers</h3><p>Van 10 tot 100 km, €20 per km. Vanaf 50 km kun je ook een plek op het shirt kiezen.</p></div>
+      <div class="card"><h3>Je naam op de route</h3><p>Je stuk van de route krijgt jouw naam, in de <a href="/tussenstand/">tussenstand</a> en op de volgbus. Wie er vroeg bij is, rijdt vooraan.</p></div>
+      <div class="card"><h3>Samen afsluiten</h3><p>Op zaterdag 22 mei sluiten we af met een diner, de cheque-overhandiging aan Voedselbanken Nederland en een feest. Bij elke sponsoring hoort minimaal 1 dinerplek (€100).</p></div>
+    </div>
+  </section>
+
+  <div class="sp-grid">
+    <section class="sec" id="rekenhulp" aria-labelledby="h-reken" style="scroll-margin-top:84px">
+      <h2 id="h-reken">Bereken je sponsorbedrag</h2>
+      <div class="calc-card">
+        <ol class="steps">
+          <li><b>Kies je kilometers</b>
+            <div class="calc-km">
+              <label for="calcKm" class="calc-val"><span id="calcKmTxt">50 km</span><span id="calcKmEur">€1.000</span></label>
+              <input type="range" id="calcKm" min="10" max="100" step="5" value="50" aria-describedby="calcKmHint">
+              <span id="calcKmHint" class="calc-hint">€20 per km, van 10 tot 100 km. Meer dan 100 km? Dan word je hoofdsponsor, op aanvraag.</span>
+            </div>
+          </li>
+          <li><b>Kies je plekken voor het diner</b>
+            <div class="seg" role="radiogroup" aria-label="Plekken bij het diner">
+              <button type="button" role="radio" aria-checked="true" data-seats="1" id="seat1">1 plek · €100</button>
+              <button type="button" role="radio" aria-checked="false" data-seats="2" id="seat2">2 plekken · €200</button>
+            </div>
+            <span>Bij elke sponsoring hoort minimaal 1 plek. Meer plekken in overleg.</span>
+          </li>
+          <li><b>Je logo op het shirt <span style="font-weight:400;color:var(--muted)">(alleen vanaf 50 km)</span></b>
+            <div class="calc-kit">
+              <label for="calcKit" class="calc-hint" style="color:var(--fg)">Plek op het shirt (optioneel)</label>
+              <select id="calcKit"></select>
+              <span id="calcKitHint" class="calc-hint"></span>
+            </div>
+          </li>
+          <li id="stap-totaal"><b>Samen is dat je sponsorbedrag</b>
+            <div class="calc-sum" aria-live="polite">
+              <div class="calc-lines" id="calcLines"></div>
+              <div class="calc-total"><span>Totaal</span><span id="calcTotal">€1.100</span></div>
+            </div>
+          </li>
+        </ol>
+        <p>Je kilometers gaan volledig naar de voedselbank. Plekken op het shirt betalen de shirts en het beplakken van de volgbus, en het diner betaalt zichzelf. Na afloop krijgt elke sponsor een shirt cadeau. De factuur komt van Stichting Warren in Motion (in oprichting).</p>
+        <div class="contact"><a id="calcMail" href="mailto:warreninmotion@outlook.com?subject=Kilometers%20sponsoren">Mail Warren met deze keuze</a><span class="addr">warreninmotion@outlook.com</span><button type="button" class="copy">Kopieer</button></div>
+      </div>
+    </section>
+
+    <section id="tenue" class="sec" style="min-width:0">
+      <div class="eyebrow">Vanaf 50 km</div>
+      <h2>Je logo op het shirt</h2>
+      <p class="hint">Je logo staat op het shirt van Warren, op de shirts van alle meefietsers in de eindsprint en op de volgbus. Tik op een plek voor de prijs en om hem te reserveren. Wie het eerst mailt, krijgt de plek.</p>
+      <div class="kit">
+        <div class="kit-bar">
+          <a class="back" href="#stap-totaal">← Terug</a>
+          <div class="kit-toggle" role="tablist" aria-label="Kant van het shirt">
+            <button type="button" role="tab" id="kitVoor" aria-selected="true">Voorkant</button>
+            <button type="button" role="tab" id="kitAchter" aria-selected="false">Achterkant</button>
+          </div>
+        </div>
+        <div class="kit-toggle kit-col" role="tablist" aria-label="Wiens shirt">
+          <button type="button" role="tab" id="colWarren" aria-selected="true">Shirt Warren</button>
+          <button type="button" role="tab" id="colRijders" aria-selected="false">Shirt meefietsers</button>
+        </div>
+        <div class="kit-stage"><svg id="kitSvg" viewBox="0 0 400 500" role="img" aria-label="Shirt met sponsorplekken"></svg></div>
+        <div class="kit-panel" id="kitPanel"></div>
+        <div class="kit-legend"><span><i class="lg vrij"></i>Vrij</span><span><i class="lg optie"></i>In optie</span><span><i class="lg bezet"></i>Bezet</span></div>
+        <div class="kit-list" id="kitList"></div>
+      </div>
+    </section>
+  </div>
+
+  <section class="sec" aria-labelledby="h-bus">
+    <h2 id="h-bus">Je logo rijdt mee op de volgbus</h2>
+    <p class="hint" style="max-width:62ch">De volgbus rijdt alle 1.576 km achter Warren aan, door 7 landen. De teksten zijn in het Engels, zodat iedereen onderweg snapt wat er gebeurt. De hoofdsponsor staat groot op de zijkant, alle bedrijven met kilometers klein eronder.</p>
+    <div class="kit bus"><div class="kit-toggle kit-col" role="tablist" aria-label="Kant van de volgbus"><button type="button" role="tab" id="busZij" aria-selected="true">Zijkant</button><button type="button" role="tab" id="busAchter" aria-selected="false">Achterkant</button></div><svg id="busSvg" viewBox="0 0 1100 520" role="img" aria-label="Volgbus met magneetpanelen en sponsorlogo's"></svg></div>
+  </section>
+
+  <section class="big-ask" aria-labelledby="h-hoofd">
+    <div class="eyebrow">Meer dan 100 km</div>
+    <h2 id="h-hoofd">Hoofdsponsor worden</h2>
+    <p class="muted" style="max-width:62ch">De hoofdsponsor staat op de borst, de bovenrug en beide zijkanten van het shirt, en groot op de zijkant van de volgbus. Het pakket stellen we samen op, op aanvraag.</p>
+    <div class="contact"><a class="btn" href="mailto:warreninmotion@outlook.com?subject=Hoofdsponsor">Mail Warren</a><span class="addr">warreninmotion@outlook.com</span><button type="button" class="copy">Kopieer</button></div>
+  </section>
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="site-foot__in">
+    <div>
+      <svg class="mono" aria-hidden="true"></svg>
+      <p><b>Warren in Motion</b><br>Lucca → Veenendaal · 15–22 mei 2027<br>Ten bate van Voedselbanken Nederland</p>
+      <p style="margin-top:10px">Stichting Warren in Motion (in oprichting)</p>
+    </div>
+    <nav aria-label="Pagina's">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/sponsoren/">Sponsoren</a></li>
+        <li><a href="/doneren/">Doneren</a></li>
+        <li><a href="/tussenstand/">Tussenstand</a></li>
+        <li><a href="/route/">De route</a></li>
+        <li><a href="/over-warren/">Over Warren</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </nav>
+    <div>
+      <ul>
+        <li><a href="mailto:warreninmotion@outlook.com">warreninmotion@outlook.com</a></li>
+        <li><a href="https://www.instagram.com/warreninmotion/" target="_blank" rel="noopener">Instagram · @warreninmotion</a></li>
+        <li><a href="https://www.tiktok.com/@warreninmotion" target="_blank" rel="noopener">TikTok · @warreninmotion</a></li>
+        <li><a href="https://www.facebook.com/warreninmotion" target="_blank" rel="noopener">Facebook · @warreninmotion</a></li>
+        <li><a href="https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion" target="_blank" rel="noopener">Doneer aan Voedselbanken Nederland</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/assets/site.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.20/topojson.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.9/datamaps.world.hires.min.js"></script>
+<script src="/assets/route.js"></script>
+<script src="/assets/actie.js"></script>
+</body>
+</html>

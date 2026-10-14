@@ -56,6 +56,13 @@ function bindCopy(root) {
       <div class="sub">${nxt ? `Volgende: <b>${nxt.label.toLowerCase()} van €${fmt(nxt.eur)}</b>, nog ${fmt((nxt.eur - euro) / 20)} km.` : `<b>Het hoofddoel is gehaald.</b> Dank aan iedereen die meerijdt.`}${D.updated ? ` Bijgewerkt op ${D.updated}.` : ""}</div>`;
   });
 
+  // Peloton: alle particuliere donaties samen
+  document.querySelectorAll("[data-peloton]").forEach(n => {
+    n.innerHTML = D.pelotonEuro
+      ? `<div class="sub">Het peloton staat op <b>€${fmt(D.pelotonEuro)}</b>, dat is ${fmt(pKm)} km.${D.updated ? ` Bijgewerkt op ${D.updated}.` : ""} <a href="/tussenstand/">Bekijk de tussenstand</a></div>`
+      : `<div class="sub">Het peloton staat nog op €0. Word de eerste particuliere vriend van de tocht. <a href="/tussenstand/">Bekijk de tussenstand</a></div>`;
+  });
+
   // Eindsprint en diner
   document.querySelectorAll("[data-sprint]").forEach(n => {
     const free = Math.max(0, S.sprintMax - D.eindsprint);

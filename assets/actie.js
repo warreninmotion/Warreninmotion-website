@@ -1,360 +1,25 @@
-<!doctype html>
-<html lang="nl">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Elke kilometer telt · Warren in Motion</title>
-<meta name="description" content="Koop kilometers van de route Lucca–Veenendaal voor Voedselbanken Nederland. Elke €20 is een kilometer.">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&amp;display=swap">
-<link rel="stylesheet" href="/assets/site.css">
-<script>document.documentElement.classList.add("js")</script>
-<style>
-/* Layout: kaart als held (staand), stand en deelnemers ernaast; op telefoon onder elkaar. Huisstijl Warren in Motion. */
-.demo{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;border:1px dashed var(--muted);border-radius:6px;padding:10px 14px;font-size:14px}
-.demo button{font:inherit;font-size:13px;border:1px solid var(--fg);background:transparent;color:var(--fg);border-radius:999px;padding:5px 14px;cursor:pointer}
-.demo button:focus-visible,.cta a:focus-visible,.row:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
-.grid{display:grid;gap:32px;grid-template-columns:minmax(0,1fr)}
-@media (min-width:820px){.grid{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:start}.mapbox{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}}
-.mapbox svg{display:block;width:100%;height:auto;max-height:86vh}
-.listbox{max-height:46vh;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;border-bottom:1px solid var(--line)}
-.hint{font-size:13px;color:var(--muted);margin:0}
-.row{cursor:pointer}
-@media (max-width:819px){
-  .mapbox svg{height:50vh;max-height:none}
-  #sec-list{order:-1}
-  .listbox{max-height:30vh}
-}
-.stat{display:grid;gap:4px}
-.big{font-family:var(--display);font-size:clamp(56px,12vw,88px);line-height:.95;font-variant-numeric:lining-nums tabular-nums}
-.big small{font-size:.38em;color:var(--muted)}
-.sub{font-size:15px;color:var(--muted)}
-.sub b{color:var(--fg);font-weight:600}
-.bar{position:relative;height:12px;border-radius:999px;background:var(--empty);margin:26px 0 30px}
-.bar .f{position:absolute;inset:0 auto 0 0;border-radius:999px;background:var(--seg1)}
-.bar .p{position:absolute;top:0;bottom:0;background:var(--brons)}
-.tick{position:absolute;top:-6px;width:2px;height:24px;background:var(--fg)}
-.tick span{position:absolute;top:26px;transform:translateX(-50%);font-size:12px;white-space:nowrap;color:var(--muted);font-variant-numeric:tabular-nums}
-.tick.end span{transform:translateX(-100%)}
-.list{display:grid;border-top:1px solid var(--line)}
-.row{display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 4px;border-bottom:1px solid var(--line);cursor:default}
-.row .sw{width:14px;height:14px;border-radius:3px}
-.row .n{min-width:0}
-.row .n div:first-child{font-weight:600}
-.row .n div:last-child{font-size:13px;color:var(--muted)}
-.row .k{font-variant-numeric:tabular-nums;text-align:right;font-size:14px;white-space:nowrap}
-.row.on{background:var(--card)}
-.empty{padding:14px 4px;color:var(--muted);font-size:14px;border-bottom:1px solid var(--line)}
-.cta{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
-.cta>div{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;display:grid;gap:8px;align-content:start}
-.cta h3{margin:0;font-family:var(--display);font-weight:400;font-size:22px}
-.cta p{margin:0;font-size:14px;color:var(--muted)}
-.cta a,.cta .off{justify-self:start;margin-top:6px;display:inline-block;background:var(--groen);color:var(--bg);text-decoration:none;border-radius:999px;padding:8px 18px;font-size:14px;font-weight:600}
-.cta .off{background:transparent;color:var(--muted);border:1px solid var(--line);font-weight:400}
-.pk{display:grid;gap:2px;font-size:14px;font-variant-numeric:tabular-nums}
-.pk div{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dotted var(--line);padding:3px 0}
-.foot{font-size:13px;color:var(--muted)}
-.steps{margin:4px 0;padding:0;list-style:none;counter-reset:st;display:grid;gap:14px}
-.steps li{counter-increment:st;display:grid;grid-template-columns:28px minmax(0,1fr);column-gap:10px;row-gap:4px;font-size:14px}
-.steps li::before{content:counter(st);grid-row:span 3;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--groen);color:var(--groen);display:grid;place-items:center;font-size:13px;font-weight:600}
-.steps li>b{font-size:15px}
-.steps li>span{color:var(--muted)}
-.steps li>span b{color:var(--fg)}
-.inl{color:var(--groen);font-weight:600}
-.cta a.inl{display:inline;background:none;color:var(--groen);padding:0;margin:0;border-radius:0;font-size:inherit;text-decoration:underline;text-underline-offset:2px}
-.back{justify-self:start;font-size:14px;font-weight:600;color:var(--groen);text-decoration:none;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 16px}
-.back:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
-#stap-totaal,#tenue{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 84px)}
-.kit{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px;display:grid;gap:14px}
-.kit-col{justify-self:center}
-.bus > svg{display:block;width:100%;height:auto}
-.kit-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
-.kit-bar .back{padding:7px 14px}
-.kit-toggle{display:flex;gap:6px;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:4px}
-.kit-toggle button{font:inherit;font-size:14px;border:0;background:transparent;color:var(--muted);padding:6px 16px;border-radius:999px;cursor:pointer}
-.kit-toggle button[aria-selected="true"]{background:var(--groen);color:var(--bg);font-weight:600}
-.kit-toggle button:focus-visible,.kit-row:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
-.kit-stage > svg{display:block;width:100%;max-width:400px;height:auto;margin:0 auto}
-#kitSvg{transition:transform .25s ease, opacity .25s ease}
-#kitSvg.flip{transform:scaleX(.04);opacity:.4}
-@media (prefers-reduced-motion:reduce){#kitSvg{transition:none}}
-.spot{cursor:pointer}
-.spot:focus{outline:none}
-.spot:focus-visible rect{stroke:#C08A3E;stroke-width:3}
-.kit-panel{border-top:1px solid var(--line);padding-top:12px;display:grid;gap:6px;min-height:72px}
-.kit-panel h3{margin:0;font-family:var(--display);font-weight:400;font-size:22px}
-.kit-panel p{margin:0;font-size:14px;color:var(--muted)}
-.chip{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.04em;padding:2px 9px;border-radius:999px;border:1px solid currentColor;vertical-align:2px;margin-left:6px}
-.chip.vrij{color:var(--groen)} .chip.optie{color:var(--brons)} .chip.bezet{color:var(--muted)}
-.kit-legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
-.lg{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
-.lg.vrij{border:1.5px dashed var(--muted)} .lg.optie{border:1.5px solid var(--brons)} .lg.bezet{background:var(--muted)}
-.kit-list{display:grid;border-top:1px solid var(--line)}
-.kit-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 4px;border-bottom:1px solid var(--line);cursor:pointer;font-size:14px}
-.kit-row.on{background:var(--bg)}
-.kit-row .p{font-variant-numeric:tabular-nums;white-space:nowrap}
-.calc-km,.calc-kit{display:grid;gap:8px;margin-top:4px}
-.calc-val{display:flex;justify-content:space-between;align-items:baseline;font-variant-numeric:tabular-nums}
-.calc-val span:first-child{font-family:var(--display);font-size:26px;color:var(--fg)}
-.calc-val span:last-child{font-weight:600;color:var(--fg)}
-#calcKm{width:100%;accent-color:var(--groen);height:28px;margin:0}
-.calc-hint{font-size:13px;color:var(--muted)}
-.seg{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 2px}
-.seg button{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;padding:9px 16px;cursor:pointer;min-height:40px}
-.seg button[aria-checked="true"]{background:var(--groen);border-color:var(--groen);color:var(--bg);font-weight:600}
-.seg button:focus-visible,#calcKit:focus-visible,#calcKm:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
-#calcKit{font:inherit;font-size:15px;padding:9px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);min-height:42px;max-width:100%}
-#calcKit:disabled{opacity:.55}
-.calc-sum{display:grid;gap:6px;margin-top:4px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:12px 14px}
-.calc-lines{display:grid;gap:4px;font-size:14px;font-variant-numeric:tabular-nums}
-.calc-lines div{display:flex;justify-content:space-between;gap:12px;color:var(--muted)}
-.calc-total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:8px;font-weight:600}
-.calc-total span:last-child{font-family:var(--display);font-size:28px;font-weight:400;font-variant-numeric:tabular-nums}
-.incl{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:14px}
-.incl li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:8px;align-items:start}
-.incl li::before{content:"";width:10px;height:6px;margin-top:6px;border-left:2px solid var(--groen);border-bottom:2px solid var(--groen);transform:rotate(-45deg)}
-.contact{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin-top:6px}
-.contact a{margin-top:0}
-.addr{font-size:14px;user-select:all;-webkit-user-select:all;overflow-wrap:anywhere}
-svg text{font-family:var(--body)}
-.seg{transition:stroke-width .15s}
-.seg.on{stroke-width:15}
-@media (prefers-reduced-motion:reduce){.seg{transition:none}}
-</style>
-</head>
-<body>
-<a class="skip" href="#main">Naar de inhoud</a>
-<header class="site-head">
-  <div class="site-head__in">
-    <a class="brand" href="/"><svg class="mono" aria-hidden="true"></svg><span>Warren in Motion</span></a>
-    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
-    <nav class="site-nav" id="site-nav" aria-label="Hoofdmenu">
-      <ul>
-        <li><a href="/route/">De route</a></li>
-        <li><a href="/elke-kilometer-telt/" aria-current="page">Elke kilometer telt</a></li>
-        <li><a href="/eindsprint/">Eindsprint &amp; diner</a></li>
-        <li><a href="/over-warren/">Over Warren</a></li>
-        <li><a href="/contact/">Contact</a></li>
-      </ul>
-      <a class="btn" href="https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion" target="_blank" rel="noopener">Doneer</a>
-    </nav>
-  </div>
-</header>
-
-<main id="main">
-<div class="wrap">
-  <header>
-    <div class="eyebrow">Warren in Motion · Lucca – Veenendaal · mei 2027</div>
-    <h1>Elke kilometer telt</h1>
-    <p class="lead">Warren fietst ruim 1.500 km voor Voedselbanken Nederland. Elke €20 is een kilometer. Bedrijven kopen hun eigen stuk van de route, op volgorde van aanmelding. Alle particuliere vrienden van de tocht samen vormen het peloton dat erachter rijdt.</p>
-  </header>
-
-  <div class="demo" id="demo">
-    <span id="demoTxt"></span>
-    <button type="button" id="demoBtn"></button>
-  </div>
-
-  <div class="grid">
-    <div class="mapbox"><svg id="map" role="img" aria-label="Routekaart van Lucca naar Veenendaal"></svg></div>
-
-    <div style="display:grid;gap:36px;min-width:0">
-      <section class="stat" aria-live="polite">
-        <div class="eyebrow">Gevuld</div>
-        <div class="big"><span id="km">0</span> <small>van 1.576 km</small></div>
-        <div class="sub" id="eur"></div>
-        <div class="bar" id="bar"></div>
-        <div class="sub" id="next"></div>
-        <div class="sub" id="sprint" style="margin-top:6px"></div>
-      </section>
-
-      <section id="sec-list" style="display:grid;gap:10px;min-width:0">
-        <h2>Kopgroep en peloton</h2>
-        <p class="hint">Tik op een naam om dat stuk op de kaart te zien.</p>
-        <div class="listbox"><div class="list" id="list"></div></div>
-      </section>
-
-      <section style="display:grid;gap:14px">
-        <h2>Doe mee</h2>
-        <div class="cta">
-          <div>
-            <div class="eyebrow">1 · Voor bedrijven</div>
-            <h3>Koop kilometers</h3>
-            <p>Je naam staat op jouw stuk van de route. Wie er vroeg bij is, rijdt vooraan. Op zaterdag 22 mei sluiten we samen af met een diner, de cheque-overhandiging aan Voedselbanken Nederland en een feest.</p>
-            <ol class="steps">
-              <li><b>Kies je kilometers</b>
-                <div class="calc-km">
-                  <label for="calcKm" class="calc-val"><span id="calcKmTxt">50 km</span><span id="calcKmEur">€1.000</span></label>
-                  <input type="range" id="calcKm" min="10" max="100" step="5" value="50" aria-describedby="calcKmHint">
-                  <span id="calcKmHint" class="calc-hint">€20 per km, van 10 tot 100 km. Meer dan 100 km? Dan word je hoofdsponsor, op aanvraag.</span>
-                </div>
-              </li>
-              <li><b>Kies je plekken voor het diner</b>
-                <div class="seg" role="radiogroup" aria-label="Plekken bij het diner">
-                  <button type="button" role="radio" aria-checked="true" data-seats="1" id="seat1">1 plek · €100</button>
-                  <button type="button" role="radio" aria-checked="false" data-seats="2" id="seat2">2 plekken · €200</button>
-                </div>
-                <span>Bij elke sponsoring hoort minimaal 1 plek. Meer plekken in overleg.</span>
-              </li>
-              <li><b>Je logo op het shirt <span style="font-weight:400;color:var(--muted)">(alleen vanaf 50 km)</span></b>
-                <div class="calc-kit">
-                  <label for="calcKit" class="calc-hint" style="color:var(--fg)">Plek op het shirt (optioneel)</label>
-                  <select id="calcKit"></select>
-                  <span id="calcKitHint" class="calc-hint"></span>
-                </div>
-              </li>
-              <li id="stap-totaal"><b>Samen is dat je sponsorbedrag</b>
-                <div class="calc-sum" aria-live="polite">
-                  <div class="calc-lines" id="calcLines"></div>
-                  <div class="calc-total"><span>Totaal</span><span id="calcTotal">€1.100</span></div>
-                </div>
-              </li>
-            </ol>
-            <p>Je kilometers gaan volledig naar de voedselbank. Plekken op het shirt betalen de shirts en het beplakken van de volgbus, en het diner betaalt zichzelf. Na afloop krijgt elke sponsor een shirt cadeau.</p>
-            <div class="contact"><a id="calcMail" href="mailto:warreninmotion@outlook.com?subject=Kilometers%20sponsoren">Mail Warren met deze keuze</a><span class="addr">warreninmotion@outlook.com</span><button type="button" class="copy">Kopieer</button></div>
-          </div>
-          <div>
-            <div class="eyebrow">2 · Voor particulieren</div>
-            <h3>De kracht van het peloton</h3>
-            <p>Iedereen die doneert, wordt vriend van de tocht. Samen vormen jullie het peloton dat achter de bedrijven aan rijdt, en elke euro brengt het dichter bij Veenendaal. Elk bedrag telt: €5 is 250 meter, €20 een hele kilometer. Je donatie gaat rechtstreeks naar Voedselbanken Nederland.</p>
-            <span id="donate"></span>
-          </div>
-          <div>
-            <div class="eyebrow">3 · Eindsprint en diner</div>
-            <h3>Fiets het laatste stuk mee</h3>
-            <p>Rij op zaterdag 22 mei 2027 mee van Den Bosch naar de finish in Veenendaal, ongeveer 50 km, en vier het daarna samen bij het diner. Er zijn maximaal 50 fietsplekken. Alleen aanschuiven bij het diner kan ook.</p>
-            <div class="pk">
-              <div><span>Meefietsen</span><span>€150 p.p.</span></div>
-              <div><span>Alleen diner</span><span>€100 p.p.</span></div>
-            </div>
-            <a href="/eindsprint/">Alles over de eindsprint</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="tenue" style="display:grid;gap:14px;min-width:0">
-        <div class="eyebrow">Voor bedrijven · vanaf 50 km</div>
-        <h2>Je logo op het shirt</h2>
-        <p class="hint">Je logo staat op het shirt van Warren, op de shirts van alle meefietsers in de eindsprint en op de volgbus die de hele tocht achter Warren rijdt. Tik op een plek voor de prijs en om hem te reserveren. Wie het eerst mailt, krijgt de plek.</p>
-        <div class="kit">
-          <div class="kit-bar">
-            <a class="back" href="#stap-totaal">← Terug</a>
-            <div class="kit-toggle" role="tablist" aria-label="Kant van het shirt">
-              <button type="button" role="tab" id="kitVoor" aria-selected="true">Voorkant</button>
-              <button type="button" role="tab" id="kitAchter" aria-selected="false">Achterkant</button>
-            </div>
-          </div>
-          <div class="kit-toggle kit-col" role="tablist" aria-label="Wiens shirt">
-            <button type="button" role="tab" id="colWarren" aria-selected="true">Shirt Warren</button>
-            <button type="button" role="tab" id="colRijders" aria-selected="false">Shirt meefietsers</button>
-          </div>
-          <div class="kit-stage"><svg id="kitSvg" viewBox="0 0 400 500" role="img" aria-label="Shirt met sponsorplekken"></svg></div>
-          <div class="kit-panel" id="kitPanel"></div>
-          <div class="kit-legend"><span><i class="lg vrij"></i>Vrij</span><span><i class="lg optie"></i>In optie</span><span><i class="lg bezet"></i>Bezet</span></div>
-          <div class="kit-list" id="kitList"></div>
-        </div>
-        <h3 style="margin:10px 0 0;font-family:var(--display);font-weight:400;font-size:24px">Je logo rijdt mee op de volgbus</h3>
-        <p class="hint">De volgbus rijdt alle 1.576 km achter Warren aan, door 7 landen. De teksten zijn in het Engels, zodat iedereen onderweg snapt wat er gebeurt. De hoofdsponsor staat groot op de zijkant, alle bedrijven met kilometers klein eronder.</p>
-        <div class="kit bus"><div class="kit-toggle kit-col" role="tablist" aria-label="Kant van de volgbus"><button type="button" role="tab" id="busZij" aria-selected="true">Zijkant</button><button type="button" role="tab" id="busAchter" aria-selected="false">Achterkant</button></div><svg id="busSvg" viewBox="0 0 1100 520" role="img" aria-label="Volgbus met magneetpanelen en sponsorlogo's"></svg></div>
-        <a class="back" href="#stap-totaal">← Terug naar stap 4: je sponsorbedrag</a>
-      </section>
-
-      <p class="foot" id="foot"></p>
-    </div>
-  </div>
-</div>
-</main>
-
-<footer class="site-foot">
-  <div class="site-foot__in">
-    <div>
-      <svg class="mono" aria-hidden="true"></svg>
-      <p><b>Warren in Motion</b><br>Lucca → Veenendaal · 15–22 mei 2027<br>Ten bate van Voedselbanken Nederland</p>
-      <p style="margin-top:10px">Stichting Warren in Motion (in oprichting)</p>
-    </div>
-    <nav aria-label="Pagina's">
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/route/">De route</a></li>
-        <li><a href="/elke-kilometer-telt/">Elke kilometer telt</a></li>
-        <li><a href="/eindsprint/">Eindsprint &amp; diner</a></li>
-        <li><a href="/over-warren/">Over Warren</a></li>
-        <li><a href="/contact/">Contact</a></li>
-      </ul>
-    </nav>
-    <div>
-      <ul>
-        <li><a href="mailto:warreninmotion@outlook.com">warreninmotion@outlook.com</a></li>
-        <li><a href="https://www.instagram.com/warreninmotion/" target="_blank" rel="noopener">Instagram · @warreninmotion</a></li>
-        <li><a href="https://www.tiktok.com/@warreninmotion" target="_blank" rel="noopener">TikTok · @warreninmotion</a></li>
-        <li><a href="https://www.facebook.com/warreninmotion" target="_blank" rel="noopener">Facebook · @warreninmotion</a></li>
-        <li><a href="https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion" target="_blank" rel="noopener">Doneer aan Voedselbanken Nederland</a></li>
-      </ul>
-    </div>
-  </div>
-</footer>
-
-<script src="/data.js"></script>
-<script src="/assets/site.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.20/topojson.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.9/datamaps.world.hires.min.js"></script>
-<script src="/assets/route.js"></script>
-<script>
-// Stand komt uit data.js (wordt dagelijks bijgewerkt vanuit HubSpot).
+// Kaart, stand, rekenhulp, shirt en volgbus. Gedeeld door /tussenstand/ en /sponsoren/.
+// De echte stand komt uit data.js (afgeleid uit HubSpot). CUR is wat er nu getoond wordt.
 const DATA = Object.assign({
-  updated: "", donateUrl: "https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion",
+  updated: "", donateUrl: WIM_SITE.donateUrl,
   pelotonEuro: 0, eindsprint: 0, diner: 0, tenue: {}, sponsors: [],
 }, window.WIM_DATA || {});
-// ── Voorbeeld (fictief) om het idee te laten zien ───────────────────────────
-const DEMO = {
-  pelotonEuro: 1860, eindsprint: 14, diner: 9,
-  tenue: {
-    hoofd: { status: "bezet", sponsor: "Bouwbedrijf Hendriks" },
-    mouwL: { status: "bezet", sponsor: "Accountantskantoor De Vries" },
-    zak3: { status: "optie" },
-    zak2: { status: "bezet", sponsor: "Installatietechniek Bosman" },
-  },
-  sponsors: [
-    { name: "Bakkerij De Korenschoof", pakket: "Vrije kilometers · €1.200", km: 60 },
-    { name: "Fietsenmakerij Van Rijn", pakket: "Vrije kilometers · €200", km: 10 },
-    { name: "Bouwbedrijf Hendriks", pakket: "Vrije kilometers · €2.000", km: 100 },
-    { name: "Studio Lijn & Vlak", pakket: "Vrije kilometers · €200", km: 10 },
-    { name: "Kapsalon Knipwerk", pakket: "Vrije kilometers · €300", km: 15 },
-    { name: "", pakket: "Vrije kilometers · €1.500", km: 75 },
-    { name: "Installatietechniek Bosman", pakket: "Vrije kilometers · €1.000", km: 50 },
-    { name: "Bloemenhuis De Tuinkamer", pakket: "Vrije kilometers · €200", km: 10 },
-    { name: "Accountantskantoor De Vries", pakket: "Vrije kilometers · €1.000", km: 50 },
-    { name: "Koffiebar Het Hoekje", pakket: "Vrije kilometers · €200", km: 10 },
-    { name: "Garage Van Ommeren", pakket: "Vrije kilometers · €500", km: 25 },
-    { name: "Fysiopraktijk Soepel", pakket: "Vrije kilometers · €400", km: 20 },
-    { name: "", pakket: "Vrije kilometers · €200", km: 10 },
-    { name: "Drukkerij Puntgaaf", pakket: "Vrije kilometers · €200", km: 10 },
-  ],
-};
-const showDemo = DATA.sponsors.length === 0 && DATA.pelotonEuro === 0 && DATA.eindsprint === 0;
-let demoOn = showDemo;
+let CUR = DATA;
+const $ = id => document.getElementById(id);
+const on = (id, ev, fn) => { const e = $(id); if (e) e.addEventListener(ev, fn); };
 
 // Route, kaart en landen komen uit /assets/route.js; alle km zijn echte GPX-km.
 const TOTAL = ROUTE_KM, REAL = ROUTE_KM;
 const GOALS = WIM_SITE.goals;
 
 function render() {
-  const st = demoOn ? DEMO : DATA;
+  if (!$("map")) return;
+  const st = CUR;
   const sponsors = st.sponsors;
   const sKm = sponsors.reduce((s, x) => s + x.km, 0);
   const pKm = st.pelotonEuro / 20;
   const totKm = Math.min(TOTAL, sKm + pKm);
   const totEur = sKm * 20 + st.pelotonEuro;
-
-  // demo-balk
-  const demo = document.getElementById("demo");
-  demo.hidden = !showDemo;
-  document.getElementById("demoTxt").textContent = demoOn
-    ? "Voorbeeld: de bedrijven en bedragen hieronder zijn fictief."
-    : "Dit is de echte stand. De actie start binnenkort.";
-  document.getElementById("demoBtn").textContent = demoOn ? "Toon echte stand" : "Toon voorbeeld";
 
   // kaart
   const svg = document.getElementById("map");
@@ -476,10 +141,10 @@ function render() {
   hl(null);
 
   // doneerknop en voetregel
-  document.getElementById("donate").innerHTML = DATA.donateUrl
+  if ($("donate")) $("donate").innerHTML = DATA.donateUrl
     ? `<a href="${DATA.donateUrl}" target="_blank" rel="noopener">Doneer nu</a>`
     : `<span class="off">Doneerlink volgt</span>`;
-  document.getElementById("foot").textContent = `Bijgewerkt op ${DATA.updated}. Donaties van particuliere vrienden van de tocht worden wekelijks bijgeteld. Alle kilometers zijn echte kilometers van de route (1.576 km). Vanaf Den Bosch rijden de meefietsers van de eindsprint mee.`;
+  if ($("foot")) $("foot").textContent = `Bijgewerkt op ${DATA.updated}. Donaties van particuliere vrienden van de tocht worden wekelijks bijgeteld. Alle kilometers zijn echte kilometers van de route (1.576 km). Vanaf Den Bosch rijden de meefietsers van de eindsprint mee.`;
 }
 let sel = null, RANGES = {};
 function hl(i) {
@@ -556,7 +221,7 @@ function logo(g, name, cx, cy, w, h) {
 }
 const priceTxt = s => s.size === "hoofd" ? "op aanvraag" : eur(PRICE[s.size]);
 let kitSide = "voor", kitSel = null;
-const kitState = id => (demoOn ? DEMO.tenue : DATA.tenue)[id] || { status: "vrij" };
+const kitState = id => (CUR.tenue || {})[id] || { status: "vrij" };
 
 function drawKit() {
   const svg = document.getElementById("kitSvg");
@@ -741,7 +406,7 @@ function drawBus() {
   // paneel 3 (schuifdeur, onder de sierlijst): alle bedrijven met kilometers
   A("rect", { x: 565, y: 260, width: 140, height: 54, rx: 5, fill: "#F2EEE4" });
   TT(573, 271, 5.8, "SUPPORTED BY", { ...G, "letter-spacing": 1.4 });
-  const cos = (demoOn ? DEMO : DATA).sponsors.filter(s => s.name && s.name !== hs.sponsor);
+  const cos = CUR.sponsors.filter(s => s.name && s.name !== hs.sponsor);
   const max = 12, show = cos.slice(0, cos.length > max ? max - 1 : max);
   show.forEach((s, i) => { const g = el("g", {}); logo(g, s.name, 580 + (i % 6) * 21.5, 285 + Math.floor(i / 6) * 19, 17, 17); grp.append(g); });
   if (cos.length > max) TT(580 + 5 * 21.5, 307, 8, `+${cos.length - (max - 1)}`, { fill: "#1E4034", "font-weight": 700, "font-family": "var(--body)" });
@@ -773,26 +438,22 @@ function renderCalc() {
   const body = `Hoi Warren,\n\nWe willen graag sponsoren:\n- ${nl(km)} km (${eur(kmEur)})\n- ${calc.seats} ${calc.seats > 1 ? "plekken" : "plek"} bij het diner (${eur(seatEur)})\n${k ? `- Shirtplek: ${k.label} (${eur(kitEur)})\n` : ""}Totaal: ${eur(total)}\n\nBedrijfsnaam:\nContactpersoon:\n`;
   document.getElementById("calcMail").href = `mailto:${MAIL}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
 }
-document.getElementById("calcKm").addEventListener("input", e => { calc.km = +e.target.value; renderCalc(); });
-document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => { calc.seats = +b.dataset.seats; renderCalc(); }));
-document.getElementById("calcKit").addEventListener("change", e => { calc.kit = e.target.value; renderCalc(); });
+on("calcKm", "input", e => { calc.km = +e.target.value; renderCalc(); });
+document.querySelectorAll(".seg button[data-seats]").forEach(b => b.addEventListener("click", () => { calc.seats = +b.dataset.seats; renderCalc(); }));
+on("calcKit", "change", e => { calc.kit = e.target.value; renderCalc(); });
 function setCol(c) {
   kitCol = c; C = { ...KITCOL[c], accent: "#C08A3E" };
   document.getElementById("colWarren").setAttribute("aria-selected", c === "warren");
   document.getElementById("colRijders").setAttribute("aria-selected", c === "rijders");
   renderKit();
 }
-document.getElementById("busZij").addEventListener("click", () => { busSide = "zij"; drawBus(); });
-document.getElementById("busAchter").addEventListener("click", () => { busSide = "achter"; drawBus(); });
-document.getElementById("colWarren").addEventListener("click", () => setCol("warren"));
-document.getElementById("colRijders").addEventListener("click", () => setCol("rijders"));
-document.getElementById("kitVoor").addEventListener("click", () => flipTo("voor"));
-document.getElementById("kitAchter").addEventListener("click", () => flipTo("achter"));
-document.getElementById("demoBtn").addEventListener("click", () => { demoOn = !demoOn; sel = null; kitSel = null; render(); renderKit(); renderCalc(); drawBus(); });
-renderKit();
-renderCalc();
-drawBus();
+on("busZij", "click", () => { busSide = "zij"; drawBus(); });
+on("busAchter", "click", () => { busSide = "achter"; drawBus(); });
+on("colWarren", "click", () => setCol("warren"));
+on("colRijders", "click", () => setCol("rijders"));
+on("kitVoor", "click", () => flipTo("voor"));
+on("kitAchter", "click", () => flipTo("achter"));
+if ($("kitSvg")) renderKit();
+if ($("calcKm")) renderCalc();
+if ($("busSvg")) drawBus();
 render();
-</script>
-</body>
-</html>
