@@ -33,8 +33,14 @@
 
 <main id="main">
 <style>
-.hero{display:grid;gap:4px;padding-top:12px}
-.hero h1{font-size:clamp(42px,8.5vw,72px)}
+.hero{display:grid;gap:24px;grid-template-columns:minmax(0,1fr);align-items:center;padding-top:8px}
+@media (min-width:860px){.hero{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px}}
+.hero h1{font-size:clamp(42px,7.5vw,68px)}
+.hero-img{margin:0;position:relative}
+.hero-img img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 30%;border-radius:12px;background:var(--card)}
+@media (min-width:860px){.hero-img img{aspect-ratio:4/5;object-position:50% 40%}}
+.hero-img .mono{position:absolute;left:16px;bottom:16px;width:72px;height:35px;color:#F2EEE4;filter:drop-shadow(0 1px 6px rgba(0,0,0,.35))}
+.hero-img figcaption{position:absolute;right:14px;bottom:14px;background:rgba(20,32,28,.78);color:#F2EEE4;font-size:13px;padding:5px 11px;border-radius:999px}
 .choose{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
 @media (min-width:720px){.choose{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .choice{display:grid;gap:6px;align-content:start;text-decoration:none;color:var(--fg);background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:22px 22px 20px;transition:border-color .15s,transform .15s}
@@ -44,8 +50,14 @@
 .choice .what{font-family:var(--display);font-size:clamp(28px,4.6vw,36px);line-height:1.1}
 .choice p{color:var(--muted);font-size:15px;margin-top:2px}
 .choice .go{margin-top:12px;justify-self:start;background:var(--groen);color:var(--bg);border-radius:999px;padding:9px 20px;font-weight:600;font-size:15px}
+.tale{display:grid;gap:28px;grid-template-columns:minmax(0,1fr);align-items:start}
+@media (min-width:860px){.tale{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:44px}}
+.tale-map{margin:0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px}
+.tale-map svg{display:block;width:100%;height:auto;max-height:620px}
+@media (max-width:859px){.tale-map svg{height:420px}}
+.tale-map svg text{font-family:var(--body)}
+.tale-map figcaption{font-size:13px;color:var(--muted);padding:4px 6px 2px}
 .story{display:grid;gap:22px;grid-template-columns:minmax(0,1fr)}
-@media (min-width:820px){.story{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .story>div{display:grid;gap:8px;align-content:start;border-top:2px solid var(--groen);padding-top:14px}
 .story p{color:var(--muted);font-size:15px}
 .story .num{font-family:var(--display);font-size:20px;color:var(--fg)}
@@ -56,9 +68,16 @@
 </style>
 <div class="wrap">
   <header class="hero">
-    <div class="eyebrow">Lucca → Veenendaal · 15–22 mei 2027</div>
-    <h1>Welkom bij Warren in Motion</h1>
-    <p class="lead">In mei 2027 fietst Warren van der Ploeg ruim 1.500 km van Lucca in Italië naar huis in Veenendaal. Alles wat hij onderweg ophaalt, gaat naar Voedselbanken Nederland. Rij je mee?</p>
+    <div>
+      <div class="eyebrow">Lucca → Veenendaal · 15–22 mei 2027</div>
+      <h1>Welkom bij Warren in Motion</h1>
+      <p class="lead">In mei 2027 fietst Warren van der Ploeg ruim 1.500 km van Lucca in Italië naar huis in Veenendaal. Alles wat hij onderweg ophaalt, gaat naar Voedselbanken Nederland. Rij je mee?</p>
+    </div>
+    <figure class="hero-img">
+      <img src="/assets/img/warren.jpg" width="896" height="1344" alt="Warren van der Ploeg hangt lachend aan een optrekstang in de sportschool">
+      <svg class="mono" aria-hidden="true"></svg>
+      <figcaption>Warren in training</figcaption>
+    </figure>
   </header>
 
   <nav class="choose" aria-label="Kies hoe je meedoet">
@@ -78,6 +97,11 @@
 
   <section class="sec" aria-labelledby="h-verhaal">
     <h2 id="h-verhaal">Het verhaal in het kort</h2>
+    <div class="tale">
+    <figure class="tale-map">
+      <svg id="homeMap" role="img" aria-label="De route van Lucca naar Veenendaal in acht etappes"></svg>
+      <figcaption>8 etappes · 1.576 km · 15–22 mei 2027</figcaption>
+    </figure>
     <div class="story">
       <div>
         <div class="eyebrow">Wie</div>
@@ -97,6 +121,7 @@
         <p><span class="num">155.600</span> mensen kregen in 2025 hulp van de voedselbank, 10% meer huishoudens dan een jaar eerder. Elke euro gaat naar hen.</p>
         <a class="more" href="/doneren/">Doneer →</a>
       </div>
+    </div>
     </div>
   </section>
 
@@ -139,5 +164,27 @@
 
 <script src="/data.js"></script>
 <script src="/assets/site.js"></script>
+<script src="/assets/route.js"></script>
+<script>
+// Routetekening zonder landkaart: alleen de lijn, de etappes en de belangrijkste plaatsen
+(function () {
+  const svg = document.getElementById("homeMap"), xs = pts.map(q => q.p[0]), ys = pts.map(q => q.p[1]);
+  const x0 = Math.min(...xs) - 120, x1 = Math.max(...xs) + 190, y0 = Math.min(...ys) - 30, y1 = Math.max(...ys) + 30;
+  svg.setAttribute("viewBox", `${x0.toFixed(0)} ${y0.toFixed(0)} ${(x1 - x0).toFixed(0)} ${(y1 - y0).toFixed(0)}`);
+  svg.append(el("path", { d: path(0, ROUTE_KM), fill: "none", stroke: "var(--line)", "stroke-width": 22, "stroke-linecap": "round", "stroke-linejoin": "round" }));
+  STAGES.forEach((s, i) => svg.append(el("path", { d: path(s.a, s.b), fill: "none", stroke: i % 2 ? "var(--seg2)" : "var(--seg1)", "stroke-width": 9, "stroke-linecap": "round", "stroke-linejoin": "round" })));
+  const lab = { "Lucca": ["r", "Lucca · start"], "Locarno": ["l", "Locarno"], "Lukmanier": ["l", "Lukmanierpas 1.915 m"], "Mulhouse": ["l", "Mulhouse"], "Arlon": ["l", "Arlon"], "Veenendaal": ["r", "Veenendaal · finish"] };
+  for (const q of pts) if (lab[q.name]) {
+    const [x, y] = q.p, [side, txt] = lab[q.name], r = side === "r", big = q.name === "Lucca" || q.name === "Veenendaal";
+    svg.append(el("circle", { cx: x, cy: y, r: big ? 9 : 5, fill: "var(--bg)", stroke: "var(--fg)", "stroke-width": big ? 3 : 2 }));
+    svg.append(el("text", { x: x + (r ? 18 : -14), y: y + 7, "text-anchor": r ? "start" : "end", "font-size": big ? 24 : 19, "font-weight": big ? 700 : 400, fill: "var(--fg)", "font-style": q.name === "Lukmanier" ? "italic" : "normal" }, txt));
+  }
+  STAGES.forEach(s => {
+    const f = { 3: .78, 8: .3 }[s.dag] || .5, [x, y] = at(s.a + (s.b - s.a) * f);
+    svg.append(el("circle", { cx: x, cy: y, r: 14, fill: "var(--bg)", stroke: "var(--fg)", "stroke-width": 1.5 }));
+    svg.append(el("text", { x, y: y + 6, "text-anchor": "middle", "font-size": 16, "font-weight": 700, fill: "var(--fg)" }, s.dag));
+  });
+})();
+</script>
 </body>
 </html>
