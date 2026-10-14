@@ -41,6 +41,9 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
 - `assets/site.css` = huisstijl en gedeelde onderdelen; `assets/site.js` = monogram, menu, kopieerknoppen,
   stand op Home, peloton en eindsprint op Doneren, en vaste gegevens (`WIM_SITE`: mail, doneerlink, `liveUrl`
   voor Garmin LiveTrack, doelen).
+- De route: kaart links blijft staan en zoomt in op de gekozen etappe; rechts een scrollvak met de etappes. Een etappe
+  openklappen toont het hoogteprofiel gekleurd naar helling (<3, 3–6, 6–9, 9–12, >12%) en de beklimmingen
+  (berekend uit de GPX: >= 1 km, gem. >= 3%, >= 80 m; categorie volgens de Strava-formule). Link per etappe: `/route/#dag-3`.
 - `assets/route-data.js` + `assets/route.js` = GPS-spoor, etappes, hoogteprofielen, kaartprojectie en landkaart
   (Home, De route, Tussenstand).
 - `assets/actie.js` + `actie.css` = kaart die volloopt, kopgroep en peloton, rekenhulp, shirtplekken en volgbus

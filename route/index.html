@@ -33,51 +33,69 @@
 
 <main id="main">
 <style>
-.rgrid{display:grid;gap:32px;grid-template-columns:minmax(0,1fr)}
-@media (min-width:820px){.rgrid{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:start}.rmap{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}}
-.rmap svg{display:block;width:100%;height:auto;max-height:86vh}
-@media (max-width:819px){.rmap svg{height:56vh;max-height:none}}
+/* Hellingklassen (zoals Garmin, in de huisstijl): hoe steiler, hoe donkerder; in donker thema hoe lichter */
+.rpage{--s1:#D6E4D3;--s2:#E8C66A;--s3:#C9853A;--s4:#A4442E;--s5:#5E1E1A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rpage{--s1:#2F4A3C;--s2:#8A7A3A;--s3:#C27E38;--s4:#E8805C;--s5:#F6B3A0}}
+:root[data-theme="dark"] .rpage{--s1:#2F4A3C;--s2:#8A7A3A;--s3:#C27E38;--s4:#E8805C;--s5:#F6B3A0}
+svg text{font-family:var(--body)}
+/* Kaart links (blijft staan), etappes rechts in een eigen scrollvak */
+.rgrid{display:grid;gap:24px;grid-template-columns:minmax(0,1fr)}
+.rmap{position:sticky;top:calc(env(safe-area-inset-top,0px) + 61px);z-index:2;background:var(--bg);margin:0 -16px;padding:6px 16px 8px}
+.rmap-in{position:relative;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.rmap svg{display:block;width:100%;height:42vh}
+.rmap .reset{position:absolute;left:10px;top:10px;font:inherit;font-size:13px;font-weight:600;border:1px solid var(--fg);background:var(--bg);color:var(--fg);border-radius:999px;padding:5px 12px;cursor:pointer}
+.slist{display:grid;position:relative}
+@media (min-width:880px){
+  .rgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
+  .rmap{top:calc(env(safe-area-inset-top,0px) + 76px);margin:0;padding:0}
+  .rmap svg{height:calc(100vh - 110px);max-height:900px}
+  .slist{max-height:calc(100vh - 110px);overflow-y:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-width:thin}
+}
 .stages{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--line)}
-.stage{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:4px 12px;padding:14px 4px;border-bottom:1px solid var(--line);cursor:pointer;align-items:baseline}
-.stage:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
-.stage.on{background:var(--card)}
+.stage{border-bottom:1px solid var(--line);scroll-margin-top:calc(42vh + 84px)}
+@media (min-width:880px){.stage{scroll-margin-top:0}}
+.stage-h{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:4px 12px;padding:14px 4px;cursor:pointer;align-items:baseline;width:100%;background:none;border:0;color:inherit;font:inherit;text-align:left}
+.stage-h:hover,.stage.on .stage-h{background:var(--card)}
+.stage-h:focus-visible{outline:2px solid var(--brons);outline-offset:-2px}
 .stage .nr{grid-row:span 3;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--groen);color:var(--groen);display:grid;place-items:center;font-size:14px;font-weight:600;align-self:start}
 .stage.on .nr{background:var(--groen);color:var(--bg)}
 .stage .d{font-size:13px;color:var(--muted)}
 .stage h3{font-size:21px}
 .stage .km{font-family:var(--display);font-size:22px;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap;grid-row:1 / span 2;grid-column:3;text-align:right}
 .stage .km small{display:block;font-family:var(--body);font-size:12px;color:var(--muted)}
-.stage p{grid-column:2 / span 2;font-size:14px;color:var(--muted)}
-.stage .l{color:var(--fg)}
-.rseg{transition:stroke-width .15s}
-.rseg.on{stroke-width:14}
-@media (prefers-reduced-motion:reduce){.rseg{transition:none}}
-svg text{font-family:var(--body)}
 .stage .ele{grid-column:2 / span 2;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 .stage .ele b{color:var(--fg);font-weight:600}
-.stage .spark{grid-column:2 / span 2;display:block;width:100%;height:46px;margin-top:4px}
-.rpage{--g1:#CFD8CC;--g2:#9CC2AA;--g3:#4A7560;--g4:#1E4034;--g5:#14201C}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rpage{--g1:#3A4C44;--g2:#5E8C73;--g3:#9CC2AA;--g4:#CFE3D5;--g5:#F2EEE4}}
-:root[data-theme="dark"] .rpage{--g1:#3A4C44;--g2:#5E8C73;--g3:#9CC2AA;--g4:#CFE3D5;--g5:#F2EEE4}
-.climbs{grid-column:2 / span 2;margin-top:6px}
-.climbs summary{cursor:pointer;font-size:14px;font-weight:600;color:var(--groen);padding:4px 0;list-style-position:inside}
-.climbs summary:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
-.cl-list{display:grid;gap:10px;margin-top:8px}
-.cl{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 12px 8px;display:grid;gap:8px}
-.cl-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:14px}
-.cl-h b{font-family:var(--display);font-weight:400;font-size:18px}
-.cat{font-size:12px;font-weight:700;letter-spacing:.04em;border:1.5px solid var(--fg);border-radius:999px;padding:1px 9px;white-space:nowrap}
-.cl-s{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;font-size:12px;color:var(--muted)}
-.cl-s b{display:block;font-size:16px;color:var(--fg);font-weight:600;font-variant-numeric:tabular-nums}
-.cl svg{display:block;width:100%;height:70px}
-.gl{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted)}
-.gl i{display:inline-block;width:12px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
-.prof{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 14px 8px}
+.stage-b{padding:4px 4px 20px 56px;display:grid;gap:14px}
+@media (max-width:560px){.stage-b{padding-left:4px}}
+.stage-b .via{font-size:15px;color:var(--muted)}
+.stage-b .via b{color:var(--fg);font-weight:600}
+.rseg{transition:stroke-width .15s}
+.rseg.on{stroke-width:14px}
+@media (prefers-reduced-motion:reduce){.rseg{transition:none}}
+.prof{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 14px 8px;position:relative}
+.sprof{position:relative}
+.sprof svg{display:block;width:100%;height:auto}
 .prof-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .prof svg{display:block;width:100%;height:auto;min-width:640px}
 .prof .pa{cursor:pointer}
 .prof-legend{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:13px;color:var(--muted);margin-top:6px}
 .prof-legend b{color:var(--fg);font-weight:600}
+.tip{position:absolute;pointer-events:none;background:var(--fg);color:var(--bg);font-size:13px;line-height:1.35;padding:6px 10px;border-radius:6px;white-space:nowrap;transform:translate(-50%,-100%);font-variant-numeric:tabular-nums}
+.gl{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted)}
+.gl i{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px;border:1px solid var(--line)}
+.cl-list{display:grid;gap:10px}
+.cl-t{font-family:var(--display);font-size:19px}
+.cl{background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:14px 14px 10px;display:grid;gap:8px;cursor:pointer}
+.cl:hover,.cl.on{border-color:var(--groen)}
+.cl:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
+.cl-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.cl-h .no{width:26px;height:26px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-size:13px;font-weight:700;flex:none}
+.cl-h b{font-family:var(--display);font-weight:400;font-size:20px}
+.cl-h .where{font-size:13px;color:var(--muted);margin-right:auto}
+.cat{font-size:12px;font-weight:700;letter-spacing:.04em;border:1.5px solid var(--fg);border-radius:999px;padding:1px 9px;white-space:nowrap}
+.cl-s{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;font-size:12px;color:var(--muted)}
+.cl-s b{display:block;font-size:17px;color:var(--fg);font-weight:600;font-variant-numeric:tabular-nums}
+.cl svg{display:block;width:100%;height:auto}
 </style>
 <div class="wrap rpage">
   <header>
@@ -93,23 +111,24 @@ svg text{font-family:var(--body)}
   </dl>
 
   <section class="sec" aria-labelledby="h-profiel">
-    <h2 id="h-profiel">Hoogteprofiel</h2>
+    <h2 id="h-profiel">Hoogteprofiel van de hele tocht</h2>
     <div class="prof">
       <div class="prof-scroll"><svg id="prof" viewBox="0 0 1000 210" role="img" aria-label="Hoogteprofiel van de hele route, per etappe"></svg></div>
       <div class="prof-legend" id="profLegend"></div>
     </div>
   </section>
 
-  <div class="rgrid">
-    <div class="rmap"><svg id="rmap" role="img" aria-label="Kaart van de route van Lucca naar Veenendaal in acht etappes"></svg></div>
-    <section class="sec" aria-labelledby="h-etappes">
-      <h2 id="h-etappes">Acht etappes</h2>
-      <p class="hint muted small">Tik op een etappe om hem op de kaart te zien.</p>
-      <ol class="stages" id="stages"></ol>
-      <p class="muted small">Afstanden, hoogtemeters en beklimmingen zijn berekend uit de GPS-route (Strava). Een beklimming is een stuk van minstens 1 km met gemiddeld 3% of meer en 80 m stijging; de categorie volgt de formule van Strava (lengte × helling). Het hoogste punt is de officiële hoogte van de Lukmanierpas. Onderweg kan er nog iets veranderen.</p>
-      <p><a class="more" href="/sponsoren/">Zet als bedrijf jouw naam op een stuk van de route →</a></p>
-    </section>
-  </div>
+  <section class="sec" aria-labelledby="h-etappes">
+    <h2 id="h-etappes">Acht etappes</h2>
+    <p class="muted small" style="margin-top:-6px">Kies een etappe: de kaart zoomt in en je ziet het hoogteprofiel, met de helling per stuk en alle beklimmingen.</p>
+    <div class="rgrid">
+      <div class="rmap"><div class="rmap-in"><svg id="rmap" role="img" aria-label="Kaart van de route van Lucca naar Veenendaal"></svg><button type="button" class="reset" id="reset" hidden>← Hele route</button></div></div>
+      <div class="slist" id="slist"><ol class="stages" id="stages"></ol></div>
+    </div>
+  </section>
+
+  <p class="muted small">Afstanden, hoogtemeters en beklimmingen zijn berekend uit de GPS-route (Strava). Een beklimming is een stuk van minstens 1 km met gemiddeld 3% of meer en 80 m stijging; de categorie volgt de formule van Strava (lengte × helling). Het hoogste punt is de officiële hoogte van de Lukmanierpas. Onderweg kan er nog iets veranderen.</p>
+  <p><a class="more" href="/sponsoren/">Zet als bedrijf jouw naam op een stuk van de route →</a></p>
 </div>
 </main>
 
@@ -151,116 +170,250 @@ svg text{font-family:var(--body)}
 <script src="/assets/route-data.js"></script>
 <script src="/assets/route.js"></script>
 <script>
-// Routekaart per etappe; gegevens uit /assets/route.js
+// De route: kaart links (zoomt in op een etappe), etappes rechts in een scrollvak met per etappe het
+// hoogteprofiel gekleurd naar helling en de beklimmingen. Gegevens uit /assets/route-data.js en route.js.
 (function () {
-  const svg = document.getElementById("rmap"), list = document.getElementById("stages");
-  svg.setAttribute("viewBox", `0 0 ${W.toFixed(0)} ${H.toFixed(0)}`);
-  if (LAND) svg.append(el("path", { d: LAND, fill: "var(--land)", "fill-rule": "evenodd", stroke: "none" }));
-  if (BORDERS) svg.append(el("path", { d: BORDERS, fill: "none", stroke: "var(--border)", "stroke-width": 1.4, "stroke-linejoin": "round" }));
-  const countries = [["ITALIË",44.62,10.0],["ZWITSERLAND",46.22,10.05],["FRANKRIJK",48.2,6.62],["DUITSLAND",49.5,8.95],["LUXEMBURG",49.8,6.95],["BELGIË",50.6,4.75],["NEDERLAND",51.33,4.55]];
-  for (const [n, la, lo] of countries) { const [x, y] = xy(la, lo); svg.append(el("text", { x, y, "text-anchor": "middle", "font-size": 13, "letter-spacing": 3, fill: "var(--muted)", opacity: .7 }, n)); }
+  const $ = id => document.getElementById(id);
+  const COUNTRIES = [["ITALIË",44.62,10.0],["ZWITSERLAND",46.22,10.05],["FRANKRIJK",48.2,6.62],["DUITSLAND",49.5,8.95],["LUXEMBURG",49.8,6.95],["BELGIË",50.6,4.75],["NEDERLAND",51.33,4.55]];
+  const GRADES = [[3, "<3%"], [6, "3–6%"], [9, "6–9%"], [12, "9–12%"], [Infinity, ">12%"]];
+  const GC = g => `var(--s${GRADES.findIndex(([t]) => g < t) + 1})`;
+  const legend = `<span style="color:var(--fg);font-weight:600">Helling</span>` + GRADES.map(([, t], i) => `<span><i style="background:var(--s${i + 1})"></i>${t.replace("<", "&lt;").replace(">", "&gt;")}</span>`).join("");
+  const climbName = (s, c, j) => s.dag === 3 && c.top >= 1900 ? "Lukmanierpas" : `Klim ${j + 1}`;
+  const climbTop = (s, c) => s.dag === 3 && c.top >= 1900 ? 1915 : c.top;
+  const catTxt = c => c.cat === "HC" ? "HC" : "Cat. " + c.cat;
+  const gradeAt = (s, km) => { const i = Math.max(0, Math.min(s.prof.length - 2, Math.floor((km - s.a) / R.profStep))); return (s.prof[i + 1] - s.prof[i]) / (R.profStep * 10); };
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let cur = -1, selClimb = null;
 
-  STAGES.forEach((s, i) => svg.append(el("path", { d: path(s.a, s.b), fill: "none", stroke: i % 2 ? "var(--seg2)" : "var(--seg1)", "stroke-width": 8, "stroke-linejoin": "round", "stroke-linecap": "round", class: "rseg", "data-i": i })));
-  // eindsprint: Den Bosch tot de finish
-  svg.append(el("path", { d: path(SPRINT_KM, ROUTE_KM), fill: "none", stroke: "var(--brons)", "stroke-width": 3, "stroke-dasharray": "1 6", "stroke-linecap": "round", transform: "translate(9 0)" }));
-
-  // plaatsen: dag-eindpunten met etappenummer, plus Lukmanier en Den Bosch
+  // ── Kaart: lagen ─────────────────────────────────────────────────────────
+  const svg = $("rmap"), NS = { "vector-effect": "non-scaling-stroke" };
+  const FULL = [0, 0, W, H]; let vb = FULL.slice();
+  const setVB = b => { vb = b; svg.setAttribute("viewBox", b.map(v => v.toFixed(1)).join(" ")); };
+  setVB(FULL);
+  const gLand = el("g", {}), gBase = el("g", {}), gLabels = el("g", {}), gOver = el("g", {});
+  svg.append(gLand, gBase, gLabels, gOver);
+  if (LAND) gLand.append(el("path", { d: LAND, fill: "var(--land)", "fill-rule": "evenodd", stroke: "none" }));
+  if (BORDERS) gLand.append(el("path", { d: BORDERS, fill: "none", stroke: "var(--border)", "stroke-width": 1, "stroke-linejoin": "round", ...NS }));
+  STAGES.forEach((s, i) => gBase.append(el("path", { d: path(s.a, s.b), fill: "none", stroke: i % 2 ? "var(--seg2)" : "var(--seg1)", "stroke-width": 6, "stroke-linejoin": "round", "stroke-linecap": "round", class: "rseg", "data-i": i, style: "cursor:pointer", ...NS })));
+  for (const [n, la, lo] of COUNTRIES) { const [x, y] = xy(la, lo); gLabels.append(el("text", { x, y, "text-anchor": "middle", "font-size": 13, "letter-spacing": 3, fill: "var(--muted)", opacity: .7 }, n)); }
   const side = { "Lucca": "r", "Novi Ligure": "l", "Locarno": "l", "Sargans": "r", "Mulhouse": "r", "Bad Bergzabern": "r", "Arlon": "l", "Lommel": "r", "Veenendaal": "r" };
   for (const q of pts) {
-    const [x, y] = q.p;
-    if (q.name === "Lukmanier" || q.name === "Den Bosch") {
-      svg.append(el("circle", { cx: x, cy: y, r: 3, fill: "var(--bg)", stroke: "var(--fg)", "stroke-width": 2 }));
-      const db = q.name === "Den Bosch";
-      svg.append(el("text", { x: x + (db ? 12 : -12), y: y + 6, "text-anchor": db ? "start" : "end", "font-size": 16, fill: "var(--fg)", "font-style": "italic" }, db ? "Den Bosch · start eindsprint" : "Lukmanier 1.915 m"));
-      continue;
-    }
     if (!side[q.name]) continue;
-    const r = side[q.name] === "r";
-    svg.append(el("circle", { cx: x, cy: y, r: 5, fill: "var(--bg)", stroke: "var(--fg)", "stroke-width": 2 }));
-    svg.append(el("text", { x: x + (r ? 12 : -12), y: y + 6, "text-anchor": r ? "start" : "end", "font-size": 18, fill: "var(--fg)" }, q.name));
+    const [x, y] = q.p, r = side[q.name] === "r";
+    gLabels.append(el("circle", { cx: x, cy: y, r: 5, fill: "var(--bg)", stroke: "var(--fg)", "stroke-width": 2 }));
+    gLabels.append(el("text", { x: x + (r ? 12 : -12), y: y + 6, "text-anchor": r ? "start" : "end", "font-size": 18, fill: "var(--fg)" }, q.name));
   }
-  // etappenummers halverwege elke etappe
   STAGES.forEach((s, i) => {
     const f = { 3: .78, 8: .22 }[s.dag] || .5, [x, y] = at(s.a + (s.b - s.a) * f);
     const g = el("g", { class: "rnr", "data-i": i, style: "cursor:pointer" });
     g.append(el("circle", { cx: x, cy: y, r: 12, fill: "var(--bg)", stroke: "var(--fg)", "stroke-width": 1.5 }));
     g.append(el("text", { x, y: y + 5, "text-anchor": "middle", "font-size": 14, "font-weight": 700, fill: "var(--fg)" }, s.dag));
-    svg.append(g);
+    gLabels.append(g);
   });
 
-  // Hoogteprofielen: alle etappes op dezelfde hoogteschaal (0–2.000 m)
-  const TOP = 2000;
-  function spark(s, c) {
-    const n = s.prof.length - 1, X = i => (i / n * 300).toFixed(1), Y = e => (46 - e / TOP * 44).toFixed(1);
-    if (!c) return "M0 46" + s.prof.map((e, i) => `L${X(i)} ${Y(e)}`).join("") + "L300 46Z";
-    const i0 = Math.round((c.a - s.a) / R.profStep), i1 = Math.min(n, Math.round((c.b - s.a) / R.profStep));
-    return `M${X(i0)} 46` + s.prof.slice(i0, i1 + 1).map((e, k) => `L${X(i0 + k)} ${Y(e)}`).join("") + `L${X(i1)} 46Z`;
+  // Inzoomen: viewBox vloeiend naar de etappe, passend in het kaartvak
+  function boxFor(s) {
+    const seg = pts.filter(q => q.km >= s.a - .01 && q.km <= s.b + .01), xs = seg.map(q => q.p[0]), ys = seg.map(q => q.p[1]);
+    let x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+    const pad = Math.max(x1 - x0, y1 - y0) * .18 + 12; x0 -= pad; x1 += pad; y0 -= pad; y1 += pad;
+    const asp = svg.clientWidth / svg.clientHeight || .8; let w = x1 - x0, h = y1 - y0;
+    if (w / h < asp) { x0 -= (h * asp - w) / 2; w = h * asp; } else { y0 -= (w / asp - h) / 2; h = w / asp; }
+    return [x0, y0, w, h];
   }
-  // Beklimmingen: profiel per 100 m, gekleurd naar hellingspercentage
-  const GC = g => g < 3 ? "var(--g1)" : g < 6 ? "var(--g2)" : g < 9 ? "var(--g3)" : g < 12 ? "var(--g4)" : "var(--g5)";
-  const legend = `<div class="gl"><span><i style="background:var(--g1)"></i>&lt;3%</span><span><i style="background:var(--g2)"></i>3–6%</span><span><i style="background:var(--g3)"></i>6–9%</span><span><i style="background:var(--g4)"></i>9–12%</span><span><i style="background:var(--g5)"></i>&gt;12%</span></div>`;
-  function climbCard(s, c, j) {
-    const pr = c.prof, n = pr.length - 1, lo = Math.min(...pr), hi = Math.max(...pr), span = Math.max(hi - lo, 60);
-    const X = i => (i / n * 300), Y = e => 66 - (e - lo) / span * 60;
-    let bars = "";
-    for (let i = 0; i < n; i += 2) {
-      const k = Math.min(n, i + 2), g = (pr[k] - pr[i]) / ((k - i) * 100) * 100;
-      bars += `<path d="M${X(i).toFixed(1)} 70L${X(i).toFixed(1)} ${Y(pr[i]).toFixed(1)}L${X(k).toFixed(1)} ${Y(pr[k]).toFixed(1)}L${X(k).toFixed(1)} 70Z" fill="${GC(g)}"/>`;
+  let anim = 0;
+  function zoomTo(b, done) {
+    cancelAnimationFrame(anim);
+    const from = vb.slice(), t0 = performance.now(), dur = reduce ? 0 : 550;
+    const step = t => {
+      const f = dur ? Math.min(1, (t - t0) / dur) : 1, e = f < .5 ? 2 * f * f : 1 - Math.pow(-2 * f + 2, 2) / 2;
+      setVB(from.map((v, i) => v + (b[i] - v) * e));
+      if (f < 1) anim = requestAnimationFrame(step); else done && done();
+    };
+    anim = requestAnimationFrame(step);
+  }
+  const upp = () => Math.max(vb[2] / svg.clientWidth, vb[3] / svg.clientHeight); // gebruikerseenheden per pixel
+
+  // Overlay voor de gekozen etappe: helling op het spoor, start, finish en beklimmingen
+  function drawOverlay() {
+    gOver.innerHTML = "";
+    if (cur < 0) return;
+    const s = STAGES[cur], k = upp(), seg = pts.filter(q => q.km >= s.a - .01 && q.km <= s.b + .01);
+    for (const [n, la, lo] of COUNTRIES) { const [x, y] = xy(la, lo); gOver.append(el("text", { x, y, "text-anchor": "middle", "font-size": 12 * k, "letter-spacing": 3 * k, fill: "var(--muted)", opacity: .75 }, n)); }
+    gOver.append(el("path", { d: path(s.a, s.b), fill: "none", stroke: "var(--fg)", "stroke-width": 10, "stroke-linejoin": "round", "stroke-linecap": "round", ...NS }));
+    for (let i = 0; i < seg.length - 1; i++) {
+      const a = seg[i], b = seg[i + 1];
+      gOver.append(el("line", { x1: a.p[0], y1: a.p[1], x2: b.p[0], y2: b.p[1], stroke: GC(gradeAt(s, (a.km + b.km) / 2)), "stroke-width": 6, "stroke-linecap": "round", ...NS }));
     }
-    const pass = s.dag === 3 && c.top >= 1900, top = pass ? 1915 : c.top;
-    return `<div class="cl"><div class="cl-h"><b>${pass ? "Lukmanierpas" : `Klim ${j + 1}`}</b><span class="muted">km ${nl(Math.round(c.a - s.a))}–${nl(Math.round(c.b - s.a))} van de etappe</span>${c.cat ? `<span class="cat">${c.cat === "HC" ? "HC" : "Cat. " + c.cat}</span>` : ""}</div>
-      <div class="cl-s"><span><b>${nl(c.len)} km</b>lengte</span><span><b>${nl(c.grade)}%</b>gemiddeld</span><span><b>+${nl(c.gain)} m</b>stijging</span><span><b>${nl(top)} m</b>top</span></div>
-      <svg viewBox="0 0 300 70" preserveAspectRatio="none" aria-hidden="true">${bars}</svg></div>`;
+    const label = (p, txt, big) => {
+      const right = p[0] < vb[0] + vb[2] * .55;
+      gOver.append(el("circle", { cx: p[0], cy: p[1], r: (big ? 7 : 5) * k, fill: "var(--bg)", stroke: "var(--fg)", "stroke-width": 2.5 * k }));
+      gOver.append(el("text", { x: p[0] + (right ? 12 : -12) * k, y: p[1] + 5 * k, "text-anchor": right ? "start" : "end", "font-size": 15 * k, "font-weight": 700, fill: "var(--fg)", stroke: "var(--land)", "stroke-width": 4 * k, "paint-order": "stroke" }, txt));
+    };
+    label(at(s.a), s.van, true); label(at(s.b), s.naar, true);
+    if (s.dag === 8) label(at(SPRINT_KM), "Den Bosch · eindsprint", false);
+    s.climbs.forEach((c, j) => {
+      const p = at(c.b), on = selClimb === j;
+      if (on) gOver.append(el("path", { d: path(c.a, c.b), fill: "none", stroke: "var(--fg)", "stroke-width": 14, opacity: .25, "stroke-linecap": "round", ...NS }));
+      const g = el("g", { class: "mc", "data-j": j, style: "cursor:pointer" });
+      g.append(el("circle", { cx: p[0], cy: p[1], r: (on ? 13 : 11) * k, fill: on ? "var(--groen)" : "var(--fg)", stroke: "var(--bg)", "stroke-width": 2 * k }));
+      g.append(el("text", { x: p[0], y: p[1] + 4.5 * k, "text-anchor": "middle", "font-size": 12.5 * k, "font-weight": 700, fill: "var(--bg)" }, j + 1));
+      gOver.append(g);
+    });
+    gOver.querySelectorAll(".mc").forEach(g => g.addEventListener("click", () => pickClimb(+g.dataset.j, true)));
   }
-  const prof = document.getElementById("prof"), PX = km => 34 + km / R.km * 958, PY = e => 180 - e / TOP * 160;
+
+  // ── Hoogteprofiel hele tocht ─────────────────────────────────────────────
+  const TOP = 2000, prof = $("prof"), PX = km => 34 + km / R.km * 958, PY = e => 180 - e / TOP * 160;
   for (const e of [0, 500, 1000, 1500, 2000]) {
     prof.append(el("line", { x1: 34, x2: 992, y1: PY(e), y2: PY(e), stroke: "var(--line)", "stroke-width": 1 }));
     prof.append(el("text", { x: 28, y: PY(e) + 4, "text-anchor": "end", "font-size": 11, fill: "var(--muted)" }, e ? nl(e) : "0 m"));
   }
   STAGES.forEach((s, i) => {
-    const step = R.profStep, d = "M" + PX(s.a).toFixed(1) + " " + PY(0) + s.prof.map((e, j) => `L${PX(s.a + j * step).toFixed(1)} ${PY(e).toFixed(1)}`).join("") + `L${PX(s.b).toFixed(1)} ${PY(0)}Z`;
+    const d = "M" + PX(s.a).toFixed(1) + " " + PY(0) + s.prof.map((e, j) => `L${PX(s.a + j * R.profStep).toFixed(1)} ${PY(e).toFixed(1)}`).join("") + `L${PX(s.b).toFixed(1)} ${PY(0)}Z`;
     prof.append(el("path", { d, fill: i % 2 ? "var(--seg2)" : "var(--seg1)", class: "pa", "data-i": i }));
     prof.append(el("text", { x: PX((s.a + s.b) / 2), y: 200, "text-anchor": "middle", "font-size": 12, "font-weight": 600, fill: "var(--fg)" }, s.dag));
     if (i) prof.append(el("line", { x1: PX(s.a), x2: PX(s.a), y1: 20, y2: 186, stroke: "var(--bg)", "stroke-width": 1.5 }));
   });
-  { const s = STAGES[2], t = R.stages[2].top; const x = PX(t[2]), y = PY(R.stages[2].max);
-    prof.append(el("text", { x: x + 8, y: y + 4, "font-size": 12, fill: "var(--fg)", "font-style": "italic" }, "Lukmanierpas 1.915 m")); }
+  { const t = R.stages[2].top; prof.append(el("text", { x: PX(t[2]) + 8, y: PY(R.stages[2].max) + 4, "font-size": 12, fill: "var(--fg)", "font-style": "italic" }, "Lukmanierpas 1.915 m")); }
   const upTot = STAGES.reduce((a, s) => a + s.up, 0);
-  document.getElementById("profLegend").innerHTML = `<span>Afstand <b>${nl(R.km)} km</b></span><span>Totale stijging <b>${nl(upTot)} m</b></span><span>Hoogste punt <b>1.915 m</b> (Lukmanierpas)</span><span>Etappes 1–8 onder het profiel</span>`;
+  $("profLegend").innerHTML = `<span>Afstand <b>${nl(R.km)} km</b></span><span>Totale stijging <b>${nl(upTot)} m</b></span><span>Hoogste punt <b>1.915 m</b> (Lukmanierpas)</span><span>Klik op een etappe voor de details</span>`;
 
-  list.innerHTML = STAGES.map((s, i) => `<li class="stage" tabindex="0" data-i="${i}">
-      <span class="nr" aria-hidden="true">${s.dag}</span>
-      <span class="d">Dag ${s.dag} · ${s.datum}</span>
-      <span class="km">${nl(s.km)} km<small>km ${nl(Math.round(s.a))}–${nl(Math.round(s.b))}</small></span>
-      <h3>${s.van} → ${s.naar}</h3>
-      <p><span class="l">${s.landen}.</span> ${s.via}</p>
-      <div class="ele"><span>Stijging <b>${nl(s.up)} m</b></span><span>Daling <b>${nl(s.down)} m</b></span><span>Hoogste punt <b>${nl(s.dag === 3 ? 1915 : s.max)} m</b></span></div>
-      <svg class="spark" viewBox="0 0 300 46" preserveAspectRatio="none" aria-hidden="true"><path d="${spark(s)}" fill="var(--empty)" opacity=".55"/>${s.climbs.map(c => `<path d="${spark(s, c)}" fill="var(--seg1)" opacity=".8"/>`).join("")}</svg>
-      ${s.climbs.length ? `<details class="climbs"><summary>${s.climbs.length} ${s.climbs.length === 1 ? "beklimming" : "beklimmingen"}</summary><div class="cl-list">${s.climbs.map((c, j) => climbCard(s, c, j)).join("")}${legend}</div></details>` : `<p class="small muted" style="grid-column:2 / span 2">Geen noemenswaardige beklimmingen.</p>`}
+  // ── Lijst met etappes ────────────────────────────────────────────────────
+  const list = $("stages");
+  list.innerHTML = STAGES.map((s, i) => `<li class="stage" data-i="${i}" id="dag-${s.dag}">
+      <button type="button" class="stage-h" aria-expanded="false" aria-controls="sb-${i}">
+        <span class="nr" aria-hidden="true">${s.dag}</span>
+        <span class="d">Dag ${s.dag} · ${s.datum}</span>
+        <span class="km">${nl(s.km)} km<small>km ${nl(Math.round(s.a))}–${nl(Math.round(s.b))}</small></span>
+        <h3>${s.van} → ${s.naar}</h3>
+        <span class="ele"><span>Stijging <b>${nl(s.up)} m</b></span><span>Daling <b>${nl(s.down)} m</b></span><span>Hoogste punt <b>${nl(s.dag === 3 ? 1915 : s.max)} m</b></span><span>${s.climbs.length ? `<b>${s.climbs.length}</b> ${s.climbs.length === 1 ? "beklimming" : "beklimmingen"}` : "vlak"}</span></span>
+      </button>
+      <div class="stage-b" id="sb-${i}" hidden></div>
     </li>`).join("");
 
-  let sel = null;
+  function drawProfile(s, box) {
+    const P = box.querySelector("svg"), tip = box.querySelector(".tip"); P.innerHTML = "";
+    const L = 46, Rr = 594, T = 58, B = 226, n = s.prof.length - 1;
+    const lo0 = Math.min(...s.prof), hi0 = Math.max(...s.prof);
+    const st = [50, 100, 200, 250, 500].find(v => Math.max(hi0 - lo0, 150) / v <= 5) || 500, lo = Math.floor(lo0 / st) * st, hi = Math.max(lo + 2 * st, Math.ceil(hi0 / st) * st);
+    const X = km => L + km / s.km * (Rr - L), Y = e => B - (e - lo) / (hi - lo) * (B - T);
+    for (let e = lo; e <= hi; e += st) {
+      P.append(el("line", { x1: L, x2: Rr, y1: Y(e), y2: Y(e), stroke: "var(--line)", "stroke-width": 1 }));
+      P.append(el("text", { x: L - 6, y: Y(e) + 4, "text-anchor": "end", "font-size": 11, fill: "var(--muted)" }, nl(e) + (e === lo ? " m" : "")));
+    }
+    const xs = s.km > 150 ? 50 : 25;
+    for (let k = 0; k <= s.km + .01; k += xs) P.append(el("text", { x: X(k), y: B + 18, "text-anchor": "middle", "font-size": 11, fill: "var(--muted)" }, k ? nl(k) : "0 km"));
+    for (let i = 0; i < n; i++) {
+      const g = (s.prof[i + 1] - s.prof[i]) / (R.profStep * 10), x0 = X(i * R.profStep), x1 = X(Math.min(s.km, (i + 1) * R.profStep));
+      P.append(el("path", { d: `M${x0.toFixed(1)} ${B}L${x0.toFixed(1)} ${Y(s.prof[i]).toFixed(1)}L${x1.toFixed(1)} ${Y(s.prof[i + 1]).toFixed(1)}L${x1.toFixed(1)} ${B}Z`, fill: GC(g) }));
+    }
+    P.append(el("path", { d: "M" + s.prof.map((e, i) => `${X(Math.min(s.km, i * R.profStep)).toFixed(1)} ${Y(e).toFixed(1)}`).join("L"), fill: "none", stroke: "var(--fg)", "stroke-width": 1.2, "stroke-linejoin": "round" }));
+    P.append(el("line", { x1: L, x2: Rr, y1: B, y2: B, stroke: "var(--fg)", "stroke-width": 1, opacity: .5 }));
+    let lastX = -99, lift = 0;
+    s.climbs.forEach((c, j) => {
+      const a = X(c.a - s.a), b = X(c.b - s.a), on = selClimb === j, g = el("g", { class: "pc", "data-j": j, style: "cursor:pointer" });
+      const cx = (a + b) / 2; lift = cx - lastX < 22 && !lift ? 18 : 0; lastX = cx;
+      g.append(el("rect", { x: a, y: T - 4, width: Math.max(2, b - a), height: B - T + 4, fill: "var(--fg)", opacity: on ? .12 : 0 }));
+      g.append(el("path", { d: `M${a} ${T - 4}L${a} ${T - 10}L${b} ${T - 10}L${b} ${T - 4}`, fill: "none", stroke: "var(--fg)", "stroke-width": on ? 2.2 : 1.3 }));
+      if (lift) g.append(el("line", { x1: cx, x2: cx, y1: T - 10, y2: T - 22 - lift, stroke: "var(--fg)", "stroke-width": 1 }));
+      g.append(el("circle", { cx, cy: T - 22 - lift, r: 9.5, fill: on ? "var(--groen)" : "var(--fg)" }));
+      g.append(el("text", { x: cx, y: T - 18 - lift, "text-anchor": "middle", "font-size": 11, "font-weight": 700, fill: "var(--bg)" }, j + 1));
+      P.append(g);
+    });
+    P.querySelectorAll(".pc").forEach(g => g.addEventListener("click", () => pickClimb(+g.dataset.j, true)));
+    const hit = el("rect", { x: L, y: T, width: Rr - L, height: B - T, fill: "transparent" });
+    const vline = el("line", { y1: T, y2: B, stroke: "var(--fg)", "stroke-width": 1, opacity: 0 }), dot = el("circle", { r: 4, fill: "var(--bg)", stroke: "var(--fg)", "stroke-width": 2, opacity: 0 });
+    P.append(vline, dot, hit);
+    const move = ev => {
+      const r = P.getBoundingClientRect(), px = (ev.touches ? ev.touches[0].clientX : ev.clientX) - r.left, vx = px / r.width * 600;
+      const km = Math.max(0, Math.min(s.km, (vx - L) / (Rr - L) * s.km)), i = Math.min(n, Math.round(km / R.profStep)), e = s.prof[i], g = gradeAt(s, s.a + km);
+      vline.setAttribute("x1", X(km)); vline.setAttribute("x2", X(km)); vline.setAttribute("opacity", .6);
+      dot.setAttribute("cx", X(km)); dot.setAttribute("cy", Y(e)); dot.setAttribute("opacity", 1);
+      tip.hidden = false; tip.textContent = `km ${nl(km)} · ${nl(e)} m · ${g >= 0 ? "+" : ""}${nl(g)}%`;
+      tip.style.left = Math.max(70, Math.min(r.width - 70, px)) + "px"; tip.style.top = (Y(e) / 250 * r.height - 10) + "px";
+    };
+    const out = () => { tip.hidden = true; vline.setAttribute("opacity", 0); dot.setAttribute("opacity", 0); };
+    hit.addEventListener("mousemove", move); hit.addEventListener("touchmove", move, { passive: true }); hit.addEventListener("mouseleave", out); hit.addEventListener("touchend", out);
+  }
+
+  function climbCard(s, c, j) {
+    const pr = c.prof, n = pr.length - 1, lo = Math.min(...pr), hi = Math.max(...pr), span = Math.max(hi - lo, 60);
+    const X = i => 4 + i / n * 292, Y = e => 84 - (e - lo) / span * 70;
+    let bars = "";
+    for (let i = 0; i < n; i += 2) {
+      const k2 = Math.min(n, i + 2), g = (pr[k2] - pr[i]) / ((k2 - i) * 100) * 100;
+      bars += `<path d="M${X(i).toFixed(1)} 88L${X(i).toFixed(1)} ${Y(pr[i]).toFixed(1)}L${X(k2).toFixed(1)} ${Y(pr[k2]).toFixed(1)}L${X(k2).toFixed(1)} 88Z" fill="${GC(g)}"/>`;
+    }
+    let best = 0; for (let i = 0; i + 10 <= n; i++) best = Math.max(best, (pr[i + 10] - pr[i]) / 10);
+    return `<div class="cl" tabindex="0" data-j="${j}">
+      <div class="cl-h"><span class="no">${j + 1}</span><b>${climbName(s, c, j)}</b><span class="where">km ${nl(Math.round(c.a - s.a))}–${nl(Math.round(c.b - s.a))}</span>${c.cat ? `<span class="cat">${catTxt(c)}</span>` : ""}</div>
+      <div class="cl-s"><span><b>${nl(c.len)} km</b>lengte</span><span><b>${nl(c.grade)}%</b>gemiddeld</span><span><b>+${nl(c.gain)} m</b>stijging</span><span><b>${nl(climbTop(s, c))} m</b>top</span></div>
+      <svg viewBox="0 0 300 102" aria-hidden="true">${bars}<path d="M${pr.map((e, i) => `${X(i).toFixed(1)} ${Y(e).toFixed(1)}`).join("L")}" fill="none" stroke="var(--fg)" stroke-width="1.2"/>
+        <text x="4" y="100" font-size="10" fill="var(--muted)">${nl(pr[0])} m</text><text x="296" y="100" font-size="10" fill="var(--muted)" text-anchor="end">${n >= 10 ? `steilste km ${nl(Math.round(best * 10) / 10)}%` : ""}</text></svg>
+    </div>`;
+  }
+
+  function fillBody(i) {
+    const s = STAGES[i], b = $(`sb-${i}`);
+    b.innerHTML = `<p class="via"><b>${s.landen}.</b> ${s.via}</p>
+      <div class="sprof"><svg viewBox="0 0 600 250" role="img" aria-label="Hoogteprofiel van dag ${s.dag}, gekleurd naar hellingspercentage"></svg><div class="tip" hidden></div></div>
+      <div class="gl">${legend}</div>
+      ${s.climbs.length ? `<div class="cl-t">Beklimmingen</div><div class="cl-list">${s.climbs.map((c, j) => climbCard(s, c, j)).join("")}</div>` : `<p class="muted small">Geen noemenswaardige beklimmingen: deze etappe is vrijwel vlak.</p>`}`;
+    drawProfile(s, b.querySelector(".sprof"));
+    b.querySelectorAll(".cl").forEach(c => {
+      c.addEventListener("click", () => pickClimb(+c.dataset.j));
+      c.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pickClimb(+c.dataset.j); } });
+    });
+  }
+  function pickClimb(j, scroll) {
+    selClimb = selClimb === j ? null : j;
+    const b = $(`sb-${cur}`);
+    drawProfile(STAGES[cur], b.querySelector(".sprof")); drawOverlay();
+    b.querySelectorAll(".cl").forEach(c => c.classList.toggle("on", +c.dataset.j === selClimb));
+    if (scroll && selClimb != null) b.querySelector(`.cl[data-j="${j}"]`).scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" });
+  }
+
+  function select(i) {
+    if (i === cur) i = -1;
+    if (cur >= 0) { const o = list.children[cur]; o.classList.remove("on"); o.querySelector(".stage-h").setAttribute("aria-expanded", "false"); $(`sb-${cur}`).hidden = true; $(`sb-${cur}`).innerHTML = ""; }
+    cur = i; selClimb = null; gOver.innerHTML = "";
+    $("reset").hidden = i < 0;
+    gBase.querySelectorAll(".rseg").forEach(p => p.setAttribute("opacity", i < 0 || +p.dataset.i === i ? 1 : .35));
+    prof.querySelectorAll(".pa").forEach(p => p.setAttribute("opacity", i < 0 || +p.dataset.i === i ? 1 : .35));
+    history.replaceState(null, "", i >= 0 ? `#dag-${i + 1}` : location.pathname);
+    if (i < 0) { gLabels.style.display = ""; zoomTo(FULL); return; }
+    const li = list.children[i]; li.classList.add("on"); li.querySelector(".stage-h").setAttribute("aria-expanded", "true");
+    $(`sb-${i}`).hidden = false; fillBody(i);
+    gLabels.style.display = "none";
+    zoomTo(boxFor(STAGES[i]), drawOverlay);
+    requestAnimationFrame(() => {
+      const sl = $("slist"), bh = reduce ? "auto" : "smooth";
+      if (getComputedStyle(sl).overflowY !== "auto") return li.scrollIntoView({ block: "start", behavior: bh });
+      // naast elkaar: alleen het etappevak scrollt, de pagina zet de kaart netjes in beeld
+      const g = document.querySelector(".rgrid").getBoundingClientRect();
+      if (g.top < 60 || g.top > innerHeight * .35) scrollTo({ top: scrollY + g.top - 84, behavior: bh });
+      sl.scrollTo({ top: li.offsetTop, behavior: bh });
+    });
+  }
   const hl = i => {
-    const k = i == null ? sel : String(i);
-    prof.querySelectorAll(".pa").forEach(p => p.setAttribute("opacity", k == null || p.dataset.i === k ? 1 : .35));
-    list.querySelectorAll(".spark path").forEach((p, j) => p.setAttribute("fill", String(j) === k ? "var(--groen)" : "var(--empty)"));
-    svg.querySelectorAll(".rseg").forEach(p => p.classList.toggle("on", p.dataset.i === k));
-    list.querySelectorAll(".stage").forEach(r => r.classList.toggle("on", r.dataset.i === k));
+    if (cur >= 0) return;
+    gBase.querySelectorAll(".rseg").forEach(p => p.classList.toggle("on", i != null && +p.dataset.i === i));
+    prof.querySelectorAll(".pa").forEach(p => p.setAttribute("opacity", i == null || +p.dataset.i === i ? 1 : .35));
   };
-  const pick = i => { sel = sel === String(i) ? null : String(i); hl(null); };
-  list.querySelectorAll(".stage").forEach(r => {
-    r.addEventListener("mouseenter", () => hl(r.dataset.i)); r.addEventListener("mouseleave", () => hl(null));
-    r.addEventListener("click", () => pick(r.dataset.i));
-    r.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(r.dataset.i); } });
+  list.querySelectorAll(".stage").forEach(li => {
+    const i = +li.dataset.i, h = li.querySelector(".stage-h");
+    h.addEventListener("click", () => select(i));
+    h.addEventListener("mouseenter", () => hl(i)); h.addEventListener("mouseleave", () => hl(null));
   });
-  prof.querySelectorAll(".pa").forEach(p => {
-    p.addEventListener("mouseenter", () => hl(p.dataset.i)); p.addEventListener("mouseleave", () => hl(null));
-    p.addEventListener("click", () => { pick(p.dataset.i); list.querySelector(`.stage[data-i="${p.dataset.i}"]`).scrollIntoView({ block: "nearest", behavior: "smooth" }); });
+  [...gBase.querySelectorAll(".rseg"), ...gLabels.querySelectorAll(".rnr"), ...prof.querySelectorAll(".pa")].forEach(p => {
+    const i = +p.dataset.i;
+    p.addEventListener("click", () => select(i === cur ? cur : i));
+    p.addEventListener("mouseenter", () => hl(i)); p.addEventListener("mouseleave", () => hl(null));
   });
-  svg.querySelectorAll(".rseg,.rnr").forEach(p => {
-    p.addEventListener("mouseenter", () => hl(p.dataset.i)); p.addEventListener("mouseleave", () => hl(null));
-    p.addEventListener("click", () => { pick(p.dataset.i); list.querySelector(`.stage[data-i="${p.dataset.i}"]`).scrollIntoView({ block: "nearest", behavior: "smooth" }); });
-  });
+  $("reset").addEventListener("click", () => select(-1));
+  addEventListener("resize", () => { if (cur >= 0) { setVB(boxFor(STAGES[cur])); drawOverlay(); } });
+  const m = location.hash.match(/^#dag-([1-8])$/);
+  if (m) select(+m[1] - 1);
 })();
 </script>
 </body>
