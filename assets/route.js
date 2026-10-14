@@ -1,48 +1,42 @@
-// Route Lucca → Veenendaal: dag-eindpunten met echte GPX-km (1.576 km), kaartprojectie en landkaart.
-// Gedeeld door De route en Elke kilometer telt. Laden na d3, topojson en datamaps.
-const ROUTE_KM = 1576, SPRINT = 50;
-const WP = [
-  ["Lucca",43.843,10.503,0],["",43.87,10.25],["",44.10,9.83],["",44.25,9.58],["",44.27,9.40],["",44.48,9.10],
-  ["Novi Ligure",44.762,8.787,238],["",45.25,8.73],["",45.45,8.62],["",45.76,8.56],["",45.88,8.53],["",46.06,8.69],
-  ["Locarno",46.17,8.80,433],["",46.19,9.02],["",46.36,8.97],["Lukmanier",46.56,8.80],["",46.70,8.85],["",46.77,9.20],["",46.85,9.53],
-  ["Sargans",47.05,9.44,630],["",47.12,9.31],["",47.23,8.82],["",47.37,8.54],["",47.55,7.79],["",47.56,7.59],
-  ["Mulhouse",47.75,7.34,838],["",48.08,7.36],["",48.46,7.48],["",48.58,7.75],["",49.04,7.94],
-  ["Bad Bergzabern",49.10,8.00,1037],["",49.20,7.60],["",49.24,6.99],["",49.47,6.36],["",49.61,6.13],
-  ["Arlon",49.68,5.81,1262],["",50.00,5.72],["",50.27,5.45],["",50.53,5.57],["",50.63,5.57],["",50.93,5.34],
-  ["Lommel",51.23,5.31,1461],["",51.59,5.33],["Den Bosch",51.69,5.30],["",51.89,5.43],["",51.96,5.57],
-  ["Veenendaal",52.03,5.56,1576],
-];
-// Acht etappes, zaterdag 15 t/m zaterdag 22 mei 2027. km volgt uit de GPX-km hierboven.
+// Route Lucca → Veenendaal uit de GPX-bestanden (assets/route-data.js, window.WIM_ROUTE): kaartprojectie,
+// etappes en landkaart. Gedeeld door Home, De route en Tussenstand. Laden na route-data.js (en voor de
+// landkaart na d3, topojson en datamaps).
+const R = window.WIM_ROUTE;
+const ROUTE_KM = Math.round(R.km), SPRINT = 50;
+// Acht etappes, zaterdag 15 t/m zaterdag 22 mei 2027. Afstand en hoogtemeters komen uit de GPX.
 const STAGES = [
   { dag: 1, datum: "za 15 mei", van: "Lucca", naar: "Novi Ligure", landen: "Italië", via: "Langs de kust via La Spezia, dan landinwaarts naar Piemonte." },
   { dag: 2, datum: "zo 16 mei", van: "Novi Ligure", naar: "Locarno", landen: "Italië → Zwitserland", via: "Noordwaarts langs het Lago Maggiore." },
   { dag: 3, datum: "ma 17 mei", van: "Locarno", naar: "Sargans", landen: "Zwitserland", via: "Over de Lukmanierpas (1.915 m), het hoogste punt van de tocht, en via Chur." },
   { dag: 4, datum: "di 18 mei", van: "Sargans", naar: "Mulhouse", landen: "Zwitserland → Frankrijk", via: "Via Zürich en Basel." },
-  { dag: 5, datum: "wo 19 mei", van: "Mulhouse", naar: "Bad Bergzabern", landen: "Frankrijk → Duitsland", via: "Door de Elzas via Straatsburg." },
+  { dag: 5, datum: "wo 19 mei", van: "Mulhouse", naar: "Bad Bergzabern", landen: "Frankrijk → Duitsland", via: "Door de Elzas over de wijnroute, via Straatsburg." },
   { dag: 6, datum: "do 20 mei", van: "Bad Bergzabern", naar: "Arlon", landen: "Duitsland → Luxemburg → België", via: "Via Saarbrücken en Luxemburg-stad." },
   { dag: 7, datum: "vr 21 mei", van: "Arlon", naar: "Lommel", landen: "België", via: "Door de Ardennen via Bastogne en Luik." },
-  { dag: 8, datum: "za 22 mei", van: "Lommel", naar: "Veenendaal", landen: "België → Nederland", via: "Vanaf Den Bosch de eindsprint: de laatste 50 km samen met meefietsers naar de finish." },
+  { dag: 8, datum: "za 22 mei", van: "Lommel", naar: "Veenendaal", landen: "België → Nederland", via: "Vanaf Den Bosch de eindsprint: de laatste kilometers samen met meefietsers naar de finish." },
 ];
 const K = 120, PADL = 120, PADR = 100, PADT = 34, PADB = 34;
 const LON0 = 5.3, LON1 = 10.5, LAT1 = 52.05, LAT0 = 43.8, CX = 0.669;
 const W = PADL + (LON1 - LON0) * CX * K + PADR, H = PADT + (LAT1 - LAT0) * K + PADB;
 const xy = (lat, lon) => [PADL + (lon - LON0) * CX * K, PADT + (LAT1 - lat) * K];
-const pts = WP.map(w => ({ name: w[0], p: xy(w[1], w[2]), real: w[3] }));
-// km per waypoint: binnen een dag verdeeld naar afstand op de kaart
+// Alle punten van het spoor op volgorde, met km vanaf Lucca; plaatsnamen op de etappegrenzen
+const pts = [];
+R.stages.forEach((s, i) => {
+  Object.assign(STAGES[i], { a: s.track[0][2], b: s.track[s.track.length - 1][2], km: s.km, up: s.up, down: s.down, max: s.max, min: s.min, prof: s.prof });
+  s.track.forEach(([la, lo, km], j) => pts.push({ name: j === 0 ? STAGES[i].van : "", p: xy(la, lo), km }));
+});
+pts[pts.length - 1].name = "Veenendaal";
+// Lukmanier: hoogste punt van etappe 3; Den Bosch: dichtstbijzijnde punt van etappe 8
 (function () {
-  let s = 0;
-  for (let i = 1; i < pts.length; i++) if (pts[i].real !== undefined) {
-    const d = [0]; for (let j = s + 1; j <= i; j++) d.push(d[d.length - 1] + Math.hypot(pts[j].p[0] - pts[j - 1].p[0], pts[j].p[1] - pts[j - 1].p[1]));
-    const a = pts[s].real, b = pts[i].real, L = d[d.length - 1];
-    for (let j = s; j <= i; j++) pts[j].km = a + (b - a) * d[j - s] / L;
-    s = i;
-  }
+  const t = R.stages[2].top, at3 = pts.findIndex(q => q.km >= t[2]);
+  pts.splice(at3, 0, { name: "Lukmanier", p: xy(t[0], t[1]), km: t[2] });
+  const db = xy(51.6978, 5.3037); let bi = 0, bd = Infinity;
+  pts.forEach((q, i) => { if (q.km > STAGES[7].a && !q.name) { const d = Math.hypot(q.p[0] - db[0], q.p[1] - db[1]); if (d < bd) { bd = d; bi = i; } } });
+  pts[bi].name = "Den Bosch";
 })();
 const kmOf = name => pts.find(q => q.name === name).km;
 const SPRINT_KM = kmOf("Den Bosch");
-STAGES.forEach(s => { s.a = kmOf(s.van); s.b = kmOf(s.naar); s.km = s.b - s.a; });
 function at(km) {
-  km = Math.max(0, Math.min(ROUTE_KM, km));
+  km = Math.max(0, Math.min(pts[pts.length - 1].km, km));
   for (let i = 1; i < pts.length; i++) if (km <= pts[i].km) {
     const a = pts[i - 1], b = pts[i], t = (km - a.km) / (b.km - a.km || 1);
     return [a.p[0] + (b.p[0] - a.p[0]) * t, a.p[1] + (b.p[1] - a.p[1]) * t];

@@ -93,7 +93,7 @@ function render() {
     svg.append(el("text", { x: x + (r ? 16 : -16), y: y + o.dy, "text-anchor": r ? "start" : "end", "font-size": 15, "font-weight": 600, fill: "var(--fg)" }, `${g.label} · ${eur(g.eur)}`));
   });
   const [fx, fy] = pts[pts.length - 1].p;
-  svg.append(el("text", { x: fx + 12, y: fy + 25, "font-size": 13, fill: "var(--muted)" }, "Finish · km 1.576"));
+  svg.append(el("text", { x: fx + 12, y: fy + 25, "font-size": 13, fill: "var(--muted)" }, `Finish · km ${nl(ROUTE_KM)}`));
   svg.append(el("text", { x: fx + 12, y: fy + 42, "font-size": 13, fill: "var(--muted)" }, `Eindsprint · ${riders} van ${SPRINT} plekken`));
 
   svg.querySelectorAll(".seg").forEach(p => {
@@ -144,7 +144,7 @@ function render() {
   if ($("donate")) $("donate").innerHTML = DATA.donateUrl
     ? `<a href="${DATA.donateUrl}" target="_blank" rel="noopener">Doneer nu</a>`
     : `<span class="off">Doneerlink volgt</span>`;
-  if ($("foot")) $("foot").textContent = `Bijgewerkt op ${DATA.updated}. Donaties van particuliere vrienden van de tocht worden wekelijks bijgeteld. Alle kilometers zijn echte kilometers van de route (1.576 km). Vanaf Den Bosch rijden de meefietsers van de eindsprint mee.`;
+  if ($("foot")) $("foot").textContent = `Bijgewerkt op ${DATA.updated}. Donaties van particuliere vrienden van de tocht worden wekelijks bijgeteld. Alle kilometers zijn echte kilometers van de route (${nl(ROUTE_KM)} km). Vanaf Den Bosch rijden de meefietsers van de eindsprint mee.`;
 }
 let sel = null, RANGES = {};
 function hl(i) {

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>De route · Warren in Motion</title>
-<meta name="description" content="Acht etappes van Lucca naar Veenendaal, 1.576 km door 7 landen, van 15 tot 22 mei 2027.">
+<meta name="description" content="Acht etappes van Lucca naar Veenendaal, 1.570 km door 7 landen, van 15 tot 22 mei 2027.">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -53,12 +53,20 @@
 .rseg.on{stroke-width:14}
 @media (prefers-reduced-motion:reduce){.rseg{transition:none}}
 svg text{font-family:var(--body)}
+.stage .ele{grid-column:2 / span 2;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.stage .ele b{color:var(--fg);font-weight:600}
+.stage .spark{grid-column:2 / span 2;display:block;width:100%;height:46px;margin-top:4px}
+.prof{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 14px 8px}
+.prof svg{display:block;width:100%;height:auto}
+.prof .pa{cursor:pointer}
+.prof-legend{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:13px;color:var(--muted);margin-top:6px}
+.prof-legend b{color:var(--fg);font-weight:600}
 </style>
 <div class="wrap">
   <header>
     <div class="eyebrow">De route</div>
     <h1>Van Lucca naar Veenendaal</h1>
-    <p class="lead">1.576 km in acht etappes, door zeven landen. Van de Ligurische kust over de Alpen, door de Elzas en de Ardennen naar huis.</p>
+    <p class="lead">1.570 km in acht etappes, door zeven landen. Van de Ligurische kust over de Alpen, door de Elzas en de Ardennen naar huis.</p>
   </header>
 
   <dl class="rows">
@@ -67,13 +75,21 @@ svg text{font-family:var(--body)}
     <div><dt>Live volgen</dt><dd data-live></dd></div>
   </dl>
 
+  <section class="sec" aria-labelledby="h-profiel">
+    <h2 id="h-profiel">Hoogteprofiel</h2>
+    <div class="prof">
+      <svg id="prof" viewBox="0 0 1000 210" role="img" aria-label="Hoogteprofiel van de hele route, per etappe"></svg>
+      <div class="prof-legend" id="profLegend"></div>
+    </div>
+  </section>
+
   <div class="rgrid">
     <div class="rmap"><svg id="rmap" role="img" aria-label="Kaart van de route van Lucca naar Veenendaal in acht etappes"></svg></div>
     <section class="sec" aria-labelledby="h-etappes">
       <h2 id="h-etappes">Acht etappes</h2>
       <p class="hint muted small">Tik op een etappe om hem op de kaart te zien.</p>
       <ol class="stages" id="stages"></ol>
-      <p class="muted small">Alle afstanden komen uit de GPS-route. Onderweg kan er nog iets veranderen.</p>
+      <p class="muted small">Afstanden en hoogtemeters komen uit de GPS-route (Strava). Het hoogste punt is de officiële hoogte van de Lukmanierpas. Onderweg kan er nog iets veranderen.</p>
       <p><a class="more" href="/sponsoren/">Zet als bedrijf jouw naam op een stuk van de route →</a></p>
     </section>
   </div>
@@ -115,6 +131,7 @@ svg text{font-family:var(--body)}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.20/topojson.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.9/datamaps.world.hires.min.js"></script>
+<script src="/assets/route-data.js"></script>
 <script src="/assets/route.js"></script>
 <script>
 // Routekaart per etappe; gegevens uit /assets/route.js
@@ -154,17 +171,43 @@ svg text{font-family:var(--body)}
     svg.append(g);
   });
 
+  // Hoogteprofielen: alle etappes op dezelfde hoogteschaal (0–2.000 m)
+  const TOP = 2000;
+  function spark(s) {
+    const n = s.prof.length - 1;
+    return "M0 46" + s.prof.map((e, i) => `L${(i / n * 300).toFixed(1)} ${(46 - e / TOP * 44).toFixed(1)}`).join("") + "L300 46Z";
+  }
+  const prof = document.getElementById("prof"), PX = km => 34 + km / R.km * 958, PY = e => 180 - e / TOP * 160;
+  for (const e of [0, 500, 1000, 1500, 2000]) {
+    prof.append(el("line", { x1: 34, x2: 992, y1: PY(e), y2: PY(e), stroke: "var(--line)", "stroke-width": 1 }));
+    prof.append(el("text", { x: 28, y: PY(e) + 4, "text-anchor": "end", "font-size": 11, fill: "var(--muted)" }, e ? nl(e) : "0 m"));
+  }
+  STAGES.forEach((s, i) => {
+    const step = R.profStep, d = "M" + PX(s.a).toFixed(1) + " " + PY(0) + s.prof.map((e, j) => `L${PX(s.a + j * step).toFixed(1)} ${PY(e).toFixed(1)}`).join("") + `L${PX(s.b).toFixed(1)} ${PY(0)}Z`;
+    prof.append(el("path", { d, fill: i % 2 ? "var(--seg2)" : "var(--seg1)", class: "pa", "data-i": i }));
+    prof.append(el("text", { x: PX((s.a + s.b) / 2), y: 200, "text-anchor": "middle", "font-size": 12, "font-weight": 600, fill: "var(--fg)" }, s.dag));
+    if (i) prof.append(el("line", { x1: PX(s.a), x2: PX(s.a), y1: 20, y2: 186, stroke: "var(--bg)", "stroke-width": 1.5 }));
+  });
+  { const s = STAGES[2], t = R.stages[2].top; const x = PX(t[2]), y = PY(R.stages[2].max);
+    prof.append(el("text", { x: x + 8, y: y + 4, "font-size": 12, fill: "var(--fg)", "font-style": "italic" }, "Lukmanierpas 1.915 m")); }
+  const upTot = STAGES.reduce((a, s) => a + s.up, 0);
+  document.getElementById("profLegend").innerHTML = `<span>Afstand <b>${nl(R.km)} km</b></span><span>Totale stijging <b>${nl(upTot)} m</b></span><span>Hoogste punt <b>1.915 m</b> (Lukmanierpas)</span><span>Etappes 1–8 onder het profiel</span>`;
+
   list.innerHTML = STAGES.map((s, i) => `<li class="stage" tabindex="0" data-i="${i}">
       <span class="nr" aria-hidden="true">${s.dag}</span>
       <span class="d">Dag ${s.dag} · ${s.datum}</span>
-      <span class="km">${nl(s.km)} km<small>km ${nl(s.a)}–${nl(s.b)}</small></span>
+      <span class="km">${nl(s.km)} km<small>km ${nl(Math.round(s.a))}–${nl(Math.round(s.b))}</small></span>
       <h3>${s.van} → ${s.naar}</h3>
       <p><span class="l">${s.landen}.</span> ${s.via}</p>
+      <div class="ele"><span>Stijging <b>${nl(s.up)} m</b></span><span>Daling <b>${nl(s.down)} m</b></span><span>Hoogste punt <b>${nl(s.dag === 3 ? 1915 : s.max)} m</b></span></div>
+      <svg class="spark" viewBox="0 0 300 46" preserveAspectRatio="none" aria-hidden="true"><path d="${spark(s)}" fill="var(--empty)" opacity=".55"/></svg>
     </li>`).join("");
 
   let sel = null;
   const hl = i => {
     const k = i == null ? sel : String(i);
+    prof.querySelectorAll(".pa").forEach(p => p.setAttribute("opacity", k == null || p.dataset.i === k ? 1 : .35));
+    list.querySelectorAll(".spark path").forEach((p, j) => p.setAttribute("fill", String(j) === k ? "var(--groen)" : "var(--empty)"));
     svg.querySelectorAll(".rseg").forEach(p => p.classList.toggle("on", p.dataset.i === k));
     list.querySelectorAll(".stage").forEach(r => r.classList.toggle("on", r.dataset.i === k));
   };
@@ -173,6 +216,10 @@ svg text{font-family:var(--body)}
     r.addEventListener("mouseenter", () => hl(r.dataset.i)); r.addEventListener("mouseleave", () => hl(null));
     r.addEventListener("click", () => pick(r.dataset.i));
     r.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(r.dataset.i); } });
+  });
+  prof.querySelectorAll(".pa").forEach(p => {
+    p.addEventListener("mouseenter", () => hl(p.dataset.i)); p.addEventListener("mouseleave", () => hl(null));
+    p.addEventListener("click", () => { pick(p.dataset.i); list.querySelector(`.stage[data-i="${p.dataset.i}"]`).scrollIntoView({ block: "nearest", behavior: "smooth" }); });
   });
   svg.querySelectorAll(".rseg,.rnr").forEach(p => {
     p.addEventListener("mouseenter", () => hl(p.dataset.i)); p.addEventListener("mouseleave", () => hl(null));

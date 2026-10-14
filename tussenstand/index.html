@@ -67,7 +67,7 @@
 
   <div class="done" id="done" hidden aria-live="polite">
     <h2>Gelukt! Samen naar Veenendaal</h2>
-    <p>1.576 km gevuld · €31.520 voor Voedselbanken Nederland · alle plekken bezet. Dit is een voorbeeld; help je mee om het echt te maken?</p>
+    <p><span id="doneTxt"></span> · alle plekken bezet. Dit is een voorbeeld; help je mee om het echt te maken?</p>
     <div class="btns" style="justify-content:center;margin-top:8px"><a class="btn" href="/sponsoren/">Sponsor als bedrijf</a><a class="btn ghost" href="/doneren/">Doneer als particulier</a></div>
   </div>
 
@@ -77,7 +77,7 @@
     <div style="display:grid;gap:36px;min-width:0">
       <section class="stat" aria-live="polite">
         <div class="eyebrow">Gevuld</div>
-        <div class="big"><span id="km">0</span> <small>van 1.576 km</small></div>
+        <div class="big"><span id="km">0</span> <small>van 1.570 km</small></div>
         <div class="sub" id="eur"></div>
         <div class="bar" id="bar"></div>
         <div class="sub" id="next"></div>
@@ -142,13 +142,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.20/topojson.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.9/datamaps.world.hires.min.js"></script>
+<script src="/assets/route-data.js"></script>
 <script src="/assets/route.js"></script>
 <script src="/assets/actie.js"></script>
 <script>
 // Tussenstand: echte stand, of een voorbeeld van een volle route dat zich opbouwt en eindigt met confetti.
 // Het voorbeeld is verzonnen en staat alleen hier; de echte stand komt uit data.js.
 const FULL = {
-  pelotonEuro: 7520, eindsprint: 50, diner: 100,
+  pelotonEuro: (ROUTE_KM - 1200) * 20, eindsprint: 50, diner: 100,
   tenue: {
     hoofd: { status: "bezet", sponsor: "Bouwbedrijf Hendriks" },
     mouwL: { status: "bezet", sponsor: "Accountantskantoor De Vries" },
@@ -179,7 +180,7 @@ function renderSpots() {
     ["Gasten aan het diner", `${s.diner}`],
   ].map(([a, b]) => `<div><span>${a}</span><span>${b}</span></div>`).join("");
   $("foot").textContent = CUR === DATA
-    ? `Echte stand, bijgewerkt op ${DATA.updated}. Donaties van particulieren worden wekelijks bijgeteld. Alle kilometers zijn echte kilometers van de route (1.576 km).`
+    ? `Echte stand, bijgewerkt op ${DATA.updated}. Donaties van particulieren worden wekelijks bijgeteld. Alle kilometers zijn echte kilometers van de route (${nl(ROUTE_KM)} km).`
     : "Voorbeeld: alle bedrijven en bedragen op deze pagina zijn verzonnen. Druk op Echte tussenstand voor de echte stand.";
 }
 function show() { render(); renderSpots(); }
@@ -247,6 +248,7 @@ function confetti() {
     if (age < 3400) requestAnimationFrame(frame); else cv.hidden = true;
   })(t0);
 }
+$("doneTxt").textContent = `${nl(ROUTE_KM)} km gevuld · ${eur(ROUTE_KM * 20)} voor Voedselbanken Nederland`;
 renderSpots();
 </script>
 </body>

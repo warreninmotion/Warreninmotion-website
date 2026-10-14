@@ -8,7 +8,7 @@ window.WIM_SITE = {
   mail: "warreninmotion@outlook.com",
   donateUrl: "https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion",
   liveUrl: "",
-  routeKm: 1576,
+  routeKm: 1570, // = Math.round(WIM_ROUTE.km) uit assets/route-data.js
   sprintMax: 50,
   goals: [{ eur: 7500, label: "Doel 1" }, { eur: 15000, label: "Doel 2" }, { eur: 30000, label: "Hoofddoel" }],
 };
