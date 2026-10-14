@@ -33,21 +33,21 @@
 
 <main id="main">
 <style>
-.hero{display:grid;gap:24px;grid-template-columns:minmax(0,1fr);align-items:center;padding-top:8px}
-@media (min-width:860px){.hero{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px}}
+.hero{display:grid;gap:28px;grid-template-columns:minmax(0,1fr);align-items:start;padding-top:8px}
+.hero .choose{margin-top:26px}
+@media (min-width:860px){.hero{grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:40px}}
 .hero h1{font-size:clamp(42px,7.5vw,68px)}
-.hero-img{margin:0;position:relative}
-.hero-img img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 30%;border-radius:12px;background:var(--card)}
-@media (min-width:860px){.hero-img img{aspect-ratio:4/5;object-position:50% 40%}}
-.hero-img .mono{position:absolute;left:16px;bottom:16px;width:72px;height:35px;color:#F2EEE4;filter:drop-shadow(0 1px 6px rgba(0,0,0,.35))}
-.hero-img figcaption{position:absolute;right:14px;bottom:14px;background:rgba(20,32,28,.78);color:#F2EEE4;font-size:13px;padding:5px 11px;border-radius:999px}
+.hero-vid{margin:0;display:grid;gap:8px;justify-items:center}
+.hero-vid video{display:block;width:100%;max-width:340px;aspect-ratio:464/832;object-fit:cover;border-radius:14px;background:#14201C;box-shadow:0 10px 30px rgba(20,32,28,.18)}
+@media (max-width:859px){.hero-vid video{max-width:300px}}
+.hero-vid figcaption{font-size:13px;color:var(--muted)}
 .choose{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
-@media (min-width:720px){.choose{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.choice{display:grid;gap:6px;align-content:start;text-decoration:none;color:var(--fg);background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:22px 22px 20px;transition:border-color .15s,transform .15s}
+@media (min-width:600px){.choose{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.choice{display:grid;gap:6px;align-content:start;text-decoration:none;color:var(--fg);background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:20px 20px 18px;transition:border-color .15s,transform .15s}
 .choice:hover{border-color:var(--groen);transform:translateY(-2px)}
 @media (prefers-reduced-motion:reduce){.choice{transition:none}.choice:hover{transform:none}}
 .choice .who{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.choice .what{font-family:var(--display);font-size:clamp(28px,4.6vw,36px);line-height:1.1}
+.choice .what{font-family:var(--display);font-size:clamp(26px,3.4vw,32px);line-height:1.1}
 .choice p{color:var(--muted);font-size:15px;margin-top:2px}
 .choice .go{margin-top:12px;justify-self:start;background:var(--groen);color:var(--bg);border-radius:999px;padding:9px 20px;font-weight:600;font-size:15px}
 .tale{display:grid;gap:28px;grid-template-columns:minmax(0,1fr);align-items:start}
@@ -72,28 +72,29 @@
       <div class="eyebrow">Lucca → Veenendaal · 15–22 mei 2027</div>
       <h1>Welkom bij Warren in Motion</h1>
       <p class="lead">In mei 2027 fietst Warren van der Ploeg ruim 1.500 km van Lucca in Italië naar huis in Veenendaal. Alles wat hij onderweg ophaalt, gaat naar Voedselbanken Nederland. Rij je mee?</p>
+      <nav class="choose" aria-label="Kies hoe je meedoet">
+        <a class="choice" href="/sponsoren/">
+          <span class="who">Ik ben een bedrijf</span>
+          <span class="what">Ik wil sponsoren</span>
+          <p>Koop kilometers voor €20 per km en zet je bedrijfsnaam op de route. Met je logo op het shirt en de volgbus.</p>
+          <span class="go">Sponsor als bedrijf →</span>
+        </a>
+        <a class="choice" href="/doneren/">
+          <span class="who">Ik ben particulier</span>
+          <span class="what">Ik wil doneren</span>
+          <p>Elk bedrag telt: €5 is al 250 meter. Of fiets op 22 mei de laatste 50 km mee naar de finish.</p>
+          <span class="go">Doneer als particulier →</span>
+        </a>
+      </nav>
     </div>
-    <figure class="hero-img">
-      <img src="/assets/img/warren.jpg" width="896" height="1344" alt="Warren van der Ploeg hangt lachend aan een optrekstang in de sportschool">
-      <svg class="mono" aria-hidden="true"></svg>
-      <figcaption>Warren in training</figcaption>
+    <figure class="hero-vid">
+      <video controls playsinline preload="none" poster="/assets/video/lancering-poster.jpg" width="464" height="832" aria-label="Lanceringsvideo van Warren in Motion">
+        <source src="/assets/video/lancering.mp4" type="video/mp4">
+      </video>
+      <figcaption>De lanceringsvideo · 1:08 · met geluid</figcaption>
     </figure>
   </header>
 
-  <nav class="choose" aria-label="Kies hoe je meedoet">
-    <a class="choice" href="/sponsoren/">
-      <span class="who">Ik ben een bedrijf</span>
-      <span class="what">Ik wil sponsoren</span>
-      <p>Koop kilometers voor €20 per km en zet je bedrijfsnaam op de route. Met je logo op het shirt en de volgbus.</p>
-      <span class="go">Sponsor als bedrijf →</span>
-    </a>
-    <a class="choice" href="/doneren/">
-      <span class="who">Ik ben particulier</span>
-      <span class="what">Ik wil doneren</span>
-      <p>Elk bedrag telt: €5 is al 250 meter. Of fiets op 22 mei de laatste 50 km mee naar de finish.</p>
-      <span class="go">Doneer als particulier →</span>
-    </a>
-  </nav>
 
   <section class="sec" aria-labelledby="h-verhaal">
     <h2 id="h-verhaal">Het verhaal in het kort</h2>
