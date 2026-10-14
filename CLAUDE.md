@@ -1,16 +1,39 @@
 # Warren in Motion: website (warreninmotion.nl)
 
 Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Veenendaal, 15–22 mei 2027,
-1.576 km (GPX) door 7 landen, voor Voedselbanken Nederland. Marketing rekent met 1.500 km en €20 per km
+1.576 km (GPX) in 8 etappes door 7 landen, voor Voedselbanken Nederland. €20 per km
 (hoofddoel €30.000; doel 1 €7.500, doel 2 €15.000).
+
+## 1.500 km is de hook, de site toont echte data (BELANGRIJK)
+- "1.500 km" is het marketinggetal (social media, slogans, volgbus). Op de site mag het in koppen en lopende
+  tekst als "ruim 1.500 km".
+- Overal waar de site data toont, staan de echte cijfers: 1.576 km, km per etappe, de kaart die volloopt,
+  sponsorbedragen, straks de Garmin LiveTrack-link. Nooit schalen naar 1.500.
+- Bedragen van de hoofdsponsor blijven verborgen.
+
+## De tocht
+- Start za 15 mei 2027, Piazza dell'Anfiteatro, Lucca (tijd nog niet bekend).
+- Finish za 22 mei 2027, Veenendaal, verwacht rond 18:00 na de prijsuitreiking van Veenendaal–Veenendaal
+  (pending: op de site altijd "onder voorbehoud").
+- Etappes en GPX-km staan in `assets/route.js` (WP en STAGES). Hoogste punt: Lukmanierpas 1.915 m.
+- Matchingcampagne (hoofdsponsor verdubbelt particuliere donaties) is het doel, in overleg, niet bevestigd:
+  alleen zo noemen.
+- De pitch (Warren_in_Motion_Pitch_6.pptx) is verouderd wat route, data en doelen betreft; de site is leidend.
 
 ## Hosting
 - GitHub: warreninmotion/warreninmotion-website, branch `main`.
 - Netlify publiceert `main` automatisch (geen build-stap; gewone HTML/CSS/JS). Domein warreninmotion.nl staat bij TransIP.
 - Externe scripts alleen van cdnjs (d3 3.5.17, topojson 1.6.20, datamaps 0.5.9 voor de landkaart); fonts via Google Fonts.
 
-## Huidige inhoud
-- `index.html` = pagina "Elke kilometer telt": routekaart die volloopt (bedrijven op volgorde van aanmelding,
+## Pagina's en bestanden
+- `index.html` Home · `route/` De route · `elke-kilometer-telt/` · `eindsprint/` Eindsprint & diner ·
+  `over-warren/` · `contact/`. Elke pagina is een map met `index.html` (nette adressen op Netlify).
+- Kop, menu en voet staan in elke pagina hetzelfde; wijzig ze op alle zes pagina's tegelijk.
+- `assets/site.css` = huisstijl en gedeelde onderdelen; `assets/site.js` = monogram, menu, kopieerknoppen,
+  stand op Home en Eindsprint, en vaste gegevens (`WIM_SITE`: mail, doneerlink, `liveUrl` voor Garmin LiveTrack).
+- `assets/route.js` = routepunten, etappes, kaartprojectie en landkaart (voor De route en Elke kilometer telt).
+- Links altijd absoluut (`/route/`, `/assets/...`); lokaal testen met `python3 -m http.server` in de repo-root.
+- `elke-kilometer-telt/` = routekaart die volloopt (bedrijven op volgorde van aanmelding,
   daarachter "het peloton" = particuliere vrienden van de tocht), rekenhulp voor bedrijven, sponsorplekken op
   het shirt (voor/achter, shirt Warren / shirt meefietsers), volgbus (Mercedes-Benz Citan, zij- en achterkant).
 - De stand staat in `data.js` (`window.WIM_DATA`). Zolang die leeg is, toont de pagina een fictief voorbeeld (DEMO).
@@ -50,7 +73,7 @@ Afleiden van `data.js`:
 - Kleuren: Dennengroen #1E4034, Zand #F2EEE4, Inkt #14201C, Brons #C08A3E (accent, spaarzaam, nooit als vlak of tekstkleur).
 - Type: Playfair Display (koppen), TeX Gyre Heros / Helvetica (tekst).
 - Toon: praktisch, direct, warm, concreet, nuchter. Niet belerend of schreeuwerig.
-- Monogram nooit natekenen: de SVG-paden in `index.html` (MONO) komen uit het vectorbestand.
+- Monogram nooit natekenen: de SVG-paden in `assets/site.js` (`WIM_MONO`) komen uit het vectorbestand.
 - Teksten op de volgbus in het Engels; site in het Nederlands.
 
 ## Werkwijze

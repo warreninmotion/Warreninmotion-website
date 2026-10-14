@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>De route · Warren in Motion</title>
+<meta name="description" content="Acht etappes van Lucca naar Veenendaal, 1.576 km door 7 landen, van 15 tot 22 mei 2027.">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&amp;display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+<a class="skip" href="#main">Naar de inhoud</a>
+<header class="site-head">
+  <div class="site-head__in">
+    <a class="brand" href="/"><svg class="mono" aria-hidden="true"></svg><span>Warren in Motion</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Hoofdmenu">
+      <ul>
+        <li><a href="/route/" aria-current="page">De route</a></li>
+        <li><a href="/elke-kilometer-telt/">Elke kilometer telt</a></li>
+        <li><a href="/eindsprint/">Eindsprint &amp; diner</a></li>
+        <li><a href="/over-warren/">Over Warren</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+      <a class="btn" href="https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion" target="_blank" rel="noopener">Doneer</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<style>
+.rgrid{display:grid;gap:32px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:820px){.rgrid{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:start}.rmap{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}}
+.rmap svg{display:block;width:100%;height:auto;max-height:86vh}
+@media (max-width:819px){.rmap svg{height:56vh;max-height:none}}
+.stages{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--line)}
+.stage{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:4px 12px;padding:14px 4px;border-bottom:1px solid var(--line);cursor:pointer;align-items:baseline}
+.stage:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
+.stage.on{background:var(--card)}
+.stage .nr{grid-row:span 3;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--groen);color:var(--groen);display:grid;place-items:center;font-size:14px;font-weight:600;align-self:start}
+.stage.on .nr{background:var(--groen);color:var(--bg)}
+.stage .d{font-size:13px;color:var(--muted)}
+.stage h3{font-size:21px}
+.stage .km{font-family:var(--display);font-size:22px;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap;grid-row:1 / span 2;grid-column:3;text-align:right}
+.stage .km small{display:block;font-family:var(--body);font-size:12px;color:var(--muted)}
+.stage p{grid-column:2 / span 2;font-size:14px;color:var(--muted)}
+.stage .l{color:var(--fg)}
+.rseg{transition:stroke-width .15s}
+.rseg.on{stroke-width:14}
+@media (prefers-reduced-motion:reduce){.rseg{transition:none}}
+svg text{font-family:var(--body)}
+</style>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">De route</div>
+    <h1>Van Lucca naar Veenendaal</h1>
+    <p class="lead">1.576 km in acht etappes, door zeven landen. Van de Ligurische kust over de Alpen, door de Elzas en de Ardennen naar huis.</p>
+  </header>
+
+  <dl class="rows">
+    <div><dt>Start</dt><dd><b>Zaterdag 15 mei 2027</b> · Piazza dell'Anfiteatro, Lucca</dd></div>
+    <div><dt>Finish</dt><dd><b>Zaterdag 22 mei 2027</b> · Veenendaal, verwacht rond 18:00 (onder voorbehoud)</dd></div>
+    <div><dt>Live volgen</dt><dd data-live></dd></div>
+  </dl>
+
+  <div class="rgrid">
+    <div class="rmap"><svg id="rmap" role="img" aria-label="Kaart van de route van Lucca naar Veenendaal in acht etappes"></svg></div>
+    <section class="sec" aria-labelledby="h-etappes">
+      <h2 id="h-etappes">Acht etappes</h2>
+      <p class="hint muted small">Tik op een etappe om hem op de kaart te zien.</p>
+      <ol class="stages" id="stages"></ol>
+      <p class="muted small">Alle afstanden komen uit de GPS-route. Onderweg kan er nog iets veranderen.</p>
+      <p><a class="more" href="/elke-kilometer-telt/">Zet jouw naam op een stuk van de route →</a></p>
+    </section>
+  </div>
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="site-foot__in">
+    <div>
+      <svg class="mono" aria-hidden="true"></svg>
+      <p><b>Warren in Motion</b><br>Lucca → Veenendaal · 15–22 mei 2027<br>Ten bate van Voedselbanken Nederland</p>
+      <p style="margin-top:10px">Stichting Warren in Motion (in oprichting)</p>
+    </div>
+    <nav aria-label="Pagina's">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/route/">De route</a></li>
+        <li><a href="/elke-kilometer-telt/">Elke kilometer telt</a></li>
+        <li><a href="/eindsprint/">Eindsprint &amp; diner</a></li>
+        <li><a href="/over-warren/">Over Warren</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </nav>
+    <div>
+      <ul>
+        <li><a href="mailto:warreninmotion@outlook.com">warreninmotion@outlook.com</a></li>
+        <li><a href="https://www.instagram.com/warreninmotion/" target="_blank" rel="noopener">Instagram · @warreninmotion</a></li>
+        <li><a href="https://www.tiktok.com/@warreninmotion" target="_blank" rel="noopener">TikTok · @warreninmotion</a></li>
+        <li><a href="https://www.facebook.com/warreninmotion" target="_blank" rel="noopener">Facebook · @warreninmotion</a></li>
+        <li><a href="https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion" target="_blank" rel="noopener">Doneer aan Voedselbanken Nederland</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/assets/site.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.20/topojson.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.9/datamaps.world.hires.min.js"></script>
+<script src="/assets/route.js"></script>
+<script>
+// Routekaart per etappe; gegevens uit /assets/route.js
+(function () {
+  const svg = document.getElementById("rmap"), list = document.getElementById("stages");
+  svg.setAttribute("viewBox", `0 0 ${W.toFixed(0)} ${H.toFixed(0)}`);
+  if (LAND) svg.append(el("path", { d: LAND, fill: "var(--land)", "fill-rule": "evenodd", stroke: "none" }));
+  if (BORDERS) svg.append(el("path", { d: BORDERS, fill: "none", stroke: "var(--border)", "stroke-width": 1.4, "stroke-linejoin": "round" }));
+  const countries = [["ITALIË",44.62,10.0],["ZWITSERLAND",46.22,10.05],["FRANKRIJK",48.2,6.62],["DUITSLAND",49.5,8.95],["LUXEMBURG",49.8,6.95],["BELGIË",50.6,4.75],["NEDERLAND",51.33,4.55]];
+  for (const [n, la, lo] of countries) { const [x, y] = xy(la, lo); svg.append(el("text", { x, y, "text-anchor": "middle", "font-size": 13, "letter-spacing": 3, fill: "var(--muted)", opacity: .7 }, n)); }
+
+  STAGES.forEach((s, i) => svg.append(el("path", { d: path(s.a, s.b), fill: "none", stroke: i % 2 ? "var(--seg2)" : "var(--seg1)", "stroke-width": 8, "stroke-linejoin": "round", "stroke-linecap": "round", class: "rseg", "data-i": i })));
+  // eindsprint: Den Bosch tot de finish
+  svg.append(el("path", { d: path(SPRINT_KM, ROUTE_KM), fill: "none", stroke: "var(--brons)", "stroke-width": 3, "stroke-dasharray": "1 6", "stroke-linecap": "round", transform: "translate(9 0)" }));
+
+  // plaatsen: dag-eindpunten met etappenummer, plus Lukmanier en Den Bosch
+  const side = { "Lucca": "r", "Novi Ligure": "l", "Locarno": "l", "Sargans": "r", "Mulhouse": "r", "Bad Bergzabern": "r", "Arlon": "l", "Lommel": "r", "Veenendaal": "r" };
+  for (const q of pts) {
+    const [x, y] = q.p;
+    if (q.name === "Lukmanier" || q.name === "Den Bosch") {
+      svg.append(el("circle", { cx: x, cy: y, r: 3, fill: "var(--bg)", stroke: "var(--fg)", "stroke-width": 2 }));
+      const db = q.name === "Den Bosch";
+      svg.append(el("text", { x: x + (db ? 12 : -12), y: y + 6, "text-anchor": db ? "start" : "end", "font-size": 16, fill: "var(--fg)", "font-style": "italic" }, db ? "Den Bosch · start eindsprint" : "Lukmanier 1.915 m"));
+      continue;
+    }
+    if (!side[q.name]) continue;
+    const r = side[q.name] === "r";
+    svg.append(el("circle", { cx: x, cy: y, r: 5, fill: "var(--bg)", stroke: "var(--fg)", "stroke-width": 2 }));
+    svg.append(el("text", { x: x + (r ? 12 : -12), y: y + 6, "text-anchor": r ? "start" : "end", "font-size": 18, fill: "var(--fg)" }, q.name));
+  }
+  // etappenummers halverwege elke etappe
+  STAGES.forEach((s, i) => {
+    const f = { 3: .78, 8: .22 }[s.dag] || .5, [x, y] = at(s.a + (s.b - s.a) * f);
+    const g = el("g", { class: "rnr", "data-i": i, style: "cursor:pointer" });
+    g.append(el("circle", { cx: x, cy: y, r: 12, fill: "var(--bg)", stroke: "var(--fg)", "stroke-width": 1.5 }));
+    g.append(el("text", { x, y: y + 5, "text-anchor": "middle", "font-size": 14, "font-weight": 700, fill: "var(--fg)" }, s.dag));
+    svg.append(g);
+  });
+
+  list.innerHTML = STAGES.map((s, i) => `<li class="stage" tabindex="0" data-i="${i}">
+      <span class="nr" aria-hidden="true">${s.dag}</span>
+      <span class="d">Dag ${s.dag} · ${s.datum}</span>
+      <span class="km">${nl(s.km)} km<small>km ${nl(s.a)}–${nl(s.b)}</small></span>
+      <h3>${s.van} → ${s.naar}</h3>
+      <p><span class="l">${s.landen}.</span> ${s.via}</p>
+    </li>`).join("");
+
+  let sel = null;
+  const hl = i => {
+    const k = i == null ? sel : String(i);
+    svg.querySelectorAll(".rseg").forEach(p => p.classList.toggle("on", p.dataset.i === k));
+    list.querySelectorAll(".stage").forEach(r => r.classList.toggle("on", r.dataset.i === k));
+  };
+  const pick = i => { sel = sel === String(i) ? null : String(i); hl(null); };
+  list.querySelectorAll(".stage").forEach(r => {
+    r.addEventListener("mouseenter", () => hl(r.dataset.i)); r.addEventListener("mouseleave", () => hl(null));
+    r.addEventListener("click", () => pick(r.dataset.i));
+    r.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(r.dataset.i); } });
+  });
+  svg.querySelectorAll(".rseg,.rnr").forEach(p => {
+    p.addEventListener("mouseenter", () => hl(p.dataset.i)); p.addEventListener("mouseleave", () => hl(null));
+    p.addEventListener("click", () => { pick(p.dataset.i); list.querySelector(`.stage[data-i="${p.dataset.i}"]`).scrollIntoView({ block: "nearest", behavior: "smooth" }); });
+  });
+})();
+</script>
+</body>
+</html>
