@@ -165,30 +165,33 @@ function hl(i) {
 
 // ── Tenue: sponsorplekken ───────────────────────────────────────────────────
 const MAIL = "warreninmotion@outlook.com";
-const PRICE = { hoofd: 1000, groot: 750, middel: 500, klein: 250 };
-const SIZE = { hoofd: t("Hoofdsponsor", "Main sponsor"), groot: t("Groot", "Large"), middel: t("Middel", "Medium"), klein: t("Klein", "Small") };
-// Prijs naar zichtbaarheid op de fiets: van achteren (peloton, volgbus) en opzij (foto's).
-// De hoofdsponsor heeft borst, bovenrug en beide zijkanten: altijd in beeld.
+const PRICE = { hoofd: 1000, middel: 500, klein: 250 };
+const SIZE = { hoofd: t("Hoofdsponsor", "Main sponsor"), middel: t("Middel", "Medium"), klein: t("Klein", "Small") };
+// Plekken op het echte Owayo-ontwerp; x, y, w, h in procenten van de foto.
+// Geel = hoofdsponsor (borst, bovenrug en beide zijkanten), grijs = vrije logoplekken.
+const VIEWS = { voor: { img: "/assets/img/shirt-voor.webp", w: 1064, h: 1143, alt: t("voorkant", "front") },
+  achter: { img: "/assets/img/shirt-achter.webp", w: 1025, h: 1233, alt: t("achterkant", "back") },
+  links: { img: "/assets/img/shirt-links.webp", w: 670, h: 1197, alt: t("linkerzijkant", "left side") },
+  rechts: { img: "/assets/img/shirt-rechts.webp", w: 687, h: 1181, alt: t("rechterzijkant", "right side") } };
 const KIT = [
-  { id: "hoofd", label: t("Hoofdsponsor", "Main sponsor"), size: "hoofd", note: t("borst, bovenrug en beide zijkanten", "chest, upper back and both sides"), rects: [
-    { side: "voor", x: 140, y: 96, w: 120, h: 58 },
-    { side: "voor", x: 84, y: 178, w: 20, h: 130 }, { side: "voor", x: 296, y: 178, w: 20, h: 130 },
-    { side: "achter", x: 130, y: 90, w: 140, h: 60 },
-    { side: "achter", x: 84, y: 178, w: 20, h: 100 }, { side: "achter", x: 296, y: 178, w: 20, h: 100 } ] },
-  { id: "mouwL", label: t("Linkermouw", "Left sleeve"), size: "middel", rects: [{ side: "voor", cx: 343, cy: 128, w: 52, h: 26, rot: 50 }] },
-  { id: "mouwR", label: t("Rechtermouw", "Right sleeve"), size: "middel", rects: [{ side: "voor", cx: 57, cy: 128, w: 52, h: 26, rot: -50 }] },
-  { id: "zak1", label: t("Achterzak links", "Back pocket left"), size: "klein", rects: [{ side: "achter", x: 112, y: 296, w: 48, h: 26 }] },
-  { id: "zak2", label: t("Achterzak midden", "Back pocket centre"), size: "klein", rects: [{ side: "achter", x: 172, y: 296, w: 56, h: 26 }] },
-  { id: "zak3", label: t("Achterzak rechts", "Back pocket right"), size: "klein", rects: [{ side: "achter", x: 240, y: 296, w: 48, h: 26 }] },
-  { id: "buik", label: t("Buik", "Front, belly"), size: "klein", rects: [{ side: "voor", x: 150, y: 252, w: 100, h: 30 }] },
+  { id: "hoofd", label: t("Hoofdsponsor", "Main sponsor"), size: "hoofd", where: t("borst, bovenrug en beide zijkanten", "chest, upper back and both sides"), spots: [
+    { view: "voor", x: 34.7, y: 31.5, w: 29.5, h: 16.8 }, { view: "achter", x: 36.3, y: 20.6, w: 30.7, h: 15.9 },
+    { view: "links", x: 44.5, y: 57.9, w: 10, h: 18.7 }, { view: "rechts", x: 40.6, y: 56.6, w: 10.3, h: 19.3 } ] },
+  { id: "rug1", label: t("Rug, bovenste balk", "Back, upper bar"), size: "middel", where: t("rug", "back"), spots: [{ view: "achter", x: 36.6, y: 38.4, w: 29.6, h: 7.4 }] },
+  { id: "rug2", label: t("Rug, onderste balk", "Back, lower bar"), size: "middel", where: t("rug", "back"), spots: [{ view: "achter", x: 36.8, y: 47.4, w: 29, h: 7.3 }] },
+  { id: "borst1", label: t("Voorkant, balk 1", "Front, bar 1"), size: "middel", where: t("voorkant", "front"), spots: [{ view: "voor", x: 35.4, y: 50.6, w: 27.8, h: 7.6 }] },
+  { id: "borst2", label: t("Voorkant, balk 2", "Front, bar 2"), size: "middel", where: t("voorkant", "front"), spots: [{ view: "voor", x: 35.5, y: 61.3, w: 27.6, h: 7.6 }] },
+  { id: "borst3", label: t("Voorkant, balk 3", "Front, bar 3"), size: "middel", where: t("voorkant", "front"), spots: [{ view: "voor", x: 36, y: 71.7, w: 27.1, h: 7.6 }] },
+  { id: "zak1", label: t("Achterzak links", "Back pocket left"), size: "klein", where: t("achterkant en linkerzij", "back and left side"), spots: [{ view: "achter", x: 27.3, y: 72.1, w: 14.2, h: 13.4 }, { view: "links", x: 62.7, y: 72.9, w: 9.9, h: 13.2 }] },
+  { id: "zak2", label: t("Achterzak midden", "Back pocket centre"), size: "klein", where: t("achterkant", "back"), spots: [{ view: "achter", x: 43.4, y: 72.1, w: 16.4, h: 13.3 }] },
+  { id: "zak3", label: t("Achterzak rechts", "Back pocket right"), size: "klein", where: t("achterkant en rechterzij", "back and right side"), spots: [{ view: "achter", x: 62.2, y: 72.2, w: 14.3, h: 13.5 }, { view: "rechts", x: 23.5, y: 71, w: 9.4, h: 13 }] },
+  { id: "mouwL1", label: t("Linkermouw boven", "Left sleeve, top"), size: "klein", where: t("linkermouw", "left sleeve"), spots: [{ view: "links", x: 43.6, y: 26.1, w: 14.6, h: 6.8 }] },
+  { id: "mouwL2", label: t("Linkermouw onder", "Left sleeve, bottom"), size: "klein", where: t("linkermouw", "left sleeve"), spots: [{ view: "links", x: 45, y: 34.5, w: 13.4, h: 6.3 }] },
+  { id: "mouwR1", label: t("Rechtermouw boven", "Right sleeve, top"), size: "klein", where: t("rechtermouw", "right sleeve"), spots: [{ view: "rechts", x: 36.5, y: 23.2, w: 15.2, h: 6.4 }] },
+  { id: "mouwR2", label: t("Rechtermouw onder", "Right sleeve, bottom"), size: "klein", where: t("rechtermouw", "right sleeve"), spots: [{ view: "rechts", x: 36.5, y: 31.4, w: 14.4, h: 6 }] },
 ];
-const sidesOf = k => [...new Set(k.rects.map(q => q.side))];
-const KITCOL = {
-  warren: { jersey: "#1E4034", trim: "#F2EEE4", shorts: "#14201C", line: "#2F5A4A", ink: "#F2EEE4", free: "rgba(242,238,228,.07)", taken: "#F2EEE4" },
-  rijders: { jersey: "#F2EEE4", trim: "#1E4034", shorts: "#1E4034", line: "#C9C1AE", ink: "#1E4034", free: "rgba(30,64,52,.06)", taken: "#FFFFFF" },
-};
-let C = { ...KITCOL.warren, accent: "#C08A3E" }, kitCol = "warren";
-// Monogram Warren in Motion (uit het vectorbestand van het brandbook)
+const viewsOf = k => k.spots.map(q => q.view);
+let C = { ink: "#F2EEE4" }; // kleur van het monogram op de volgbus
 const MONO = window.WIM_MONO;
 function mono(svg, cx, cy, w) {
   const h = w * 141.8 / 294.8, m = el("svg", { x: cx - w / 2, y: cy - h / 2, width: w, height: h, viewBox: "273.3 154.1 294.8 141.8", style: `color:${C.ink}`, overflow: "visible" });
@@ -221,70 +224,59 @@ function logo(g, name, cx, cy, w, h) {
   }
 }
 const priceTxt = s => s.size === "hoofd" ? t("op aanvraag", "on request") : eur(PRICE[s.size]);
-const SIDE = { voor: t("voor", "front"), achter: t("achter", "back") };
-let kitSide = "voor", kitSel = null;
+let kitView = "voor", kitSel = null;
 const kitState = id => (CUR.tenue || {})[id] || { status: "vrij" };
+const SVGNS = "http://www.w3.org/2000/svg";
+const stTxt = st => st.status === "vrij" ? t("vrij", "available") : st.status === "optie" ? t("in optie", "on hold") : t("bezet", "taken");
 
 function drawKit() {
-  const svg = document.getElementById("kitSvg");
-  svg.innerHTML = "";
-  const body = "M140 42 Q200 74 260 42 L332 70 L392 150 L346 186 L320 160 L318 332 Q200 346 82 332 L80 160 L54 186 L8 150 L68 70 Z";
-  svg.append(el("ellipse", { cx: 200, cy: 492, rx: 150, ry: 8, fill: "var(--line)" }));
-  if (kitCol === "warren") { // alleen Warren rijdt in een eigen broek; meefietsers krijgen alleen het shirt
-    svg.append(el("path", { d: "M92 338 L308 338 L318 470 L222 480 L200 402 L178 480 L82 470 Z", fill: C.shorts, stroke: C.jersey, "stroke-width": 1.5 }));
-    svg.append(el("path", { d: "M82 470 L178 480 M222 480 L318 470", stroke: C.trim, "stroke-width": 5, fill: "none", opacity: .85 }));
-  }
-  svg.append(el("path", { d: body, fill: C.jersey, stroke: C.line, "stroke-width": 1.5 }));
-  svg.append(el("path", { d: "M8 150 L54 186 M392 150 L346 186", stroke: C.trim, "stroke-width": 6, fill: "none" }));
-  if (kitSide === "voor") {
-    svg.append(el("path", { d: "M140 42 Q200 74 260 42 L252 35 Q200 62 148 35 Z", fill: C.trim }));
-    mono(svg, 200, 200, 74);
-  } else {
-    svg.append(el("path", { d: "M146 40 Q200 50 254 40 L260 47 Q200 60 140 47 Z", fill: C.trim }));
-    svg.append(el("path", { d: "M106 288 L294 288 M166 288 L166 334 M234 288 L234 334", stroke: C.trim, "stroke-width": 1.5, fill: "none", opacity: .5 }));
-    mono(svg, 200, 198, 80);
-    svg.append(el("text", { x: 200, y: 246, "text-anchor": "middle", "font-size": 12, "letter-spacing": 4, fill: C.ink, "font-family": "var(--display)" }, "WARREN IN MOTION"));
-  }
-  for (const s of KIT) for (const q of s.rects.filter(q => q.side === kitSide)) {
-    const st = kitState(s.id), on = kitSel === s.id;
-    const cx = q.cx ?? q.x + q.w / 2, cy = q.cy ?? q.y + q.h / 2, tall = q.h > q.w * 2;
-    const onShorts = cy > 340, ink = onShorts ? "#F2EEE4" : C.ink, freeFill = onShorts ? "rgba(242,238,228,.07)" : C.free;
-    const g = el("g", { class: "spot", tabindex: 0, role: "button", "aria-label": `${s.label}, ${priceTxt(s)}, ${st.status === "vrij" ? t("vrij", "available") : st.status === "optie" ? t("in optie", "on hold") : t("bezet", "taken")}`, transform: `rotate(${q.rot || 0} ${cx} ${cy})` });
-    const r = el("rect", { x: cx - q.w / 2, y: cy - q.h / 2, width: q.w, height: q.h, rx: 4,
-      fill: st.status === "bezet" ? C.taken : st.status === "optie" ? "rgba(192,138,62,.22)" : freeFill,
-      stroke: on ? C.accent : st.status === "optie" ? C.accent : st.status === "bezet" && kitCol === "rijders" ? C.line : ink, "stroke-width": on ? 3.5 : st.status === "vrij" ? 1.5 : 2,
-      "stroke-dasharray": st.status === "vrij" && !on ? "5 4" : "none" });
-    g.append(r);
+  const v = VIEWS[kitView], shot = $("kitShot"), img = $("kitImg");
+  // alle kanten even hoog, zodat de pagina niet verspringt bij het draaien
+  const H = Math.min(500, $("kitStage").clientWidth * VIEWS.voor.h / VIEWS.voor.w);
+  shot.style.height = `${Math.round(H)}px`;
+  shot.style.width = `${Math.round(H * v.w / v.h)}px`;
+  if (!img.src.endsWith(v.img)) img.src = v.img;
+  img.width = v.w; img.height = v.h;
+  img.alt = t(`Shirt Warren in Motion, ${v.alt}, met de sponsorplekken`, `Warren in Motion jersey, ${v.alt}, with the sponsor spots`);
+  shot.querySelectorAll(".spot").forEach(n => n.remove());
+  for (const s of KIT) for (const q of s.spots.filter(q => q.view === kitView)) {
+    const st = kitState(s.id), pw = q.w * v.w / 100, ph = q.h * v.h / 100, tall = ph > pw * 1.4;
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = `spot ${st.status}${tall ? " tall" : ""}${kitSel === s.id ? " on" : ""}`;
+    b.style.cssText = `left:${q.x}%;top:${q.y}%;width:${q.w}%;height:${q.h}%`;
+    b.setAttribute("aria-label", `${s.label}, ${priceTxt(s)}, ${stTxt(st)}`);
     if (st.status === "bezet" && st.sponsor) {
-      if (tall) { const lg = el("g", { transform: `rotate(-90 ${cx} ${cy})` }); logo(lg, st.sponsor, cx, cy, q.h * .6, q.w); g.append(lg); }
-      else logo(g, st.sponsor, cx, cy, q.w, q.h);
+      const svg = document.createElementNS(SVGNS, "svg");
+      svg.setAttribute("viewBox", `0 0 ${pw} ${ph}`);
+      const g = el("g", tall ? { transform: `rotate(-90 ${pw / 2} ${ph / 2})` } : {});
+      if (tall) logo(g, st.sponsor, pw / 2, ph / 2, ph * .8, pw * .9); else logo(g, st.sponsor, pw / 2, ph / 2, pw * .9, ph * .9);
+      svg.append(g); b.append(svg);
     } else {
-      const txt = st.status === "bezet" ? "Bezet" : st.status === "optie" ? "in optie" : s.size === "hoofd" ? "Hoofdsponsor" : eur(PRICE[s.size]);
-      const fs = tall ? Math.min(q.w * .5, 11) : Math.min(q.h * .42, 14);
-      g.append(el("text", { x: cx, y: cy + fs * .36, "text-anchor": "middle", "font-size": fs, "font-weight": 600, fill: st.status === "bezet" ? "#1E4034" : ink, transform: tall ? `rotate(-90 ${cx} ${cy})` : "" }, txt));
+      const sp = document.createElement("span");
+      sp.textContent = st.status === "bezet" ? t("Bezet", "Taken") : st.status === "optie" ? t("optie", "on hold") : s.size === "hoofd" ? (tall ? t("Hoofd", "Main") : t("Hoofdsponsor", "Main sponsor")) : eur(PRICE[s.size]);
+      b.append(sp);
     }
-    const pick = () => { kitSel = kitSel === s.id ? null : s.id; renderKit(); };
-    g.addEventListener("click", pick);
-    g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); } });
-    svg.append(g);
+    b.addEventListener("click", () => { kitSel = kitSel === s.id ? null : s.id; renderKit(); });
+    shot.append(b);
   }
 }
 
 function renderKit() {
-  document.getElementById("kitVoor").setAttribute("aria-selected", kitSide === "voor");
-  document.getElementById("kitAchter").setAttribute("aria-selected", kitSide === "achter");
+  document.querySelectorAll(".kit-views button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.view === kitView)));
   drawKit();
   const chip = st => `<span class="chip ${st.status}">${st.status === "vrij" ? t("Vrij", "Available") : st.status === "optie" ? t("In optie", "On hold") : t("Bezet", "Taken")}</span>`;
-  const panel = document.getElementById("kitPanel");
+  const panel = $("kitPanel");
   const s = KIT.find(k => k.id === kitSel);
-  const free = KIT.filter(k => kitState(k.id).status === "vrij").length;
+  const free = KIT.filter(k => k.size !== "hoofd" && kitState(k.id).status === "vrij").length;
+  const nFree = KIT.filter(k => k.size !== "hoofd").length;
   if (!s) {
-    panel.innerHTML = t(`<h3>Nog ${free} van ${KIT.length} plekken vrij</h3><p>Hoe beter een plek te zien is op de fiets, van achteren en opzij, hoe hoger de prijs. De hoofdsponsor staat op de borst, de bovenrug en beide zijkanten. Een plek op het shirt kies je vanaf 50 kilometers. De opbrengst betaalt de shirts en de beplakking van de volgbus.</p>`, `<h3>${free} of ${KIT.length} places available</h3><p>The more visible a spot is on the bike, from behind and from the side, the higher the price. The main sponsor sits on the chest, upper back and both sides. You can pick a jersey spot from 50 kilometres. The proceeds pay for the jerseys and the follow van graphics.</p>`);
+    panel.innerHTML = t(`<h3>Nog ${free} van ${nFree} logoplekken vrij</h3><p>Draai het shirt met de knoppen: voor, achter en beide zijkanten. Hoe beter een plek te zien is op de fiets, hoe hoger de prijs. De hoofdsponsor staat op de borst, de bovenrug en beide zijkanten. Een plek op het shirt kies je vanaf 50 kilometers. De opbrengst betaalt de shirts en de beplakking van de volgbus.</p>`,
+      `<h3>${free} of ${nFree} logo spots available</h3><p>Turn the jersey with the buttons: front, back and both sides. The more visible a spot is on the bike, the higher the price. The main sponsor sits on the chest, upper back and both sides. You can pick a jersey spot from 50 kilometres. The proceeds pay for the jerseys and the follow van graphics.</p>`);
   } else {
     const st = kitState(s.id);
     const subj = encodeURIComponent(t(`Shirtplek: ${s.label}`, `Jersey spot: ${s.label}`));
-    const sideTxt = sidesOf(s).length > 1 ? t("zijkant, zichtbaar voor en achter", "side, visible front and back") : sidesOf(s)[0] === "voor" ? t("voorkant", "front") : t("achterkant", "back");
-    const what = s.size === "hoofd" ? t(`Op ${s.note} · prijs op aanvraag`, `On the ${s.note} · price on request`) : `${SIZE[s.size]} · ${eur(PRICE[s.size])} · ${sideTxt}`;
+    const what = s.size === "hoofd" ? t(`Op de ${s.where} · prijs op aanvraag`, `On the ${s.where} · price on request`) : t(`${eur(PRICE[s.size])} · zichtbaar op de ${s.where}`, `${eur(PRICE[s.size])} · visible on the ${s.where}`);
     let body = "";
     if (st.status === "vrij") body = `<p>${what}. ${t("Te kiezen vanaf 50 kilometers. Mail Warren en de plek is van jou.", "Available from 50 kilometres. Email Warren and the spot is yours.")}</p><div class="contact"><a href="mailto:${MAIL}?subject=${subj}">${t("Reserveer deze plek", "Reserve this spot")}</a><span class="addr">${MAIL}</span><button type="button" class="copy">${t("Kopieer", "Copy")}</button></div>`;
     else if (st.status === "optie") body = `<p>${what}. ${t("Iemand heeft een optie op deze plek. Mail Warren en hoor als eerste of hij vrijkomt.", "Someone has this spot on hold. Email Warren to be the first to know if it frees up.")}</p><div class="contact"><a href="mailto:${MAIL}?subject=${subj}">${t("Mail Warren", "Email Warren")}</a><span class="addr">${MAIL}</span><button type="button" class="copy">${t("Kopieer", "Copy")}</button></div>`;
@@ -293,23 +285,29 @@ function renderKit() {
     const b = panel.querySelector("p b"); if (b) b.textContent = st.sponsor || "";
     bindCopy(panel);
   }
-  const list = document.getElementById("kitList");
+  const list = $("kitList");
   list.innerHTML = "";
-  [...KIT].sort((a, b) => PRICE[b.size] - PRICE[a.size]).forEach(k => {
+  KIT.forEach(k => {
     const st = kitState(k.id);
-    list.insertAdjacentHTML("beforeend", `<div class="kit-row${kitSel === k.id ? " on" : ""}" tabindex="0" data-id="${k.id}"><span>${k.label} <span style="color:var(--muted)">· ${sidesOf(k).map(x => SIDE[x]).join(" + ")}</span>${chip(st)}</span><span class="p">${priceTxt(k)}</span></div>`);
+    list.insertAdjacentHTML("beforeend", `<div class="kit-row${kitSel === k.id ? " on" : ""}" tabindex="0" data-id="${k.id}"><span>${k.label} <span style="color:var(--muted)">· ${k.where}</span>${chip(st)}</span><span class="p">${priceTxt(k)}</span></div>`);
   });
   list.querySelectorAll(".kit-row").forEach(r => {
-    const go = () => { const k = KIT.find(x => x.id === r.dataset.id); kitSel = k.id; if (!sidesOf(k).includes(kitSide)) flipTo(sidesOf(k)[0]); else renderKit(); document.getElementById("kitPanel").scrollIntoView({ block: "nearest", behavior: "smooth" }); };
+    const go = () => { const k = KIT.find(x => x.id === r.dataset.id); kitSel = k.id; if (!viewsOf(k).includes(kitView)) flipTo(viewsOf(k)[0]); else renderKit(); $("kitStage").scrollIntoView({ block: "nearest", behavior: "smooth" }); };
     r.addEventListener("click", go);
     r.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
   });
 }
-function flipTo(side) {
-  if (side === kitSide) return;
-  const svg = document.getElementById("kitSvg");
-  svg.classList.add("flip");
-  setTimeout(() => { kitSide = side; renderKit(); svg.classList.remove("flip"); }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 250);
+function flipTo(view) {
+  if (view === kitView) return;
+  const stage = $("kitStage");
+  stage.classList.add("flip");
+  setTimeout(() => { kitView = view; renderKit(); stage.classList.remove("flip"); }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 200);
+}
+if ($("kitStage")) {
+  // alvast laden, zodat draaien niet hapert
+  Object.values(VIEWS).forEach(v => { const i = new Image(); i.src = v.img; });
+  let kitW = 0;
+  addEventListener("resize", () => { const w = $("kitStage").clientWidth; if (w !== kitW) { kitW = w; drawKit(); } });
 }
 // ── Volgbus ─────────────────────────────────────────────────────────────────
 // Foto's van de Mercedes-Benz Citan (achtergrond verwijderd, assets/img/bus-zij.webp en bus-achter.webp),
@@ -420,19 +418,10 @@ function renderCalc() {
 on("calcKm", "input", e => { calc.km = +e.target.value; renderCalc(); });
 document.querySelectorAll(".seg button[data-seats]").forEach(b => b.addEventListener("click", () => { calc.seats = +b.dataset.seats; renderCalc(); }));
 on("calcKit", "change", e => { calc.kit = e.target.value; renderCalc(); });
-function setCol(c) {
-  kitCol = c; C = { ...KITCOL[c], accent: "#C08A3E" };
-  document.getElementById("colWarren").setAttribute("aria-selected", c === "warren");
-  document.getElementById("colRijders").setAttribute("aria-selected", c === "rijders");
-  renderKit();
-}
 on("busZij", "click", () => { busSide = "zij"; drawBus(); });
 on("busAchter", "click", () => { busSide = "achter"; drawBus(); });
-on("colWarren", "click", () => setCol("warren"));
-on("colRijders", "click", () => setCol("rijders"));
-on("kitVoor", "click", () => flipTo("voor"));
-on("kitAchter", "click", () => flipTo("achter"));
-if ($("kitSvg")) renderKit();
+document.querySelectorAll(".kit-views button").forEach(b => b.addEventListener("click", () => flipTo(b.dataset.view)));
+if ($("kitStage")) renderKit();
 if ($("calcKm")) renderCalc();
 if ($("busSvg")) drawBus();
 render();

@@ -4,24 +4,30 @@ const FULL = {
   pelotonEuro: (ROUTE_KM - 1200) * 20, eindsprint: 50, diner: 100,
   tenue: {
     hoofd: { status: "bezet", sponsor: "Bouwbedrijf Hendriks" },
-    mouwL: { status: "bezet", sponsor: "Accountantskantoor De Vries" },
-    mouwR: { status: "bezet", sponsor: "Transport Van Dijk" },
+    borst1: { status: "bezet", sponsor: "Bakkerij De Korenschoof" },
+    borst2: { status: "bezet", sponsor: "Restaurant De Gouden Lepel" },
+    borst3: { status: "bezet", sponsor: "Zonnepanelen Oost" },
+    rug1: { status: "bezet", sponsor: "Accountantskantoor De Vries" },
+    rug2: { status: "bezet", sponsor: "Advocatenkantoor Smit" },
     zak1: { status: "bezet", sponsor: "Sportschool Kracht" },
     zak2: { status: "bezet", sponsor: "Installatietechniek Bosman" },
     zak3: { status: "bezet", sponsor: "IT-bureau Bitwerk" },
-    buik: { status: "bezet", sponsor: "Makelaardij Het Erf" },
+    mouwL1: { status: "bezet", sponsor: "Transport Van Dijk" },
+    mouwL2: { status: "bezet", sponsor: "Makelaardij Het Erf" },
+    mouwR1: { status: "bezet", sponsor: "Garage Van Ommeren" },
+    mouwR2: { status: "bezet", sponsor: "Hoveniersbedrijf Groen & Zo" },
   },
   sponsors: [
-    ["Bakkerij De Korenschoof", 60], ["Fietsenmakerij Van Rijn", 25], ["Bouwbedrijf Hendriks", 100, "Hoofdsponsor"],
+    ["Bakkerij De Korenschoof", 60], ["Fietsenmakerij Van Rijn", 10], ["Bouwbedrijf Hendriks", 100, "Hoofdsponsor"],
     ["Studio Lijn & Vlak", 20], ["Kapsalon Knipwerk", 15], ["", 75], ["Installatietechniek Bosman", 50],
     ["Bloemenhuis De Tuinkamer", 10], ["Accountantskantoor De Vries", 50], ["Koffiebar Het Hoekje", 20],
-    ["Garage Van Ommeren", 40], ["Fysiopraktijk Soepel", 30], ["Drukkerij Puntgaaf", 25], ["Transport Van Dijk", 100],
-    ["Makelaardij Het Erf", 75], ["Hoveniersbedrijf Groen & Zo", 35], ["", 20], ["Schildersbedrijf Kwast", 45],
+    ["Garage Van Ommeren", 50], ["Fysiopraktijk Soepel", 30], ["Drukkerij Puntgaaf", 15], ["Transport Van Dijk", 100],
+    ["Makelaardij Het Erf", 75], ["Hoveniersbedrijf Groen & Zo", 50], ["", 20], ["Schildersbedrijf Kwast", 45],
     ["IT-bureau Bitwerk", 80], ["Restaurant De Gouden Lepel", 50], ["Advocatenkantoor Smit", 60],
     ["Sportschool Kracht", 100], ["Zonnepanelen Oost", 70], ["Tandartspraktijk Wit", 45],
   ].map(([name, km, pakket]) => ({ name, km, pakket: pakket || `Vrije kilometers · ${eur(km * 20)}` })),
 };
-const KIT_IDS = ["hoofd", "mouwL", "mouwR", "zak1", "zak2", "zak3", "buik"];
+const KIT_IDS = KIT.map(k => k.id); // alle shirtplekken, uit assets/actie.js
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function renderSpots() {
@@ -55,7 +61,7 @@ function play() {
   FULL.sponsors.forEach((_, i) => steps.push([450, s => { s.sponsors = FULL.sponsors.slice(0, i + 1); s.diner = i + 1; }]));
   for (let f = 1; f <= 10; f++) steps.push([140, s => { s.pelotonEuro = Math.round(FULL.pelotonEuro * f / 10 / 20) * 20; }]);
   for (let r = 5; r <= 50; r += 5) steps.push([90, s => { s.eindsprint = r; s.diner = FULL.sponsors.length + r; }]);
-  KIT_IDS.forEach(id => steps.push([160, s => { s.tenue = { ...s.tenue, [id]: FULL.tenue[id] }; }]));
+  KIT_IDS.forEach(id => steps.push([110, s => { s.tenue = { ...s.tenue, [id]: FULL.tenue[id] }; }]));
   CUR = { pelotonEuro: 0, eindsprint: 0, diner: 0, tenue: {}, sponsors: [] };
   show();
   let i = 0;

@@ -70,22 +70,20 @@
     <section id="tenue" class="sec" style="min-width:0">
       <div class="eyebrow">Vanaf 50 km</div>
       <h2>Je logo op het shirt</h2>
-      <p class="hint">Je logo rijdt mee op het shirt van Warren, op de shirts van alle meefietsers in de eindsprint én op de volgbus. Tik op een plek voor de prijs en om hem te reserveren. Wie het eerst mailt, heeft de plek.</p>
+      <p class="hint">Dit is het echte shirt. Je logo rijdt mee op het shirt van Warren, op de shirts van alle meefietsers in de eindsprint én op de volgbus. De gele vlakken zijn voor de hoofdsponsor, de grijze zijn vrij. Tik op een plek voor de prijs en om hem te reserveren. Wie het eerst mailt, heeft de plek.</p>
       <div class="kit">
         <div class="kit-bar">
           <a class="back" href="#stap-totaal">← Terug</a>
-          <div class="kit-toggle" role="tablist" aria-label="Kant van het shirt">
-            <button type="button" role="tab" id="kitVoor" aria-selected="true">Voorkant</button>
-            <button type="button" role="tab" id="kitAchter" aria-selected="false">Achterkant</button>
+          <div class="kit-toggle kit-views" role="tablist" aria-label="Kant van het shirt">
+            <button type="button" role="tab" data-view="voor" aria-selected="true">Voor</button>
+            <button type="button" role="tab" data-view="achter" aria-selected="false">Achter</button>
+            <button type="button" role="tab" data-view="links" aria-selected="false">Links</button>
+            <button type="button" role="tab" data-view="rechts" aria-selected="false">Rechts</button>
           </div>
         </div>
-        <div class="kit-toggle kit-col" role="tablist" aria-label="Wiens shirt">
-          <button type="button" role="tab" id="colWarren" aria-selected="true">Shirt Warren</button>
-          <button type="button" role="tab" id="colRijders" aria-selected="false">Shirt meefietsers</button>
-        </div>
-        <div class="kit-stage"><svg id="kitSvg" viewBox="0 0 400 500" role="img" aria-label="Shirt met sponsorplekken"></svg></div>
+        <div class="kit-stage" id="kitStage"><div class="shot" id="kitShot"><img id="kitImg" src="/assets/img/shirt-voor.webp" alt="Shirt Warren in Motion, voorkant, met de sponsorplekken" width="1064" height="1143"></div></div>
         <div class="kit-panel" id="kitPanel"></div>
-        <div class="kit-legend"><span><i class="lg vrij"></i>Vrij</span><span><i class="lg optie"></i>In optie</span><span><i class="lg bezet"></i>Bezet</span></div>
+        <div class="kit-legend"><span><i class="lg hoofd"></i>Hoofdsponsor</span><span><i class="lg vrij"></i>Vrij</span><span><i class="lg optie"></i>In optie</span><span><i class="lg bezet"></i>Bezet</span></div>
         <div class="kit-list" id="kitList"></div>
       </div>
     </section>
