@@ -41,7 +41,8 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
 - `assets/site.css` = huisstijl en gedeelde onderdelen; `assets/site.js` = monogram, menu, kopieerknoppen,
   stand op Home, peloton en eindsprint op Doneren, en vaste gegevens (`WIM_SITE`: mail, doneerlink, `liveUrl`
   voor Garmin LiveTrack, doelen).
-- De route: kaart links blijft staan en zoomt in op de gekozen etappe; rechts een scrollvak met de etappes. Een etappe
+- De route: links een kleinere kaart die zoomt op de gekozen etappe, met daaronder de beklimmingen; een klim aanklikken
+  toont op de plek van de kaart het klimprofiel (per 100 m gekleurd, % per km). Rechts een scrollvak met de etappes;
   openklappen toont het hoogteprofiel gekleurd naar helling (<3, 3–6, 6–9, 9–12, >12%) en de beklimmingen
   (berekend uit de GPX: >= 1 km, gem. >= 3%, >= 80 m; categorie volgens de Strava-formule). Link per etappe: `/route/#dag-3`.
 - `assets/route-data.js` + `assets/route.js` = GPS-spoor, etappes, hoogteprofielen, kaartprojectie en landkaart
@@ -91,6 +92,10 @@ Afleiden van `data.js`:
 - Toon: praktisch, direct, warm, concreet, nuchter. Niet belerend of schreeuwerig.
 - Monogram nooit natekenen: de SVG-paden in `assets/site.js` (`WIM_MONO`) komen uit het vectorbestand.
 - Teksten op de volgbus in het Engels; site in het Nederlands.
+
+## Home
+- De lanceringsvideo (`assets/video/lancering.mp4`, 7,6 MB) speelt vanzelf zonder geluid zodra hij in beeld is, in een lus;
+  geluid alleen via de knop "Geluid aan". Geen autoplay bij "minder beweging".
 
 ## Werkwijze
 - Wijzigingen klein houden en na elke wijziging pushen naar `main` (Netlify zet het live).

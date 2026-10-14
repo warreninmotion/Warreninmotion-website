@@ -41,6 +41,11 @@
 .hero-vid video{display:block;width:100%;max-width:340px;aspect-ratio:464/832;object-fit:cover;border-radius:14px;background:#14201C;box-shadow:0 10px 30px rgba(20,32,28,.18)}
 @media (max-width:859px){.hero-vid video{max-width:300px}}
 .hero-vid figcaption{font-size:13px;color:var(--muted)}
+.vbox{position:relative;width:100%;max-width:340px}
+@media (max-width:859px){.vbox{max-width:300px}}
+.vbox video{max-width:none!important}
+.snd{position:absolute;right:10px;top:10px;display:flex;align-items:center;gap:6px;font:inherit;font-size:13px;font-weight:600;border:0;border-radius:999px;padding:7px 12px;background:rgba(20,32,28,.78);color:#F2EEE4;cursor:pointer}
+.snd svg{width:16px;height:16px}
 .choose{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
 @media (min-width:600px){.choose{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .choice{display:grid;gap:6px;align-content:start;text-decoration:none;color:var(--fg);background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:20px 20px 18px;transition:border-color .15s,transform .15s}
@@ -88,10 +93,13 @@
       </nav>
     </div>
     <figure class="hero-vid">
-      <video controls playsinline preload="none" poster="/assets/video/lancering-poster.jpg" width="464" height="832" aria-label="Lanceringsvideo van Warren in Motion">
+      <div class="vbox">
+      <video id="lv" controls muted loop playsinline preload="metadata" poster="/assets/video/lancering-poster.jpg" width="464" height="832" aria-label="Lanceringsvideo van Warren in Motion">
         <source src="/assets/video/lancering.mp4" type="video/mp4">
       </video>
-      <figcaption>De lanceringsvideo · 1:08 · met geluid</figcaption>
+      <button type="button" class="snd" id="snd" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/></svg><span>Geluid aan</span></button>
+      </div>
+      <figcaption>De lanceringsvideo · 1:08</figcaption>
     </figure>
   </header>
 
@@ -165,6 +173,20 @@
 
 <script src="/data.js"></script>
 <script src="/assets/site.js"></script>
+<script>
+// Lanceringsvideo: speelt vanzelf zonder geluid zodra hij in beeld is; geluid alleen als de bezoeker het aanzet.
+(function () {
+  const v = document.getElementById("lv"), b = document.getElementById("snd");
+  const ICON_OFF = '<path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/>', ICON_ON = '<path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/>';
+  const sync = () => { b.setAttribute("aria-pressed", String(!v.muted)); b.querySelector("span").textContent = v.muted ? "Geluid aan" : "Geluid uit"; b.querySelector("svg").innerHTML = v.muted ? ICON_OFF : ICON_ON; };
+  b.addEventListener("click", () => { v.muted = !v.muted; if (!v.muted && v.paused) v.play(); sync(); });
+  v.addEventListener("volumechange", sync);
+  v.muted = true;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return; // geen autoplay bij minder beweging
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) v.play().catch(() => {}); else if (v.muted) v.pause(); }), { threshold: .35 });
+  io.observe(v);
+})();
+</script>
 <script src="/assets/route-data.js"></script>
 <script src="/assets/route.js"></script>
 <script>
