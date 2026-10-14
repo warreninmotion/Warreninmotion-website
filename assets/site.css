@@ -23,7 +23,7 @@ img{max-width:100%;height:auto}
 a{color:var(--groen)}
 a:focus-visible,button:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
 main{display:block;padding-inline:16px;padding-block:28px 64px}
-.wrap{max-width:1080px;margin:0 auto;display:grid;gap:28px}
+.wrap{max-width:1080px;margin:0 auto;display:grid;gap:28px;grid-template-columns:minmax(0,1fr)}
 .narrow{max-width:720px}
 .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 h1{font-family:var(--display);font-weight:400;font-size:clamp(40px,8vw,64px);line-height:1.02;margin:6px 0 0;text-wrap:balance}
@@ -33,7 +33,7 @@ h3{font-family:var(--display);font-weight:400;font-size:22px;line-height:1.2;mar
 p{margin:0}
 .muted{color:var(--muted)}
 .small{font-size:14px}
-.sec{display:grid;gap:14px}
+.sec{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
 .prose{display:grid;gap:14px;max-width:62ch}
 
 /* Overslaan naar inhoud */

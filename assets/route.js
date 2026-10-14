@@ -21,7 +21,7 @@ const xy = (lat, lon) => [PADL + (lon - LON0) * CX * K, PADT + (LAT1 - lat) * K]
 // Alle punten van het spoor op volgorde, met km vanaf Lucca; plaatsnamen op de etappegrenzen
 const pts = [];
 R.stages.forEach((s, i) => {
-  Object.assign(STAGES[i], { a: s.track[0][2], b: s.track[s.track.length - 1][2], km: s.km, up: s.up, down: s.down, max: s.max, min: s.min, prof: s.prof });
+  Object.assign(STAGES[i], { a: s.track[0][2], b: s.track[s.track.length - 1][2], km: s.km, up: s.up, down: s.down, max: s.max, min: s.min, prof: s.prof, climbs: s.climbs || [] });
   s.track.forEach(([la, lo, km], j) => pts.push({ name: j === 0 ? STAGES[i].van : "", p: xy(la, lo), km }));
 });
 pts[pts.length - 1].name = "Veenendaal";

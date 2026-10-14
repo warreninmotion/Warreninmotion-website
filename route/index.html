@@ -56,13 +56,30 @@ svg text{font-family:var(--body)}
 .stage .ele{grid-column:2 / span 2;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 .stage .ele b{color:var(--fg);font-weight:600}
 .stage .spark{grid-column:2 / span 2;display:block;width:100%;height:46px;margin-top:4px}
+.rpage{--g1:#CFD8CC;--g2:#9CC2AA;--g3:#4A7560;--g4:#1E4034;--g5:#14201C}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rpage{--g1:#3A4C44;--g2:#5E8C73;--g3:#9CC2AA;--g4:#CFE3D5;--g5:#F2EEE4}}
+:root[data-theme="dark"] .rpage{--g1:#3A4C44;--g2:#5E8C73;--g3:#9CC2AA;--g4:#CFE3D5;--g5:#F2EEE4}
+.climbs{grid-column:2 / span 2;margin-top:6px}
+.climbs summary{cursor:pointer;font-size:14px;font-weight:600;color:var(--groen);padding:4px 0;list-style-position:inside}
+.climbs summary:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
+.cl-list{display:grid;gap:10px;margin-top:8px}
+.cl{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 12px 8px;display:grid;gap:8px}
+.cl-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:14px}
+.cl-h b{font-family:var(--display);font-weight:400;font-size:18px}
+.cat{font-size:12px;font-weight:700;letter-spacing:.04em;border:1.5px solid var(--fg);border-radius:999px;padding:1px 9px;white-space:nowrap}
+.cl-s{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;font-size:12px;color:var(--muted)}
+.cl-s b{display:block;font-size:16px;color:var(--fg);font-weight:600;font-variant-numeric:tabular-nums}
+.cl svg{display:block;width:100%;height:70px}
+.gl{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted)}
+.gl i{display:inline-block;width:12px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
 .prof{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 14px 8px}
-.prof svg{display:block;width:100%;height:auto}
+.prof-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.prof svg{display:block;width:100%;height:auto;min-width:640px}
 .prof .pa{cursor:pointer}
 .prof-legend{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:13px;color:var(--muted);margin-top:6px}
 .prof-legend b{color:var(--fg);font-weight:600}
 </style>
-<div class="wrap">
+<div class="wrap rpage">
   <header>
     <div class="eyebrow">De route</div>
     <h1>Van Lucca naar Veenendaal</h1>
@@ -78,7 +95,7 @@ svg text{font-family:var(--body)}
   <section class="sec" aria-labelledby="h-profiel">
     <h2 id="h-profiel">Hoogteprofiel</h2>
     <div class="prof">
-      <svg id="prof" viewBox="0 0 1000 210" role="img" aria-label="Hoogteprofiel van de hele route, per etappe"></svg>
+      <div class="prof-scroll"><svg id="prof" viewBox="0 0 1000 210" role="img" aria-label="Hoogteprofiel van de hele route, per etappe"></svg></div>
       <div class="prof-legend" id="profLegend"></div>
     </div>
   </section>
@@ -89,7 +106,7 @@ svg text{font-family:var(--body)}
       <h2 id="h-etappes">Acht etappes</h2>
       <p class="hint muted small">Tik op een etappe om hem op de kaart te zien.</p>
       <ol class="stages" id="stages"></ol>
-      <p class="muted small">Afstanden en hoogtemeters komen uit de GPS-route (Strava). Het hoogste punt is de officiële hoogte van de Lukmanierpas. Onderweg kan er nog iets veranderen.</p>
+      <p class="muted small">Afstanden, hoogtemeters en beklimmingen zijn berekend uit de GPS-route (Strava). Een beklimming is een stuk van minstens 1 km met gemiddeld 3% of meer en 80 m stijging; de categorie volgt de formule van Strava (lengte × helling). Het hoogste punt is de officiële hoogte van de Lukmanierpas. Onderweg kan er nog iets veranderen.</p>
       <p><a class="more" href="/sponsoren/">Zet als bedrijf jouw naam op een stuk van de route →</a></p>
     </section>
   </div>
@@ -173,9 +190,27 @@ svg text{font-family:var(--body)}
 
   // Hoogteprofielen: alle etappes op dezelfde hoogteschaal (0–2.000 m)
   const TOP = 2000;
-  function spark(s) {
-    const n = s.prof.length - 1;
-    return "M0 46" + s.prof.map((e, i) => `L${(i / n * 300).toFixed(1)} ${(46 - e / TOP * 44).toFixed(1)}`).join("") + "L300 46Z";
+  function spark(s, c) {
+    const n = s.prof.length - 1, X = i => (i / n * 300).toFixed(1), Y = e => (46 - e / TOP * 44).toFixed(1);
+    if (!c) return "M0 46" + s.prof.map((e, i) => `L${X(i)} ${Y(e)}`).join("") + "L300 46Z";
+    const i0 = Math.round((c.a - s.a) / R.profStep), i1 = Math.min(n, Math.round((c.b - s.a) / R.profStep));
+    return `M${X(i0)} 46` + s.prof.slice(i0, i1 + 1).map((e, k) => `L${X(i0 + k)} ${Y(e)}`).join("") + `L${X(i1)} 46Z`;
+  }
+  // Beklimmingen: profiel per 100 m, gekleurd naar hellingspercentage
+  const GC = g => g < 3 ? "var(--g1)" : g < 6 ? "var(--g2)" : g < 9 ? "var(--g3)" : g < 12 ? "var(--g4)" : "var(--g5)";
+  const legend = `<div class="gl"><span><i style="background:var(--g1)"></i>&lt;3%</span><span><i style="background:var(--g2)"></i>3–6%</span><span><i style="background:var(--g3)"></i>6–9%</span><span><i style="background:var(--g4)"></i>9–12%</span><span><i style="background:var(--g5)"></i>&gt;12%</span></div>`;
+  function climbCard(s, c, j) {
+    const pr = c.prof, n = pr.length - 1, lo = Math.min(...pr), hi = Math.max(...pr), span = Math.max(hi - lo, 60);
+    const X = i => (i / n * 300), Y = e => 66 - (e - lo) / span * 60;
+    let bars = "";
+    for (let i = 0; i < n; i += 2) {
+      const k = Math.min(n, i + 2), g = (pr[k] - pr[i]) / ((k - i) * 100) * 100;
+      bars += `<path d="M${X(i).toFixed(1)} 70L${X(i).toFixed(1)} ${Y(pr[i]).toFixed(1)}L${X(k).toFixed(1)} ${Y(pr[k]).toFixed(1)}L${X(k).toFixed(1)} 70Z" fill="${GC(g)}"/>`;
+    }
+    const pass = s.dag === 3 && c.top >= 1900, top = pass ? 1915 : c.top;
+    return `<div class="cl"><div class="cl-h"><b>${pass ? "Lukmanierpas" : `Klim ${j + 1}`}</b><span class="muted">km ${nl(Math.round(c.a - s.a))}–${nl(Math.round(c.b - s.a))} van de etappe</span>${c.cat ? `<span class="cat">${c.cat === "HC" ? "HC" : "Cat. " + c.cat}</span>` : ""}</div>
+      <div class="cl-s"><span><b>${nl(c.len)} km</b>lengte</span><span><b>${nl(c.grade)}%</b>gemiddeld</span><span><b>+${nl(c.gain)} m</b>stijging</span><span><b>${nl(top)} m</b>top</span></div>
+      <svg viewBox="0 0 300 70" preserveAspectRatio="none" aria-hidden="true">${bars}</svg></div>`;
   }
   const prof = document.getElementById("prof"), PX = km => 34 + km / R.km * 958, PY = e => 180 - e / TOP * 160;
   for (const e of [0, 500, 1000, 1500, 2000]) {
@@ -200,7 +235,8 @@ svg text{font-family:var(--body)}
       <h3>${s.van} → ${s.naar}</h3>
       <p><span class="l">${s.landen}.</span> ${s.via}</p>
       <div class="ele"><span>Stijging <b>${nl(s.up)} m</b></span><span>Daling <b>${nl(s.down)} m</b></span><span>Hoogste punt <b>${nl(s.dag === 3 ? 1915 : s.max)} m</b></span></div>
-      <svg class="spark" viewBox="0 0 300 46" preserveAspectRatio="none" aria-hidden="true"><path d="${spark(s)}" fill="var(--empty)" opacity=".55"/></svg>
+      <svg class="spark" viewBox="0 0 300 46" preserveAspectRatio="none" aria-hidden="true"><path d="${spark(s)}" fill="var(--empty)" opacity=".55"/>${s.climbs.map(c => `<path d="${spark(s, c)}" fill="var(--seg1)" opacity=".8"/>`).join("")}</svg>
+      ${s.climbs.length ? `<details class="climbs"><summary>${s.climbs.length} ${s.climbs.length === 1 ? "beklimming" : "beklimmingen"}</summary><div class="cl-list">${s.climbs.map((c, j) => climbCard(s, c, j)).join("")}${legend}</div></details>` : `<p class="small muted" style="grid-column:2 / span 2">Geen noemenswaardige beklimmingen.</p>`}
     </li>`).join("");
 
   let sel = null;
