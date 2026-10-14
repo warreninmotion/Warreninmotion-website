@@ -277,22 +277,16 @@ svg text{font-family:var(--body)}
   </div>
 </div>
 
+<script src="data.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.20/topojson.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.9/datamaps.world.hires.min.js"></script>
 <script>
-// ── Echte stand: dit blok wordt elke week bijgewerkt ─────────────────────────
-const DATA = {
-  updated: "13 oktober 2026",
-  donateUrl: "https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion",
-  pelotonEuro: 0,           // totaal van de vrienden van de tocht (zonder bedrijfsbedragen)
-  eindsprint: 0,            // verkochte eindsprint-tickets (meefietsen + diner)
-  tenue: {},                // tenueplekken: { rug: {status: "optie"|"bezet", sponsor: "..."} }
-  diner: 1,                 // verkochte dinerplekken (sponsors + los); Chiropractie Bennekom 1, mogelijk 2
-  sponsors: [               // op volgorde van aanmelding: {name, pakket, km}; name "" = anoniem
-    { name: "Chiropractie Bennekom", pakket: "Vrije kilometers · €1.000", km: 50 },
-  ],
-};
+// Stand komt uit data.js (wordt dagelijks bijgewerkt vanuit HubSpot).
+const DATA = Object.assign({
+  updated: "", donateUrl: "https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion",
+  pelotonEuro: 0, eindsprint: 0, diner: 0, tenue: {}, sponsors: [],
+}, window.WIM_DATA || {});
 // ── Voorbeeld (fictief) om het idee te laten zien ───────────────────────────
 const DEMO = {
   pelotonEuro: 1860, eindsprint: 14, diner: 9,

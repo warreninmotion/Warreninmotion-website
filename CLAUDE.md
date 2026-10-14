@@ -13,9 +13,26 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
 - `index.html` = pagina "Elke kilometer telt": routekaart die volloopt (bedrijven op volgorde van aanmelding,
   daarachter "het peloton" = particuliere vrienden van de tocht), rekenhulp voor bedrijven, sponsorplekken op
   het shirt (voor/achter, shirt Warren / shirt meefietsers), volgbus (Mercedes-Benz Citan, zij- en achterkant).
-- Stand bijwerken: het `DATA`-blok bovenin het script (sponsors: naam, pakket, km; naam "" = anoniem;
-  pelotonEuro = totaal particuliere donaties zónder bedrijven; eindsprint; diner; tenue = shirtplekken met
-  status "optie"/"bezet" + sponsor). Zolang DATA leeg is, toont de pagina een fictief voorbeeld (DEMO).
+- De stand staat in `data.js` (`window.WIM_DATA`). Zolang die leeg is, toont de pagina een fictief voorbeeld (DEMO).
+
+## HubSpot is leidend (BELANGRIJK)
+Alles over sponsors, kilometers, dinerplekken, shirtplekken, losse tickets en particuliere donaties staat in
+HubSpot, pipeline "Warren in Motion - Partnerships". Hoort een sessie iets nieuws over een sponsor (waar dan
+ook), dan wordt het EERST in HubSpot gezet; `data.js` wordt daarna uit HubSpot afgeleid, nooit andersom.
+
+Vast regeltje bovenaan de deal-omschrijving:
+- Bedrijf: `km: 50 | diner: 1 | shirt: geen | anoniem: nee`
+  - shirt-waarden: geen, open, hoofd, mouwL, mouwR, zak1, zak2, zak3, buik
+- Deal "Peloton – particuliere vrienden": `type: peloton`; bedrag (amount) = totaal particuliere donaties zonder bedrijven.
+- Deal "Eindsprint en diner – losse tickets": `type: tickets | eindsprint: N | diner: N`.
+
+Afleiden van `data.js`:
+- sponsors: bedrijfsdeals in fase Closed Won, gesorteerd op sluitdatum (oud → nieuw); name = bedrijfsnaam
+  (leeg als anoniem: ja); km uit het regeltje; pakket = "Vrije kilometers · €<km×20>" (hoofdsponsor: "Hoofdsponsor").
+- pelotonEuro = bedrag van de peloton-deal. eindsprint = uit de tickets-deal.
+- diner = som van `diner` over Closed Won bedrijfsdeals + `diner` uit de tickets-deal.
+- tenue: shirt-waarde van een Closed Won deal → { status: "bezet", sponsor: naam }; van een open deal (niet Closed Lost) → { status: "optie" }.
+- updated = datum van vandaag ("14 oktober 2026"). Alleen committen en pushen als er echt iets verandert.
 
 ## Sponsormodel (stand 14-10-2026)
 - Bedrijven: €20 per km, schuif 10–100 km; >100 km = hoofdsponsor (op aanvraag, bedrag nooit tonen).
