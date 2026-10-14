@@ -12,7 +12,7 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
 ## Huidige inhoud
 - `index.html` = pagina "Elke kilometer telt": routekaart die volloopt (bedrijven op volgorde van aanmelding,
   daarachter "het peloton" = particuliere vrienden van de tocht), rekenhulp voor bedrijven, sponsorplekken op
-  het shirt (voor/achter, shirt Warren / shirt meefietsers), volgbus (Mercedes-Benz Citan, zij- en achterkant).
+  het echte Owayo-shirt (voor, achter, links, rechts), volgbus (Mercedes-Benz Citan, zij- en achterkant).
 - De stand staat in `data.js` (`window.WIM_DATA`). Zolang die leeg is, toont de pagina een fictief voorbeeld (DEMO).
 
 ## HubSpot is leidend (BELANGRIJK)
@@ -58,4 +58,11 @@ Afleiden van `data.js`:
 ## Werkwijze
 - Wijzigingen klein houden en na elke wijziging pushen naar `main` (Netlify zet het live).
 - Altijd zowel licht als donker thema en telefoonbreedte (~390 px) controleren.
+- Alles gelijk houden (VAST, na elke wijziging aan de site, zonder dat Warren erom vraagt):
+  1. Artifact "Elke kilometer telt" (https://claude.ai/artifact/WNZQq2xvyEwfRpz45o7yDT) opnieuw publiceren:
+     eerst lezen (Artifact read), dan publish met url, file_path `index.html` en files `data.js` + `img/*.webp`.
+  2. Sponsorplan in Claude Docs (https://claude.ai/code/artifact/bbac9212-164a-4162-b1b0-2ead9f626499) bijwerken
+     als prijzen, plekken of afspraken veranderen; as-of datum bijwerken.
+  3. Project-doc `claude/sponsoring/sponsorplan.md` (en zo nodig `werkwijze-sponsors.md`) gelijk trekken.
+  4. Sponsorovereenkomst (Claude Docs 2e6a02bc-9d80-45d6-b21f-570494f57c1c) nalopen als prijzen veranderen.
 - Bedragen van de hoofdsponsor nooit tonen.
