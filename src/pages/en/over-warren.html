@@ -1,0 +1,70 @@
+<style>
+.about{display:grid;gap:28px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:820px){.about{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:start}.about figure{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}}
+.about figure{margin:0}
+.about img{display:block;width:100%;border-radius:8px;aspect-ratio:2/3;object-fit:cover;background:var(--card)}
+.about figcaption{font-size:13px;color:var(--muted);margin-top:8px}
+.logo-anim{margin:0;background:#F2EEE4;border:1px solid var(--line);border-radius:10px;overflow:hidden;max-width:720px}
+.logo-anim img{display:block;width:100%;height:auto}
+.logo-steps{list-style:none;margin:0;padding:0;counter-reset:ls;display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:720px){.logo-steps{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.logo-steps li{counter-increment:ls;display:grid;gap:4px;align-content:start;border-top:2px solid var(--groen);padding-top:10px;font-size:14px;color:var(--muted)}
+.logo-steps li::before{content:counter(ls);font-family:var(--display);font-size:22px;color:var(--fg);line-height:1}
+.logo-steps b{color:var(--fg);font-weight:600;font-size:15px}
+</style>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">About Warren</div>
+    <h1>Warren van der Ploeg</h1>
+    <p class="lead">Healthy food and an active life fit into a busy schedule. Warren shows it every day, and that is what Warren in Motion is all about. The ride from Lucca to Veenendaal is his biggest challenge yet.</p>
+  </header>
+
+  <div class="about">
+    <figure>
+      <img src="/assets/img/warren.jpg" width="896" height="1344" alt="Warren hanging from a pull-up bar in the gym, smiling at the camera">
+    </figure>
+
+    <div class="sec">
+      <div class="prose">
+        <h2>How it started</h2>
+        <p>Warren in Motion did not start as a plan, but as a search: what makes me happy? The answer became a project that brings together everything Warren cares about.</p>
+      </div>
+      <div class="cards">
+        <div class="card"><h3>Energy</h3><p>Creativity, freedom and adventure, and enjoying every step of the way.</p></div>
+        <div class="card"><h3>Sport and food</h3><p>Two lifelong passions, finally aimed at the same goal.</p></div>
+        <div class="card"><h3>Bigger than himself</h3><p>Using it all to help the people who need it most.</p></div>
+      </div>
+      <div class="prose">
+        <h2>Who he is</h2>
+        <p>Warren has been active all his life: strength training, CrossFit, running, hiking, padel and tennis. He has a normal, busy life, with the same rush as everyone else. That is exactly why he shows how healthy living fits in: without complicated rules and without expensive diets.</p>
+        <h2>Why this ride</h2>
+        <p>Healthy food and exercise should be within reach for everyone, whatever your budget and however busy you are. This ride is the ultimate test of that promise: more than 1,500 km in eight days, no shortcuts. And everything Warren raises goes to the Dutch Food Banks.</p>
+        <h2>Follow the preparation</h2>
+        <p>Every week Warren shares how training is going, on Instagram, TikTok and Facebook: <a href="https://www.instagram.com/warreninmotion/" target="_blank" rel="noopener">@warreninmotion</a>.</p>
+      </div>
+      <div class="btns">
+        <a class="btn" href="/en/route/">Explore the route</a>
+        <a class="btn ghost" href="/en/contact/">Get in touch</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="sec" aria-labelledby="h-logo">
+    <div class="eyebrow">The logo</div>
+    <h2 id="h-logo">From letters to motion</h2>
+    <p class="muted" style="max-width:62ch">Five steps from letters to motion. The result: one continuous line with two wheels, the shape of the ride itself.</p>
+    <figure class="logo-anim">
+      <picture>
+        <source srcset="/assets/img/logo-ontstaan.png" media="(prefers-reduced-motion: reduce)">
+        <img src="/assets/img/logo-ontstaan.gif" width="720" height="360" loading="lazy" alt="Animation of how the logo came to be: the letters WIM become strokes, get wheels, turn italic and slide together into the Warren in Motion monogram">
+      </picture>
+    </figure>
+    <ol class="logo-steps">
+      <li><b>The letters</b>W, i and M: the initials of Warren in Motion.</li>
+      <li><b>The strokes</b>The letters reduced to simple lines. Plain and honest.</li>
+      <li><b>The wheels</b>Two curves and two dots turn it into a bike.</li>
+      <li><b>Italic</b>Slanted, so the logo wants to move forward: motion.</li>
+      <li><b>Compact</b>Everything slides together into one monogram, in one continuous line.</li>
+    </ol>
+  </section>
+</div>

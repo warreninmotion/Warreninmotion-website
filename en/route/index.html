@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The route · Warren in Motion</title>
+<meta name="description" content="Eight stages from Lucca to Veenendaal, 1,570 km through 7 countries, from 15 to 22 May 2027.">
+<link rel="alternate" hreflang="nl" href="https://warreninmotion.nl/route/">
+<link rel="alternate" hreflang="en" href="https://warreninmotion.nl/en/route/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&amp;display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="site-head__in">
+    <a class="brand" href="/en/"><svg class="mono" aria-hidden="true"></svg><span>Warren in Motion</span></a>
+    <a class="lang" href="/route/" hreflang="nl" lang="nl" aria-label="Lees deze pagina in het Nederlands">NL</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main menu">
+      <ul>
+        <li><a href="/en/sponsor/">Sponsor</a></li>
+        <li><a href="/en/donate/">Donate</a></li>
+        <li><a href="/en/progress/">Progress</a></li>
+        <li><a href="/en/route/" aria-current="page">The route</a></li>
+        <li><a href="/en/about/">About Warren</a></li>
+        <li><a href="/en/contact/">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<style>
+/* Hellingklassen (zoals Garmin, in de huisstijl): hoe steiler, hoe donkerder; in donker thema hoe lichter */
+.rpage{--s1:#D6E4D3;--s2:#E8C66A;--s3:#C9853A;--s4:#A4442E;--s5:#5E1E1A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rpage{--s1:#2F4A3C;--s2:#8A7A3A;--s3:#C27E38;--s4:#E8805C;--s5:#F6B3A0}}
+:root[data-theme="dark"] .rpage{--s1:#2F4A3C;--s2:#8A7A3A;--s3:#C27E38;--s4:#E8805C;--s5:#F6B3A0}
+svg text{font-family:var(--body)}
+/* Kaart links (blijft staan), etappes rechts in een eigen scrollvak */
+.rgrid{display:grid;gap:24px;grid-template-columns:minmax(0,1fr)}
+.rmap{position:sticky;top:calc(env(safe-area-inset-top,0px) + 61px);z-index:2;background:var(--bg);margin:0 -16px;padding:6px 16px 8px}
+.rmap-in{position:relative;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.rmap svg{display:block;width:100%;height:36vh}
+.rleft{display:contents}
+.cpanel{display:none}
+.rmap .reset{position:absolute;left:10px;top:10px;font:inherit;font-size:13px;font-weight:600;border:1px solid var(--fg);background:var(--bg);color:var(--fg);border-radius:999px;padding:5px 12px;cursor:pointer}
+.slist{display:grid;position:relative}
+@media (min-width:880px){
+  .rgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
+  .rleft{display:grid;gap:14px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);max-height:calc(100vh - 96px);grid-template-rows:auto minmax(0,1fr)}
+  .rmap{position:static;margin:0;padding:0}
+  .rmap svg{height:min(48vh,460px)}
+  .cpanel{display:grid;gap:8px;align-content:start;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding-right:4px}
+  .cpanel-m{display:none}
+  .slist{max-height:calc(100vh - 110px);overflow-y:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-width:thin}
+}
+.stages{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--line)}
+.stage{border-bottom:1px solid var(--line);scroll-margin-top:calc(36vh + 84px)}
+@media (min-width:880px){.stage{scroll-margin-top:0}}
+.stage-h{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:4px 12px;padding:14px 4px;cursor:pointer;align-items:baseline;width:100%;background:none;border:0;color:inherit;font:inherit;text-align:left}
+.stage-h:hover,.stage.on .stage-h{background:var(--card)}
+.stage-h:focus-visible{outline:2px solid var(--brons);outline-offset:-2px}
+.stage .nr{grid-row:span 3;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--groen);color:var(--groen);display:grid;place-items:center;font-size:14px;font-weight:600;align-self:start}
+.stage.on .nr{background:var(--groen);color:var(--bg)}
+.stage .d{font-size:13px;color:var(--muted)}
+.stage h3{font-size:21px}
+.stage .km{font-family:var(--display);font-size:22px;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap;grid-row:1 / span 2;grid-column:3;text-align:right}
+.stage .km small{display:block;font-family:var(--body);font-size:12px;color:var(--muted)}
+.stage .ele{grid-column:2 / span 2;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.stage .ele b{color:var(--fg);font-weight:600}
+.stage-b{padding:4px 4px 20px 56px;display:grid;gap:14px}
+@media (max-width:560px){.stage-b{padding-left:4px}}
+.stage-b .via{font-size:15px;color:var(--muted)}
+.stage-b .via b{color:var(--fg);font-weight:600}
+.rseg{transition:stroke-width .15s}
+.rseg.on{stroke-width:14px}
+@media (prefers-reduced-motion:reduce){.rseg{transition:none}}
+.prof{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 14px 8px;position:relative}
+.sprof{position:relative}
+.sprof svg{display:block;width:100%;height:auto}
+.prof-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.prof svg{display:block;width:100%;height:auto;min-width:640px}
+.prof .pa{cursor:pointer}
+.prof-legend{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:13px;color:var(--muted);margin-top:6px}
+.prof-legend b{color:var(--fg);font-weight:600}
+.tip{position:absolute;pointer-events:none;background:var(--fg);color:var(--bg);font-size:13px;line-height:1.35;padding:6px 10px;border-radius:6px;white-space:nowrap;transform:translate(-50%,-100%);font-variant-numeric:tabular-nums}
+.gl{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted)}
+.gl i{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px;border:1px solid var(--line)}
+.cat{font-size:11px;font-weight:700;letter-spacing:.04em;border:1.5px solid var(--fg);border-radius:999px;padding:0 8px;white-space:nowrap}
+.cp-t{font-family:var(--display);font-size:19px}
+.crows{display:grid;border-top:1px solid var(--line)}
+.crow{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:2px 10px;align-items:center;width:100%;text-align:left;font:inherit;color:inherit;background:none;border:0;border-bottom:1px solid var(--line);padding:9px 4px;cursor:pointer}
+.crow:hover,.crow.on{background:var(--card)}
+.crow:focus-visible{outline:2px solid var(--brons);outline-offset:-2px}
+.crow .no{grid-row:span 2;width:24px;height:24px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-size:12px;font-weight:700}
+.crow.on .no{background:var(--groen)}
+.crow b{font-weight:600;font-size:15px}
+.crow .m{grid-column:2;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.crow .go{grid-row:span 2;font-size:13px;color:var(--groen);font-weight:600;white-space:nowrap}
+.cview{position:absolute;inset:0;background:var(--card)}
+.cview svg{display:block;width:100%;height:100%}
+.cv-h{position:absolute;left:14px;top:12px;right:110px;display:grid;gap:2px;pointer-events:none}
+.cv-h b{font-family:var(--display);font-weight:400;font-size:22px;line-height:1.1}
+.cv-h span{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.rmap .tomap{position:absolute;right:10px;top:10px;font:inherit;font-size:13px;font-weight:600;border:1px solid var(--fg);background:var(--bg);color:var(--fg);border-radius:999px;padding:5px 12px;cursor:pointer;z-index:3}
+</style>
+<div class="wrap rpage">
+  <header>
+    <div class="eyebrow">The route</div>
+    <h1>From Lucca to Veenendaal</h1>
+    <p class="lead">1,570 km in eight stages, through seven countries. Along the Ligurian coast, over the Alps, through Alsace and the Ardennes, and then home.</p>
+  </header>
+
+  <dl class="rows">
+    <div><dt>Start</dt><dd><b>Saturday 15 May 2027</b> · Piazza dell'Anfiteatro, Lucca</dd></div>
+    <div><dt>Finish</dt><dd><b>Saturday 22 May 2027</b> · Veenendaal, expected around 18:00 (to be confirmed)</dd></div>
+    <div><dt>Follow live</dt><dd data-live></dd></div>
+  </dl>
+
+  <section class="sec" aria-labelledby="h-profiel">
+    <h2 id="h-profiel">Elevation profile of the whole ride</h2>
+    <div class="prof">
+      <div class="prof-scroll"><svg id="prof" viewBox="0 0 1000 210" role="img" aria-label="Elevation profile of the whole route, per stage"></svg></div>
+      <div class="prof-legend" id="profLegend"></div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="h-etappes">
+    <h2 id="h-etappes">Eight stages</h2>
+    <p class="muted small" style="margin-top:-6px">Pick a stage and zoom in: you see the elevation profile, the gradient of every section and all climbs. Click a climb for its own profile.</p>
+    <div class="rgrid">
+      <div class="rleft">
+        <div class="rmap"><div class="rmap-in">
+          <svg id="rmap" role="img" aria-label="Map of the route from Lucca to Veenendaal"></svg>
+          <div class="cview" id="cview" hidden><svg id="cprof" role="img" aria-label="Elevation profile of the selected climb"></svg><div class="cv-h" id="cvHead"></div><div class="tip" id="cvTip" hidden></div></div>
+          <button type="button" class="reset" id="reset" hidden>← Whole route</button>
+          <button type="button" class="tomap" id="toMap" hidden>Back to map</button>
+        </div></div>
+        <div class="cpanel" id="cpanel"><p class="muted small">Pick a stage to see all its climbs here.</p></div>
+      </div>
+      <div class="slist" id="slist"><ol class="stages" id="stages"></ol></div>
+    </div>
+  </section>
+
+  <p class="muted small">Distances, climbing and climbs are calculated from the GPS route (Strava). A climb is a section of at least 1 km with an average of 3% or more and 80 m of climbing; the category follows the Strava formula (length × gradient). The highest point is the official height of the Lukmanier Pass. Details may still change along the way.</p>
+  <p><a class="more" href="/en/sponsor/">Put your company name on a stretch of the route →</a></p>
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="site-foot__in">
+    <div>
+      <svg class="mono" aria-hidden="true"></svg>
+      <p><b>Warren in Motion</b><br>Lucca → Veenendaal · 15–22 May 2027<br>For the Dutch Food Banks (Voedselbanken Nederland)</p>
+      <p style="margin-top:10px">Warren in Motion Foundation (in formation)</p>
+    </div>
+    <nav aria-label="Pages">
+      <ul>
+        <li><a href="/en/">Home</a></li>
+        <li><a href="/en/sponsor/">Sponsor</a></li>
+        <li><a href="/en/donate/">Donate</a></li>
+        <li><a href="/en/progress/">Progress</a></li>
+        <li><a href="/en/route/">The route</a></li>
+        <li><a href="/en/about/">About Warren</a></li>
+        <li><a href="/en/contact/">Contact</a></li>
+      </ul>
+    </nav>
+    <div>
+      <ul>
+        <li><a href="mailto:warreninmotion@outlook.com">warreninmotion@outlook.com</a></li>
+        <li><a href="https://www.instagram.com/warreninmotion/" target="_blank" rel="noopener">Instagram · @warreninmotion</a></li>
+        <li><a href="https://www.tiktok.com/@warreninmotion" target="_blank" rel="noopener">TikTok · @warreninmotion</a></li>
+        <li><a href="https://www.facebook.com/warreninmotion" target="_blank" rel="noopener">Facebook · @warreninmotion</a></li>
+        <li><a href="https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion" target="_blank" rel="noopener">Donate to the Dutch Food Banks</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/assets/site.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.20/topojson.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.9/datamaps.world.hires.min.js"></script>
+<script src="/assets/route-data.js"></script>
+<script src="/assets/route.js"></script>
+<script src="/assets/route-page.js"></script>
+</body>
+</html>

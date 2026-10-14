@@ -5,6 +5,8 @@ const DATA = Object.assign({
   pelotonEuro: 0, eindsprint: 0, diner: 0, tenue: {}, sponsors: [],
 }, window.WIM_DATA || {});
 let CUR = DATA;
+// Pakketnaam uit data.js ("Vrije kilometers · €1.000") in de huidige taal
+const pakketTxt = p => t(p, (p || "").replace("Vrije kilometers", "Kilometres").replace("Hoofdsponsor", "Main sponsor").replace(/€([\d.]+)/, (m, n) => eur(+n.replace(/\./g, ""))));
 const $ = id => document.getElementById(id);
 const on = (id, ev, fn) => { const e = $(id); if (e) e.addEventListener(ev, fn); };
 
@@ -81,8 +83,7 @@ function render() {
     const [x, y] = q.p, r = towns[q.name] === "r";
     const pass = q.name === "Lukmanier", start = q.name === "Den Bosch";
     svg.append(el("circle", { cx: x, cy: y, r: pass ? 3 : 4.5, fill: "var(--bg)", stroke: "var(--fg)", "stroke-width": 2 }));
-    const t = el("text", { x: x + (r ? 12 : -12), y: y + 6, "text-anchor": r ? "start" : "end", "font-size": 18, fill: "var(--fg)", "font-style": pass ? "italic" : "normal" }, pass ? "Lukmanier 1.915 m" : q.name);
-    svg.append(t);
+    svg.append(el("text", { x: x + (r ? 12 : -12), y: y + 6, "text-anchor": r ? "start" : "end", "font-size": 18, fill: "var(--fg)", "font-style": pass ? "italic" : "normal" }, pass ? t("Lukmanier 1.915 m", "Lukmanier 1,915 m") : q.name));
   }
   // doelen op de route
   const goalSide = [{ s: "r", dy: 6 }, { s: "l", dy: 20 }, { s: "r", dy: 14 }];
@@ -94,7 +95,7 @@ function render() {
   });
   const [fx, fy] = pts[pts.length - 1].p;
   svg.append(el("text", { x: fx + 12, y: fy + 25, "font-size": 13, fill: "var(--muted)" }, `Finish · km ${nl(ROUTE_KM)}`));
-  svg.append(el("text", { x: fx + 12, y: fy + 42, "font-size": 13, fill: "var(--muted)" }, `Eindsprint · ${riders} van ${SPRINT} plekken`));
+  svg.append(el("text", { x: fx + 12, y: fy + 42, "font-size": 13, fill: "var(--muted)" }, t(`Eindsprint · ${riders} van ${SPRINT} plekken`, `Final sprint · ${riders} of ${SPRINT} places`)));
 
   svg.querySelectorAll(".seg").forEach(p => {
     p.addEventListener("mouseenter", () => hl(p.dataset.i));
@@ -104,28 +105,28 @@ function render() {
 
   // stand
   document.getElementById("km").textContent = nl(totKm);
-  document.getElementById("eur").innerHTML = `<b>${eur(totEur)}</b> opgehaald · ${nl(sKm)} km van bedrijven, ${nl(pKm)} km van het peloton`;
+  document.getElementById("eur").innerHTML = t(`<b>${eur(totEur)}</b> opgehaald · ${nl(sKm)} km van bedrijven, ${nl(pKm)} km van het peloton`, `<b>${eur(totEur)}</b> raised · ${nl(sKm)} km from companies, ${nl(pKm)} km from the peloton`);
   const bar = document.getElementById("bar");
   bar.innerHTML = `<div class="f" style="width:${sKm / TOTAL * 100}%"></div><div class="p" style="left:${sKm / TOTAL * 100}%;width:${pKm / TOTAL * 100}%;${sKm ? "" : "border-radius:999px 0 0 999px;"}${totKm >= TOTAL ? "border-radius:0 999px 999px 0" : ""}"></div>` +
     GOALS.map((g, i) => `<div class="tick${i === 2 ? " end" : ""}" style="left:calc(${g.eur / 20 / TOTAL * 100}% - ${i === 2 ? 2 : 1}px)"><span>${eur(g.eur)}</span></div>`).join("");
   const nxt = GOALS.find(g => totEur < g.eur);
   document.getElementById("next").innerHTML = nxt
-    ? `Volgende: <b>${nxt.label.toLowerCase()} van ${eur(nxt.eur)}</b>, nog ${nl((nxt.eur - totEur) / 20)} km te gaan.`
-    : `<b>De hele route is gevuld.</b> Dank aan iedereen die meerijdt.`;
+    ? t(`Op naar <b>${nxt.label.toLowerCase()}: ${eur(nxt.eur)}</b>. Nog ${nl((nxt.eur - totEur) / 20)} km te gaan.`, `Next up: <b>${nxt.label.toLowerCase()}, ${eur(nxt.eur)}</b>. ${nl((nxt.eur - totEur) / 20)} km to go.`)
+    : t(`<b>De hele route is gevuld!</b> Dank je wel, iedereen die meerijdt.`, `<b>The whole route is filled!</b> Thank you to everyone riding along.`);
   document.getElementById("sprint").innerHTML = st.eindsprint || st.diner
-    ? `Eindsprint: <b>${st.eindsprint} van ${SPRINT} plekken bezet</b>, en ${st.diner} ${st.diner === 1 ? "gast" : "gasten"} aan tafel bij het diner.`
-    : `Eindsprint: nog 50 plekken vrij. Fiets mee van Den Bosch naar Veenendaal.`;
+    ? t(`Eindsprint: <b>${st.eindsprint} van ${SPRINT} plekken bezet</b>, en ${st.diner} ${st.diner === 1 ? "gast" : "gasten"} aan tafel bij het diner.`, `Final sprint: <b>${st.eindsprint} of ${SPRINT} places taken</b>, and ${st.diner} ${st.diner === 1 ? "guest" : "guests"} at the dinner table.`)
+    : t(`Eindsprint: alle 50 plekken nog vrij. Fiets mee van Den Bosch naar Veenendaal!`, `Final sprint: all 50 places still open. Ride with us from Den Bosch to Veenendaal!`);
 
   // lijst
   const list = document.getElementById("list");
   list.innerHTML = "";
   km = 0;
-  if (!sponsors.length) list.insertAdjacentHTML("beforeend", `<div class="empty">Nog geen bedrijven. De eerste sponsor start in Lucca, bij km 0.</div>`);
+  if (!sponsors.length) list.insertAdjacentHTML("beforeend", `<div class="empty">${t("Nog geen bedrijven. Rij jij als eerste weg vanuit Lucca, bij km 0?", "No companies yet. Will you be the first to roll out of Lucca, at km 0?")}</div>`);
   sponsors.forEach((s, i) => {
     const a = km; km += s.km;
-    list.insertAdjacentHTML("beforeend", `<div class="row" tabindex="0" data-i="${i}"><span class="sw" style="background:var(${i % 2 ? "--seg2" : "--seg1"})"></span><div class="n"><div></div><div>${s.pakket}</div></div><div class="k">km ${nl(a)}–${nl(km)}</div></div>`);
+    list.insertAdjacentHTML("beforeend", `<div class="row" tabindex="0" data-i="${i}"><span class="sw" style="background:var(${i % 2 ? "--seg2" : "--seg1"})"></span><div class="n"><div></div><div>${pakketTxt(s.pakket)}</div></div><div class="k">km ${nl(a)}–${nl(km)}</div></div>`);
     const nm = list.lastElementChild.querySelector(".n div");
-    nm.textContent = s.name || "Anonieme sponsor";
+    nm.textContent = s.name || t("Anonieme sponsor", "Anonymous sponsor");
     if (!s.name) { nm.style.fontStyle = "italic"; nm.style.fontWeight = "400"; }
   });
   list.insertAdjacentHTML("beforeend", `<div class="row" tabindex="0" data-i="p"><span class="sw" style="background:var(--brons)"></span><div class="n"><div>Het peloton</div><div>${st.pelotonEuro ? eur(st.pelotonEuro) + " van alle particuliere vrienden van de tocht" : "Word de eerste particuliere vriend van de tocht."}</div></div><div class="k">${pKm ? nl(pKm) + " km" : "–"}</div></div>`);
@@ -136,15 +137,15 @@ function render() {
   });
   // bereik per stuk, voor de naam op de kaart
   RANGES = {}; km = 0;
-  sponsors.forEach((s, i) => { RANGES[i] = [km, km + s.km, s.name || "Anonieme sponsor"]; km += s.km; });
-  if (pKm > 0) RANGES.p = [km, km + pKm, "Het peloton"];
+  sponsors.forEach((s, i) => { RANGES[i] = [km, km + s.km, s.name || t("Anonieme sponsor", "Anonymous sponsor")]; km += s.km; });
+  if (pKm > 0) RANGES.p = [km, km + pKm, t("Het peloton", "The peloton")];
   hl(null);
 
   // doneerknop en voetregel
   if ($("donate")) $("donate").innerHTML = DATA.donateUrl
-    ? `<a href="${DATA.donateUrl}" target="_blank" rel="noopener">Doneer nu</a>`
-    : `<span class="off">Doneerlink volgt</span>`;
-  if ($("foot")) $("foot").textContent = `Bijgewerkt op ${DATA.updated}. Donaties van particuliere vrienden van de tocht worden wekelijks bijgeteld. Alle kilometers zijn echte kilometers van de route (${nl(ROUTE_KM)} km). Vanaf Den Bosch rijden de meefietsers van de eindsprint mee.`;
+    ? `<a href="${DATA.donateUrl}" target="_blank" rel="noopener">${t("Doneer nu", "Donate now")}</a>`
+    : `<span class="off">${t("Doneerlink volgt", "Donation link coming soon")}</span>`;
+  if ($("foot")) $("foot").textContent = t(`Bijgewerkt op ${WIM_DATE(DATA.updated)}. Donaties tellen we elke week bij. Alle kilometers zijn echte kilometers van de route (${nl(ROUTE_KM)} km). Vanaf Den Bosch rijden de meefietsers van de eindsprint mee.`, `Updated ${WIM_DATE(DATA.updated)}. Donations are added every week. Every kilometre is a real kilometre of the route (${nl(ROUTE_KM)} km). From Den Bosch, the final-sprint riders join in.`);
 }
 let sel = null, RANGES = {};
 function hl(i) {
@@ -165,21 +166,21 @@ function hl(i) {
 // ── Tenue: sponsorplekken ───────────────────────────────────────────────────
 const MAIL = "warreninmotion@outlook.com";
 const PRICE = { hoofd: 1000, groot: 750, middel: 500, klein: 250 };
-const SIZE = { hoofd: "Hoofdsponsor", groot: "Groot", middel: "Middel", klein: "Klein" };
+const SIZE = { hoofd: t("Hoofdsponsor", "Main sponsor"), groot: t("Groot", "Large"), middel: t("Middel", "Medium"), klein: t("Klein", "Small") };
 // Prijs naar zichtbaarheid op de fiets: van achteren (peloton, volgbus) en opzij (foto's).
 // De hoofdsponsor heeft borst, bovenrug en beide zijkanten: altijd in beeld.
 const KIT = [
-  { id: "hoofd", label: "Hoofdsponsor", size: "hoofd", note: "borst, bovenrug en beide zijkanten", rects: [
+  { id: "hoofd", label: t("Hoofdsponsor", "Main sponsor"), size: "hoofd", note: t("borst, bovenrug en beide zijkanten", "chest, upper back and both sides"), rects: [
     { side: "voor", x: 140, y: 96, w: 120, h: 58 },
     { side: "voor", x: 84, y: 178, w: 20, h: 130 }, { side: "voor", x: 296, y: 178, w: 20, h: 130 },
     { side: "achter", x: 130, y: 90, w: 140, h: 60 },
     { side: "achter", x: 84, y: 178, w: 20, h: 100 }, { side: "achter", x: 296, y: 178, w: 20, h: 100 } ] },
-  { id: "mouwL", label: "Linkermouw", size: "middel", rects: [{ side: "voor", cx: 343, cy: 128, w: 52, h: 26, rot: 50 }] },
-  { id: "mouwR", label: "Rechtermouw", size: "middel", rects: [{ side: "voor", cx: 57, cy: 128, w: 52, h: 26, rot: -50 }] },
-  { id: "zak1", label: "Achterzak links", size: "klein", rects: [{ side: "achter", x: 112, y: 296, w: 48, h: 26 }] },
-  { id: "zak2", label: "Achterzak midden", size: "klein", rects: [{ side: "achter", x: 172, y: 296, w: 56, h: 26 }] },
-  { id: "zak3", label: "Achterzak rechts", size: "klein", rects: [{ side: "achter", x: 240, y: 296, w: 48, h: 26 }] },
-  { id: "buik", label: "Buik", size: "klein", rects: [{ side: "voor", x: 150, y: 252, w: 100, h: 30 }] },
+  { id: "mouwL", label: t("Linkermouw", "Left sleeve"), size: "middel", rects: [{ side: "voor", cx: 343, cy: 128, w: 52, h: 26, rot: 50 }] },
+  { id: "mouwR", label: t("Rechtermouw", "Right sleeve"), size: "middel", rects: [{ side: "voor", cx: 57, cy: 128, w: 52, h: 26, rot: -50 }] },
+  { id: "zak1", label: t("Achterzak links", "Back pocket left"), size: "klein", rects: [{ side: "achter", x: 112, y: 296, w: 48, h: 26 }] },
+  { id: "zak2", label: t("Achterzak midden", "Back pocket centre"), size: "klein", rects: [{ side: "achter", x: 172, y: 296, w: 56, h: 26 }] },
+  { id: "zak3", label: t("Achterzak rechts", "Back pocket right"), size: "klein", rects: [{ side: "achter", x: 240, y: 296, w: 48, h: 26 }] },
+  { id: "buik", label: t("Buik", "Front, belly"), size: "klein", rects: [{ side: "voor", x: 150, y: 252, w: 100, h: 30 }] },
 ];
 const sidesOf = k => [...new Set(k.rects.map(q => q.side))];
 const KITCOL = {
@@ -219,7 +220,8 @@ function logo(g, name, cx, cy, w, h) {
     g.append(el("text", { x: cx, y: cy + r * .36, "text-anchor": "middle", "font-size": r * (ini.length > 2 ? .78 : .95), "font-weight": 700, fill: "#fff" }, ini));
   }
 }
-const priceTxt = s => s.size === "hoofd" ? "op aanvraag" : eur(PRICE[s.size]);
+const priceTxt = s => s.size === "hoofd" ? t("op aanvraag", "on request") : eur(PRICE[s.size]);
+const SIDE = { voor: t("voor", "front"), achter: t("achter", "back") };
 let kitSide = "voor", kitSel = null;
 const kitState = id => (CUR.tenue || {})[id] || { status: "vrij" };
 
@@ -247,7 +249,7 @@ function drawKit() {
     const st = kitState(s.id), on = kitSel === s.id;
     const cx = q.cx ?? q.x + q.w / 2, cy = q.cy ?? q.y + q.h / 2, tall = q.h > q.w * 2;
     const onShorts = cy > 340, ink = onShorts ? "#F2EEE4" : C.ink, freeFill = onShorts ? "rgba(242,238,228,.07)" : C.free;
-    const g = el("g", { class: "spot", tabindex: 0, role: "button", "aria-label": `${s.label}, ${priceTxt(s)}, ${st.status === "vrij" ? "vrij" : st.status === "optie" ? "in optie" : "bezet"}`, transform: `rotate(${q.rot || 0} ${cx} ${cy})` });
+    const g = el("g", { class: "spot", tabindex: 0, role: "button", "aria-label": `${s.label}, ${priceTxt(s)}, ${st.status === "vrij" ? t("vrij", "available") : st.status === "optie" ? t("in optie", "on hold") : t("bezet", "taken")}`, transform: `rotate(${q.rot || 0} ${cx} ${cy})` });
     const r = el("rect", { x: cx - q.w / 2, y: cy - q.h / 2, width: q.w, height: q.h, rx: 4,
       fill: st.status === "bezet" ? C.taken : st.status === "optie" ? "rgba(192,138,62,.22)" : freeFill,
       stroke: on ? C.accent : st.status === "optie" ? C.accent : st.status === "bezet" && kitCol === "rijders" ? C.line : ink, "stroke-width": on ? 3.5 : st.status === "vrij" ? 1.5 : 2,
@@ -272,21 +274,21 @@ function renderKit() {
   document.getElementById("kitVoor").setAttribute("aria-selected", kitSide === "voor");
   document.getElementById("kitAchter").setAttribute("aria-selected", kitSide === "achter");
   drawKit();
-  const chip = st => `<span class="chip ${st.status}">${st.status === "vrij" ? "Vrij" : st.status === "optie" ? "In optie" : "Bezet"}</span>`;
+  const chip = st => `<span class="chip ${st.status}">${st.status === "vrij" ? t("Vrij", "Available") : st.status === "optie" ? t("In optie", "On hold") : t("Bezet", "Taken")}</span>`;
   const panel = document.getElementById("kitPanel");
   const s = KIT.find(k => k.id === kitSel);
   const free = KIT.filter(k => kitState(k.id).status === "vrij").length;
   if (!s) {
-    panel.innerHTML = `<h3>${free} van ${KIT.length} plekken vrij</h3><p>De prijs hangt af van hoe goed een plek te zien is op de fiets: van achteren en opzij. De hoofdsponsor staat op de borst, de bovenrug en beide zijkanten. Een plek op het shirt kan vanaf 50 gekochte kilometers. De opbrengst betaalt de shirts en het beplakken van de volgbus.</p>`;
+    panel.innerHTML = t(`<h3>Nog ${free} van ${KIT.length} plekken vrij</h3><p>Hoe beter een plek te zien is op de fiets, van achteren en opzij, hoe hoger de prijs. De hoofdsponsor staat op de borst, de bovenrug en beide zijkanten. Een plek op het shirt kies je vanaf 50 kilometers. De opbrengst betaalt de shirts en de beplakking van de volgbus.</p>`, `<h3>${free} of ${KIT.length} places available</h3><p>The more visible a spot is on the bike, from behind and from the side, the higher the price. The main sponsor sits on the chest, upper back and both sides. You can pick a jersey spot from 50 kilometres. The proceeds pay for the jerseys and the follow van graphics.</p>`);
   } else {
     const st = kitState(s.id);
-    const subj = encodeURIComponent(`Shirtplek: ${s.label}`);
-    const sideTxt = sidesOf(s).length > 1 ? "zijkant, zichtbaar voor en achter" : sidesOf(s)[0] === "voor" ? "voorkant" : "achterkant";
-    const what = s.size === "hoofd" ? `Op ${s.note} · prijs op aanvraag` : `${SIZE[s.size]} · ${eur(PRICE[s.size])} · ${sideTxt}`;
+    const subj = encodeURIComponent(t(`Shirtplek: ${s.label}`, `Jersey spot: ${s.label}`));
+    const sideTxt = sidesOf(s).length > 1 ? t("zijkant, zichtbaar voor en achter", "side, visible front and back") : sidesOf(s)[0] === "voor" ? t("voorkant", "front") : t("achterkant", "back");
+    const what = s.size === "hoofd" ? t(`Op ${s.note} · prijs op aanvraag`, `On the ${s.note} · price on request`) : `${SIZE[s.size]} · ${eur(PRICE[s.size])} · ${sideTxt}`;
     let body = "";
-    if (st.status === "vrij") body = `<p>${what}. Kan vanaf 50 gekochte kilometers. Reserveer hem door Warren te mailen.</p><div class="contact"><a href="mailto:${MAIL}?subject=${subj}">Reserveer deze plek</a><span class="addr">${MAIL}</span><button type="button" class="copy">Kopieer</button></div>`;
-    else if (st.status === "optie") body = `<p>${what}. Iemand heeft een optie op deze plek. Mail om als eerste te horen of hij vrijkomt.</p><div class="contact"><a href="mailto:${MAIL}?subject=${subj}">Mail Warren</a><span class="addr">${MAIL}</span><button type="button" class="copy">Kopieer</button></div>`;
-    else body = `<p>${what}. Deze plek is bezet${st.sponsor ? " door " : ""}<b></b>.</p>`;
+    if (st.status === "vrij") body = `<p>${what}. ${t("Te kiezen vanaf 50 kilometers. Mail Warren en de plek is van jou.", "Available from 50 kilometres. Email Warren and the spot is yours.")}</p><div class="contact"><a href="mailto:${MAIL}?subject=${subj}">${t("Reserveer deze plek", "Reserve this spot")}</a><span class="addr">${MAIL}</span><button type="button" class="copy">${t("Kopieer", "Copy")}</button></div>`;
+    else if (st.status === "optie") body = `<p>${what}. ${t("Iemand heeft een optie op deze plek. Mail Warren en hoor als eerste of hij vrijkomt.", "Someone has this spot on hold. Email Warren to be the first to know if it frees up.")}</p><div class="contact"><a href="mailto:${MAIL}?subject=${subj}">${t("Mail Warren", "Email Warren")}</a><span class="addr">${MAIL}</span><button type="button" class="copy">${t("Kopieer", "Copy")}</button></div>`;
+    else body = `<p>${what}. ${t("Deze plek is bezet", "This spot is taken")}${st.sponsor ? t(" door ", " by ") : ""}<b></b>.</p>`;
     panel.innerHTML = `<h3>${s.label} ${chip(st)}</h3>${body}`;
     const b = panel.querySelector("p b"); if (b) b.textContent = st.sponsor || "";
     bindCopy(panel);
@@ -295,7 +297,7 @@ function renderKit() {
   list.innerHTML = "";
   [...KIT].sort((a, b) => PRICE[b.size] - PRICE[a.size]).forEach(k => {
     const st = kitState(k.id);
-    list.insertAdjacentHTML("beforeend", `<div class="kit-row${kitSel === k.id ? " on" : ""}" tabindex="0" data-id="${k.id}"><span>${k.label} <span style="color:var(--muted)">· ${k.id.startsWith("pijp") ? "zijkant" : sidesOf(k).join(" + ")}</span>${chip(st)}</span><span class="p">${priceTxt(k)}</span></div>`);
+    list.insertAdjacentHTML("beforeend", `<div class="kit-row${kitSel === k.id ? " on" : ""}" tabindex="0" data-id="${k.id}"><span>${k.label} <span style="color:var(--muted)">· ${sidesOf(k).map(x => SIDE[x]).join(" + ")}</span>${chip(st)}</span><span class="p">${priceTxt(k)}</span></div>`);
   });
   list.querySelectorAll(".kit-row").forEach(r => {
     const go = () => { const k = KIT.find(x => x.id === r.dataset.id); kitSel = k.id; if (!sidesOf(k).includes(kitSide)) flipTo(sidesOf(k)[0]); else renderKit(); document.getElementById("kitPanel").scrollIntoView({ block: "nearest", behavior: "smooth" }); };
@@ -400,19 +402,19 @@ function renderCalc() {
   const sel = document.getElementById("calcKit");
   const free = KIT.filter(k => k.size !== "hoofd" && kitState(k.id).status === "vrij");
   if (calc.kit && (!ok || !free.some(k => k.id === calc.kit))) calc.kit = "";
-  sel.innerHTML = `<option value="">Geen plek op het shirt</option>` + free.map(k => `<option value="${k.id}">${k.label} · ${eur(PRICE[k.size])}</option>`).join("");
+  sel.innerHTML = `<option value="">${t("Geen plek op het shirt", "No jersey spot")}</option>` + free.map(k => `<option value="${k.id}">${k.label} · ${eur(PRICE[k.size])}</option>`).join("");
   sel.value = calc.kit; sel.disabled = !ok;
   document.getElementById("calcKitHint").innerHTML = ok
-    ? `${free.length} plekken vrij. <a class="inl" href="#tenue">Bekijk ze op het shirt</a>.`
-    : `Schuif naar 50 km of meer om een plek op het shirt te kiezen.`;
+    ? t(`Nog ${free.length} plekken vrij. <a class="inl" href="#tenue">Bekijk ze op het shirt</a>.`, `${free.length} spots available. <a class="inl" href="#tenue">See them on the jersey</a>.`)
+    : t(`Schuif naar 50 km of meer en kies een plek op het shirt.`, `Slide to 50 km or more to pick a jersey spot.`);
   const k = KIT.find(x => x.id === calc.kit), kitEur = k ? PRICE[k.size] : 0, seatEur = calc.seats * 100;
-  const lines = [[`${nl(km)} km × €20`, kmEur], [`${calc.seats} ${calc.seats > 1 ? "plekken" : "plek"} bij het diner`, seatEur]];
-  if (k) lines.push([`Shirt: ${k.label}`, kitEur]);
+  const lines = [[`${nl(km)} km × €20`, kmEur], [t(`${calc.seats} ${calc.seats > 1 ? "plekken" : "plek"} aan tafel`, `${calc.seats} ${calc.seats > 1 ? "seats" : "seat"} at the dinner`), seatEur]];
+  if (k) lines.push([t(`Shirt: ${k.label}`, `Jersey: ${k.label}`), kitEur]);
   document.getElementById("calcLines").innerHTML = lines.map(([a, b]) => `<div><span>${a}</span><span>${eur(b)}</span></div>`).join("");
   const total = kmEur + seatEur + kitEur;
   document.getElementById("calcTotal").textContent = eur(total);
   const subj = `Sponsoring: ${nl(km)} km${k ? " + " + k.label : ""}`;
-  const body = `Hoi Warren,\n\nWe willen graag sponsoren:\n- ${nl(km)} km (${eur(kmEur)})\n- ${calc.seats} ${calc.seats > 1 ? "plekken" : "plek"} bij het diner (${eur(seatEur)})\n${k ? `- Shirtplek: ${k.label} (${eur(kitEur)})\n` : ""}Totaal: ${eur(total)}\n\nBedrijfsnaam:\nContactpersoon:\n`;
+  const body = t(`Hoi Warren,\n\nWe rijden graag mee:\n- ${nl(km)} km (${eur(kmEur)})\n- ${calc.seats} ${calc.seats > 1 ? "plekken" : "plek"} aan tafel bij het diner (${eur(seatEur)})\n${k ? `- Shirtplek: ${k.label} (${eur(kitEur)})\n` : ""}Totaal: ${eur(total)}\n\nBedrijfsnaam:\nContactpersoon:\n`, `Hi Warren,\n\nWe would love to ride along:\n- ${nl(km)} km (${eur(kmEur)})\n- ${calc.seats} ${calc.seats > 1 ? "seats" : "seat"} at the dinner (${eur(seatEur)})\n${k ? `- Jersey spot: ${k.label} (${eur(kitEur)})\n` : ""}Total: ${eur(total)}\n\nCompany name:\nContact person:\n`);
   document.getElementById("calcMail").href = `mailto:${MAIL}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
 }
 on("calcKm", "input", e => { calc.km = +e.target.value; renderCalc(); });

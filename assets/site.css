@@ -130,3 +130,11 @@ a.card .more{color:var(--groen)}
 .site-foot a{color:var(--fg);text-decoration:none}
 .site-foot a:hover{text-decoration:underline;text-underline-offset:3px}
 @media (max-width:520px){.rows>div{grid-template-columns:92px minmax(0,1fr)}}
+/* Taalknop NL | EN */
+.lang{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--fg);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 10px;line-height:1;order:2}
+.lang:hover{border-color:var(--fg)}
+.site-nav{order:3}
+.menu-btn{order:2}
+@media (min-width:980px){.lang{order:4;margin-left:4px}}
+@media (max-width:979px){.site-head__in{gap:10px}}
+@media (max-width:420px){.brand{font-size:13px;letter-spacing:.06em;gap:8px}.brand .mono{width:34px;height:16px}.menu-btn{padding:6px 13px}}

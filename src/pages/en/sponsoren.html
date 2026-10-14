@@ -1,0 +1,106 @@
+<style>
+.sp-grid{display:grid;gap:32px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:900px){.sp-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}}
+.how{counter-reset:how}
+.how .card{position:relative;padding-top:52px}
+.how .card::before{counter-increment:how;content:counter(how);position:absolute;top:16px;left:18px;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--groen);color:var(--groen);display:grid;place-items:center;font-size:14px;font-weight:600}
+.calc-card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;display:grid;gap:10px}
+.calc-card p{font-size:14px;color:var(--muted)}
+.calc-card .contact a{display:inline-block;background:var(--groen);color:var(--bg);text-decoration:none;border-radius:999px;padding:8px 18px;font-size:14px;font-weight:600}
+.big-ask{display:grid;gap:8px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0}
+</style>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">For companies</div>
+    <h1>Sponsor as a company</h1>
+    <p class="lead">Buy your own stretch of the route, at €20 per kilometre. Your company name rides along on the map, and every euro of your kilometres goes to the Dutch Food Banks. The sooner you join, the further up front you ride.</p>
+    <div class="btns">
+      <a class="btn" href="#rekenhulp">Calculate your contribution</a>
+      <a class="btn ghost" href="/en/progress/">See who is already riding</a>
+    </div>
+  </header>
+
+  <section class="sec" aria-labelledby="h-hoe">
+    <h2 id="h-hoe">How it works</h2>
+    <div class="cards c3 how">
+      <div class="card"><h3>Pick your kilometres</h3><p>From 10 to 100 km, at €20 per kilometre. From 50 km you can also pick a spot for your logo on the jersey.</p></div>
+      <div class="card"><h3>Ride along, visibly</h3><p>Your stretch of the route carries your name: in the <a href="/en/progress/">progress overview</a> and on the follow van, which rides all 1,570 km.</p></div>
+      <div class="card"><h3>Celebrate with us</h3><p>On Saturday 22 May we wrap up together with a dinner, the cheque presentation to the Dutch Food Banks and a party. Every sponsorship includes at least one dinner seat (€100).</p></div>
+    </div>
+  </section>
+
+  <div class="sp-grid">
+    <section class="sec" id="rekenhulp" aria-labelledby="h-reken" style="scroll-margin-top:84px">
+      <h2 id="h-reken">Calculate your contribution</h2>
+      <div class="calc-card">
+        <ol class="steps">
+          <li><b>Pick your kilometres</b>
+            <div class="calc-km">
+              <label for="calcKm" class="calc-val"><span id="calcKmTxt">50 km</span><span id="calcKmEur">€1.000</span></label>
+              <input type="range" id="calcKm" min="10" max="100" step="5" value="50" aria-describedby="calcKmHint">
+              <span id="calcKmHint" class="calc-hint">€20 per km, from 10 to 100 km. Want more than 100 km? Become main sponsor and we put a package together.</span>
+            </div>
+          </li>
+          <li><b>Pick your seats at the table</b>
+            <div class="seg" role="radiogroup" aria-label="Seats at the dinner">
+              <button type="button" role="radio" aria-checked="true" data-seats="1" id="seat1">1 seat · €100</button>
+              <button type="button" role="radio" aria-checked="false" data-seats="2" id="seat2">2 seats · €200</button>
+            </div>
+            <span>Every sponsorship includes at least one seat. Need more? We will sort it out together.</span>
+          </li>
+          <li><b>Put your logo on the jersey <span style="font-weight:400;color:var(--muted)">(from 50 km)</span></b>
+            <div class="calc-kit">
+              <label for="calcKit" class="calc-hint" style="color:var(--fg)">Jersey spot (optional)</label>
+              <select id="calcKit"></select>
+              <span id="calcKitHint" class="calc-hint"></span>
+            </div>
+          </li>
+          <li id="stap-totaal"><b>Your contribution</b>
+            <div class="calc-sum" aria-live="polite">
+              <div class="calc-lines" id="calcLines"></div>
+              <div class="calc-total"><span>Total</span><span id="calcTotal">€1.100</span></div>
+            </div>
+          </li>
+        </ol>
+        <p>Your kilometres go entirely to the food bank. The jersey spots pay for the jerseys and the follow van graphics, and the dinner pays for itself. As a thank-you, every sponsor gets a jersey afterwards. Your invoice comes from the Warren in Motion Foundation (in formation).</p>
+        <div class="contact"><a id="calcMail" href="mailto:warreninmotion@outlook.com?subject=Sponsoring%20kilometres">Email Warren your choice</a><span class="addr">warreninmotion@outlook.com</span><button type="button" class="copy">Copy</button></div>
+      </div>
+    </section>
+
+    <section id="tenue" class="sec" style="min-width:0">
+      <div class="eyebrow">From 50 km</div>
+      <h2>Your logo on the jersey</h2>
+      <p class="hint">Your logo rides along on Warren's jersey, on the jerseys of all final-sprint riders and on the follow van. Tap a spot for the price and to reserve it. First to email gets the spot.</p>
+      <div class="kit">
+        <div class="kit-bar">
+          <a class="back" href="#stap-totaal">← Back</a>
+          <div class="kit-toggle" role="tablist" aria-label="Side of the jersey">
+            <button type="button" role="tab" id="kitVoor" aria-selected="true">Front</button>
+            <button type="button" role="tab" id="kitAchter" aria-selected="false">Back</button>
+          </div>
+        </div>
+        <div class="kit-toggle kit-col" role="tablist" aria-label="Whose jersey">
+          <button type="button" role="tab" id="colWarren" aria-selected="true">Warren's jersey</button>
+          <button type="button" role="tab" id="colRijders" aria-selected="false">Riders' jersey</button>
+        </div>
+        <div class="kit-stage"><svg id="kitSvg" viewBox="0 0 400 500" role="img" aria-label="Jersey with sponsor spots"></svg></div>
+        <div class="kit-panel" id="kitPanel"></div>
+        <div class="kit-legend"><span><i class="lg vrij"></i>Available</span><span><i class="lg optie"></i>On hold</span><span><i class="lg bezet"></i>Taken</span></div>
+        <div class="kit-list" id="kitList"></div>
+      </div>
+    </section>
+  </div>
+
+  <section class="sec" aria-labelledby="h-bus">
+    <h2 id="h-bus">Your logo on the follow van</h2>
+    <p class="hint" style="max-width:62ch">The follow van rides all 1,570 km behind Warren, through 7 countries. Its texts are in English, so everyone along the way can see what we ride for. The main sponsor is big on the side, with all kilometre sponsors below.</p>
+    <div class="kit bus"><div class="kit-toggle kit-col" role="tablist" aria-label="Side of the follow van"><button type="button" role="tab" id="busZij" aria-selected="true">Side</button><button type="button" role="tab" id="busAchter" aria-selected="false">Back</button></div><svg id="busSvg" viewBox="0 0 1100 520" role="img" aria-label="Follow van with magnetic panels and sponsor logos"></svg></div>
+  </section>
+
+  <section class="big-ask" aria-labelledby="h-hoofd">
+    <div class="eyebrow">More than 100 km</div>
+    <h2 id="h-hoofd">Become main sponsor</h2>
+    <p class="muted" style="max-width:62ch">As main sponsor you are on the chest, upper back and both sides of the jersey, and big on the side of the follow van. Together we put a package together that suits your company.</p>
+    <div class="contact"><a class="btn" href="mailto:warreninmotion@outlook.com?subject=Main%20sponsor">Email Warren</a><span class="addr">warreninmotion@outlook.com</span><button type="button" class="copy">Copy</button></div>
+  </section>
+</div>

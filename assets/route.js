@@ -5,14 +5,22 @@ const R = window.WIM_ROUTE;
 const ROUTE_KM = Math.round(R.km), SPRINT = 50;
 // Acht etappes, zaterdag 15 t/m zaterdag 22 mei 2027. Afstand en hoogtemeters komen uit de GPX.
 const STAGES = [
-  { dag: 1, datum: "za 15 mei", van: "Lucca", naar: "Novi Ligure", landen: "Italië", via: "Langs de kust via La Spezia, dan landinwaarts naar Piemonte." },
-  { dag: 2, datum: "zo 16 mei", van: "Novi Ligure", naar: "Locarno", landen: "Italië → Zwitserland", via: "Noordwaarts langs het Lago Maggiore." },
-  { dag: 3, datum: "ma 17 mei", van: "Locarno", naar: "Sargans", landen: "Zwitserland", via: "Over de Lukmanierpas (1.915 m), het hoogste punt van de tocht, en via Chur." },
-  { dag: 4, datum: "di 18 mei", van: "Sargans", naar: "Mulhouse", landen: "Zwitserland → Frankrijk", via: "Via Zürich en Basel." },
-  { dag: 5, datum: "wo 19 mei", van: "Mulhouse", naar: "Bad Bergzabern", landen: "Frankrijk → Duitsland", via: "Door de Elzas over de wijnroute, via Straatsburg." },
-  { dag: 6, datum: "do 20 mei", van: "Bad Bergzabern", naar: "Arlon", landen: "Duitsland → Luxemburg → België", via: "Via Saarbrücken en Luxemburg-stad." },
-  { dag: 7, datum: "vr 21 mei", van: "Arlon", naar: "Lommel", landen: "België", via: "Door de Ardennen via Bastogne en Luik." },
-  { dag: 8, datum: "za 22 mei", van: "Lommel", naar: "Veenendaal", landen: "België → Nederland", via: "Vanaf Den Bosch de eindsprint: de laatste kilometers samen met meefietsers naar de finish." },
+  { dag: 1, datum: t("za 15 mei", "Sat 15 May"), van: "Lucca", naar: "Novi Ligure", landen: t("Italië", "Italy"),
+    via: t("Vertrek op de Piazza dell'Anfiteatro, langs de kust via La Spezia en dan landinwaarts naar Piemonte.", "Rolling out from the Piazza dell'Anfiteatro, along the coast via La Spezia and inland to Piedmont.") },
+  { dag: 2, datum: t("zo 16 mei", "Sun 16 May"), van: "Novi Ligure", naar: "Locarno", landen: t("Italië → Zwitserland", "Italy → Switzerland"),
+    via: t("Noordwaarts door de Povlakte en langs het Lago Maggiore Zwitserland in.", "North across the Po plain and along Lake Maggiore into Switzerland.") },
+  { dag: 3, datum: t("ma 17 mei", "Mon 17 May"), van: "Locarno", naar: "Sargans", landen: t("Zwitserland", "Switzerland"),
+    via: t("De koninginnenrit: over de Lukmanierpas (1.915 m), het dak van de tocht, en via Chur naar Sargans.", "The queen stage: over the Lukmanier Pass (1,915 m), the roof of the ride, and via Chur to Sargans.") },
+  { dag: 4, datum: t("di 18 mei", "Tue 18 May"), van: "Sargans", naar: "Mulhouse", landen: t("Zwitserland → Frankrijk", "Switzerland → France"),
+    via: t("Langs het Walensee, via Zürich en Basel de grens over naar Frankrijk.", "Past the Walensee, via Zurich and Basel across the border into France.") },
+  { dag: 5, datum: t("wo 19 mei", "Wed 19 May"), van: "Mulhouse", naar: "Bad Bergzabern", landen: t("Frankrijk → Duitsland", "France → Germany"),
+    via: t("Door de Elzas over de wijnroute, via Straatsburg naar de Duitse Pfalz.", "Through Alsace on the wine route, via Strasbourg to the German Palatinate.") },
+  { dag: 6, datum: t("do 20 mei", "Thu 20 May"), van: "Bad Bergzabern", naar: "Arlon", landen: t("Duitsland → Luxemburg → België", "Germany → Luxembourg → Belgium"),
+    via: t("Drie landen op één dag: via Saarbrücken en Luxemburg-stad naar België.", "Three countries in one day: via Saarbrücken and Luxembourg City into Belgium.") },
+  { dag: 7, datum: t("vr 21 mei", "Fri 21 May"), van: "Arlon", naar: "Lommel", landen: t("België", "Belgium"),
+    via: t("Op en neer door de Ardennen via Bastogne en Luik, en dan de Kempen in.", "Up and down through the Ardennes via Bastogne and Liège, then into the Campine.") },
+  { dag: 8, datum: t("za 22 mei", "Sat 22 May"), van: "Lommel", naar: "Veenendaal", landen: t("België → Nederland", "Belgium → Netherlands"),
+    via: t("De laatste dag. Vanaf Den Bosch fietsen tot 50 meefietsers mee in de eindsprint naar de finish in Veenendaal.", "The final day. From Den Bosch, up to 50 riders join the final sprint to the finish in Veenendaal.") },
 ];
 const K = 120, PADL = 120, PADR = 100, PADT = 34, PADB = 34;
 const LON0 = 5.3, LON1 = 10.5, LAT1 = 52.05, LAT0 = 43.8, CX = 0.669;
@@ -67,7 +75,7 @@ try {
   }
 } catch (e) { LAND = ""; BORDERS = ""; }
 
-const nl = n => (Math.round(n * 10) / 10).toLocaleString("nl-NL", { maximumFractionDigits: 1 });
+const nl = n => (Math.round(n * 10) / 10).toLocaleString(window.WIM_LOC || "nl-NL", { maximumFractionDigits: 1 });
 const eur = n => "€" + nl(n);
 function el(tag, attrs, text) {
   const e = document.createElementNS("http://www.w3.org/2000/svg", tag);

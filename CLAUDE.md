@@ -17,7 +17,8 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
   (pending: op de site altijd "onder voorbehoud").
 - Bron van de route: de 8 GPX-bestanden uit Strava (etappe 5 = optie A, wijnroute met klim, 198,7 km).
   `assets/route-data.js` (`WIM_ROUTE`) is daaruit gegenereerd: spoor, km per etappe, hoogteprofiel, stijging en
-  daling (drempel 2 m, komt overeen met Garmin). Niet met de hand aanpassen; bij een nieuwe GPX opnieuw genereren.
+  daling (drempel 2 m, komt overeen met Garmin). Niet met de hand aanpassen; bij een nieuwe GPX opnieuw genereren met
+  `python3 tools/build_route.py assets/route-data.js etappe1.gpx … etappe8.gpx`.
   Etappenamen, data en teksten staan in `assets/route.js` (STAGES). ROUTE_KM = 1.570 (afgerond).
 - Km per etappe: 233,2 · 194,5 · 197,3 · 208,4 · 198,7 · 225,2 · 198,6 · 113,8. Totale stijging ±9.560 m.
 - Hoogste punt: Lukmanierpas, officieel 1.915 m (de GPX piekt op 1.965 m door het hoogtemodel; toon 1.915).
@@ -25,6 +26,23 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
 - Matchingcampagne (hoofdsponsor verdubbelt particuliere donaties) is het doel, in overleg, niet bevestigd:
   alleen zo noemen.
 - De pitch (Warren_in_Motion_Pitch_6.pptx) is verouderd wat route, data en doelen betreft; de site is leidend.
+
+## Talen en opbouw (BELANGRIJK)
+- Nederlands op `/`, Engels onder `/en/`: `/en/sponsor/`, `/en/donate/`, `/en/progress/`, `/en/route/`, `/en/about/`,
+  `/en/contact/`. De taalknop in de kop wisselt naar dezelfde pagina in de andere taal.
+- De pagina's worden gebouwd. Bronnen: `src/pages/<pagina>.html` (NL) en `src/pages/en/<pagina>.html` (EN). Daarna
+  `python3 tools/build.py` (repo-root): dat zet kop, menu, taalknop en voet eromheen en schrijft alle `index.html`.
+  Pas nooit de gegenereerde `index.html`-bestanden zelf aan; kop en voet staan in `tools/build.py`.
+- Teksten in scripts zijn tweetalig via `t("nederlands", "English")`; links via `L("/route/")` (geeft het EN-adres op
+  Engelse pagina's); getallen via `nl()`/`fmt()` in de notatie van de taal; datums uit data.js via `WIM_DATE()`.
+- Verander je een tekst, doe het dan altijd in beide talen.
+- Paginascripts: `assets/home.js`, `assets/route-page.js`, `assets/tussenstand.js` (gedeeld door NL en EN).
+
+## Schrijfstijl
+- Lezers: particulieren en ondernemers. Doel: een positief gevoel en zin om mee te doen.
+- Actief en direct, spreek de lezer aan met "je" ("Rij mee", "Kies je kilometers"). Warm, concreet en nuchter
+  (brandbook): geen schreeuwerige superlatieven, niet belerend. Korte zinnen, eerst wat de lezer eraan heeft.
+- Engels: dezelfde toon, Brits Engels (kilometres, colour), "the Dutch Food Banks" voor Voedselbanken Nederland.
 
 ## Hosting
 - GitHub: warreninmotion/warreninmotion-website, branch `main`.
@@ -35,8 +53,7 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
 - Opbouw naar bezoeker: Home (`index.html`) is de landingspagina met twee keuzes: "Ik ben een bedrijf → Ik wil
   sponsoren" (`sponsoren/`) en "Ik ben particulier → Ik wil doneren" (`doneren/`, met daarin de eindsprint en het
   diner onder `#eindsprint`). Verder `tussenstand/`, `route/`, `over-warren/`, `contact/`.
-- Menu: Sponsoren · Doneren · Tussenstand · De route · Over Warren · Contact. Kop, menu en voet staan in elke
-  pagina hetzelfde; wijzig ze op alle zeven pagina's tegelijk.
+- Menu: Sponsoren · Doneren · Tussenstand · De route · Over Warren · Contact, plus taalknop NL | EN.
 - `_redirects` (Netlify) stuurt de oude adressen `/elke-kilometer-telt/` en `/eindsprint/` door.
 - `assets/site.css` = huisstijl en gedeelde onderdelen; `assets/site.js` = monogram, menu, kopieerknoppen,
   stand op Home, peloton en eindsprint op Doneren, en vaste gegevens (`WIM_SITE`: mail, doneerlink, `liveUrl`
