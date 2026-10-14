@@ -92,6 +92,9 @@ Afleiden van `data.js`:
 - Toon: praktisch, direct, warm, concreet, nuchter. Niet belerend of schreeuwerig.
 - Monogram nooit natekenen: de SVG-paden in `assets/site.js` (`WIM_MONO`) komen uit het vectorbestand.
 - Teksten op de volgbus in het Engels; site in het Nederlands.
+- Volgbus (Mercedes-Benz Citan): foto's zonder achtergrond (`assets/img/bus-zij.webp`, `bus-achter.webp`, uit de
+  Mercedes-configurator; vervangen door eigen foto's zodra de bus er is) met de magneetpanelen en het kenteken
+  "Warren in Motion" als SVG erover (`drawBus` in `assets/actie.js`).
 
 ## Home
 - De lanceringsvideo (`assets/video/lancering.mp4`, 7,6 MB) speelt vanzelf zonder geluid zodra hij in beeld is, in een lus;
