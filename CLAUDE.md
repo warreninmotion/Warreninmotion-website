@@ -22,7 +22,7 @@ ook), dan wordt het EERST in HubSpot gezet; `data.js` wordt daarna uit HubSpot a
 
 Vast regeltje bovenaan de deal-omschrijving:
 - Bedrijf: `km: 50 | diner: 1 | shirt: geen | anoniem: nee`
-  - shirt-waarden: geen, open, hoofd, mouwL, mouwR, zak1, zak2, zak3, buik
+  - shirt-waarden: geen, open, hoofd, borst1, borst2, borst3, rug1, rug2, zak1, zak2, zak3, mouwL1, mouwL2, mouwR1, mouwR2
 - Deal "Peloton – particuliere vrienden": `type: peloton`; bedrag (amount) = totaal particuliere donaties zonder bedrijven.
 - Deal "Eindsprint en diner – losse tickets": `type: tickets | eindsprint: N | diner: N`.
 
@@ -37,8 +37,10 @@ Afleiden van `data.js`:
 ## Sponsormodel (stand 14-10-2026)
 - Bedrijven: €20 per km, schuif 10–100 km; >100 km = hoofdsponsor (op aanvraag, bedrag nooit tonen).
 - Bij elke sponsoring minimaal 1 dinerplek (€100 p.p., 1 of 2, meer in overleg).
-- Shirtplek alleen vanaf 50 km: mouwen €500, achterzakken (3) en buik €250; hoofdsponsor op borst, bovenrug en
-  zijkanten. Geen plekken op de broek. Logo staat op shirt Warren, shirts meefietsers en volgbus.
+- Shirtplek alleen vanaf 50 km, op het echte Owayo-ontwerp (foto's in `img/shirt-*.webp`, vier kanten):
+  geel = hoofdsponsor (borst, bovenrug, beide zijkanten); 12 grijze plekken: 3 balken voor en 2 balken rug €500,
+  3 achterzakken en 4 mouwvlakken (2 per mouw) €250 (voorstel 14-10-2026, nog niet bevestigd door Warren).
+  Geen plekken op de broek. Logo staat op shirt Warren, shirts meefietsers en volgbus.
 - Eindsprint za 22 mei 2027, Den Bosch → Veenendaal (~50 km), max 50 plekken, €150 = meefietsen + officieel
   shirt + diner/cheque/feest. Alleen diner €100.
 - Facturatie via Stichting Warren in Motion (in oprichting). Particulieren doneren via
