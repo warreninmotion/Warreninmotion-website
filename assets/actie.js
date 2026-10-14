@@ -310,107 +310,84 @@ function flipTo(side) {
   setTimeout(() => { kitSide = side; renderKit(); svg.classList.remove("flip"); }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 250);
 }
 // ── Volgbus ─────────────────────────────────────────────────────────────────
+// Foto's van de Mercedes-Benz Citan (achtergrond verwijderd, assets/img/bus-zij.webp en bus-achter.webp),
+// met de magneetpanelen als SVG erover. Coördinaten zijn pixels van de uitgesneden foto.
 let busSide = "zij";
+function busImg(svg, src, w, h) {
+  svg.append(el("ellipse", { cx: w / 2, cy: h - 8, rx: w * .46, ry: 10, fill: "rgba(20,32,28,.22)", filter: "url(#busBlur)" }));
+  const im = el("image", { x: 0, y: 0, width: w, height: h, preserveAspectRatio: "xMidYMid meet" });
+  im.setAttribute("href", src); svg.append(im);
+}
+function busDefs(svg) {
+  svg.insertAdjacentHTML("beforeend", `<defs><filter id="busBlur" x="-10%" y="-200%" width="120%" height="500%"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="panelShadow" x="-5%" y="-5%" width="110%" height="115%"><feDropShadow dx="0" dy="1.5" stdDeviation="1.6" flood-color="#000" flood-opacity=".28"/></filter></defs>`);
+}
 function drawBusRear(svg) {
-  // Citan achteraanzicht op dezelfde schaal: 1.830 mm breed, 1.820 mm hoog, twee achterdeuren
-  const grp = el("g", { transform: "translate(336 40) scale(1.1)" }); svg.append(grp);
-  const A = (tag, a, t) => { const e = el(tag, a, t); grp.append(e); return e; };
+  // achteraanzicht 566 × 553, gecentreerd in een brede viewBox zodat de schaal past bij de zijkant
+  svg.setAttribute("viewBox", "-330 -6 1226 565");
+  busDefs(svg); busImg(svg, "/assets/img/bus-achter.webp", 566, 553);
+  const A = (tag, a, t) => { const e = el(tag, a, t); svg.append(e); return e; };
   const TT = (x, y, s, t, a = {}) => A("text", { x, y, "font-size": s, "text-anchor": "middle", "font-family": "var(--body)", ...a }, t);
-  A("ellipse", { cx: 195, cy: 384, rx: 200, ry: 7, fill: "rgba(20,32,28,.16)" });
-  A("rect", { x: 40, y: 318, width: 62, height: 64, rx: 10, fill: "#1E2321" });
-  A("rect", { x: 288, y: 318, width: 62, height: 64, rx: 10, fill: "#1E2321" });
-  A("rect", { x: 0, y: 136, width: 20, height: 34, rx: 5, fill: "#2E3532" });
-  A("rect", { x: 370, y: 136, width: 20, height: 34, rx: 5, fill: "#2E3532" });
-  A("path", { d: "M 30 30 Q 34 6 70 4 L 320 4 Q 356 6 360 30 L 372 300 Q 372 318 356 320 L 34 320 Q 18 318 18 300 Z", fill: "#F4F5F3", stroke: "#8F9792", "stroke-width": 1.8 });
-  A("path", { d: "M 46 26 L 212 26 L 212 136 L 42 136 Z", fill: "#3B4944" });
-  A("path", { d: "M 228 26 L 344 26 L 348 136 L 228 136 Z", fill: "#3B4944" });
-  A("path", { d: "M 220 14 L 220 300", stroke: "#A3AAA6", "stroke-width": 1.8 });
-  A("rect", { x: 170, y: 8, width: 50, height: 6, rx: 3, fill: "#B4483A" });
-  A("rect", { x: 20, y: 110, width: 16, height: 130, rx: 6, fill: "#B4483A" });
-  A("rect", { x: 354, y: 110, width: 16, height: 130, rx: 6, fill: "#B4483A" });
-  A("rect", { x: 226, y: 142, width: 22, height: 6, rx: 3, fill: "#7A817D" });
-  A("rect", { x: 12, y: 298, width: 366, height: 36, rx: 9, fill: "#59605D" });
-  A("rect", { x: 145, y: 304, width: 100, height: 22, rx: 3, fill: "#F2C230", stroke: "#2A2A2A", "stroke-width": 1 });
-  TT(195, 320, 12, "V-123-WM", { fill: "#1A1A1A", "font-weight": 700 });
-  // linkerdeur: veiligheid voor het verkeer achter de bus
-  A("rect", { x: 46, y: 154, width: 162, height: 136, rx: 6, fill: "#1E4034" });
   const Z = { fill: "#F2EEE4" };
-  TT(127, 171, 10, "Please keep your distance", { ...Z, "font-weight": 700 });
-  const keep = C; C = { ...C, ink: "#F2EEE4" }; mono(grp, 127, 189, 34); C = keep;
-  TT(127, 221, 21, "CYCLIST", { ...Z, "font-family": "var(--display)" });
-  TT(127, 242, 21, "AHEAD", { ...Z, "font-family": "var(--display)" });
-  A("rect", { x: 113, y: 250, width: 28, height: 2.5, fill: "#C08A3E" });
-  TT(127, 269, 13, "1,500 km", { ...Z, "font-family": "var(--display)" });
-  TT(127, 283, 6.5, "LUCCA → VEENENDAAL", { ...Z, "letter-spacing": .8, opacity: .85 });
-  flag(grp, 69, 277, 10, 7, "it"); flag(grp, 175, 277, 10, 7, "nl");
+  // linkerdeur: veiligheid voor het verkeer achter de bus
+  A("rect", { x: 100, y: 78, width: 222, height: 166, rx: 7, fill: "#1E4034", filter: "url(#panelShadow)" });
+  TT(211, 100, 11, "Please keep your distance", { ...Z, "font-weight": 700 });
+  const keep = C; C = { ...C, ink: "#F2EEE4" }; mono(svg, 211, 124, 46); C = keep;
+  TT(211, 166, 22, "CYCLIST AHEAD", { ...Z, "font-family": "var(--display)", textLength: 186, lengthAdjust: "spacingAndGlyphs" });
+  A("rect", { x: 193, y: 177, width: 36, height: 3, fill: "#C08A3E" });
+  TT(211, 202, 17, "1,500 km", { ...Z, "font-family": "var(--display)" });
+  TT(211, 222, 8.5, "LUCCA → VEENENDAAL", { ...Z, "letter-spacing": 1, opacity: .85 });
+  flag(svg, 128, 215, 13, 9, "it"); flag(svg, 281, 215, 13, 9, "nl");
   // rechterdeur: doneren
-  A("rect", { x: 230, y: 154, width: 118, height: 136, rx: 6, fill: "#F2EEE4" });
-  A("rect", { x: 254, y: 162, width: 70, height: 70, fill: "#FFFFFF", stroke: "#D8D2C3" });
-  for (const [x, y] of [[259, 167], [303, 167], [259, 211]]) A("rect", { x, y, width: 16, height: 16, fill: "none", stroke: "#14201C", "stroke-width": 4 });
-  TT(289, 203, 6.5, "QR", { fill: "#8A918C", "font-weight": 700 });
-  TT(289, 254, 15, "Scan & donate", { fill: "#1E4034", "font-family": "var(--display)" });
-  TT(289, 268, 7, "1,500 km for the Dutch Food Banks", { fill: "#1E4034" });
-  TT(289, 283, 8.5, "@warreninmotion", { fill: "#1E4034", "font-weight": 700 });
+  A("rect", { x: 342, y: 78, width: 132, height: 166, rx: 7, fill: "#F2EEE4", filter: "url(#panelShadow)" });
+  A("rect", { x: 370, y: 88, width: 76, height: 76, fill: "#FFFFFF", stroke: "#D8D2C3" });
+  for (const [x, y] of [[376, 94], [424, 94], [376, 142]]) A("rect", { x, y, width: 16, height: 16, fill: "none", stroke: "#14201C", "stroke-width": 4 });
+  TT(408, 132, 8, "QR", { fill: "#8A918C", "font-weight": 700 });
+  TT(408, 190, 17, "Scan & donate", { fill: "#1E4034", "font-family": "var(--display)" });
+  TT(408, 207, 7.6, "for the Dutch Food Banks", { fill: "#1E4034" });
+  TT(408, 228, 10, "@warreninmotion", { fill: "#1E4034", "font-weight": 700 });
+  // kenteken: Warren in Motion met logo
+  A("rect", { x: 143, y: 293, width: 174, height: 42, rx: 5, fill: "#F2EEE4", stroke: "#1E4034", "stroke-width": 3 });
+  A("rect", { x: 146, y: 296, width: 34, height: 36, rx: 3, fill: "#1E4034" });
+  const k2 = C; C = { ...C, ink: "#F2EEE4" }; mono(svg, 163, 314, 26); C = k2;
+  TT(249, 319, 11.5, "WARREN IN MOTION", { fill: "#1E4034", "font-family": "var(--display)", "letter-spacing": .4, textLength: 118, lengthAdjust: "spacingAndGlyphs" });
 }
 function drawBus() {
   const svg = document.getElementById("busSvg"); svg.innerHTML = "";
   document.getElementById("busZij").setAttribute("aria-selected", busSide === "zij");
   document.getElementById("busAchter").setAttribute("aria-selected", busSide === "achter");
   if (busSide === "achter") return drawBusRear(svg);
-  const P = (d, a) => svg.append(el("path", { d, ...a }));
-  const T = (x, y, s, t, a = {}) => svg.append(el("text", { x, y, "font-size": s, "text-anchor": "middle", ...a }, t));
-  // Mercedes-Benz Citan (2012), omtrek overgetrokken van de bouwtekening (0,213 px per mm):
-  // 4.320 mm lang, 1.820 mm hoog, wielbasis 2.700 mm. Getekend als bestelversie, zonder zijramen achter.
-  const root = svg; const grp = el("g", { transform: "translate(40 34) scale(1.1)" }); root.append(grp);
-  const A = (tag, a, t) => { const e = el(tag, a, t); grp.append(e); return e; };
-  const PP = (d, a) => A("path", { d, ...a });
+  svg.setAttribute("viewBox", "0 -6 1223 532");
+  busDefs(svg); busImg(svg, "/assets/img/bus-zij.webp", 1223, 514);
+  const A = (tag, a, t) => { const e = el(tag, a, t); svg.append(e); return e; };
   const TT = (x, y, s, t, a = {}) => A("text", { x, y, "font-size": s, "text-anchor": "middle", ...a }, t);
-  A("ellipse", { cx: 484, cy: 386, rx: 470, ry: 8, fill: "rgba(20,32,28,.16)" });
-  PP("M 30 305 L 22 270 L 22 205 Q 26 180 60 168 Q 150 150 236 136 L 368 28 Q 380 14 410 12 L 880 8 Q 915 10 932 40 L 942 120 L 944 290 Q 944 315 925 322 L 887 324 A 88 88 0 1 0 713 324 L 307 328 A 88 88 0 1 0 133 328 L 60 318 Q 34 316 30 305 Z", { fill: "#F4F5F3", stroke: "#8F9792", "stroke-width": 1.8, "stroke-linejoin": "round" });
-  PP("M 244 134 L 366 34 Q 372 28 384 28 L 264 134 Z", { fill: "#3B4944" });
-  PP("M 330 154 Q 326 120 352 96 Q 400 58 452 46 L 532 42 Q 540 42 540 50 L 540 150 Q 540 156 532 156 Z", { fill: "#3B4944" });
-  PP("M 312 112 Q 304 170 309 326 M 548 22 L 548 326 M 556 22 L 556 326 M 746 18 L 746 300 M 746 160 L 920 160", { stroke: "#A3AAA6", "stroke-width": 1.8, fill: "none" });
-  PP("M 905 26 Q 924 40 930 70 L 936 290", { stroke: "#A3AAA6", "stroke-width": 1.8, fill: "none" });
-  A("rect", { x: 330, y: 244, width: 375, height: 10, rx: 3, fill: "#59605D" });
-  A("rect", { x: 307, y: 318, width: 405, height: 10, fill: "#6E7572" });
-  A("rect", { x: 495, y: 186, width: 34, height: 9, rx: 4, fill: "#7A817D" });
-  A("rect", { x: 562, y: 186, width: 34, height: 9, rx: 4, fill: "#7A817D" });
-  A("rect", { x: 790, y: 176, width: 40, height: 24, rx: 4, fill: "none", stroke: "#A3AAA6", "stroke-width": 1.5 });
-  A("ellipse", { cx: 347, cy: 126, rx: 13, ry: 19, fill: "#2E3532" });
-  PP("M 40 178 Q 80 168 150 172 L 140 194 Q 90 200 44 206 Z", { fill: "#DDE3E0", stroke: "#8F9792", "stroke-width": 1.2 });
-  PP("M 22 262 L 22 290 Q 26 304 40 308 L 118 312 L 132 286 Q 80 280 22 262 Z", { fill: "#59605D" });
-  A("rect", { x: 932, y: 118, width: 11, height: 150, rx: 4, fill: "#B4483A" });
-  A("rect", { x: 905, y: 288, width: 40, height: 36, rx: 6, fill: "#59605D" });
-  for (const cx of [220, 800]) { A("circle", { cx, cy: 312, r: 72, fill: "#1E2321" }); A("circle", { cx, cy: 312, r: 44, fill: "#8E9692" }); A("circle", { cx, cy: 312, r: 12, fill: "#3A403D" }); }
-  // paneel 1 (schuifdeur, boven de sierlijst): Warren in Motion
-  A("rect", { x: 565, y: 36, width: 172, height: 200, rx: 6, fill: "#1E4034" });
-  const keep = C; C = { ...C, ink: "#F2EEE4" }; mono(grp, 651, 62, 52); C = keep;
   const Z = { fill: "#F2EEE4", "font-family": "var(--body)" };
-  TT(651, 92, 7, "WARREN IN MOTION", { ...Z, "letter-spacing": 1.8 });
-  A("rect", { x: 637, y: 100, width: 28, height: 2.5, fill: "#C08A3E" });
-  TT(651, 134, 32, "1,500 km", { ...Z, "font-family": "var(--display)" });
-  TT(651, 154, 11.5, "Lucca → Veenendaal", { ...Z, "font-weight": 700 });
-  flag(grp, 574, 146, 13, 9, "it"); flag(grp, 715, 146, 13, 9, "nl");
-  TT(651, 170, 8.5, "Cycling for the Dutch Food Banks", Z);
-  TT(651, 184, 7.5, "15–22 May 2027 · 7 countries", { ...Z, opacity: .8 });
-  TT(651, 212, 11, "@warreninmotion", { ...Z, "font-weight": 700 });
-  TT(651, 225, 6.2, "INSTAGRAM · TIKTOK · FACEBOOK", { ...Z, "letter-spacing": .5, opacity: .85 });
-  // paneel 2 (achterzijde, boven de rail): hoofdsponsor
+  // paneel 1 (schuifdeur, boven de handgrepen): Warren in Motion
+  A("rect", { x: 300, y: 50, width: 236, height: 176, rx: 7, fill: "#1E4034", filter: "url(#panelShadow)" });
+  const keep = C; C = { ...C, ink: "#F2EEE4" }; mono(svg, 418, 76, 62); C = keep;
+  TT(418, 112, 8.5, "WARREN IN MOTION", { ...Z, "letter-spacing": 2.2 });
+  A("rect", { x: 400, y: 120, width: 36, height: 3, fill: "#C08A3E" });
+  TT(418, 160, 38, "1,500 km", { ...Z, "font-family": "var(--display)" });
+  TT(418, 182, 13.5, "Lucca → Veenendaal", { ...Z, "font-weight": 700 });
+  flag(svg, 316, 173, 15, 10, "it"); flag(svg, 505, 173, 15, 10, "nl");
+  TT(418, 200, 10, "Cycling for the Dutch Food Banks", Z);
+  TT(418, 215, 8.5, "15–22 May 2027 · 7 countries · @warreninmotion", { ...Z, opacity: .85 });
+  // paneel 2 (achter op de zijkant): hoofdsponsor
   const G = { fill: "#1E4034", "font-family": "var(--body)", "font-weight": 700, "text-anchor": "start" };
-  A("rect", { x: 754, y: 30, width: 164, height: 120, rx: 6, fill: "#F2EEE4" });
-  TT(764, 46, 6.5, "MAIN SPONSOR", { ...G, "letter-spacing": 1.6 });
-  A("rect", { x: 764, y: 54, width: 144, height: 86, rx: 4, fill: "#FFFFFF", stroke: "#D8D2C3" });
+  A("rect", { x: 128, y: 62, width: 154, height: 128, rx: 7, fill: "#F2EEE4", filter: "url(#panelShadow)" });
+  TT(140, 80, 7.5, "MAIN SPONSOR", { ...G, "letter-spacing": 1.8 });
+  A("rect", { x: 140, y: 88, width: 130, height: 90, rx: 4, fill: "#FFFFFF", stroke: "#D8D2C3" });
   const hs = kitState("hoofd");
-  if (hs.status === "bezet" && hs.sponsor) { const g = el("g", {}); logo(g, hs.sponsor, 836, 97, 96, 58); grp.append(g); }
-  else TT(836, 101, 11, "Your logo here", { fill: "#8A918C", "font-family": "var(--body)" });
-  // paneel 3 (schuifdeur, onder de sierlijst): alle bedrijven met kilometers
-  A("rect", { x: 565, y: 260, width: 140, height: 54, rx: 5, fill: "#F2EEE4" });
-  TT(573, 271, 5.8, "SUPPORTED BY", { ...G, "letter-spacing": 1.4 });
+  if (hs.status === "bezet" && hs.sponsor) { const g = el("g", {}); logo(g, hs.sponsor, 205, 133, 90, 58); svg.append(g); }
+  else TT(205, 137, 12, "Your logo here", { fill: "#8A918C", "font-family": "var(--body)" });
+  // paneel 3 (schuifdeur, onder de handgrepen): alle bedrijven met kilometers
+  A("rect", { x: 300, y: 270, width: 236, height: 112, rx: 7, fill: "#F2EEE4", filter: "url(#panelShadow)" });
+  TT(312, 288, 7.5, "SUPPORTED BY", { ...G, "letter-spacing": 1.6 });
   const cos = CUR.sponsors.filter(s => s.name && s.name !== hs.sponsor);
-  const max = 12, show = cos.slice(0, cos.length > max ? max - 1 : max);
-  show.forEach((s, i) => { const g = el("g", {}); logo(g, s.name, 580 + (i % 6) * 21.5, 285 + Math.floor(i / 6) * 19, 17, 17); grp.append(g); });
-  if (cos.length > max) TT(580 + 5 * 21.5, 307, 8, `+${cos.length - (max - 1)}`, { fill: "#1E4034", "font-weight": 700, "font-family": "var(--body)" });
-  if (!cos.length) TT(635, 292, 8, "Your company here", { fill: "#8A918C", "font-family": "var(--body)" });
+  const max = 16, show = cos.slice(0, cos.length > max ? max - 1 : max);
+  show.forEach((s, i) => { const g = el("g", {}); logo(g, s.name, 327 + (i % 8) * 26.5, 312 + Math.floor(i / 8) * 34, 22, 22); svg.append(g); });
+  if (cos.length > max) TT(327 + 7 * 26.5, 352, 10, `+${cos.length - (max - 1)}`, { fill: "#1E4034", "font-weight": 700, "font-family": "var(--body)" });
+  if (!cos.length) TT(418, 330, 11, "Your company here", { fill: "#8A918C", "font-family": "var(--body)" });
 }
 
 // ── Rekenhulp voor bedrijven ────────────────────────────────────────────────
