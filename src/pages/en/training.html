@@ -1,62 +1,43 @@
-<style>
-.tpage{--z1:#C9D8CE;--z2:#6F9A82;--z3:#E2B85C;--z4:#C9853A;--z5:#A4442E}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tpage{--z1:#3A5246;--z2:#6F9A82;--z3:#C9A24E;--z4:#D98B48;--z5:#E8805C}}
-:root[data-theme="dark"] .tpage{--z1:#3A5246;--z2:#6F9A82;--z3:#C9A24E;--z4:#D98B48;--z5:#E8805C}
-.t-top{display:grid;gap:28px;grid-template-columns:minmax(0,1fr)}
-@media (min-width:860px){.t-top{grid-template-columns:minmax(0,6fr) minmax(0,5fr);align-items:end}}
-.chartbox{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 14px 8px;display:grid;gap:6px}
-.chartbox svg{display:block;width:100%;height:auto;max-height:240px}
-.chartbox svg text{font-family:var(--body);font-variant-numeric:tabular-nums}
-.chartbox .cap{font-size:13px;color:var(--muted)}
-.zlegend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
-.zc{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
-.z1{background:var(--z1)}.z2{background:var(--z2)}.z3{background:var(--z3)}.z4{background:var(--z4)}.z5{background:var(--z5)}
-.privacy{font-size:14px;color:var(--muted);border-left:2px solid var(--line);padding-left:12px;max-width:62ch}
-.weeks{display:grid;gap:40px}
-.wk{display:grid;gap:14px;border-top:2px solid var(--groen);padding-top:16px}
-.wk header{display:grid;gap:8px}
-.wk-stats{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px;color:var(--muted)}
-.wk-stats b{color:var(--fg);font-family:var(--display);font-weight:400;font-size:24px}
-.wk-stats span{align-self:baseline}
-.wk-body{display:grid;gap:20px;grid-template-columns:minmax(0,1fr)}
-@media (min-width:860px){.wk-body{grid-template-columns:minmax(0,6fr) minmax(0,5fr);align-items:start}}
-.wk .prose p{color:var(--fg)}
-.wk .sig{color:var(--muted);font-style:italic}
-.rides{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--line)}
-.rides li{display:grid;gap:6px;padding:10px 2px;border-bottom:1px solid var(--line)}
-.r-h{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 12px;font-size:15px}
-.r-h span{color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}
-.zbar{display:flex;height:10px;border-radius:999px;overflow:hidden;background:var(--line)}
-.zbar i{display:block;height:100%}
-.r-z{font-size:12px;color:var(--muted)}
-</style>
 <div class="wrap tpage">
   <div class="t-top">
     <header>
       <div class="eyebrow">Training · on the way to May 2027</div>
       <h1>How Warren trains</h1>
-      <p class="lead">Riding almost 200 km a day on average, eight days in a row, takes solid preparation. Every week you can read here how many kilometres Warren cycled, what kind of rides they were and which heart rate zones he trained in. With a short report from Warren himself.</p>
+      <p class="lead">Riding almost 200 km a day on average, eight days in a row, takes solid preparation. Every week you can see here what Warren did: the kilometres, the rides and how hard they were. Pick a week and watch the weekly story.</p>
     </header>
-    <figure class="chartbox" style="margin:0">
-      <svg id="tChart" role="img" aria-label="Kilometres cycled per week"></svg>
-      <figcaption class="cap">Kilometres cycled per week</figcaption>
+    <figure class="t-map">
+      <svg id="tMap" role="img" aria-label="Kilometres trained, plotted on the route from Lucca to Veenendaal"></svg>
+      <figcaption id="tMapCap"></figcaption>
     </figure>
   </div>
 
   <dl class="facts" id="tFacts"></dl>
 
-  <section class="sec" aria-labelledby="h-zones">
-    <h2 id="h-zones">Heart rate zones</h2>
-    <p class="muted" style="max-width:62ch">For each ride you can see how much of the time Warren spent in each zone. Zone 2 is the base: easy enough to keep going for hours. Zone 3 and up are the hard efforts.</p>
+  <section class="wstrip-wrap" aria-labelledby="h-weeks">
+    <div class="wstrip-head">
+      <h2 id="h-weeks">Pick a week</h2>
+      <div class="wstrip-nav"><button type="button" id="wPrev" aria-label="Previous week">←</button><button type="button" id="wNext" aria-label="Next week">→</button></div>
+    </div>
+    <div class="wstrip" id="wStrip" role="group" aria-label="Kilometres cycled per week"></div>
     <div class="zlegend" id="tZones"></div>
-    <p class="privacy">What you won't see here: on which day or at what time Warren trained, and where he rode. We keep that private. For each week you do see every ride, sorted by length.</p>
   </section>
 
-  <section class="sec" aria-labelledby="h-weeks">
-    <h2 id="h-weeks">Weekly reports</h2>
-    <div class="weeks" id="tWeeks"></div>
-    <p class="small muted" id="tUpd"></p>
+  <section class="wpanel" id="wPanel" aria-labelledby="wTitle" style="scroll-margin-top:84px">
+    <div class="story-wrap">
+      <div class="story" id="wStory" aria-roledescription="weekly story" aria-label="Weekly story"></div>
+      <p class="hint">Tap right to continue, left to go back.</p>
+    </div>
+    <div class="winfo">
+      <div><h2 id="wTitle" style="font-size:clamp(24px,3.6vw,30px)"></h2></div>
+      <div class="wstats" id="wStats"></div>
+      <div class="zmix" id="wZmix"></div>
+      <div class="prose" id="wText"></div>
+      <ul class="rides" id="wRides"></ul>
+    </div>
   </section>
+
+  <p class="privacy">What you won't see here: on which day or at what time Warren trained, and where he rode. We keep that private. For each week you do see every ride, sorted by length. The zones are Warren's heart rate zones from Strava.</p>
+  <p class="small muted" id="tUpd"></p>
 
   <section class="sec" aria-labelledby="h-mee">
     <h2 id="h-mee">Will you ride with us?</h2>

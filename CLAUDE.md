@@ -121,7 +121,15 @@ Afleiden van `data.js`:
 - Elke week een verslag uit Strava (Strava-koppeling): gefietste km, de ritten (soort, km, duur, gem. snelheid,
   binnen/buiten) met de tijd per hartslagzone (Strava-zones Z1–Z5, uit de hartslagstream), overige training
   (HIIT, hardlopen, wandelen) en een kort blogje van Warren (ik-vorm, NL en EN, toon zoals de rest van de site).
-- Data in `training.js` (`window.WIM_TRAINING`), nieuwste week bovenaan; pagina-script `assets/training-page.js`.
+- Data in `training.js` (`window.WIM_TRAINING`), nieuwste week bovenaan; pagina-script `assets/training-page.js`,
+  stijl `assets/training.css`. Pagina: kaart "getraind op de route" (cumulatieve km op de echte route), weekbalk
+  (klikbaar, hoogte = km, kleur = tijd per zone), per week een weekverhaal (staande 9:16-story die zelf doorloopt:
+  weekcijfers, foto's/video's van Warren, zones, ritten, citaat, voortgang op de route) en het verslag. `#week-41`
+  opent een week.
+- Foto's en video's per week: `media: [{ type: "foto"|"video", src, alt, altEn, cap, capEn, poster }]` in de week;
+  bestanden in `assets/training/` (foto's webp, max. 1080 px breed; video mp4 H.264, zonder geluid, max. 15 s en
+  ±3 MB, met poster). Ook voor foto's en video's geldt de privacyregel hieronder (geen herkenbare plek of
+  datum in beeld).
 - Weken lopen ma–zo (ISO-week); alleen afgeronde weken. Ritten op lengte sorteren, niet op volgorde.
 - Privacy (VAST): nooit datum, dag of tijdstip per training, geen routes, kaarten, GPS of plaatsnamen (ook niet
   in de blogtekst), geen ruwe hartslagwaarden. Alleen de weekperiode als geheel.

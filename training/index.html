@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&amp;display=swap">
 <link rel="stylesheet" href="/assets/site.css">
 <script>document.documentElement.classList.add("js")</script>
+<link rel="stylesheet" href="/assets/training.css">
 </head>
 <body>
 <a class="skip" href="#main">Naar de inhoud</a>
@@ -36,65 +37,46 @@
 </header>
 
 <main id="main">
-<style>
-.tpage{--z1:#C9D8CE;--z2:#6F9A82;--z3:#E2B85C;--z4:#C9853A;--z5:#A4442E}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tpage{--z1:#3A5246;--z2:#6F9A82;--z3:#C9A24E;--z4:#D98B48;--z5:#E8805C}}
-:root[data-theme="dark"] .tpage{--z1:#3A5246;--z2:#6F9A82;--z3:#C9A24E;--z4:#D98B48;--z5:#E8805C}
-.t-top{display:grid;gap:28px;grid-template-columns:minmax(0,1fr)}
-@media (min-width:860px){.t-top{grid-template-columns:minmax(0,6fr) minmax(0,5fr);align-items:end}}
-.chartbox{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 14px 8px;display:grid;gap:6px}
-.chartbox svg{display:block;width:100%;height:auto;max-height:240px}
-.chartbox svg text{font-family:var(--body);font-variant-numeric:tabular-nums}
-.chartbox .cap{font-size:13px;color:var(--muted)}
-.zlegend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
-.zc{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
-.z1{background:var(--z1)}.z2{background:var(--z2)}.z3{background:var(--z3)}.z4{background:var(--z4)}.z5{background:var(--z5)}
-.privacy{font-size:14px;color:var(--muted);border-left:2px solid var(--line);padding-left:12px;max-width:62ch}
-.weeks{display:grid;gap:40px}
-.wk{display:grid;gap:14px;border-top:2px solid var(--groen);padding-top:16px}
-.wk header{display:grid;gap:8px}
-.wk-stats{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px;color:var(--muted)}
-.wk-stats b{color:var(--fg);font-family:var(--display);font-weight:400;font-size:24px}
-.wk-stats span{align-self:baseline}
-.wk-body{display:grid;gap:20px;grid-template-columns:minmax(0,1fr)}
-@media (min-width:860px){.wk-body{grid-template-columns:minmax(0,6fr) minmax(0,5fr);align-items:start}}
-.wk .prose p{color:var(--fg)}
-.wk .sig{color:var(--muted);font-style:italic}
-.rides{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--line)}
-.rides li{display:grid;gap:6px;padding:10px 2px;border-bottom:1px solid var(--line)}
-.r-h{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 12px;font-size:15px}
-.r-h span{color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}
-.zbar{display:flex;height:10px;border-radius:999px;overflow:hidden;background:var(--line)}
-.zbar i{display:block;height:100%}
-.r-z{font-size:12px;color:var(--muted)}
-</style>
 <div class="wrap tpage">
   <div class="t-top">
     <header>
       <div class="eyebrow">Training · op weg naar mei 2027</div>
       <h1>Zo traint Warren</h1>
-      <p class="lead">Acht dagen achter elkaar gemiddeld bijna 200 km fietsen vraagt om een goede voorbereiding. Elke week lees je hier hoeveel kilometers Warren heeft gefietst, wat voor ritten het waren en in welke hartslagzones hij trainde. Met een kort verslag van Warren zelf.</p>
+      <p class="lead">Acht dagen achter elkaar gemiddeld bijna 200 km fietsen vraagt om een goede voorbereiding. Elke week zie je hier wat Warren heeft gedaan: de kilometers, de ritten en hoe hard het ging. Kies een week en bekijk het weekverhaal.</p>
     </header>
-    <figure class="chartbox" style="margin:0">
-      <svg id="tChart" role="img" aria-label="Gefietste kilometers per week"></svg>
-      <figcaption class="cap">Gefietste kilometers per week</figcaption>
+    <figure class="t-map">
+      <svg id="tMap" role="img" aria-label="Getrainde kilometers uitgezet op de route van Lucca naar Veenendaal"></svg>
+      <figcaption id="tMapCap"></figcaption>
     </figure>
   </div>
 
   <dl class="facts" id="tFacts"></dl>
 
-  <section class="sec" aria-labelledby="h-zones">
-    <h2 id="h-zones">Hartslagzones</h2>
-    <p class="muted" style="max-width:62ch">Per rit zie je hoeveel van de tijd Warren in elke zone zat. Zone 2 is de basis: rustig genoeg om uren vol te houden. Zone 3 en hoger zijn de stevige stukken.</p>
+  <section class="wstrip-wrap" aria-labelledby="h-weeks">
+    <div class="wstrip-head">
+      <h2 id="h-weeks">Kies een week</h2>
+      <div class="wstrip-nav"><button type="button" id="wPrev" aria-label="Vorige week">←</button><button type="button" id="wNext" aria-label="Volgende week">→</button></div>
+    </div>
+    <div class="wstrip" id="wStrip" role="group" aria-label="Gefietste kilometers per week"></div>
     <div class="zlegend" id="tZones"></div>
-    <p class="privacy">Wat je hier niet ziet: op welke dag of hoe laat Warren trainde, en waar hij fietste. Dat houden we privé. Per week zie je wel alle ritten, op lengte gesorteerd.</p>
   </section>
 
-  <section class="sec" aria-labelledby="h-weeks">
-    <h2 id="h-weeks">Weekverslagen</h2>
-    <div class="weeks" id="tWeeks"></div>
-    <p class="small muted" id="tUpd"></p>
+  <section class="wpanel" id="wPanel" aria-labelledby="wTitle" style="scroll-margin-top:84px">
+    <div class="story-wrap">
+      <div class="story" id="wStory" aria-roledescription="weekverhaal" aria-label="Weekverhaal"></div>
+      <p class="hint">Tik rechts voor verder, links voor terug.</p>
+    </div>
+    <div class="winfo">
+      <div><h2 id="wTitle" style="font-size:clamp(24px,3.6vw,30px)"></h2></div>
+      <div class="wstats" id="wStats"></div>
+      <div class="zmix" id="wZmix"></div>
+      <div class="prose" id="wText"></div>
+      <ul class="rides" id="wRides"></ul>
+    </div>
   </section>
+
+  <p class="privacy">Wat je hier niet ziet: op welke dag of hoe laat Warren trainde, en waar hij fietste. Dat houden we privé. Per week zie je wel alle ritten, op lengte gesorteerd. De zones zijn Warrens hartslagzones uit Strava.</p>
+  <p class="small muted" id="tUpd"></p>
 
   <section class="sec" aria-labelledby="h-mee">
     <h2 id="h-mee">Fiets je met ons mee?</h2>
@@ -136,6 +118,11 @@
 
 <script src="/data.js"></script>
 <script src="/assets/site.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.20/topojson.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.9/datamaps.world.hires.min.js"></script>
+<script src="/assets/route-data.js"></script>
+<script src="/assets/route.js"></script>
 <script src="/training.js"></script>
 <script src="/assets/training-page.js"></script>
 </body>

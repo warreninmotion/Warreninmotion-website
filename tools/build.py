@@ -126,6 +126,7 @@ MAPLIBS = '''<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.mi
 '''
 ACTIE = MAPLIBS + '<script src="/assets/actie.js"></script>\n'
 ACSS = '<link rel="stylesheet" href="/assets/actie.css">\n'
+TCSS = '<link rel="stylesheet" href="/assets/training.css">\n'
 
 
 def frag(name, lang):
@@ -148,13 +149,13 @@ META = {
     "route": (("De route · Warren in Motion", "Acht etappes van Lucca naar Veenendaal, 1.570 km door 7 landen, van 15 tot 22 mei 2027."),
               ("The route · Warren in Motion", "Eight stages from Lucca to Veenendaal, 1,570 km through 7 countries, from 15 to 22 May 2027."), "MAPLIBS", ""),
     "training": (("Training · Warren in Motion", "Zo traint Warren voor ruim 1.500 km van Lucca naar Veenendaal: elke week de gefietste kilometers, de ritten en de hartslagzones, met een kort verslag."),
-                 ("Training · Warren in Motion", "How Warren trains for more than 1,500 km from Lucca to Veenendaal: every week the kilometres cycled, the rides and the heart rate zones, with a short report."), "", ""),
+                 ("Training · Warren in Motion", "How Warren trains for more than 1,500 km from Lucca to Veenendaal: every week the kilometres cycled, the rides and the heart rate zones, with a short report."), "MAPLIBS", "TCSS"),
     "over-warren": (("Over Warren · Warren in Motion", "Wie Warren van der Ploeg is en waarom hij van Lucca naar Veenendaal fietst voor Voedselbanken Nederland."),
                     ("About Warren · Warren in Motion", "Who Warren van der Ploeg is and why he is cycling from Lucca to Veenendaal for the Dutch Food Banks."), "", ""),
     "contact": (("Contact · Warren in Motion", "Mail Warren over sponsoring, doneren, de eindsprint, pers of meedoen."),
                 ("Contact · Warren in Motion", "Email Warren about sponsoring, donating, the final sprint, press or getting involved."), "", ""),
 }
-G = {"ACTIE": ACTIE, "ACSS": ACSS, "MAPLIBS": MAPLIBS, "": ""}
+G = {"ACTIE": ACTIE, "ACSS": ACSS, "TCSS": TCSS, "MAPLIBS": MAPLIBS, "": ""}
 for key, (nl, en, pre, head) in META.items():
     for lang, (title, desc) in (("nl", nl), ("en", en)):
         name = key + ".html"
