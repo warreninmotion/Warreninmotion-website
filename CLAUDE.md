@@ -53,7 +53,8 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
 - Opbouw naar bezoeker: Home (`index.html`) is de landingspagina met twee keuzes: "Ik ben een bedrijf → Ik wil
   sponsoren" (`sponsoren/`) en "Ik ben particulier → Ik wil doneren" (`doneren/`, met daarin de eindsprint en het
   diner onder `#eindsprint`). Verder `tussenstand/`, `route/`, `over-warren/`, `contact/`.
-- Menu: Sponsoren · Doneren · Tussenstand · De route · Training · Over Warren · Contact, plus taalknop NL | EN.
+- Menu (van links naar rechts, in leesvolgorde): Over Warren · De route · Training · Doneren · Sponsoren · Tussenstand ·
+  Contact, plus taalknop met vlaggetje (🇬🇧 EN op Nederlandse pagina's, 🇳🇱 NL op Engelse; inline SVG in `tools/build.py`).
 - `_redirects` (Netlify) stuurt de oude adressen `/elke-kilometer-telt/` en `/eindsprint/` door.
 - `assets/site.css` = huisstijl en gedeelde onderdelen; `assets/site.js` = monogram, menu, kopieerknoppen,
   stand op Home, peloton en eindsprint op Doneren, en vaste gegevens (`WIM_SITE`: mail, doneerlink, `liveUrl`
@@ -123,13 +124,16 @@ Afleiden van `data.js`:
   duur, hoogtemeters, binnen/buiten, tijd per hartslagzone uit de hartslagstream, Strava-zones Z1–Z5), overige
   training (HIIT, hardlopen, wandelen), kcal (Strava) en een kort blogje van Warren (ik-vorm, NL en EN).
 - Pagina (`assets/training-page.js`, `assets/training.css`):
-  1. Kop: tekst, de 360-video (`assets/video/training.mp4`, zonder geluid, speelt vanzelf als hij in beeld is,
-     niet bij "minder beweging") en het totaal sinds de lancering als slider: km (met de route en "op de route zou
+  1. Kop: tekst en totaalblok links, rechts de 360-video, precies even hoog (boven- en onderkant gelijk); video
+     `assets/video/training.mp4` zonder geluid, speelt vanzelf als hij in beeld is (niet bij "minder beweging").
+     Het totaal sinds de lancering is een slider: km (met de route en "op de route zou
      Warren nu in etappe X zijn"), trainingen, uren, kcal en hoogtemeters (alleen als > 0).
   2. Onder elk totaal een weetje (`weetjes` in `training.js`). Elke week vernieuwen zodat het past bij de nieuwe
      totalen (bv. km → "dat is van Veenendaal naar Parijs"). Afstanden en feiten kloppen, niet overdrijven.
   3. Weekkalender: alle weken van de lancering tot de tocht (week 19, 2027); de laatste week met data staat open,
-     eerdere weken terug te kijken; toekomstige weken gestippeld, de tochtweek in brons. `#week-41` opent een week.
+     eerdere weken terug te kijken. Toekomstige weken tonen het geplande schema (`plan` in `training.js`: fasen met
+     richtlijn-km en focus, rustweken ±60%); aanklikken toont het schema-overzicht. Tochtweek in brons.
+     `#week-41` opent een week. Het schema is een CONCEPT van 15-10-2026, nog door Warren te bevestigen.
   4. Per week het weekverhaal (staande 9:16-story: weekcijfers, foto's/video's, zones, ritten, citaat, voortgang)
      en het verslag met de ritten.
 - Foto's en video's per week: `media: [{ type: "foto"|"video", src, alt, altEn, cap, capEn, poster }]` in de week;

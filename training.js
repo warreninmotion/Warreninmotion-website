@@ -6,6 +6,30 @@
 window.WIM_TRAINING = {
   updated: "15 oktober 2026",
   tot: { week: 19, jaar: 2027 }, // de tocht: week 19 van 2027 (15–22 mei)
+  // Gepland schema voor de weken die nog komen. CONCEPT (15-10-2026), opgesteld door Claude: nog door Warren bevestigen.
+  // km = richtlijn per week [van, tot]; rustweken krijgen ongeveer 60% daarvan.
+  plan: {
+    fasen: [
+      { naam: ["Basis", "Base"], van: [2026, 42], tot: [2026, 51], km: [220, 300],
+        focus: ["Veel rustige kilometers in zone 2 en twee keer per week kracht of HIIT. Zo groeit het fundament voor lange dagen.",
+          "Lots of easy kilometres in zone 2 and strength or HIIT twice a week. That builds the foundation for long days."] },
+      { naam: ["Feestdagen", "Holidays"], van: [2026, 52], tot: [2027, 1], km: [120, 180],
+        focus: ["Wat rustiger aan rond kerst en oud en nieuw, wel blijven bewegen.", "Taking it a bit easier around Christmas and New Year, but keep moving."] },
+      { naam: ["Opbouw", "Build"], van: [2027, 2], tot: [2027, 9], km: [300, 400],
+        focus: ["Langere ritten tot 120 à 150 km en blokken in zone 3. De duurritten worden echte dagtochten.",
+          "Longer rides of 120 to 150 km and blocks in zone 3. The endurance rides become proper day trips."] },
+      { naam: ["Specifiek", "Specific"], van: [2027, 10], tot: [2027, 15], km: [400, 550],
+        focus: ["Twee of drie lange ritten achter elkaar en klimmen voor de Lukmanierpas. Wennen aan dag na dag in het zadel.",
+          "Two or three long rides back to back and climbing for the Lukmanier Pass. Getting used to day after day in the saddle."] },
+      { naam: ["Generale repetitie", "Dress rehearsal"], van: [2027, 16], tot: [2027, 16], km: [550, 650],
+        focus: ["Drie dagen achter elkaar rond de 200 km, als test voor mei: fiets, voeding en herstel.",
+          "Three days in a row of around 200 km, as a test for May: bike, food and recovery."] },
+      { naam: ["Afbouwen", "Taper"], van: [2027, 17], tot: [2027, 18], km: [150, 280],
+        focus: ["Minder kilometers, wel scherp blijven. Uitgerust en fris naar de start in Lucca.",
+          "Fewer kilometres, but staying sharp. Rested and fresh for the start in Lucca."] },
+    ],
+    rust: [[2026, 45], [2026, 49], [2027, 5], [2027, 9], [2027, 13]],
+  },
   weetjes: {
     km: ["Dat is verder dan van Veenendaal naar Brussel. En al 15% van de afstand van Lucca naar huis.",
       "That is further than from Veenendaal to Brussels. And already 15% of the distance from Lucca to home."],

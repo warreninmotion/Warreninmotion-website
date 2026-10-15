@@ -22,7 +22,7 @@ PAGES = {
     "over-warren": ("/over-warren/", "/en/about/", "Over Warren", "About Warren"),
     "contact": ("/contact/", "/en/contact/", "Contact", "Contact"),
 }
-MENU = ["sponsoren", "doneren", "tussenstand", "route", "training", "over-warren", "contact"]
+MENU = ["over-warren", "route", "training", "doneren", "sponsoren", "tussenstand", "contact"]
 TXT = {
     "nl": {"skip": "Naar de inhoud", "main": "Hoofdmenu", "pages": "Pagina's", "switch": ("en", "EN", "Read this page in English"),
            "foot": "Lucca → Veenendaal · 15–22 mei 2027<br>Ten bate van Voedselbanken Nederland",
@@ -30,6 +30,11 @@ TXT = {
     "en": {"skip": "Skip to content", "main": "Main menu", "pages": "Pages", "switch": ("nl", "NL", "Lees deze pagina in het Nederlands"),
            "foot": "Lucca → Veenendaal · 15–22 May 2027<br>For the Dutch Food Banks (Voedselbanken Nederland)",
            "stichting": "Warren in Motion Foundation (in formation)", "donate": "Donate to the Dutch Food Banks"},
+}
+# vlaggetjes voor de taalknop (inline SVG, werkt ook op Windows waar emoji-vlaggen ontbreken)
+FLAG = {
+    "en": '<svg class="flag" viewBox="0 0 60 30" aria-hidden="true"><clipPath id="fc"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="ft"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#fc)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#ft)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>',
+    "nl": '<svg class="flag" viewBox="0 0 9 6" aria-hidden="true"><path fill="#AE1C28" d="M0 0h9v2H0z"/><path fill="#fff" d="M0 2h9v2H0z"/><path fill="#21468B" d="M0 4h9v2H0z"/></svg>',
 }
 P = lambda key, lang: PAGES[key][0 if lang == "nl" else 1]
 N = lambda key, lang: PAGES[key][2 if lang == "nl" else 3]
@@ -45,7 +50,7 @@ def header(cur, lang):
 <header class="site-head">
   <div class="site-head__in">
     <a class="brand" href="{P("home", lang)}"{' aria-current="page"' if cur == "home" else ""}><svg class="mono" aria-hidden="true"></svg><span>Warren in Motion</span></a>
-    <a class="lang" href="{P(cur, other)}" hreflang="{other}" lang="{other}" aria-label="{label}">{code}</a>
+    <a class="lang" href="{P(cur, other)}" hreflang="{other}" lang="{other}" aria-label="{label}">{FLAG[other]}<span>{code}</span></a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav class="site-nav" id="site-nav" aria-label="{T["main"]}">
       <ul>

@@ -20,20 +20,25 @@
       <div class="wstrip-nav"><button type="button" id="wPrev" aria-label="Vorige week">←</button><button type="button" id="wNext" aria-label="Volgende week">→</button></div>
     </div>
     <div class="wstrip" id="wStrip" role="group" aria-label="Weekkalender van de lancering tot de tocht"></div>
-    <div class="zlegend" id="tZones"></div>
   </section>
 
-  <section class="wpanel" id="wPanel" aria-labelledby="wTitle" style="scroll-margin-top:84px">
-    <div class="story-wrap">
-      <div class="story" id="wStory" aria-roledescription="weekverhaal" aria-label="Weekverhaal"></div>
-      <p class="hint">Tik rechts voor verder, links voor terug.</p>
+  <section class="wpanel" id="wPanel" style="scroll-margin-top:84px">
+    <div class="wweek" id="wWeek">
+      <div class="story-wrap">
+        <div class="story" id="wStory" aria-roledescription="weekverhaal" aria-label="Weekverhaal"></div>
+        <p class="hint">Tik rechts voor verder, links voor terug.</p>
+      </div>
+      <div class="winfo">
+        <div><h2 id="wTitle" style="font-size:clamp(24px,3.6vw,30px)"></h2></div>
+        <div class="wstats" id="wStats"></div>
+        <div class="zmix" id="wZmix"></div>
+        <div class="prose" id="wText"></div>
+        <ul class="rides" id="wRides"></ul>
+      </div>
     </div>
-    <div class="winfo">
-      <div><h2 id="wTitle" style="font-size:clamp(24px,3.6vw,30px)"></h2></div>
-      <div class="wstats" id="wStats"></div>
-      <div class="zmix" id="wZmix"></div>
-      <div class="prose" id="wText"></div>
-      <ul class="rides" id="wRides"></ul>
+    <div class="wplan" id="wPlan" hidden>
+      <div class="plan-side"><div class="eyebrow">Het schema naar mei</div><ol class="plan-list" id="wPlanList"></ol></div>
+      <div class="winfo"><div class="eyebrow" id="wPlanEye"></div><h2 id="wPlanTitle" style="font-size:clamp(24px,3.6vw,30px)"></h2><div id="wPlanBody" class="winfo"></div></div>
     </div>
   </section>
   <p class="small muted" id="tUpd"></p>

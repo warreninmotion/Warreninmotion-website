@@ -5,13 +5,16 @@
 .z1{background:var(--z1)}.z2{background:var(--z2)}.z3{background:var(--z3)}.z4{background:var(--z4)}.z5{background:var(--z5)}
 
 /* Kop: tekst + totaal sinds de lancering, met de video ernaast */
-.t-hero{display:grid;gap:28px;grid-template-columns:minmax(0,1fr);align-items:start}
-@media (min-width:860px){.t-hero{grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:44px}}
-.t-vid{margin:0;display:grid;justify-items:center}
-.t-vid video{display:block;width:100%;max-width:310px;aspect-ratio:9/16;object-fit:cover;border-radius:14px;background:#14201C;box-shadow:0 10px 30px rgba(20,32,28,.18)}
-@media (max-width:859px){.t-vid{order:-1}.t-vid video{max-width:260px}}
-.tot{display:grid;gap:10px;margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px 14px}
+/* video even hoog als de tekst links: bovenkant gelijk met het kopje, onderkant gelijk met het cijferblok */
+.t-hero{display:grid;gap:24px;grid-template-columns:minmax(0,1fr)}
+.t-hero>div:first-child{display:flex;flex-direction:column}
+@media (min-width:860px){.t-hero{grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:40px;align-items:stretch}}
+.t-vid{margin:0;position:relative;border-radius:14px;overflow:hidden;background:#14201C;min-height:300px}
+.t-vid video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
+@media (max-width:859px){.t-vid{order:-1;height:min(62vw,340px);min-height:0}}
+.tot{display:grid;gap:10px;margin-top:auto;padding-top:0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px 14px}
 .tot-track{display:grid}
+.t-hero .lead{margin-bottom:22px}
 .tot-card{grid-area:1/1;display:grid;gap:6px;align-content:start;opacity:0;visibility:hidden;transform:translateX(12px);transition:opacity .35s,transform .35s,visibility .35s}
 .tot-card.on{opacity:1;visibility:visible;transform:none}
 @media (prefers-reduced-motion:reduce){.tot-card{transition:none;transform:none}}
@@ -42,27 +45,34 @@
 .wstrip{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;scroll-snap-type:x proximity;scrollbar-width:thin}
 .cal-col{flex:0 0 auto;width:118px;display:grid;gap:6px;scroll-snap-align:start}
 .cal-m{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap;border-left:2px solid var(--line);padding-left:6px;min-height:18px}
-.cal{display:grid;gap:4px;align-content:start;text-align:left;font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 10px 12px;min-height:106px}
-button.cal{cursor:pointer}
+.cal{display:grid;gap:3px;align-content:start;text-align:left;font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 10px 12px;min-height:110px;width:100%;cursor:pointer}
 button.cal:hover{border-color:var(--muted)}
 button.cal[aria-pressed="true"]{border-color:var(--groen);box-shadow:inset 0 0 0 1.5px var(--groen)}
 button.cal:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
 .cal-wk{font-size:13px;font-weight:600}
 .cal-d{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
-.cal-km{font-family:var(--display);font-size:28px;line-height:1.1;font-variant-numeric:lining-nums tabular-nums;margin-top:auto}
+.cal-km{font-family:var(--display);font-size:26px;line-height:1.1;font-variant-numeric:lining-nums tabular-nums;margin-top:8px;white-space:nowrap}
+.cal-s{font-size:12px;color:var(--muted)}
+.cal.plan .cal-km{font-size:19px;color:var(--muted);margin-top:12px}
+.cal.plan .cal-s,.cal.tour .cal-s{margin-top:auto}
 .cal-km small{font-family:var(--body);font-size:12px;color:var(--muted)}
-.cal-z{display:flex;height:6px;border-radius:9px;overflow:hidden;background:var(--line)}
-.cal-z i{display:block;height:100%}
-.cal-t{font-size:13px;color:var(--muted);margin-top:auto}
-.cal.later{background:transparent;border-style:dashed}
+.cal.plan{background:transparent;border-style:dashed}
+.cal.now{border-style:solid;border-color:var(--muted)}
 .cal.tour{background:transparent;border:1.5px solid var(--brons)}
-.cal.tour .cal-t{color:var(--fg);font-weight:600}
+.cal.tour .cal-s{color:var(--fg);font-weight:600}
 .zlegend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
 .zc{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
 
-/* Weekpaneel */
-.wpanel{display:grid;gap:28px;grid-template-columns:minmax(0,1fr);align-items:start}
-@media (min-width:860px){.wpanel{grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:40px}}
+/* Weekpaneel: hoort bij de gekozen week in de kalender */
+.wpanel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px clamp(16px,3vw,32px);margin-top:-12px}
+.wweek,.wplan{display:grid;gap:28px;grid-template-columns:minmax(0,1fr);align-items:start}
+@media (min-width:860px){.wweek{grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:40px}.wplan{grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:40px}}
+.plan-side{display:grid;gap:10px}
+.plan-list{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--line)}
+.plan-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 12px;padding:9px 8px;border-bottom:1px solid var(--line);font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.plan-list li b{color:var(--fg);font-weight:600;grid-column:1/-1}
+.plan-list li.on{background:var(--bg);box-shadow:inset 3px 0 0 var(--groen)}
+.plan-list li.tour b{color:var(--fg)}
 .winfo{display:grid;gap:18px;min-width:0}
 .wstats{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px;color:var(--muted)}
 .wstats b{color:var(--fg);font-family:var(--display);font-weight:400;font-size:30px;line-height:1}
@@ -85,8 +95,6 @@ button.cal:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
 .r-more{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 .r-more b{color:var(--fg);font-weight:600}
 .rides li:not(.open) .r-more{display:none}
-.rides li .r-hint{font-size:12px;color:var(--muted)}
-.rides li.open .r-hint{display:none}
 
 /* Weekverhaal: staand 9:16, schaalt mee (alles in cqw), zelfde opmaak als de social-mediapost */
 .story{position:relative;width:100%;max-width:360px;aspect-ratio:9/16;margin:0 auto;border-radius:16px;overflow:hidden;background:#1E4034;color:#F2EEE4;container-type:inline-size;box-shadow:0 12px 30px rgba(20,32,28,.22);user-select:none;-webkit-user-select:none}
@@ -137,3 +145,5 @@ button.cal:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
 .story .s-weeks div.on{opacity:1;font-weight:700}
 .story .s-weeks i{display:block;width:100%;max-width:12cqw;border-radius:1.2cqw 1.2cqw 0 0;background:#F2EEE4;min-height:.8cqw}
 .story .s-weeks div.on i{background:#C08A3E}
+.rides .r-h b::after{content:"";display:inline-block;width:6px;height:6px;margin-left:8px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:rotate(45deg) translateY(-3px);transition:transform .2s}
+.rides li.open .r-h b::after{transform:rotate(225deg) translateY(-1px)}

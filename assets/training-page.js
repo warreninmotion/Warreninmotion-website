@@ -103,36 +103,63 @@
   const isoMon = (y, w) => { const d = new Date(Date.UTC(y, 0, 4)); d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7) + (w - 1) * 7); return d; };
   const isoWeek = d => { const x = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())); x.setUTCDate(x.getUTCDate() + 3 - ((x.getUTCDay() + 6) % 7)); const y = x.getUTCFullYear(); return [y, 1 + Math.round((x - isoMon(y, 1)) / 6048e5)]; };
   const mon = d => d.toLocaleDateString(WIM_LOC, { month: "short", timeZone: "UTC" }).replace(".", "");
+  // gepland schema per week (fase, richtlijn km, rustweek)
+  const P = T.plan || { fasen: [], rust: [] };
+  const cmp = (a, b) => a[0] - b[0] || a[1] - b[1];
+  const planFor = (y, wk) => {
+    const f = P.fasen.find(x => cmp([y, wk], x.van) >= 0 && cmp([y, wk], x.tot) <= 0);
+    if (!f) return null;
+    const rust = P.rust.some(r => r[0] === y && r[1] === wk);
+    return { f, rust, km: rust ? f.km.map(v => Math.round(v * .6 / 10) * 10) : f.km };
+  };
   const CAL = [];
   {
     const end = isoMon(T.tot.jaar, T.tot.week);
     for (let d = isoMon(W[0].jaar, W[0].week); d <= end; d = new Date(d.getTime() + 6048e5)) {
       const [y, wk] = isoWeek(d), data = W.find(w => w.week === wk && w.jaar === y);
-      CAL.push({ y, wk, d, data, idx: data ? W.indexOf(data) : -1, tour: y === T.tot.jaar && wk === T.tot.week });
+      CAL.push({ y, wk, d, data, idx: data ? W.indexOf(data) : -1, tour: y === T.tot.jaar && wk === T.tot.week, plan: data ? null : planFor(y, wk) });
     }
   }
   const strip = $("wStrip");
   const today = new Date(), [ty, tw] = isoWeek(new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate())));
+  const isNow = c => c.y === ty && c.wk === tw;
+  const datesOf = c => { const e = new Date(c.d.getTime() + 6 * 864e5); return `${c.d.getUTCDate()}${mon(c.d) !== mon(e) ? " " + mon(c.d) : ""}–${e.getUTCDate()} ${mon(e)}`; };
+  const longDates = c => { const e = new Date(c.d.getTime() + 6 * 864e5), o = { day: "numeric", month: "long", timeZone: "UTC" };
+    return `${c.d.toLocaleDateString(WIM_LOC, c.d.getUTCMonth() === e.getUTCMonth() ? { day: "numeric", timeZone: "UTC" } : o)}–${e.toLocaleDateString(WIM_LOC, { ...o, year: "numeric" })}`; };
   let lastMonth = "";
-  strip.innerHTML = CAL.map(c => {
-    const e = new Date(c.d.getTime() + 6 * 864e5), m = c.d.toLocaleDateString(WIM_LOC, { month: "long", year: "numeric", timeZone: "UTC" });
-    const head = m !== lastMonth ? `<span class="cal-m">${m}</span>` : ""; lastMonth = m;
-    const dates = `${c.d.getUTCDate()}${mon(c.d) !== mon(e) ? " " + mon(c.d) : ""}–${e.getUTCDate()} ${mon(e)}`;
-    const now = c.y === ty && c.wk === tw;
+  strip.innerHTML = CAL.map((c, ci) => {
+    const m = c.d.toLocaleDateString(WIM_LOC, { month: "long", year: "numeric", timeZone: "UTC" });
+    const head = m !== lastMonth ? `<span class="cal-m">${m}</span>` : '<span class="cal-m" aria-hidden="true"></span>'; lastMonth = m;
     let body, cls = "cal";
-    if (c.data) {
-      const km = wKm(c.data), z = wZone(c.data), zt = z.reduce((a, b) => a + b, 0) || 1;
-      body = `<span class="cal-km">${km ? n1(Math.round(km)) : "–"}<small>${km ? " km" : ""}</small></span>
-        <span class="cal-z">${z.map((m2, j) => m2 ? `<i class="z${j + 1}" style="width:${m2 / zt * 100}%"></i>` : "").join("")}</span>`;
-    } else if (c.tour) { cls += " tour"; body = `<span class="cal-t">Lucca → Veenendaal</span>`; }
-    else { cls += " later"; body = `<span class="cal-t">${now ? t("Deze week", "This week") : t("Nog te gaan", "To come")}</span>`; }
-    const tag = c.data ? "button" : "div";
-    return `<div class="cal-col">${head || '<span class="cal-m" aria-hidden="true">&nbsp;</span>'}<${tag}${c.data ? ` type="button" data-i="${c.idx}" aria-pressed="false"` : ""} class="${cls}">
-      <span class="cal-wk">${t("Week", "Week")} ${c.wk}</span><span class="cal-d">${dates}</span>${body}</${tag}></div>`;
+    if (c.data) { const km = wKm(c.data); body = `<span class="cal-km">${km ? n1(Math.round(km)) : "–"}<small>${km ? " km" : ""}</small></span><span class="cal-s">${t("Gefietst", "Cycled")}</span>`; }
+    else if (c.tour) { cls += " tour"; body = `<span class="cal-km">${n1(ROUTE_KM)}<small> km</small></span><span class="cal-s">${t("De tocht", "The ride")}</span>`; }
+    else if (c.plan) { cls += " plan"; body = `<span class="cal-km">${c.plan.km[0]}–${c.plan.km[1]}<small> km</small></span><span class="cal-s">${c.plan.rust ? t("Rustweek", "Rest week") : t(c.plan.f.naam[0], c.plan.f.naam[1])}</span>`; }
+    else { cls += " plan"; body = `<span class="cal-s">${t("Nog te gaan", "To come")}</span>`; }
+    if (isNow(c) && !c.data) cls += " now";
+    return `<div class="cal-col">${head}<button type="button" data-c="${ci}" aria-pressed="false" class="${cls}">
+      <span class="cal-wk">${t("Week", "Week")} ${c.wk}${isNow(c) ? ` · ${t("nu", "now")}` : ""}</span><span class="cal-d">${datesOf(c)}</span>${body}</button></div>`;
   }).join("");
-  const toGo = CAL.filter(c => c.tour || (!c.data && (c.y > ty || (c.y === ty && c.wk > tw)))).length;
-  if ($("tToGo")) $("tToGo").textContent = t(`Nog ${toGo} weken tot de start in Lucca.`, `${toGo} weeks to go until the start in Lucca.`);
-  if ($("tZones")) $("tZones").innerHTML = ZN.map((z, i) => `<span><i class="zc z${i + 1}"></i>Z${i + 1} · ${z}</span>`).join("");
+  const toGo = CAL.filter(c => c.tour || (!c.data && cmp([c.y, c.wk], [ty, tw]) > 0)).length;
+  if ($("tToGo")) $("tToGo").textContent = t(`Nog ${toGo} weken tot de start in Lucca. Tik op een week voor het verslag of het schema.`, `${toGo} weeks to go until the start in Lucca. Tap a week for the report or the plan.`);
+
+  // schema-overzicht en week uit het schema (of de tocht zelf)
+  function showPlan(ci) {
+    const c = CAL[ci], p = c.plan;
+    $("wPlanList").innerHTML = P.fasen.map(f => `<li class="${p && p.f === f ? "on" : ""}"><b>${t(f.naam[0], f.naam[1])}</b>
+      <span>${t("week", "week")} ${f.van[1]}${f.van[0] !== f.tot[0] || f.van[1] !== f.tot[1] ? `–${f.tot[1]}` : ""}</span><span>${f.km[0]}–${f.km[1]} km</span></li>`).join("") +
+      `<li class="tour${c.tour ? " on" : ""}"><b>${t("De tocht", "The ride")}</b><span>${t("week", "week")} ${T.tot.week}</span><span>${n1(ROUTE_KM)} km</span></li>`;
+    $("wPlanEye").textContent = c.tour ? t("15–22 mei 2027", "15–22 May 2027") : isNow(c) ? t("Deze week · loopt nog", "This week · in progress") : t("Gepland", "Planned");
+    $("wPlanTitle").textContent = `${t("Week", "Week")} ${c.wk} · ${longDates(c)}`;
+    if (c.tour) {
+      $("wPlanBody").innerHTML = `<div class="wstats"><span><b>${n1(ROUTE_KM)} km</b> ${t("in 8 dagen", "in 8 days")}</span><span>${t("7 landen", "7 countries")}</span></div>
+        <div class="prose"><p>${t("Van Lucca naar huis in Veenendaal, voor Voedselbanken Nederland. Hier werkt al die training naartoe.", "From Lucca home to Veenendaal, for the Dutch Food Banks. This is what all the training is for.")}</p>
+        <p><a class="more" href="${L("/route/")}">${t("Bekijk de route →", "See the route →")}</a></p></div>`;
+    } else if (p) {
+      $("wPlanBody").innerHTML = `<div class="wstats"><span><b>${p.km[0]}–${p.km[1]} km</b> ${t("op de fiets", "on the bike")}</span><span>${t("Fase", "Phase")}: ${t(p.f.naam[0], p.f.naam[1])}</span></div>
+        <div class="prose"><p>${t(p.f.focus[0], p.f.focus[1])}</p>${p.rust ? `<p>${t("Dit is een rustweek: minder kilometers, zodat het lijf de training kan verwerken.", "This is a rest week: fewer kilometres, so the body can absorb the training.")}</p>` : ""}
+        <p class="small muted">${t("Het schema is een richtlijn. Na afloop van de week zie je hier wat Warren echt heeft gedaan.", "The plan is a guideline. Once the week is over, you'll see here what Warren actually did.")}</p></div>`;
+    } else $("wPlanBody").innerHTML = "";
+  }
 
   // ── Weekverhaal (story) ─────────────────────────────────────────────────
   const story = $("wStory");
@@ -235,10 +262,20 @@
   story.addEventListener("keydown", e => { if (e.key === "ArrowRight") go(cur + 1); if (e.key === "ArrowLeft") go(cur - 1); });
 
   // ── Weekpaneel ──────────────────────────────────────────────────────────
-  function showWeek(i, scroll) {
+  function showCal(ci, scroll) {
+    const c = CAL[ci];
+    strip.querySelectorAll("button.cal").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.c === ci)));
+    $("wPrev").disabled = ci === 0; $("wNext").disabled = ci === CAL.length - 1;
+    $("wWeek").hidden = !c.data; $("wPlan").hidden = !!c.data;
+    if (c.data) showWeek(c.idx); else { cancelAnimationFrame(raf); slides.forEach(s => s.querySelector("video")?.pause()); showPlan(ci); }
+    if (history.replaceState) history.replaceState(null, "", `#week-${c.wk}`);
+    if (scroll) $("wPanel").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    const col = strip.querySelector(`[data-c="${ci}"]`).parentElement;
+    strip.scrollTo({ left: Math.max(0, col.offsetLeft - strip.offsetLeft - strip.clientWidth / 2 + col.offsetWidth / 2), behavior: reduce ? "auto" : "smooth" });
+    sel = ci;
+  }
+  function showWeek(i) {
     const w = WEEKS[i];
-    strip.querySelectorAll("button.cal").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.i === i)));
-    $("wPrev").disabled = i === 0; $("wNext").disabled = i === WEEKS.length - 1;
     const km = wKm(w), z = wZone(w), zt = z.reduce((a, b) => a + b, 0);
     $("wTitle").textContent = `${t("Week", "Week")} ${w.week} · ${range(w)}`;
     $("wStats").innerHTML = [
@@ -254,21 +291,18 @@
         <span class="r-h"><b>${SOORT[r.soort] || r.soort}</b><span>${n1(r.km)} km · ${hm(r.min)} ${t("uur", "h")} · ${n1(r.km / r.min * 60)} ${t("km/u", "km/h")}${r.binnen ? t(" · binnen", " · indoor") : t(" · buiten", " · outdoor")}</span></span>
         <span class="zbar">${r.zones.map((v, j) => v ? `<i class="z${j + 1}" style="width:${v}%"></i>` : "").join("")}</span>
         <span class="r-more">${r.zones.map((v, j) => v ? `<span>Z${j + 1} <b>${hm(r.min * v / 100)}</b> (${v}%)</span>` : "").join("")}</span>
-        <span class="r-hint">${t("Tik voor de minuten per zone", "Tap for minutes per zone")}</span></button></li>`).join("") : "";
+        </button></li>`).join("") : "";
     $("wRides").hidden = !w.ritten.length;
     $("wRides").querySelectorAll("button").forEach(b => b.addEventListener("click", () => { const li = b.parentElement, o = !li.classList.contains("open"); li.classList.toggle("open", o); b.setAttribute("aria-expanded", String(o)); }));
     buildStory(i);
-    if (history.replaceState) history.replaceState(null, "", `#week-${w.week}`);
-    if (scroll) $("wPanel").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
-    const btn = strip.querySelector(`[data-i="${i}"]`).parentElement; strip.scrollLeft = Math.max(0, btn.offsetLeft - strip.offsetLeft - 8);
-    sel = i;
   }
-  let sel = WEEKS.length - 1;
-  strip.addEventListener("click", e => { const b = e.target.closest("button.cal"); if (b) showWeek(+b.dataset.i); });
-  $("wPrev").addEventListener("click", () => sel > 0 && showWeek(sel - 1));
-  $("wNext").addEventListener("click", () => sel < WEEKS.length - 1 && showWeek(sel + 1));
-  const fromHash = WEEKS.findIndex(w => location.hash === `#week-${w.week}`);
-  showWeek(fromHash >= 0 ? fromHash : WEEKS.length - 1);
+  let sel = 0;
+  strip.addEventListener("click", e => { const b = e.target.closest("button.cal"); if (b) showCal(+b.dataset.c); });
+  $("wPrev").addEventListener("click", () => sel > 0 && showCal(sel - 1));
+  $("wNext").addEventListener("click", () => sel < CAL.length - 1 && showCal(sel + 1));
+  const lastData = CAL.findIndex(c => c.data === W[W.length - 1]);
+  const fromHash = CAL.findIndex(c => location.hash === `#week-${c.wk}`);
+  showCal(fromHash >= 0 ? fromHash : lastData);
   const vid = $("tVid");
   if (vid) { if (reduce) vid.controls = true; else new IntersectionObserver(es => { es[0].isIntersecting ? vid.play().catch(() => {}) : vid.pause(); }, { threshold: .3 }).observe(vid); }
   if ($("tUpd")) $("tUpd").textContent = t(`Bijgewerkt op ${WIM_DATE(T.updated)}.`, `Updated ${WIM_DATE(T.updated)}.`);
