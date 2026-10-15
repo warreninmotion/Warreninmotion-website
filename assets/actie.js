@@ -129,7 +129,7 @@ function render() {
     nm.textContent = s.name || t("Anonieme sponsor", "Anonymous sponsor");
     if (!s.name) { nm.style.fontStyle = "italic"; nm.style.fontWeight = "400"; }
   });
-  list.insertAdjacentHTML("beforeend", `<div class="row" tabindex="0" data-i="p"><span class="sw" style="background:var(--brons)"></span><div class="n"><div>Het peloton</div><div>${st.pelotonEuro ? eur(st.pelotonEuro) + " van alle particuliere vrienden van de tocht" : "Word de eerste particuliere vriend van de tocht."}</div></div><div class="k">${pKm ? nl(pKm) + " km" : "–"}</div></div>`);
+  list.insertAdjacentHTML("beforeend", `<div class="row" tabindex="0" data-i="p"><span class="sw" style="background:var(--brons)"></span><div class="n"><div>${t("Het peloton", "The peloton")}</div><div>${st.pelotonEuro ? eur(st.pelotonEuro) + t(" van alle particuliere vrienden van de tocht", " from all private friends of the ride") : t("Word de eerste particuliere vriend van de tocht.", "Be the first private friend of the ride.")}</div></div><div class="k">${pKm ? nl(pKm) + " km" : "–"}</div></div>`);
   list.querySelectorAll(".row").forEach(r => {
     r.addEventListener("mouseenter", () => hl(r.dataset.i)); r.addEventListener("mouseleave", () => hl(null));
     r.addEventListener("click", () => { sel = sel === r.dataset.i ? null : r.dataset.i; hl(null); });
