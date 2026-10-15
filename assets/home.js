@@ -6,7 +6,7 @@
   b.addEventListener("click", () => { v.muted = !v.muted; if (!v.muted && v.paused) v.play(); sync(); });
   v.addEventListener("volumechange", sync);
   v.muted = true;
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return; // geen autoplay bij minder beweging
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { v.controls = true; return; } // geen autoplay bij minder beweging
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) v.play().catch(() => {}); else if (v.muted) v.pause(); }), { threshold: .35 });
   io.observe(v);
 })();

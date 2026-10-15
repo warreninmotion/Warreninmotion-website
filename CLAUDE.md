@@ -55,6 +55,15 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
   diner onder `#eindsprint`). Verder `tussenstand/`, `route/`, `over-warren/`, `contact/`.
 - Menu (van links naar rechts, in leesvolgorde): Over Warren · De route · Training · Doneren · Sponsoren · Tussenstand ·
   Contact, plus taalknop met vlaggetje (🇬🇧 EN op Nederlandse pagina's, 🇳🇱 NL op Engelse; inline SVG in `tools/build.py`).
+  Doneren en Sponsoren staan als groene knop in het menu (`CTA` in `tools/build.py`).
+- Home: groene band bovenaan (kop "Ruim 1.500 km fietsen voor de voedselbank", twee keuzes: Sponsor kilometers /
+  Doneer en rij mee, lanceringsvideo even hoog ernaast), daaronder kerncijfers, kaart met citaat van Warren
+  (concept, door Warren te bevestigen) en Wie/Route/Voedselbank, en de tussenstand.
+- Sponsoren: logostrook "Sluit je aan, net als deze bedrijven" onder de kop: sponsors uit `data.js` (niet anoniem),
+  logo's uit `logos.js` (`WIM_LOGOS`, bestanden in `assets/logos/`; zonder logo staat de naam als woordmerk).
+  Vanaf 5 bedrijven loopt de strook langzaam door.
+- Evenementen in `events.js` (`WIM_EVENTS`): op de Training-pagina in de weekkalender en als blok "Evenementen";
+  samenwerkingen met bedrijven krijgen `partner` (zichtbaarheid). Omloop van Zandvoort 21 maart 2027 is onder voorbehoud.
 - `_redirects` (Netlify) stuurt de oude adressen `/elke-kilometer-telt/` en `/eindsprint/` door.
 - `assets/site.css` = huisstijl en gedeelde onderdelen; `assets/site.js` = monogram, menu, kopieerknoppen,
   stand op Home, peloton en eindsprint op Doneren, en vaste gegevens (`WIM_SITE`: mail, doneerlink, `liveUrl`
@@ -170,3 +179,10 @@ Afleiden van `data.js`:
   3. Project-doc `claude/sponsoring/sponsorplan.md` (en zo nodig `werkwijze-sponsors.md`) gelijk trekken.
   4. Sponsorovereenkomst (Claude Docs 2e6a02bc-9d80-45d6-b21f-570494f57c1c) nalopen als prijzen veranderen.
 - Bedragen van de hoofdsponsor nooit tonen.
+
+## Ontwerpregels (tegen het "AI-gevoel")
+- Geen pijltjes (→) achter knoppen en links; links zijn onderstreept (`.more`). Het pijltje alleen in "Lucca → Veenendaal".
+- Eyebrows (labels boven koppen) spaarzaam en in gewone kleine letters, niet in hoofdletters met spatiëring.
+- Niet alles in beige kaartjes: liever volle groene banden, echte foto's/video en witruimte. Kaartjes alleen waar ze iets
+  afbakenen (rekenhulp, weekpaneel).
+- Echte stem: citaten en teksten van Warren zelf in plaats van uitleg over Warren.

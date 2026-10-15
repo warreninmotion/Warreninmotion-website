@@ -167,7 +167,7 @@
     if (c.tour) {
       $("wPlanBody").innerHTML = `<div class="wstats"><span><b>${n1(ROUTE_KM)} km</b> ${t("in 8 dagen", "in 8 days")}</span><span>${t("7 landen", "7 countries")}</span></div>
         <div class="prose"><p>${t("Van Lucca naar huis in Veenendaal, voor Voedselbanken Nederland. Hier werkt al die training naartoe.", "From Lucca home to Veenendaal, for the Dutch Food Banks. This is what all the training is for.")}</p>
-        <p><a class="more" href="${L("/route/")}">${t("Bekijk de route →", "See the route →")}</a></p></div>`;
+        <p><a class="more" href="${L("/route/")}">${t("Bekijk de route", "See the route")}</a></p></div>`;
     } else if (p) {
       $("wPlanBody").innerHTML = `<div class="wstats"><span><b>${kmTxt(p.km)}</b>${p.km ? " " + t("op de fiets", "on the bike") : ""}</span><span>${t("Fase", "Phase")}: ${t(p.f.naam[0], p.f.naam[1])}</span></div>
         ${c.ev.length ? `<ul class="ev-mini">${c.ev.map(evMini).join("")}</ul>` : ""}
@@ -331,7 +331,7 @@
         <div class="ev-body"><div class="ev-meta">${tt(e.soort)}${e.voorbehoud ? ` · ${t("onder voorbehoud", "to be confirmed")}` : ""}</div>
           <h3>${tt(e.titel)}</h3><p class="ev-where">${evDate(e)} · ${tt(e.plek)}</p><p>${tt(e.tekst)}</p>
           ${e.partner ? `<p class="ev-partner">${t("Samen met", "Together with")} <b>${esc(e.partner)}</b></p>` : ""}
-          ${link ? `<a class="more" href="${link}"${link.startsWith("http") ? ' target="_blank" rel="noopener"' : ""}>${e.meedoen ? t("Doe mee →", "Join in →") : t("Meer info →", "More info →")}</a>` : ""}</div></li>`;
+          ${link ? `<a class="more" href="${link}"${link.startsWith("http") ? ' target="_blank" rel="noopener"' : ""}>${e.meedoen ? t("Doe mee", "Join in") : t("Meer info", "More info")}</a>` : ""}</div></li>`;
     }).join("");
   }
   const vid = $("tVid");

@@ -25,7 +25,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--brons);outline-offs
 main{display:block;padding-inline:16px;padding-block:28px 64px}
 .wrap{max-width:1080px;margin:0 auto;display:grid;gap:28px;grid-template-columns:minmax(0,1fr)}
 .narrow{max-width:720px}
-.eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.eyebrow{font-size:14px;font-weight:500;letter-spacing:.01em;color:var(--muted)}
 h1{font-family:var(--display);font-weight:400;font-size:clamp(40px,8vw,64px);line-height:1.02;margin:6px 0 0;text-wrap:balance}
 h2{font-family:var(--display);font-weight:400;font-size:clamp(26px,4.4vw,32px);line-height:1.15;margin:0;text-wrap:balance}
 h3{font-family:var(--display);font-weight:400;font-size:22px;line-height:1.2;margin:0}
@@ -77,8 +77,8 @@ p{margin:0}
 .btn{display:inline-block;background:var(--groen);color:var(--bg);text-decoration:none;border:1px solid var(--groen);border-radius:999px;padding:9px 20px;font-size:15px;font-weight:600;line-height:1.3;cursor:pointer;font-family:inherit}
 .btn.ghost{background:transparent;color:var(--fg);border-color:var(--fg)}
 .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
-.more{font-weight:600;text-decoration:none}
-.more:hover{text-decoration:underline;text-underline-offset:3px}
+.more{font-weight:600;color:var(--groen);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:5px;text-decoration-color:color-mix(in srgb,var(--groen) 40%,transparent)}
+.more:hover{text-decoration-color:currentColor}
 
 /* Kaarten */
 .cards{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
@@ -148,3 +148,18 @@ a.card .more{color:var(--groen)}
 @media (min-width:980px){.lang{order:4;margin-left:4px}}
 @media (max-width:979px){.site-head__in{gap:10px}}
 @media (max-width:420px){.brand{font-size:13px;letter-spacing:.06em;gap:8px}.brand .mono{width:34px;height:16px}.menu-btn{padding:6px 13px}}
+
+/* Logostrook op Sponsoren */
+.partners{display:grid;gap:14px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0}
+.partners h2{font-size:clamp(22px,3.4vw,28px)}
+.logo-row,.logo-run ul{list-style:none;margin:0;padding:0;display:flex;align-items:center;gap:14px}
+.logo-row{flex-wrap:wrap}
+.logo-item{height:72px;min-width:150px;padding:0 22px;display:grid;place-items:center;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.logo-item img{max-height:44px;max-width:150px;width:auto;height:auto}
+.wordmark{font-family:var(--display);font-size:20px;white-space:nowrap}
+.logo-item.you{background:transparent;border-style:dashed}
+.logo-item.you a{color:var(--groen);font-weight:600;text-decoration:none;font-size:15px}
+.logo-run{display:flex;gap:14px;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.logo-run ul{flex:none;animation:logos 40s linear infinite}
+.logo-run:hover ul{animation-play-state:paused}
+@keyframes logos{to{transform:translateX(calc(-100% - 14px))}}

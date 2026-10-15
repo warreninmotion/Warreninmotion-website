@@ -119,7 +119,7 @@ def page(key, lang, title, desc, body, scripts="", head=""):
 {footer(lang)}
 
 <script src="/data.js"></script>
-<script src="/assets/site.js"></script>
+{'<script src="/logos.js"></script>' + chr(10) if key == "sponsoren" else ""}<script src="/assets/site.js"></script>
 {scripts}</body>
 </html>
 '''

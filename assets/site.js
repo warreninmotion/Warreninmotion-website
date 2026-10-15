@@ -99,3 +99,19 @@ document.addEventListener("click", e => {
   const label = (el.dataset.track || el.getAttribute("aria-label") || el.textContent || "").replace(/\s+/g, " ").trim().slice(0, 60);
   window.WIM_track("Klik", { knop: label || el.className || "?", pagina: location.pathname });
 }, { capture: true });
+
+// Logostrook "Sluit je aan, net als deze bedrijven" (Sponsoren): sponsors uit data.js, logo's uit logos.js.
+// Vanaf 5 bedrijven loopt de strook langzaam door (niet bij "minder beweging"); daaronder staat hij stil.
+(function () {
+  const box = document.querySelector("[data-logos]");
+  if (!box) return;
+  const L0 = window.WIM_LOGOS || {}, D = window.WIM_DATA || { sponsors: [] };
+  const names = [...new Set(D.sponsors.filter(s => s.name).map(s => s.name))];
+  const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const item = n => `<li class="logo-item">${L0[n] ? `<img src="${L0[n]}" alt="${esc(n)}" loading="lazy">` : `<span class="wordmark">${esc(n)}</span>`}</li>`;
+  const you = `<li class="logo-item you"><a href="#rekenhulp">${t("Jouw bedrijf hier?", "Your company here?")}</a></li>`;
+  const run = names.length >= 5 && !matchMedia("(prefers-reduced-motion: reduce)").matches;
+  box.innerHTML = run
+    ? `<div class="logo-run"><ul>${names.map(item).join("")}</ul><ul aria-hidden="true">${names.map(item).join("")}</ul></div>`
+    : `<ul class="logo-row">${names.map(item).join("")}${you}</ul>`;
+})();

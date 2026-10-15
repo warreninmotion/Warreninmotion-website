@@ -6,7 +6,7 @@ Bron: src/artifact/index.html; scripts, stijl, data en foto's komen uit de site 
 import sys, pathlib, shutil
 
 OUT = pathlib.Path(sys.argv[1])
-TEXT = ["data.js", "assets/site.css", "assets/actie.css", "assets/site.js",
+TEXT = ["data.js", "logos.js", "assets/site.css", "assets/actie.css", "assets/site.js",
         "assets/route-data.js", "assets/route.js", "assets/actie.js", "assets/tussenstand.js"]
 IMG = ["shirt-voor", "shirt-achter", "shirt-links", "shirt-rechts", "bus-zij", "bus-achter"]
 

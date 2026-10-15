@@ -168,7 +168,7 @@
   function climbRows(s) {
     if (!s.climbs.length) return `<p class="muted small">${t("Geen noemenswaardige beklimmingen: een vlakke dag om kilometers te maken.", "No notable climbs: a flat day for covering ground.")}</p>`;
     return `<div class="crows">${s.climbs.map((c, j) => `<button type="button" class="crow" data-j="${j}" aria-pressed="false">
-        <span class="no">${j + 1}</span><b>${climbName(s, c, j)}${c.cat ? ` <span class="cat">${catTxt(c)}</span>` : ""}</b><span class="go">${t("Profiel", "Profile")} →</span>
+        <span class="no">${j + 1}</span><b>${climbName(s, c, j)}${c.cat ? ` <span class="cat">${catTxt(c)}</span>` : ""}</b><span class="go">${t("Profiel", "Profile")}</span>
         <span class="m">${nl(c.len)} km · ${nl(c.grade)}% · +${nl(c.gain)} m · top ${nl(climbTop(s, c))} m · km ${nl(Math.round(c.a - s.a))}</span>
       </button>`).join("")}</div>`;
   }

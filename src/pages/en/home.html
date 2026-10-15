@@ -1,107 +1,126 @@
 <style>
-.hero{display:grid;gap:28px;grid-template-columns:minmax(0,1fr);align-items:start;padding-top:8px}
-.hero .choose{margin-top:26px}
-@media (min-width:860px){.hero{grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:40px}}
-.hero h1{font-size:clamp(42px,7.5vw,68px)}
-.hero-vid{margin:0;display:grid;gap:8px;justify-items:center}
-.hero-vid video{display:block;width:100%;max-width:340px;aspect-ratio:464/832;object-fit:cover;border-radius:14px;background:#14201C;box-shadow:0 10px 30px rgba(20,32,28,.18)}
-@media (max-width:859px){.hero-vid video{max-width:300px}}
-.hero-vid figcaption{font-size:13px;color:var(--muted)}
-.vbox{position:relative;width:100%;max-width:340px}
-@media (max-width:859px){.vbox{max-width:300px}}
-.vbox video{max-width:none!important}
-.snd{position:absolute;right:10px;top:10px;display:flex;align-items:center;gap:6px;font:inherit;font-size:13px;font-weight:600;border:0;border-radius:999px;padding:7px 12px;background:rgba(20,32,28,.78);color:#F2EEE4;cursor:pointer}
-.snd svg{width:16px;height:16px}
-.choose{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+/* Kop als volle groene band: de campagne zelf, niet een kaartje */
+.band{background:#1E4034;color:#F2EEE4;margin:-28px -16px 0;padding:44px 16px 48px}
+.band .wrap{gap:0}
+.hero{display:grid;gap:32px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:860px){.hero{grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:48px;align-items:stretch}}
+.hero-txt{display:flex;flex-direction:column}
+.when{font-size:15px;color:rgba(242,238,228,.75)}
+.hero h1{font-size:clamp(44px,7.6vw,76px);line-height:1;margin-top:14px;color:#F2EEE4}
+.hero h1 em{font-style:italic}
+.hero .lead{color:rgba(242,238,228,.85);font-size:19px;max-width:52ch;margin-top:18px}
+.choose{display:grid;gap:12px;grid-template-columns:minmax(0,1fr);margin-top:auto;padding-top:32px}
 @media (min-width:600px){.choose{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.choice{display:grid;gap:6px;align-content:start;text-decoration:none;color:var(--fg);background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:20px 20px 18px;transition:border-color .15s,transform .15s}
-.choice:hover{border-color:var(--groen);transform:translateY(-2px)}
-@media (prefers-reduced-motion:reduce){.choice{transition:none}.choice:hover{transform:none}}
-.choice .who{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-.choice .what{font-family:var(--display);font-size:clamp(26px,3.4vw,32px);line-height:1.1}
-.choice p{color:var(--muted);font-size:15px;margin-top:2px}
-.choice .go{margin-top:12px;justify-self:start;background:var(--groen);color:var(--bg);border-radius:999px;padding:9px 20px;font-weight:600;font-size:15px}
-.tale{display:grid;gap:28px;grid-template-columns:minmax(0,1fr);align-items:start}
-@media (min-width:860px){.tale{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:44px}}
-.tale-map{margin:0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px}
-.tale-map svg{display:block;width:100%;height:auto;max-height:620px}
+.choice{display:grid;gap:4px;text-decoration:none;color:#F2EEE4;border:1.5px solid rgba(242,238,228,.35);border-radius:12px;padding:18px 20px;transition:background .15s,border-color .15s}
+.choice:hover{background:rgba(242,238,228,.08);border-color:#F2EEE4}
+.choice:focus-visible{outline:2px solid #C08A3E;outline-offset:3px}
+.choice .who{font-size:14px;color:rgba(242,238,228,.7)}
+.choice .what{font-family:var(--display);font-size:clamp(25px,3vw,30px);line-height:1.1;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.choice .what svg{width:22px;height:22px;flex:none;transition:transform .15s}
+.choice:hover .what svg{transform:translateX(4px)}
+.choice p{font-size:15px;color:rgba(242,238,228,.75);margin-top:4px}
+.choice.main{background:#F2EEE4;color:#14201C;border-color:#F2EEE4}
+.choice.main .who,.choice.main p{color:#5B6660}
+.choice.main:hover{background:#FFFFFF}
+@media (prefers-reduced-motion:reduce){.choice,.choice .what svg{transition:none}}
+.hero-vid{margin:0;position:relative;border-radius:14px;overflow:hidden;background:#14201C;min-height:420px}
+.hero-vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+@media (max-width:859px){.hero-vid{height:min(110vw,460px);min-height:0}}
+.snd{position:absolute;right:12px;top:12px;display:flex;align-items:center;gap:6px;font:inherit;font-size:13px;font-weight:600;border:0;border-radius:999px;padding:7px 12px;background:rgba(20,32,28,.78);color:#F2EEE4;cursor:pointer;z-index:1}
+.snd svg{width:16px;height:16px}
+.facts-band{border-bottom:1px solid var(--line)}
+.facts-band .facts{border-top:0}
+.tale{display:grid;gap:32px;grid-template-columns:minmax(0,1fr);align-items:start}
+@media (min-width:860px){.tale{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px}}
+.tale-map{margin:0}
+.tale-map svg{display:block;width:100%;height:auto;max-height:640px}
 @media (max-width:859px){.tale-map svg{height:420px}}
 .tale-map svg text{font-family:var(--body)}
-.tale-map figcaption{font-size:13px;color:var(--muted);padding:4px 6px 2px}
-.story{display:grid;gap:22px;grid-template-columns:minmax(0,1fr)}
-.story>div{display:grid;gap:8px;align-content:start;border-top:2px solid var(--groen);padding-top:14px}
-.story p{color:var(--muted);font-size:15px}
-.story .num{font-family:var(--display);font-size:20px;color:var(--fg)}
-.mini{display:grid;gap:6px;border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.story{display:grid;gap:30px;grid-template-columns:minmax(0,1fr)}
+.story>div{display:grid;gap:8px;align-content:start}
+.story h3{font-size:clamp(24px,3vw,30px)}
+.story p{color:var(--muted);font-size:16px;max-width:56ch}
+.story .num{font-family:var(--display);font-size:1.25em;color:var(--fg)}
+.who-row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:18px;align-items:start}
+.who-row img{width:96px;height:120px;object-fit:cover;border-radius:10px}
+.quote{font-family:var(--display);font-size:clamp(24px,3.4vw,34px);line-height:1.25;max-width:30ch;border-left:3px solid var(--brons);padding-left:20px}
+.quote small{display:block;font-family:var(--body);font-size:15px;color:var(--muted);margin-top:10px}
+.mini{display:grid;gap:6px;border-top:1px solid var(--line);padding-top:22px}
 .mini .line{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px}
 .mini .big{font-size:clamp(38px,7vw,54px)}
 .mini .bar{margin:18px 0 30px}
 </style>
-<div class="wrap">
+<section class="band">
+  <div class="wrap">
   <header class="hero">
-    <div>
-      <div class="eyebrow">Lucca → Veenendaal · 15–22 May 2027</div>
-      <h1>Welcome to Warren in Motion</h1>
-      <p class="lead">Eight days, seven countries, more than 1,500 kilometres. In May 2027 Warren van der Ploeg cycles from Lucca, Italy, home to Veenendaal, and everything he raises along the way goes to the Dutch Food Banks. Will you ride with us?</p>
+    <div class="hero-txt">
+      <div class="when">15–22 May 2027 · from Lucca to Veenendaal</div>
+      <h1>Cycling 1,500+ km <em>for the food bank</em></h1>
+      <p class="lead">In May 2027 Warren van der Ploeg cycles from Lucca, Italy, home to Veenendaal in eight days. Everything he raises along the way goes to the Dutch Food Banks. Will you ride along?</p>
       <nav class="choose" aria-label="Choose how you join in">
-        <a class="choice" href="/en/sponsor/">
-          <span class="who">I am a company</span>
-          <span class="what">I want to sponsor</span>
-          <p>Buy kilometres at €20 each and ride along, visibly: on the route, on the jersey and on the follow van.</p>
-          <span class="go">Sponsor kilometres →</span>
+        <a class="choice main" href="/en/sponsor/">
+          <span class="who">For companies</span>
+          <span class="what">Sponsor kilometres<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <p>€20 per km. Your name on the route, your logo on the jersey and the follow van.</p>
         </a>
         <a class="choice" href="/en/donate/">
-          <span class="who">I am an individual</span>
-          <span class="what">I want to donate</span>
-          <p>Just €5 gets you 250 metres in the peloton. Or ride the final sprint to the finish yourself.</p>
-          <span class="go">Donate and ride along →</span>
+          <span class="who">For everyone</span>
+          <span class="what">Donate and ride along<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <p>€5 gets you 250 metres in the peloton. Or ride the final sprint with us.</p>
         </a>
       </nav>
     </div>
     <figure class="hero-vid">
-      <div class="vbox">
-      <video id="lv" controls muted loop playsinline preload="metadata" poster="/assets/video/lancering-poster.jpg" width="464" height="832" aria-label="Warren in Motion launch video">
+      <video id="lv" muted loop playsinline preload="metadata" poster="/assets/video/lancering-poster.jpg" width="464" height="832" aria-label="Warren in Motion launch video (in Dutch)">
         <source src="/assets/video/lancering.mp4" type="video/mp4">
       </video>
       <button type="button" class="snd" id="snd" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/></svg><span>Sound on</span></button>
-      </div>
-      <figcaption>Watch the launch video · 1:08 (in Dutch)</figcaption>
     </figure>
   </header>
+  </div>
+</section>
 
+<div class="wrap" style="margin-top:28px">
+  <section class="facts-band" aria-label="The ride in numbers">
+    <dl class="facts">
+      <div><dt>1,570</dt><dd>kilometres, from Lucca to Veenendaal</dd></div>
+      <div><dt>8</dt><dd>days on the bike</dd></div>
+      <div><dt>7</dt><dd>countries along the way</dd></div>
+      <div><dt>1,915 m</dt><dd>highest point, the Lukmanier Pass</dd></div>
+    </dl>
+  </section>
 
   <section class="sec" aria-labelledby="h-verhaal">
-    <h2 id="h-verhaal">The story in short</h2>
     <div class="tale">
     <figure class="tale-map">
       <svg id="homeMap" role="img" aria-label="The route from Lucca to Veenendaal in eight stages"></svg>
-      <figcaption>8 stages · 1,570 km · 15–22 May 2027</figcaption>
     </figure>
     <div class="story">
-      <div>
-        <div class="eyebrow">Who</div>
-        <h3>Warren van der Ploeg</h3>
-        <p>Warren shows that healthy food and exercise simply fit into a busy life. And that this should be within reach for everyone, whatever your budget.</p>
-        <a class="more" href="/en/about/">Meet Warren →</a>
+      <h2 id="h-verhaal" class="quote">“Healthy food and exercise should be within reach for everyone, whatever your budget.”<small>— Warren van der Ploeg</small></h2>
+      <div class="who-row">
+        <img src="/assets/img/warren.jpg" width="96" height="120" alt="" loading="lazy">
+        <div style="display:grid;gap:8px">
+          <h3>Who is Warren?</h3>
+          <p>Athlete and foodie with a busy life, juggling work and home like you. He shows how healthy living fits into it, without complicated rules.</p>
+          <a class="more" href="/en/about/">Meet Warren</a>
+        </div>
       </div>
       <div>
-        <div class="eyebrow">What</div>
-        <h3>Eight days on the bike</h3>
-        <p><span class="num">1,570 km</span>, 8 stages, 7 countries. Along the Ligurian coast, over the Lukmanier Pass (1,915 m) and through the Ardennes, all the way home.</p>
-        <a class="more" href="/en/route/">Explore the route →</a>
+        <h3>Eight days, seven countries</h3>
+        <p>Along the Ligurian coast, over the Lukmanier Pass and through the Ardennes, all the way home. Around 200 km a stage.</p>
+        <a class="more" href="/en/route/">See the route</a>
       </div>
       <div>
-        <div class="eyebrow">Why</div>
-        <h3>The Dutch Food Banks</h3>
+        <h3>Why the food bank</h3>
         <p>In 2025 the Dutch food banks helped <span class="num">155,600</span> people, and the number of households grew by 10%. What you give goes straight to them.</p>
-        <a class="more" href="/en/donate/">Join in →</a>
+        <a class="more" href="/en/donate/">Join in</a>
       </div>
     </div>
     </div>
   </section>
 
   <section class="mini" aria-labelledby="h-stand">
-    <div class="line"><h2 id="h-stand" class="eyebrow" style="font-family:var(--body);font-size:12px">Progress</h2><a class="more" href="/en/progress/">See who is riding along →</a></div>
+    <div class="line"><h2 id="h-stand">Progress</h2><a class="more" href="/en/progress/">See who is riding along</a></div>
     <div data-stand aria-live="polite"></div>
   </section>
 </div>
