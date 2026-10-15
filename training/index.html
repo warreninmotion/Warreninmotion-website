@@ -38,26 +38,27 @@
 
 <main id="main">
 <div class="wrap tpage">
-  <div class="t-top">
-    <header>
+  <div class="t-hero">
+    <div>
       <div class="eyebrow">Training · op weg naar mei 2027</div>
       <h1>Zo traint Warren</h1>
-      <p class="lead">Acht dagen achter elkaar gemiddeld bijna 200 km fietsen vraagt om een goede voorbereiding. Elke week zie je hier wat Warren heeft gedaan: de kilometers, de ritten en hoe hard het ging. Kies een week en bekijk het weekverhaal.</p>
-    </header>
-    <figure class="t-map">
-      <svg id="tMap" role="img" aria-label="Getrainde kilometers uitgezet op de route van Lucca naar Veenendaal"></svg>
-      <figcaption id="tMapCap"></figcaption>
+      <p class="lead">Acht dagen achter elkaar gemiddeld bijna 200 km fietsen vraagt om een goede voorbereiding. Hier zie je wat Warren sinds de lancering heeft gedaan, en elke week komt er een nieuwe week bij.</p>
+      <section class="tot" aria-labelledby="tSince">
+        <div class="eyebrow" id="tSince"></div>
+        <div id="tTot"></div>
+      </section>
+    </div>
+    <figure class="t-vid">
+      <video id="tVid" muted loop playsinline preload="metadata" poster="/assets/video/training-poster.jpg" width="432" height="768" aria-label="Warren op de racefiets, gefilmd met een 360-camera"><source src="/assets/video/training.mp4" type="video/mp4"></video>
     </figure>
   </div>
 
-  <dl class="facts" id="tFacts"></dl>
-
   <section class="wstrip-wrap" aria-labelledby="h-weeks">
     <div class="wstrip-head">
-      <h2 id="h-weeks">Kies een week</h2>
+      <div><h2 id="h-weeks">Week voor week</h2><p class="small muted" id="tToGo"></p></div>
       <div class="wstrip-nav"><button type="button" id="wPrev" aria-label="Vorige week">←</button><button type="button" id="wNext" aria-label="Volgende week">→</button></div>
     </div>
-    <div class="wstrip" id="wStrip" role="group" aria-label="Gefietste kilometers per week"></div>
+    <div class="wstrip" id="wStrip" role="group" aria-label="Weekkalender van de lancering tot de tocht"></div>
     <div class="zlegend" id="tZones"></div>
   </section>
 
@@ -74,8 +75,6 @@
       <ul class="rides" id="wRides"></ul>
     </div>
   </section>
-
-  <p class="privacy">Wat je hier niet ziet: op welke dag of hoe laat Warren trainde, en waar hij fietste. Dat houden we privé. Per week zie je wel alle ritten, op lengte gesorteerd. De zones zijn Warrens hartslagzones uit Strava.</p>
   <p class="small muted" id="tUpd"></p>
 
   <section class="sec" aria-labelledby="h-mee">

@@ -118,21 +118,33 @@ Afleiden van `data.js`:
   "Warren in Motion" als SVG erover (`drawBus` in `assets/actie.js`).
 
 ## Training (`training/`, `/en/training/`)
-- Elke week een verslag uit Strava (Strava-koppeling): gefietste km, de ritten (soort, km, duur, gem. snelheid,
-  binnen/buiten) met de tijd per hartslagzone (Strava-zones Z1–Z5, uit de hartslagstream), overige training
-  (HIIT, hardlopen, wandelen) en een kort blogje van Warren (ik-vorm, NL en EN, toon zoals de rest van de site).
-- Data in `training.js` (`window.WIM_TRAINING`), nieuwste week bovenaan; pagina-script `assets/training-page.js`,
-  stijl `assets/training.css`. Pagina: kaart "getraind op de route" (cumulatieve km op de echte route), weekbalk
-  (klikbaar, hoogte = km, kleur = tijd per zone), per week een weekverhaal (staande 9:16-story die zelf doorloopt:
-  weekcijfers, foto's/video's van Warren, zones, ritten, citaat, voortgang op de route) en het verslag. `#week-41`
-  opent een week.
+- Trainingslog uit Strava (Strava-koppeling) vanaf de week van de lancering (week 41, 2026); de vakantie daarvoor
+  hoort er niet in. Elke week een nieuwe week bovenaan in `training.js` (`window.WIM_TRAINING`): ritten (soort, km,
+  duur, hoogtemeters, binnen/buiten, tijd per hartslagzone uit de hartslagstream, Strava-zones Z1–Z5), overige
+  training (HIIT, hardlopen, wandelen), kcal (Strava) en een kort blogje van Warren (ik-vorm, NL en EN).
+- Pagina (`assets/training-page.js`, `assets/training.css`):
+  1. Kop: tekst, de 360-video (`assets/video/training.mp4`, zonder geluid, speelt vanzelf als hij in beeld is,
+     niet bij "minder beweging") en het totaal sinds de lancering als slider: km (met de route en "op de route zou
+     Warren nu in etappe X zijn"), trainingen, uren, kcal en hoogtemeters (alleen als > 0).
+  2. Onder elk totaal een weetje (`weetjes` in `training.js`). Elke week vernieuwen zodat het past bij de nieuwe
+     totalen (bv. km → "dat is van Veenendaal naar Parijs"). Afstanden en feiten kloppen, niet overdrijven.
+  3. Weekkalender: alle weken van de lancering tot de tocht (week 19, 2027); de laatste week met data staat open,
+     eerdere weken terug te kijken; toekomstige weken gestippeld, de tochtweek in brons. `#week-41` opent een week.
+  4. Per week het weekverhaal (staande 9:16-story: weekcijfers, foto's/video's, zones, ritten, citaat, voortgang)
+     en het verslag met de ritten.
 - Foto's en video's per week: `media: [{ type: "foto"|"video", src, alt, altEn, cap, capEn, poster }]` in de week;
   bestanden in `assets/training/` (foto's webp, max. 1080 px breed; video mp4 H.264, zonder geluid, max. 15 s en
-  ±3 MB, met poster). Ook voor foto's en video's geldt de privacyregel hieronder (geen herkenbare plek of
-  datum in beeld).
+  ±3 MB, met poster).
 - Weken lopen ma–zo (ISO-week); alleen afgeronde weken. Ritten op lengte sorteren, niet op volgorde.
-- Privacy (VAST): nooit datum, dag of tijdstip per training, geen routes, kaarten, GPS of plaatsnamen (ook niet
-  in de blogtekst), geen ruwe hartslagwaarden. Alleen de weekperiode als geheel.
+- Alleen weekcijfers delen (intern, niet op de site vermelden): nooit datum, dag of tijdstip per training, geen
+  routes, kaarten, GPS of plaatsnamen, geen ruwe hartslagwaarden; ook niet herkenbaar in foto's of video's.
+
+## Statistiek (in voorbereiding)
+- Warren wil elke vrijdag een rapport: bezoekers, gemiddelde bezoektijd, populairste pagina's, welke knoppen
+  gebruikt worden en vooral wat niet gebruikt wordt.
+- `assets/site.js` stuurt al bij elke klik op een link of knop de gebeurtenis "Klik" (knop, pagina) naar
+  `window.plausible` of `window.umami` zodra een van die diensten geladen is. Dienst nog kiezen (cookieloos, EU,
+  met API), daarna het script in `tools/build.py` (kop) zetten en het vrijdagrapport als geplande taak inrichten.
 
 ## Home
 - De lanceringsvideo (`assets/video/lancering.mp4`, 7,6 MB) speelt vanzelf zonder geluid zodra hij in beeld is, in een lus;

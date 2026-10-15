@@ -87,3 +87,15 @@ function bindCopy(root) {
       <div class="sub">${t(`${e} ${e === 1 ? "meefietser" : "meefietsers"} aangemeld · ${d} ${d === 1 ? "gast" : "gasten"} aan tafel bij het diner`, `${e} ${e === 1 ? "rider" : "riders"} signed up · ${d} ${d === 1 ? "guest" : "guests"} at the dinner`)}${upd ? t(` · bijgewerkt op ${upd}`, ` · updated ${upd}`) : ""}</div>`;
   });
 })();
+
+// Bezoekersstatistiek: elke klik op een link of knop als gebeurtenis "Klik" (knoptekst + pagina).
+// Doet niets zolang er geen statistiekdienst geladen is (Plausible of Umami); zie CLAUDE.md "Statistiek".
+window.WIM_track = (name, props) => {
+  try { if (window.plausible) window.plausible(name, { props }); else if (window.umami) window.umami.track(name, props); } catch (e) { /* statistiek mag de site nooit breken */ }
+};
+document.addEventListener("click", e => {
+  const el = e.target.closest("a, button");
+  if (!el) return;
+  const label = (el.dataset.track || el.getAttribute("aria-label") || el.textContent || "").replace(/\s+/g, " ").trim().slice(0, 60);
+  window.WIM_track("Klik", { knop: label || el.className || "?", pagina: location.pathname });
+}, { capture: true });

@@ -1,24 +1,25 @@
 <div class="wrap tpage">
-  <div class="t-top">
-    <header>
+  <div class="t-hero">
+    <div>
       <div class="eyebrow">Training · on the way to May 2027</div>
       <h1>How Warren trains</h1>
-      <p class="lead">Riding almost 200 km a day on average, eight days in a row, takes solid preparation. Every week you can see here what Warren did: the kilometres, the rides and how hard they were. Pick a week and watch the weekly story.</p>
-    </header>
-    <figure class="t-map">
-      <svg id="tMap" role="img" aria-label="Kilometres trained, plotted on the route from Lucca to Veenendaal"></svg>
-      <figcaption id="tMapCap"></figcaption>
+      <p class="lead">Riding almost 200 km a day on average, eight days in a row, takes solid preparation. Here you can see what Warren has done since the launch, with a new week added every week.</p>
+      <section class="tot" aria-labelledby="tSince">
+        <div class="eyebrow" id="tSince"></div>
+        <div id="tTot"></div>
+      </section>
+    </div>
+    <figure class="t-vid">
+      <video id="tVid" muted loop playsinline preload="metadata" poster="/assets/video/training-poster.jpg" width="432" height="768" aria-label="Warren on his road bike, filmed with a 360 camera"><source src="/assets/video/training.mp4" type="video/mp4"></video>
     </figure>
   </div>
 
-  <dl class="facts" id="tFacts"></dl>
-
   <section class="wstrip-wrap" aria-labelledby="h-weeks">
     <div class="wstrip-head">
-      <h2 id="h-weeks">Pick a week</h2>
+      <div><h2 id="h-weeks">Week by week</h2><p class="small muted" id="tToGo"></p></div>
       <div class="wstrip-nav"><button type="button" id="wPrev" aria-label="Previous week">←</button><button type="button" id="wNext" aria-label="Next week">→</button></div>
     </div>
-    <div class="wstrip" id="wStrip" role="group" aria-label="Kilometres cycled per week"></div>
+    <div class="wstrip" id="wStrip" role="group" aria-label="Weekly calendar from the launch to the ride"></div>
     <div class="zlegend" id="tZones"></div>
   </section>
 
@@ -35,8 +36,6 @@
       <ul class="rides" id="wRides"></ul>
     </div>
   </section>
-
-  <p class="privacy">What you won't see here: on which day or at what time Warren trained, and where he rode. We keep that private. For each week you do see every ride, sorted by length. The zones are Warren's heart rate zones from Strava.</p>
   <p class="small muted" id="tUpd"></p>
 
   <section class="sec" aria-labelledby="h-mee">

@@ -4,33 +4,59 @@
 :root[data-theme="dark"] .tpage{--z1:#3A5246;--z2:#6F9A82;--z3:#C9A24E;--z4:#D98B48;--z5:#E8805C}
 .z1{background:var(--z1)}.z2{background:var(--z2)}.z3{background:var(--z3)}.z4{background:var(--z4)}.z5{background:var(--z5)}
 
-.t-top{display:grid;gap:28px;grid-template-columns:minmax(0,1fr)}
-@media (min-width:860px){.t-top{grid-template-columns:minmax(0,6fr) minmax(0,5fr);align-items:center}}
-.t-map{margin:0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;display:grid;gap:6px}
-.t-map svg{display:block;width:100%;height:auto;max-height:420px}
-.t-map svg text{font-family:var(--body)}
-.t-map figcaption{font-size:14px;color:var(--muted);padding:0 6px 4px}
-.t-map figcaption b{color:var(--fg);font-weight:600}
-.t-trail{transition:stroke-dashoffset .9s ease}
-@media (prefers-reduced-motion:reduce){.t-trail{transition:none}}
+/* Kop: tekst + totaal sinds de lancering, met de video ernaast */
+.t-hero{display:grid;gap:28px;grid-template-columns:minmax(0,1fr);align-items:start}
+@media (min-width:860px){.t-hero{grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:44px}}
+.t-vid{margin:0;display:grid;justify-items:center}
+.t-vid video{display:block;width:100%;max-width:310px;aspect-ratio:9/16;object-fit:cover;border-radius:14px;background:#14201C;box-shadow:0 10px 30px rgba(20,32,28,.18)}
+@media (max-width:859px){.t-vid{order:-1}.t-vid video{max-width:260px}}
+.tot{display:grid;gap:10px;margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px 14px}
+.tot-track{display:grid}
+.tot-card{grid-area:1/1;display:grid;gap:6px;align-content:start;opacity:0;visibility:hidden;transform:translateX(12px);transition:opacity .35s,transform .35s,visibility .35s}
+.tot-card.on{opacity:1;visibility:visible;transform:none}
+@media (prefers-reduced-motion:reduce){.tot-card{transition:none;transform:none}}
+.tot-big{font-family:var(--display);font-size:clamp(54px,9vw,80px);line-height:.95;font-variant-numeric:lining-nums tabular-nums}
+.tot-big small{font-size:.36em;color:var(--muted)}
+.tot-lab{font-size:15px;color:var(--muted)}
+.tot-fact{font-size:17px;max-width:46ch;margin-top:6px}
+.tot-route{font-size:14px;color:var(--muted)}
+.tot-card.has-map{grid-template-columns:minmax(0,1fr) 110px;column-gap:16px}
+.tot-card.has-map>*{grid-column:1}
+.tot-card.has-map .tot-map{grid-column:2;grid-row:1/span 5;align-self:center}
+.tot-map{display:block;width:100%;height:auto;max-height:220px}
+@media (max-width:480px){.tot-card.has-map{grid-template-columns:minmax(0,1fr) 72px}}
+.tot-map text{font-family:var(--body)}
+.tot-nav{display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);padding-top:10px}
+.tot-nav>button{font:inherit;font-size:15px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer}
+.tot-dots{display:flex;gap:8px;flex:1;justify-content:center}
+.tot-dots button{width:9px;height:9px;padding:0;border-radius:50%;border:0;background:var(--line);cursor:pointer}
+.tot-dots button[aria-current="true"]{background:var(--groen);width:22px;border-radius:9px}
+.tot-dots button:focus-visible,.tot-nav>button:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
 
-/* Weekbalk: elke week een knop, hoogte = km, kleur = tijd per zone */
+/* Weekkalender: van de lancering tot de tocht, de laatste week staat open */
 .wstrip-wrap{display:grid;gap:8px}
 .wstrip-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px}
 .wstrip-nav{display:flex;gap:6px}
 .wstrip-nav button{font:inherit;font-size:15px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
 .wstrip-nav button:disabled{opacity:.35;cursor:default}
-.wstrip{display:flex;gap:8px;align-items:flex-end;overflow-x:auto;padding:6px 2px 4px;scroll-snap-type:x proximity;border-bottom:1px solid var(--line)}
-.wbar{flex:0 0 auto;width:64px;display:grid;gap:6px;justify-items:center;font:inherit;background:transparent;border:0;padding:4px 2px;border-radius:8px;cursor:pointer;color:var(--fg);scroll-snap-align:end}
-.wbar .km{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
-.wbar .col{width:40px;display:flex;flex-direction:column-reverse;border-radius:4px;overflow:hidden;background:var(--line);transition:opacity .2s}
-.wbar .col i{display:block;width:100%}
-.wbar .lab{font-size:12px;color:var(--muted);white-space:nowrap}
-.wbar .alt{font-size:11px;color:var(--muted);line-height:1.2;text-align:center}
-.wbar:not([aria-pressed="true"]) .col{opacity:.5}
-.wbar:hover .col{opacity:.85}
-.wbar[aria-pressed="true"]{background:var(--card);box-shadow:inset 0 0 0 1.5px var(--groen)}
-.wbar[aria-pressed="true"] .lab{color:var(--fg);font-weight:600}
+.wstrip{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;scroll-snap-type:x proximity;scrollbar-width:thin}
+.cal-col{flex:0 0 auto;width:118px;display:grid;gap:6px;scroll-snap-align:start}
+.cal-m{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap;border-left:2px solid var(--line);padding-left:6px;min-height:18px}
+.cal{display:grid;gap:4px;align-content:start;text-align:left;font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 10px 12px;min-height:106px}
+button.cal{cursor:pointer}
+button.cal:hover{border-color:var(--muted)}
+button.cal[aria-pressed="true"]{border-color:var(--groen);box-shadow:inset 0 0 0 1.5px var(--groen)}
+button.cal:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
+.cal-wk{font-size:13px;font-weight:600}
+.cal-d{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.cal-km{font-family:var(--display);font-size:28px;line-height:1.1;font-variant-numeric:lining-nums tabular-nums;margin-top:auto}
+.cal-km small{font-family:var(--body);font-size:12px;color:var(--muted)}
+.cal-z{display:flex;height:6px;border-radius:9px;overflow:hidden;background:var(--line)}
+.cal-z i{display:block;height:100%}
+.cal-t{font-size:13px;color:var(--muted);margin-top:auto}
+.cal.later{background:transparent;border-style:dashed}
+.cal.tour{background:transparent;border:1.5px solid var(--brons)}
+.cal.tour .cal-t{color:var(--fg);font-weight:600}
 .zlegend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
 .zc{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
 
@@ -61,7 +87,6 @@
 .rides li:not(.open) .r-more{display:none}
 .rides li .r-hint{font-size:12px;color:var(--muted)}
 .rides li.open .r-hint{display:none}
-.privacy{font-size:14px;color:var(--muted);border-left:2px solid var(--line);padding-left:12px;max-width:62ch}
 
 /* Weekverhaal: staand 9:16, schaalt mee (alles in cqw), zelfde opmaak als de social-mediapost */
 .story{position:relative;width:100%;max-width:360px;aspect-ratio:9/16;margin:0 auto;border-radius:16px;overflow:hidden;background:#1E4034;color:#F2EEE4;container-type:inline-size;box-shadow:0 12px 30px rgba(20,32,28,.22);user-select:none;-webkit-user-select:none}

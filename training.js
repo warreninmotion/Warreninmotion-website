@@ -1,18 +1,28 @@
-// Trainingsverslag per week, uit Strava (ritten, km, tijd en hartslagzones). Elke week een nieuwe week bovenaan.
-// Privacy (vast): geen datum of dag per training, geen starttijden, geen routes, kaarten of plaatsen.
-// Ritten binnen een week staan op lengte, niet op volgorde. Zones = Strava-hartslagzones (Z1 t/m Z5), in procenten van de tijd.
+// Trainingslog per week, uit Strava, vanaf de week van de lancering (week 41, 2026). Elke week een nieuwe week bovenaan.
+// Alleen weekcijfers: geen datum, dag of tijd per training, geen routes of plaatsen. Ritten op lengte, niet op volgorde.
+// Zones = Strava-hartslagzones (Z1 t/m Z5), in procenten van de tijd. up = hoogtemeters, kcal = Strava-schatting.
 // soort: "duur" (vooral Z2), "tempo" (veel Z3), "opbouw" (oplopend, met een harde finale), "herstel" (vooral Z1).
+// weetjes: bij elk totaal een leuk weetje; elke week vernieuwen zodat het bij de nieuwe totalen past.
 window.WIM_TRAINING = {
   updated: "15 oktober 2026",
+  tot: { week: 19, jaar: 2027 }, // de tocht: week 19 van 2027 (15–22 mei)
+  weetjes: {
+    km: ["Dat is verder dan van Veenendaal naar Brussel. En al 15% van de afstand van Lucca naar huis.",
+      "That is further than from Veenendaal to Brussels. And already 15% of the distance from Lucca to home."],
+    trainingen: ["Gemiddeld meer dan één training per dag.", "More than one session a day on average."],
+    uren: ["Ongeveer zo lang als een vlucht van Amsterdam naar Bangkok.", "About as long as a flight from Amsterdam to Bangkok."],
+    kcal: ["Goed voor zo'n 30 pannenkoeken. Gezond eten hoort er dus gewoon bij.", "Good for about 30 pancakes. So healthy eating is part of the job."],
+    hm: ["", ""],
+  },
   weeks: [
     {
-      week: 41, van: "5 oktober 2026", tot: "11 oktober 2026",
+      week: 41, jaar: 2026, van: "5 oktober 2026", tot: "11 oktober 2026", kcal: 7844,
       ritten: [
-        { soort: "duur", km: 50.0, min: 100, binnen: true, zones: [11, 89, 0, 0, 0] },
-        { soort: "duur", km: 50.0, min: 98, binnen: true, zones: [8, 92, 0, 0, 0] },
-        { soort: "tempo", km: 50.0, min: 97, binnen: true, zones: [1, 35, 64, 0, 0] },
-        { soort: "opbouw", km: 50.0, min: 95, binnen: true, zones: [7, 63, 27, 3, 0] },
-        { soort: "duur", km: 44.3, min: 84, binnen: true, zones: [5, 51, 43, 1, 0] },
+        { soort: "duur", km: 50.0, min: 100, up: 0, binnen: true, zones: [11, 89, 0, 0, 0] },
+        { soort: "duur", km: 50.0, min: 98, up: 0, binnen: true, zones: [8, 92, 0, 0, 0] },
+        { soort: "tempo", km: 50.0, min: 97, up: 0, binnen: true, zones: [1, 35, 64, 0, 0] },
+        { soort: "opbouw", km: 50.0, min: 95, up: 0, binnen: true, zones: [7, 63, 27, 3, 0] },
+        { soort: "duur", km: 44.3, min: 84, up: 0, binnen: true, zones: [5, 51, 43, 1, 0] },
       ],
       overig: [{ soort: "hiit", aantal: 3, min: 248 }],
       tekst: [
@@ -22,43 +32,6 @@ window.WIM_TRAINING = {
       text: [
         "A strong week on the bike: five rides and more than 244 kilometres. I rode most of them easy, in zone 2. That is the base for eight long days in May: keep going for hours without running empty.",
         "One ride was deliberately harder, with almost two thirds in zone 3. The last ride built up to a solid final sprint. On top of that I did three HIIT sessions for strength and power. Step by step, the fitness is coming.",
-      ],
-    },
-    {
-      week: 40, van: "28 september 2026", tot: "4 oktober 2026",
-      ritten: [],
-      overig: [{ soort: "run", aantal: 2, km: 20.6, min: 131 }, { soort: "hiit", aantal: 1, min: 48 }],
-      tekst: [
-        "Deze week stond de fiets stil. Ik liep twee keer hard, samen 20,6 km met flink wat hoogtemeters, en deed één HIIT-sessie. Even iets anders voor lijf en hoofd, en volgende week weer volop fietsen.",
-      ],
-      text: [
-        "The bike stayed in the shed this week. I went for two runs, 20.6 km together with plenty of climbing, and did one HIIT session. Something different for body and mind, and back to full cycling next week.",
-      ],
-    },
-    {
-      week: 39, van: "21 september 2026", tot: "27 september 2026",
-      ritten: [],
-      overig: [{ soort: "walk", aantal: 6, km: 54.5, min: 757 }],
-      tekst: [
-        "Een actieve rustweek: geen fiets, wel zes wandelingen, samen 54,5 km. Rust hoort bij het plan. Zo kom ik fris terug op de fiets.",
-      ],
-      text: [
-        "An active rest week: no bike, but six walks, 54.5 km together. Rest is part of the plan. That way I come back to the bike fresh.",
-      ],
-    },
-    {
-      week: 38, van: "14 september 2026", tot: "20 september 2026",
-      ritten: [
-        { soort: "herstel", km: 66.3, min: 138, binnen: true, zones: [59, 41, 0, 0, 0] },
-        { soort: "herstel", km: 61.0, min: 137, binnen: true, zones: [83, 17, 0, 0, 0] },
-        { soort: "duur", km: 43.0, min: 86, binnen: false, zones: [3, 56, 41, 0, 0] },
-      ],
-      overig: [{ soort: "hiit", aantal: 2, min: 120 }],
-      tekst: [
-        "Drie ritten, samen 170 kilometer. Eén stevige rit buiten, met ruim 40% in zone 3, en twee lange ritten binnen van ruim twee uur, rustig in zone 1 en 2. Lange tijd in het zadel went: precies wat ik in mei nodig heb. Daarbij twee HIIT-sessies.",
-      ],
-      text: [
-        "Three rides, 170 kilometres together. One solid ride outdoors, with over 40% in zone 3, and two long indoor rides of more than two hours, easy in zones 1 and 2. Getting used to long hours in the saddle: exactly what I need in May. Plus two HIIT sessions.",
       ],
     },
   ],
