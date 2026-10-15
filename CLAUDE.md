@@ -28,8 +28,8 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
 - De pitch (Warren_in_Motion_Pitch_6.pptx) is verouderd wat route, data en doelen betreft; de site is leidend.
 
 ## Talen en opbouw (BELANGRIJK)
-- Nederlands op `/`, Engels onder `/en/`: `/en/sponsor/`, `/en/donate/`, `/en/progress/`, `/en/route/`, `/en/about/`,
-  `/en/contact/`. De taalknop in de kop wisselt naar dezelfde pagina in de andere taal.
+- Nederlands op `/`, Engels onder `/en/`: `/en/sponsor/`, `/en/donate/`, `/en/progress/`, `/en/route/`, `/en/training/`,
+  `/en/about/`, `/en/contact/`. De taalknop in de kop wisselt naar dezelfde pagina in de andere taal.
 - De pagina's worden gebouwd. Bronnen: `src/pages/<pagina>.html` (NL) en `src/pages/en/<pagina>.html` (EN). Daarna
   `python3 tools/build.py` (repo-root): dat zet kop, menu, taalknop en voet eromheen en schrijft alle `index.html`.
   Pas nooit de gegenereerde `index.html`-bestanden zelf aan; kop en voet staan in `tools/build.py`.
@@ -53,7 +53,7 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
 - Opbouw naar bezoeker: Home (`index.html`) is de landingspagina met twee keuzes: "Ik ben een bedrijf → Ik wil
   sponsoren" (`sponsoren/`) en "Ik ben particulier → Ik wil doneren" (`doneren/`, met daarin de eindsprint en het
   diner onder `#eindsprint`). Verder `tussenstand/`, `route/`, `over-warren/`, `contact/`.
-- Menu: Sponsoren · Doneren · Tussenstand · De route · Over Warren · Contact, plus taalknop NL | EN.
+- Menu: Sponsoren · Doneren · Tussenstand · De route · Training · Over Warren · Contact, plus taalknop NL | EN.
 - `_redirects` (Netlify) stuurt de oude adressen `/elke-kilometer-telt/` en `/eindsprint/` door.
 - `assets/site.css` = huisstijl en gedeelde onderdelen; `assets/site.js` = monogram, menu, kopieerknoppen,
   stand op Home, peloton en eindsprint op Doneren, en vaste gegevens (`WIM_SITE`: mail, doneerlink, `liveUrl`
@@ -116,6 +116,15 @@ Afleiden van `data.js`:
 - Volgbus (Mercedes-Benz Citan): foto's zonder achtergrond (`assets/img/bus-zij.webp`, `bus-achter.webp`, uit de
   Mercedes-configurator; vervangen door eigen foto's zodra de bus er is) met de magneetpanelen en het kenteken
   "Warren in Motion" als SVG erover (`drawBus` in `assets/actie.js`).
+
+## Training (`training/`, `/en/training/`)
+- Elke week een verslag uit Strava (Strava-koppeling): gefietste km, de ritten (soort, km, duur, gem. snelheid,
+  binnen/buiten) met de tijd per hartslagzone (Strava-zones Z1–Z5, uit de hartslagstream), overige training
+  (HIIT, hardlopen, wandelen) en een kort blogje van Warren (ik-vorm, NL en EN, toon zoals de rest van de site).
+- Data in `training.js` (`window.WIM_TRAINING`), nieuwste week bovenaan; pagina-script `assets/training-page.js`.
+- Weken lopen ma–zo (ISO-week); alleen afgeronde weken. Ritten op lengte sorteren, niet op volgorde.
+- Privacy (VAST): nooit datum, dag of tijdstip per training, geen routes, kaarten, GPS of plaatsnamen (ook niet
+  in de blogtekst), geen ruwe hartslagwaarden. Alleen de weekperiode als geheel.
 
 ## Home
 - De lanceringsvideo (`assets/video/lancering.mp4`, 7,6 MB) speelt vanzelf zonder geluid zodra hij in beeld is, in een lus;

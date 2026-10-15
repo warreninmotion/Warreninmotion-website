@@ -8,7 +8,7 @@ window.WIM_MONO = `<path fill="none" stroke-width="17.67" stroke-linecap="round"
 window.WIM_LANG = (document.documentElement.lang || "nl").slice(0, 2) === "en" ? "en" : "nl";
 window.t = (nl, en) => window.WIM_LANG === "en" ? en : nl;
 window.WIM_LOC = window.WIM_LANG === "en" ? "en-GB" : "nl-NL";
-window.WIM_PATHS = { "/": "/en/", "/sponsoren/": "/en/sponsor/", "/doneren/": "/en/donate/", "/tussenstand/": "/en/progress/", "/route/": "/en/route/", "/over-warren/": "/en/about/", "/contact/": "/en/contact/" };
+window.WIM_PATHS = { "/": "/en/", "/sponsoren/": "/en/sponsor/", "/doneren/": "/en/donate/", "/tussenstand/": "/en/progress/", "/route/": "/en/route/", "/training/": "/en/training/", "/over-warren/": "/en/about/", "/contact/": "/en/contact/" };
 window.L = path => { if (window.WIM_LANG !== "en") return path; const [p, h] = path.split("#"); return (window.WIM_PATHS[p] || p) + (h ? "#" + h : ""); };
 // Datum uit data.js ("14 oktober 2026") in de huidige taal
 window.WIM_DATE = s => {

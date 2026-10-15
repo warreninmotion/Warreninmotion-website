@@ -18,10 +18,11 @@ PAGES = {
     "doneren": ("/doneren/", "/en/donate/", "Doneren", "Donate"),
     "tussenstand": ("/tussenstand/", "/en/progress/", "Tussenstand", "Progress"),
     "route": ("/route/", "/en/route/", "De route", "The route"),
+    "training": ("/training/", "/en/training/", "Training", "Training"),
     "over-warren": ("/over-warren/", "/en/about/", "Over Warren", "About Warren"),
     "contact": ("/contact/", "/en/contact/", "Contact", "Contact"),
 }
-MENU = ["sponsoren", "doneren", "tussenstand", "route", "over-warren", "contact"]
+MENU = ["sponsoren", "doneren", "tussenstand", "route", "training", "over-warren", "contact"]
 TXT = {
     "nl": {"skip": "Naar de inhoud", "main": "Hoofdmenu", "pages": "Pagina's", "switch": ("en", "EN", "Read this page in English"),
            "foot": "Lucca → Veenendaal · 15–22 mei 2027<br>Ten bate van Voedselbanken Nederland",
@@ -146,6 +147,8 @@ META = {
                     ("Progress · Warren in Motion", "The real progress of Warren in Motion: which companies and how many individuals are riding along on the Lucca–Veenendaal route."), "ACTIE", "ACSS"),
     "route": (("De route · Warren in Motion", "Acht etappes van Lucca naar Veenendaal, 1.570 km door 7 landen, van 15 tot 22 mei 2027."),
               ("The route · Warren in Motion", "Eight stages from Lucca to Veenendaal, 1,570 km through 7 countries, from 15 to 22 May 2027."), "MAPLIBS", ""),
+    "training": (("Training · Warren in Motion", "Zo traint Warren voor ruim 1.500 km van Lucca naar Veenendaal: elke week de gefietste kilometers, de ritten en de hartslagzones, met een kort verslag."),
+                 ("Training · Warren in Motion", "How Warren trains for more than 1,500 km from Lucca to Veenendaal: every week the kilometres cycled, the rides and the heart rate zones, with a short report."), "", ""),
     "over-warren": (("Over Warren · Warren in Motion", "Wie Warren van der Ploeg is en waarom hij van Lucca naar Veenendaal fietst voor Voedselbanken Nederland."),
                     ("About Warren · Warren in Motion", "Who Warren van der Ploeg is and why he is cycling from Lucca to Veenendaal for the Dutch Food Banks."), "", ""),
     "contact": (("Contact · Warren in Motion", "Mail Warren over sponsoring, doneren, de eindsprint, pers of meedoen."),
