@@ -147,3 +147,22 @@ button.cal:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
 .story .s-weeks div.on i{background:#C08A3E}
 .rides .r-h b::after{content:"";display:inline-block;width:6px;height:6px;margin-left:8px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:rotate(45deg) translateY(-3px);transition:transform .2s}
 .rides li.open .r-h b::after{transform:rotate(225deg) translateY(-1px)}
+
+/* Evenementen in de weekkalender */
+.cal-ev{font-size:11px;font-weight:600;color:var(--fg);line-height:1.25;border-top:1px solid var(--line);padding-top:5px;margin-top:6px}
+.cal.has-ev{border-color:var(--groen)}
+.ev-mini{list-style:none;margin:0;padding:10px 12px;border-left:3px solid var(--groen);background:var(--bg);border-radius:0 8px 8px 0;display:grid;gap:4px;font-size:15px}
+
+/* Evenementenkalender */
+.evs{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--line)}
+.ev{display:grid;grid-template-columns:76px minmax(0,1fr);gap:18px;padding:18px 0;border-bottom:1px solid var(--line)}
+.ev-date{display:grid;align-content:start;justify-items:center;text-align:center;border:1px solid var(--line);border-radius:10px;padding:8px 4px;background:var(--card)}
+.ev-day{font-family:var(--display);font-size:30px;line-height:1;font-variant-numeric:lining-nums}
+.ev-mon{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+.ev-body{display:grid;gap:4px;align-content:start;max-width:64ch}
+.ev-body h3{font-size:22px}
+.ev-meta{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.ev-where{font-size:14px;color:var(--muted)}
+.ev-partner{font-size:14px}
+.ev .more{margin-top:4px}
+.ev.past{opacity:.55}

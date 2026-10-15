@@ -40,8 +40,11 @@ P = lambda key, lang: PAGES[key][0 if lang == "nl" else 1]
 N = lambda key, lang: PAGES[key][2 if lang == "nl" else 3]
 
 
+CTA = {"doneren", "sponsoren"}  # in het menu als gekleurde knop
+
+
 def nav_links(cur, lang, indent):
-    return "\n".join(f'{indent}<li><a href="{P(k, lang)}"{" aria-current=\"page\"" if k == cur else ""}>{N(k, lang)}</a></li>' for k in MENU)
+    return "\n".join(f'{indent}<li><a href="{P(k, lang)}"{" class=\"cta\"" if k in CTA else ""}{" aria-current=\"page\"" if k == cur else ""}>{N(k, lang)}</a></li>' for k in MENU)
 
 
 def header(cur, lang):

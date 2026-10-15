@@ -50,6 +50,11 @@ p{margin:0}
 .site-nav ul a{color:var(--fg);text-decoration:none;font-size:15px;padding:6px 0;border-bottom:2px solid transparent}
 .site-nav ul a:hover{border-bottom-color:var(--line)}
 .site-nav ul a[aria-current="page"]{border-bottom-color:var(--groen);font-weight:600}
+/* Doneren en Sponsoren als knop: de twee dingen die we van een bezoeker vragen */
+.site-nav ul{align-items:center}
+.site-nav ul a.cta{background:var(--groen);color:var(--bg);border:0;border-radius:999px;padding:7px 14px;font-weight:600}
+.site-nav ul a.cta:hover{background:var(--fg)}
+.site-nav ul a.cta[aria-current="page"]{box-shadow:0 0 0 2px var(--bg),0 0 0 3.5px var(--groen)}
 .menu-btn{display:none;font:inherit;font-size:14px;font-weight:600;border:1px solid var(--fg);background:transparent;color:var(--fg);border-radius:999px;padding:6px 16px;cursor:pointer;min-height:38px}
 @media (max-width:979px){
   .js .menu-btn{display:block}
@@ -60,6 +65,10 @@ p{margin:0}
   .site-nav ul{flex-direction:column;gap:0}
   .site-nav ul a{display:block;padding:12px 2px;border-bottom:1px solid var(--line);font-size:17px}
   .site-nav ul a[aria-current="page"]{border-bottom-color:var(--line);color:var(--groen)}
+  .site-nav ul{align-items:stretch}
+  .site-nav ul li:has(a.cta){padding:6px 0}
+  .site-nav ul a.cta{display:inline-block;padding:10px 20px;color:var(--bg);font-size:16px}
+  .site-nav ul a.cta[aria-current="page"]{color:var(--bg)}
   .site-nav .btn{align-self:flex-start}
 }
 @media (max-width:420px){.brand{font-size:15px;letter-spacing:.1em}.brand .mono{width:38px;height:18px}}

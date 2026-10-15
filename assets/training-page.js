@@ -110,14 +110,27 @@
     const f = P.fasen.find(x => cmp([y, wk], x.van) >= 0 && cmp([y, wk], x.tot) <= 0);
     if (!f) return null;
     const rust = P.rust.some(r => r[0] === y && r[1] === wk);
-    return { f, rust, km: rust ? f.km.map(v => Math.round(v * .6 / 10) * 10) : f.km };
+    return { f, rust, km: f.km && rust ? f.km.map(v => Math.round(v * .6 / 10) * 10) : f.km };
   };
+  // evenementen (events.js) met jaar en week erbij
+  const tt = a => Array.isArray(a) ? t(a[0], a[1]) : (a || "");
+  const EV = (window.WIM_EVENTS || []).map(e => {
+    const d = e.datum ? new Date(e.datum + "T00:00:00Z") : isoMon(e.week[0], e.week[1]);
+    const [y, wk] = isoWeek(d); return { ...e, d, y, wk, end: e.tot ? new Date(e.tot + "T00:00:00Z") : null };
+  }).sort((a, b) => a.d - b.d);
+  const kmTxt = km => !km ? t("De route", "The route") : `${km[0]}–${km[1]} km`;
+  const evDate = e => {
+    if (!e.datum) return t(`Week ${e.wk}, ${e.d.toLocaleDateString(WIM_LOC, { month: "long", year: "numeric", timeZone: "UTC" })}`, `Week ${e.wk}, ${e.d.toLocaleDateString(WIM_LOC, { month: "long", year: "numeric", timeZone: "UTC" })}`);
+    const o = { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" };
+    return e.end ? `${e.d.getUTCDate()}–${e.end.toLocaleDateString(WIM_LOC, o)}` : e.d.toLocaleDateString(WIM_LOC, { weekday: "long", ...o });
+  };
+  const evMini = e => `<li><b>${tt(e.titel)}</b> · ${evDate(e)}${e.voorbehoud ? ` <span class="muted">(${t("onder voorbehoud", "to be confirmed")})</span>` : ""}</li>`;
   const CAL = [];
   {
     const end = isoMon(T.tot.jaar, T.tot.week);
     for (let d = isoMon(W[0].jaar, W[0].week); d <= end; d = new Date(d.getTime() + 6048e5)) {
       const [y, wk] = isoWeek(d), data = W.find(w => w.week === wk && w.jaar === y);
-      CAL.push({ y, wk, d, data, idx: data ? W.indexOf(data) : -1, tour: y === T.tot.jaar && wk === T.tot.week, plan: data ? null : planFor(y, wk) });
+      CAL.push({ y, wk, d, data, idx: data ? W.indexOf(data) : -1, tour: y === T.tot.jaar && wk === T.tot.week, plan: data ? null : planFor(y, wk), ev: EV.filter(e => e.y === y && e.wk === wk) });
     }
   }
   const strip = $("wStrip");
@@ -133,8 +146,9 @@
     let body, cls = "cal";
     if (c.data) { const km = wKm(c.data); body = `<span class="cal-km">${km ? n1(Math.round(km)) : "–"}<small>${km ? " km" : ""}</small></span><span class="cal-s">${t("Gefietst", "Cycled")}</span>`; }
     else if (c.tour) { cls += " tour"; body = `<span class="cal-km">${n1(ROUTE_KM)}<small> km</small></span><span class="cal-s">${t("De tocht", "The ride")}</span>`; }
-    else if (c.plan) { cls += " plan"; body = `<span class="cal-km">${c.plan.km[0]}–${c.plan.km[1]}<small> km</small></span><span class="cal-s">${c.plan.rust ? t("Rustweek", "Rest week") : t(c.plan.f.naam[0], c.plan.f.naam[1])}</span>`; }
+    else if (c.plan) { cls += " plan"; body = `<span class="cal-km">${kmTxt(c.plan.km)}</span><span class="cal-s">${c.plan.rust ? t("Rustweek", "Rest week") : t(c.plan.f.naam[0], c.plan.f.naam[1])}</span>`; }
     else { cls += " plan"; body = `<span class="cal-s">${t("Nog te gaan", "To come")}</span>`; }
+    if (c.ev.length) { cls += " has-ev"; body += `<span class="cal-ev">${c.ev.map(e => tt(e.titel)).join(" · ")}</span>`; }
     if (isNow(c) && !c.data) cls += " now";
     return `<div class="cal-col">${head}<button type="button" data-c="${ci}" aria-pressed="false" class="${cls}">
       <span class="cal-wk">${t("Week", "Week")} ${c.wk}${isNow(c) ? ` · ${t("nu", "now")}` : ""}</span><span class="cal-d">${datesOf(c)}</span>${body}</button></div>`;
@@ -146,7 +160,7 @@
   function showPlan(ci) {
     const c = CAL[ci], p = c.plan;
     $("wPlanList").innerHTML = P.fasen.map(f => `<li class="${p && p.f === f ? "on" : ""}"><b>${t(f.naam[0], f.naam[1])}</b>
-      <span>${t("week", "week")} ${f.van[1]}${f.van[0] !== f.tot[0] || f.van[1] !== f.tot[1] ? `–${f.tot[1]}` : ""}</span><span>${f.km[0]}–${f.km[1]} km</span></li>`).join("") +
+      <span>${t("week", "week")} ${f.van[1]}${f.van[0] !== f.tot[0] || f.van[1] !== f.tot[1] ? `–${f.tot[1]}` : ""}</span><span>${kmTxt(f.km)}</span></li>`).join("") +
       `<li class="tour${c.tour ? " on" : ""}"><b>${t("De tocht", "The ride")}</b><span>${t("week", "week")} ${T.tot.week}</span><span>${n1(ROUTE_KM)} km</span></li>`;
     $("wPlanEye").textContent = c.tour ? t("15–22 mei 2027", "15–22 May 2027") : isNow(c) ? t("Deze week · loopt nog", "This week · in progress") : t("Gepland", "Planned");
     $("wPlanTitle").textContent = `${t("Week", "Week")} ${c.wk} · ${longDates(c)}`;
@@ -155,7 +169,8 @@
         <div class="prose"><p>${t("Van Lucca naar huis in Veenendaal, voor Voedselbanken Nederland. Hier werkt al die training naartoe.", "From Lucca home to Veenendaal, for the Dutch Food Banks. This is what all the training is for.")}</p>
         <p><a class="more" href="${L("/route/")}">${t("Bekijk de route →", "See the route →")}</a></p></div>`;
     } else if (p) {
-      $("wPlanBody").innerHTML = `<div class="wstats"><span><b>${p.km[0]}–${p.km[1]} km</b> ${t("op de fiets", "on the bike")}</span><span>${t("Fase", "Phase")}: ${t(p.f.naam[0], p.f.naam[1])}</span></div>
+      $("wPlanBody").innerHTML = `<div class="wstats"><span><b>${kmTxt(p.km)}</b>${p.km ? " " + t("op de fiets", "on the bike") : ""}</span><span>${t("Fase", "Phase")}: ${t(p.f.naam[0], p.f.naam[1])}</span></div>
+        ${c.ev.length ? `<ul class="ev-mini">${c.ev.map(evMini).join("")}</ul>` : ""}
         <div class="prose"><p>${t(p.f.focus[0], p.f.focus[1])}</p>${p.rust ? `<p>${t("Dit is een rustweek: minder kilometers, zodat het lijf de training kan verwerken.", "This is a rest week: fewer kilometres, so the body can absorb the training.")}</p>` : ""}
         <p class="small muted">${t("Het schema is een richtlijn. Na afloop van de week zie je hier wat Warren echt heeft gedaan.", "The plan is a guideline. Once the week is over, you'll see here what Warren actually did.")}</p></div>`;
     } else $("wPlanBody").innerHTML = "";
@@ -303,6 +318,22 @@
   const lastData = CAL.findIndex(c => c.data === W[W.length - 1]);
   const fromHash = CAL.findIndex(c => location.hash === `#week-${c.wk}`);
   showCal(fromHash >= 0 ? fromHash : lastData);
+  // ── Evenementenkalender ──────────────────────────────────────────────────
+  const evEl = $("tEvents");
+  if (evEl) {
+    const now = new Date(Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()));
+    evEl.innerHTML = EV.map(e => {
+      const past = (e.end || e.d) < now;
+      const day = e.datum ? String(e.d.getUTCDate()) : t("wk", "wk") + " " + e.wk;
+      const link = e.link ? (e.link.startsWith("/") ? L(e.link) : e.link) : "";
+      return `<li class="ev${past ? " past" : ""}">
+        <div class="ev-date"><span class="ev-day">${day}</span><span class="ev-mon">${e.d.toLocaleDateString(WIM_LOC, { month: "short", timeZone: "UTC" }).replace(".", "")} ${e.d.getUTCFullYear()}</span></div>
+        <div class="ev-body"><div class="ev-meta">${tt(e.soort)}${e.voorbehoud ? ` · ${t("onder voorbehoud", "to be confirmed")}` : ""}</div>
+          <h3>${tt(e.titel)}</h3><p class="ev-where">${evDate(e)} · ${tt(e.plek)}</p><p>${tt(e.tekst)}</p>
+          ${e.partner ? `<p class="ev-partner">${t("Samen met", "Together with")} <b>${esc(e.partner)}</b></p>` : ""}
+          ${link ? `<a class="more" href="${link}"${link.startsWith("http") ? ' target="_blank" rel="noopener"' : ""}>${e.meedoen ? t("Doe mee →", "Join in →") : t("Meer info →", "More info →")}</a>` : ""}</div></li>`;
+    }).join("");
+  }
   const vid = $("tVid");
   if (vid) { if (reduce) vid.controls = true; else new IntersectionObserver(es => { es[0].isIntersecting ? vid.play().catch(() => {}) : vid.pause(); }, { threshold: .3 }).observe(vid); }
   if ($("tUpd")) $("tUpd").textContent = t(`Bijgewerkt op ${WIM_DATE(T.updated)}.`, `Updated ${WIM_DATE(T.updated)}.`);
