@@ -380,14 +380,17 @@ function drawBus() {
   const hs = kitState("hoofd");
   if (hs.status === "bezet" && hs.sponsor) { const g = el("g", {}); logo(g, hs.sponsor, 205, 133, 90, 58); svg.append(g); }
   else TT(205, 137, 12, "Your logo here", { fill: "#8A918C", "font-family": "var(--body)" });
-  // paneel 3 (schuifdeur, onder de handgrepen): alle bedrijven met kilometers
-  A("rect", { x: 300, y: 270, width: 236, height: 112, rx: 7, fill: "#F2EEE4", filter: "url(#panelShadow)" });
-  TT(312, 288, 7.5, "SUPPORTED BY", { ...G, "letter-spacing": 1.6 });
+  // panelen 3 en 4 (onderkant van schuifdeur en voordeur, vrij van de wielkasten): alle bedrijven met kilometers
   const cos = CUR.sponsors.filter(s => s.name && s.name !== hs.sponsor);
-  const max = 16, show = cos.slice(0, cos.length > max ? max - 1 : max);
-  show.forEach((s, i) => { const g = el("g", {}); logo(g, s.name, 327 + (i % 8) * 26.5, 312 + Math.floor(i / 8) * 34, 22, 22); svg.append(g); });
-  if (cos.length > max) TT(327 + 7 * 26.5, 352, 10, `+${cos.length - (max - 1)}`, { fill: "#1E4034", "font-weight": 700, "font-family": "var(--body)" });
-  if (!cos.length) TT(418, 330, 11, "Your company here", { fill: "#8A918C", "font-family": "var(--body)" });
+  const per = 8, max = per * 2, show = cos.slice(0, cos.length > max ? max - 1 : max);
+  [348, 612].forEach((x0, p) => {
+    const y0 = 296, part = show.slice(p * per, p * per + per);
+    A("rect", { x: x0, y: y0, width: 180, height: 84, rx: 6, fill: "#F2EEE4", filter: "url(#panelShadow)" });
+    TT(x0 + 11, y0 + 15, 6.5, "SUPPORTED BY", { ...G, "letter-spacing": 1.5 });
+    part.forEach((s, i) => { const g = el("g", {}); logo(g, s.name, x0 + 30 + (i % 4) * 40, y0 + 37 + Math.floor(i / 4) * 29, 24, 24); svg.append(g); });
+    if (p === 1 && cos.length > max) TT(x0 + 150, y0 + 70, 10, `+${cos.length - (max - 1)}`, { fill: "#1E4034", "font-weight": 700, "font-family": "var(--body)" });
+    if (!part.length) TT(x0 + 90, y0 + 54, 10, "Your company here", { fill: "#8A918C", "font-family": "var(--body)" });
+  });
 }
 
 // ── Rekenhulp voor bedrijven ────────────────────────────────────────────────
