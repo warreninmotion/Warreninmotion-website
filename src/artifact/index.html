@@ -25,6 +25,20 @@
 @media (min-width:900px){.sp-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}}
 .big-ask{display:grid;gap:8px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0}
 #rekenhulp,#tenue,#sec-list{scroll-margin-top:16px}
+/* Echte stand of voorbeeld "als het gelukt is" (zelfde als /tussenstand/) */
+.modes{display:grid;grid-template-columns:auto auto;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px;justify-self:start;max-width:100%}
+.modes button{font:inherit;font-size:15px;line-height:1.25;border:0;background:transparent;color:var(--muted);padding:9px 18px;border-radius:999px;cursor:pointer;min-height:40px}
+@media (max-width:560px){.modes{justify-self:stretch;grid-template-columns:1fr 1fr;border-radius:14px}.modes button{border-radius:10px;padding:9px 10px;font-size:14px}}
+.modes button[aria-pressed="true"]{background:var(--groen);color:var(--bg);font-weight:600}
+.demo{border-style:dashed}
+.demo b{font-weight:600}
+.spots{display:grid;gap:0;border-top:1px solid var(--line)}
+.spots>div{display:flex;justify-content:space-between;gap:12px;padding:10px 4px;border-bottom:1px solid var(--line);font-size:15px}
+.spots span:last-child{font-variant-numeric:tabular-nums;font-weight:600}
+.done{display:grid;gap:6px;text-align:center;padding:22px 16px;border:1.5px solid var(--groen);border-radius:10px;background:var(--card)}
+.done h2{font-size:clamp(28px,5vw,38px)}
+.done p{color:var(--muted)}
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
 </style>
 
 <header class="a-head">
@@ -46,6 +60,22 @@
     </div>
   </header>
 
+  <div class="modes" role="group" aria-label="Welke stand wil je zien">
+    <button type="button" id="modeReal" aria-pressed="true">Echte tussenstand</button>
+    <button type="button" id="modeFull" aria-pressed="false">Zo ziet het eruit als het gelukt is</button>
+  </div>
+
+  <div class="demo" id="demo" hidden>
+    <span id="demoTxt">Voorbeeld: deze bedrijven en bedragen zijn verzonnen. Zo ziet het eruit als de hele route vol is, met het shirt en de volgbus vol logo's.</span>
+    <button type="button" id="skipBtn">Sla over</button>
+  </div>
+
+  <div class="done" id="done" hidden aria-live="polite">
+    <h2>Gelukt! Samen naar Veenendaal</h2>
+    <p><span id="doneTxt"></span> · alle plekken bezet. Dit is nog een voorbeeld. Help je mee om het echt te maken?</p>
+    <div class="btns" style="justify-content:center;margin-top:8px"><a class="btn" href="#rekenhulp">Bereken je bijdrage</a><a class="btn ghost" href="#tenue">Bekijk het shirt</a></div>
+  </div>
+
   <div class="grid">
     <div class="mapbox"><svg id="map" role="img" aria-label="Routekaart van Lucca naar Veenendaal"></svg></div>
 
@@ -63,6 +93,11 @@
         <h2>Kopgroep en peloton</h2>
         <p class="hint">Tik op een naam en zie dat stuk op de kaart oplichten.</p>
         <div class="listbox" id="listbox"><div class="list" id="list"></div></div>
+      </section>
+
+      <section style="display:grid;gap:10px">
+        <h2>Plekken</h2>
+        <div class="spots" id="spots"></div>
       </section>
 
       <section class="sec" aria-labelledby="h-hoe">
@@ -192,6 +227,7 @@
     </div>
   </div>
 </footer>
+<canvas id="confetti" hidden aria-hidden="true"></canvas>
 
 <script src="data.js"></script>
 <script src="assets/site.js"></script>
@@ -201,3 +237,4 @@
 <script src="assets/route-data.js"></script>
 <script src="assets/route.js"></script>
 <script src="assets/actie.js"></script>
+<script src="assets/tussenstand.js"></script>

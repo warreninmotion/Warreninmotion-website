@@ -41,7 +41,12 @@ function renderSpots() {
     ? t(`Echte stand, bijgewerkt op ${WIM_DATE(DATA.updated)}. Donaties tellen we elke week bij. Alle kilometers zijn echte kilometers van de route (${nl(ROUTE_KM)} km).`, `Real progress, updated ${WIM_DATE(DATA.updated)}. Donations are added every week. Every kilometre is a real kilometre of the route (${nl(ROUTE_KM)} km).`)
     : t("Voorbeeld: alle bedrijven en bedragen op deze pagina zijn verzonnen. Kies Echte tussenstand voor de echte stand.", "Example: all companies and amounts on this page are made up. Choose Real progress to see the real numbers.");
 }
-function show() { render(); renderSpots(); }
+function show() {
+  render(); renderSpots();
+  // in het artifact staan shirt en volgbus op dezelfde pagina: die lopen mee vol
+  if ($("kitStage")) renderKit();
+  if ($("busSvg")) drawBus();
+}
 
 let timer = null;
 function stop() { clearTimeout(timer); timer = null; }

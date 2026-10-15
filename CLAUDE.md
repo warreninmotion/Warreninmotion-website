@@ -69,7 +69,8 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
   (Tussenstand en Sponsoren). Toont `CUR` (standaard de echte stand uit `data.js`).
 - Tussenstand heeft twee knoppen: "Echte tussenstand" (standaard) en "Zo ziet het eruit als het gelukt is": een
   verzonnen volle route (`FULL` in `tussenstand/index.html`) die zich opbouwt en eindigt met confetti. Het
-  voorbeeld speelt nooit vanzelf af en staat altijd gemarkeerd als verzonnen. Geen fictief voorbeeld elders.
+  voorbeeld speelt nooit vanzelf af en staat altijd gemarkeerd als verzonnen. Verder alleen in het artifact (daar lopen
+  ook shirt en volgbus mee vol); geen fictief voorbeeld elders op de site.
 - Links altijd absoluut (`/route/`, `/assets/...`); lokaal testen met `python3 -m http.server` in de repo-root.
 - De stand staat in `data.js` (`window.WIM_DATA`).
 
