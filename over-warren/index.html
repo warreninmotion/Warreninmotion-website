@@ -37,75 +37,79 @@
 
 <main id="main">
 <style>
-.about{display:grid;gap:28px;grid-template-columns:minmax(0,1fr)}
-@media (min-width:820px){.about{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:start}.about figure{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}}
-.about figure{margin:0}
-.about img{display:block;width:100%;border-radius:8px;aspect-ratio:2/3;object-fit:cover;background:var(--card)}
-.about figcaption{font-size:13px;color:var(--muted);margin-top:8px}
-.logo-anim{margin:0;background:#F2EEE4;border:1px solid var(--line);border-radius:10px;overflow:hidden;max-width:720px}
-.logo-anim img{display:block;width:100%;height:auto}
-.logo-steps{list-style:none;margin:0;padding:0;counter-reset:ls;display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
-@media (min-width:720px){.logo-steps{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.ab-hero{display:grid;gap:28px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:860px){.ab-hero{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px;align-items:stretch}}
+.ab-hero .txt{display:flex;flex-direction:column;gap:18px;justify-content:center}
+.ab-hero figure{margin:0;border-radius:14px;overflow:hidden;background:#14201C;min-height:420px;position:relative}
+.ab-hero figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 25%}
+@media (max-width:859px){.ab-hero figure{order:-1;height:min(110vw,480px);min-height:0}}
+.ab-hero .lead{margin:0}
+.sports{display:flex;flex-wrap:wrap;gap:6px}
+.sports span{font-size:14px;border:1px solid var(--line);border-radius:999px;padding:4px 12px;color:var(--muted)}
+.chapter{display:grid;gap:22px;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--line);padding-top:32px}
+@media (min-width:860px){.chapter{grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:48px}}
+.chapter h2{font-size:clamp(28px,4vw,38px)}
+.values{list-style:none;margin:0;padding:0;display:grid;gap:18px}
+.values li{display:grid;gap:2px}
+.values b{font-family:var(--display);font-weight:400;font-size:24px}
+.values span{color:var(--muted)}
+.logo-anim{margin:0;background:#F2EEE4;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.logo-anim img{display:block;width:100%;height:auto;aspect-ratio:2/1}
+.logo-steps{list-style:none;margin:0;padding:0;counter-reset:ls;display:grid;gap:12px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:600px){.logo-steps{grid-template-columns:repeat(5,minmax(0,1fr))}}
 .logo-steps li{counter-increment:ls;display:grid;gap:4px;align-content:start;border-top:2px solid var(--groen);padding-top:10px;font-size:14px;color:var(--muted)}
 .logo-steps li::before{content:counter(ls);font-family:var(--display);font-size:22px;color:var(--fg);line-height:1}
 .logo-steps b{color:var(--fg);font-weight:600;font-size:15px}
+.why{background:#1E4034;color:#F2EEE4;margin:0 -16px;padding:48px 16px}
+.why .in{max-width:1080px;margin:0 auto;display:grid;gap:18px}
+.why h2{color:#F2EEE4;font-size:clamp(28px,4vw,40px);max-width:24ch}
+.why p{color:rgba(242,238,228,.85);font-size:18px;max-width:60ch}
+.why .btns{margin-top:6px}
+.why .btn{background:#F2EEE4;color:#14201C;border-color:#F2EEE4}
+.why .btn.ghost{background:transparent;color:#F2EEE4;border-color:rgba(242,238,228,.6)}
 </style>
 <div class="wrap">
-  <header>
-    <div class="eyebrow">Over Warren</div>
-    <h1>Warren van der Ploeg</h1>
-    <p class="lead">Gezond eten en een actief leven passen in een druk bestaan. Dat laat Warren elke dag zien, en daar draait Warren in Motion om. De tocht van Lucca naar Veenendaal is zijn grootste uitdaging tot nu toe.</p>
-  </header>
-
-  <div class="about">
-    <figure>
-      <img src="/assets/img/warren.jpg" width="896" height="1344" alt="Warren hangt aan een optrekstang in de sportschool en lacht naar de camera">
-    </figure>
-
-    <div class="sec">
-      <div class="prose">
-        <h2>Hoe het begon</h2>
-        <p>Warren in Motion begon niet als plan, maar als een zoektocht: waar word ik blij van? Het antwoord werd een project waarin alles samenkomt waar Warren om geeft.</p>
-      </div>
-      <div class="cards">
-        <div class="card"><h3>Energie</h3><p>Creativiteit, vrijheid en avontuur, en genieten van elke stap onderweg.</p></div>
-        <div class="card"><h3>Sport en eten</h3><p>Twee passies van altijd, eindelijk met hetzelfde doel.</p></div>
-        <div class="card"><h3>Groter dan hijzelf</h3><p>Het inzetten voor mensen die hulp het hardst nodig hebben.</p></div>
-      </div>
-      <div class="prose">
-        <h2>Wie hij is</h2>
-        <p>Warren sport zijn hele leven al: krachttraining, CrossFit, hardlopen, wandelen, padel en tennis. Hij heeft een gewoon, vol leven, met dezelfde drukte als ieder ander. Juist daarom laat hij zien hoe gezond leven daarin past: zonder ingewikkelde regels en zonder dure diëten.</p>
-        <h2>Waarom deze tocht</h2>
-        <p>Gezond eten en bewegen horen haalbaar te zijn voor iedereen, wat je budget ook is en hoe druk je het ook hebt. Deze tocht is de ultieme test van die belofte: ruim 1.500 km in acht dagen, zonder shortcuts. En alles wat Warren ophaalt, gaat naar Voedselbanken Nederland.</p>
-        <h2>Volg de voorbereiding</h2>
-        <p>Elke week laat Warren zien hoe de training gaat, op Instagram, TikTok en Facebook: <a href="https://www.instagram.com/warreninmotion/" target="_blank" rel="noopener">@warreninmotion</a>.</p>
-      </div>
-      <div class="btns">
-        <a class="btn" href="/route/">Bekijk de route</a>
-        <a class="btn ghost" href="/contact/">Neem contact op</a>
-      </div>
+  <div class="ab-hero">
+    <div class="txt">
+      <div class="eyebrow">Over Warren</div>
+      <h1>Warren van der Ploeg</h1>
+      <p class="lead">Warren sport zijn hele leven al en houdt van goed eten. Hij heeft een gewoon, vol leven, met dezelfde drukte als ieder ander. Juist daarom laat hij zien hoe gezond leven daarin past: zonder ingewikkelde regels en zonder dure diëten.</p>
+      <div class="sports" aria-label="Sporten die Warren doet"><span>Krachttraining</span><span>CrossFit</span><span>Hardlopen</span><span>Wandelen</span><span>Padel</span><span>Tennis</span><span>En nu: fietsen</span></div>
     </div>
+    <figure><img src="/assets/img/warren.jpg" width="896" height="1344" alt="Warren hangt aan een optrekstang in de sportschool en lacht naar de camera"></figure>
   </div>
 
-  <section class="sec" aria-labelledby="h-logo">
-    <div class="eyebrow">Het logo</div>
-    <h2 id="h-logo">Van letters naar beweging</h2>
-    <p class="muted" style="max-width:62ch">In vijf stappen van letters naar beweging. Het resultaat: één doorgaande lijn met twee wielen, de vorm van de tocht zelf.</p>
-    <figure class="logo-anim">
-      <picture>
-        <source srcset="/assets/img/logo-ontstaan.png" media="(prefers-reduced-motion: reduce)">
-        <img src="/assets/img/logo-ontstaan.gif" width="720" height="360" loading="lazy" alt="Animatie van het ontstaan van het logo: de letters WIM worden losse streepjes, krijgen wieltjes, worden cursief en schuiven samen tot het monogram van Warren in Motion">
-      </picture>
-    </figure>
-    <ol class="logo-steps">
-      <li><b>De letters</b>W, i en M: de beginletters van Warren in Motion.</li>
-      <li><b>De streepjes</b>De letters teruggebracht tot losse lijnen. Simpel en eerlijk.</li>
-      <li><b>De wieltjes</b>Twee rondingen en twee stippen maken er een fiets van.</li>
-      <li><b>Cursief</b>Schuin gezet, zodat het logo vooruit wil: beweging.</li>
-      <li><b>Compact</b>Alles schuift in elkaar tot één monogram, in één doorgaande lijn.</li>
-    </ol>
+  <section class="chapter" aria-labelledby="h-begon">
+    <div><h2 id="h-begon">Hoe het begon</h2><p class="muted" style="margin-top:12px">Warren in Motion begon niet als plan, maar als een zoektocht: waar word ik blij van? Het antwoord werd een project waarin alles samenkomt waar Warren om geeft.</p></div>
+    <ul class="values">
+      <li><b>Energie</b><span>Creativiteit, vrijheid en avontuur, en genieten van elke stap onderweg.</span></li>
+      <li><b>Sport en eten</b><span>Twee passies van altijd, eindelijk met hetzelfde doel.</span></li>
+      <li><b>Groter dan hijzelf</b><span>Het inzetten voor mensen die hulp het hardst nodig hebben.</span></li>
+    </ul>
+  </section>
+
+  <section class="chapter" aria-labelledby="h-logo">
+    <div><h2 id="h-logo">Dat verhaal zit in het logo</h2><p class="muted" style="margin-top:12px">Toen het project vorm kreeg, kreeg het ook een gezicht. Het logo vertelt hetzelfde verhaal: van stilstaan naar beweging. In vijf stappen, van letters tot één doorgaande lijn met twee wielen.</p></div>
+    <div style="display:grid;gap:16px;min-width:0">
+      <figure class="logo-anim">
+        <picture>
+          <source srcset="/assets/img/logo-ontstaan.png" media="(prefers-reduced-motion: reduce)">
+          <img src="/assets/img/logo-ontstaan.gif" width="720" height="360" alt="Animatie van het ontstaan van het logo: de letters WIM worden losse streepjes, krijgen wieltjes, worden cursief en schuiven samen tot het monogram van Warren in Motion">
+        </picture>
+      </figure>
+      <ol class="logo-steps"><li><b>De letters</b>W, i en M: de beginletters van Warren in Motion.</li><li><b>De streepjes</b>De letters teruggebracht tot losse lijnen. Simpel en eerlijk.</li><li><b>De wieltjes</b>Twee rondingen en twee stippen maken er een fiets van.</li><li><b>Cursief</b>Schuin gezet, zodat het logo vooruit wil.</li><li><b>Compact</b>Alles schuift in elkaar tot één monogram.</li></ol>
+    </div>
   </section>
 </div>
+
+<section class="why" aria-labelledby="h-why" style="margin-top:44px;margin-bottom:-64px">
+  <div class="in">
+    <h2 id="h-why">Waarom fietst Warren 1.570 km?</h2>
+    <p>Gezond eten en bewegen horen haalbaar te zijn voor iedereen, wat je budget ook is en hoe druk je het ook hebt. Deze tocht is de ultieme test van die belofte: acht dagen, zeven landen, zonder shortcuts. En alles wat Warren ophaalt, gaat naar Voedselbanken Nederland.</p>
+    <p>Elke week zie je hoe de voorbereiding gaat: op de site en op Instagram, TikTok en Facebook (@warreninmotion).</p>
+    <div class="btns"><a class="btn" href="/training/">Volg de training</a><a class="btn ghost" href="/route/">Bekijk de route</a></div>
+  </div>
+</section>
 </main>
 
 <footer class="site-foot">

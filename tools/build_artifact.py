@@ -19,5 +19,9 @@ for f in TEXT:
     (OUT / f).write_text(pathlib.Path(f).read_text().replace('"/assets/', '"assets/'))
 for n in IMG:
     shutil.copy(f"assets/img/{n}.webp", OUT / f"assets/img/{n}.webp")
+(OUT / "assets/logos").mkdir()
+for f in pathlib.Path("assets/logos").glob("*.*"):
+    if not f.name.startswith("."):
+        shutil.copy(f, OUT / "assets/logos" / f.name)
 for f in sorted(p.relative_to(OUT).as_posix() for p in OUT.rglob("*") if p.is_file() and p.name != "index.html"):
     print(f)

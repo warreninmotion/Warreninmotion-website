@@ -48,6 +48,7 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
 - GitHub: warreninmotion/warreninmotion-website, branch `main`.
 - Netlify publiceert `main` automatisch (geen build-stap; gewone HTML/CSS/JS). Domein warreninmotion.nl staat bij TransIP.
 - Externe scripts alleen van cdnjs (d3 3.5.17, topojson 1.6.20, datamaps 0.5.9 voor de landkaart); fonts via Google Fonts.
+  Enige uitzondering: Google Analytics (googletagmanager.com), en alleen na "ja" in de cookiemelding.
 
 ## Pagina's en bestanden
 - Opbouw naar bezoeker: Home (`index.html`) is de landingspagina met twee keuzes: "Ik ben een bedrijf → Ik wil
@@ -59,11 +60,14 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
 - Home: groene band bovenaan (kop "Ruim 1.500 km fietsen voor de voedselbank", twee keuzes: Sponsor kilometers /
   Doneer en rij mee, lanceringsvideo even hoog ernaast), daaronder kerncijfers, kaart met citaat van Warren
   (concept, door Warren te bevestigen) en Wie/Route/Voedselbank, en de tussenstand.
-- Sponsoren: logostrook "Sluit je aan, net als deze bedrijven" onder de kop: sponsors uit `data.js` (niet anoniem),
-  logo's uit `logos.js` (`WIM_LOGOS`, bestanden in `assets/logos/`; zonder logo staat de naam als woordmerk).
-  Vanaf 5 bedrijven loopt de strook langzaam door.
+- Sponsoren: blok "Zij rijden al mee" rechts naast de kop (niet als band eronder): slider met één logo tegelijk
+  (sponsors uit `data.js`, niet anoniem; logo's uit `logos.js` → `assets/logos/`, op wit; zonder logo de naam als
+  woordmerk), laatste dia "Jouw bedrijf hier?". Ook zo in het artifact.
+- Over Warren loopt als verhaal: wie hij is (met foto) → hoe het begon (drie drijfveren) → dat verhaal zit in het
+  logo (animatie + vijf stappen) → groene band "Waarom fietst Warren 1.570 km?" met door naar Training en de route.
 - Evenementen in `events.js` (`WIM_EVENTS`): op de Training-pagina in de weekkalender en als blok "Evenementen";
   samenwerkingen met bedrijven krijgen `partner` (zichtbaarheid). Omloop van Zandvoort 21 maart 2027 is onder voorbehoud.
+  Week 16 (april 2027): Warren rijdt met de auto terug en fietst onderweg de zwaarste klim, de Lukmanierpas (niet de hele route).
 - `_redirects` (Netlify) stuurt de oude adressen `/elke-kilometer-telt/` en `/eindsprint/` door.
 - `assets/site.css` = huisstijl en gedeelde onderdelen; `assets/site.js` = monogram, menu, kopieerknoppen,
   stand op Home, peloton en eindsprint op Doneren, en vaste gegevens (`WIM_SITE`: mail, doneerlink, `liveUrl`
@@ -152,12 +156,15 @@ Afleiden van `data.js`:
 - Alleen weekcijfers delen (intern, niet op de site vermelden): nooit datum, dag of tijdstip per training, geen
   routes, kaarten, GPS of plaatsnamen, geen ruwe hartslagwaarden; ook niet herkenbaar in foto's of video's.
 
-## Statistiek (in voorbereiding)
-- Warren wil elke vrijdag een rapport: bezoekers, gemiddelde bezoektijd, populairste pagina's, welke knoppen
-  gebruikt worden en vooral wat niet gebruikt wordt.
-- `assets/site.js` stuurt al bij elke klik op een link of knop de gebeurtenis "Klik" (knop, pagina) naar
-  `window.plausible` of `window.umami` zodra een van die diensten geladen is. Dienst nog kiezen (cookieloos, EU,
-  met API), daarna het script in `tools/build.py` (kop) zetten en het vrijdagrapport als geplande taak inrichten.
+## Statistiek (Google Analytics 4, gratis)
+- `WIM_SITE.gaId` in `assets/site.js` = GA4-meet-ID ("G-..."). Leeg = geen statistiek en geen cookiemelding.
+- Cookiemelding "Koekje erbij?" (onderaan, groen/inkt): GA laadt pas na "Ja, koekje erbij"; keuze in localStorage
+  `wim-cookies`; in de voet "Cookie-instellingen" om te wijzigen. Elke klik op link/knop = GA-gebeurtenis "klik"
+  (knop, pagina).
+- Warren wil elke vrijdag een rapport: bezoekers, gemiddelde bezoektijd, populairste pagina's, gebruikte knoppen en
+  vooral wat niet gebruikt wordt. Daarvoor: GA4 Data API met een serviceaccount (sleutel als geheime instelling van
+  de omgeving), daarna een geplande taak op vrijdag.
+- Voor het aanzetten: korte privacyverklaring op de site (welke cookies, waarvoor, hoe lang).
 
 ## Home
 - De lanceringsvideo (`assets/video/lancering.mp4`, 7,6 MB) speelt vanzelf zonder geluid zodra hij in beeld is, in een lus;

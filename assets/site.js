@@ -22,6 +22,7 @@ window.WIM_SITE = {
   mail: "warreninmotion@outlook.com",
   donateUrl: "https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion",
   liveUrl: "",
+  gaId: "", // Google Analytics 4 meet-ID ("G-..."); leeg = geen statistiek en geen cookiemelding
   routeKm: 1570, // = Math.round(WIM_ROUTE.km) uit assets/route-data.js
   sprintMax: 50,
   goals: [{ eur: 7500, label: t("Doel 1", "Goal 1") }, { eur: 15000, label: t("Doel 2", "Goal 2") }, { eur: 30000, label: t("Hoofddoel", "Main goal") }],
@@ -88,11 +89,44 @@ function bindCopy(root) {
   });
 })();
 
-// Bezoekersstatistiek: elke klik op een link of knop als gebeurtenis "Klik" (knoptekst + pagina).
-// Doet niets zolang er geen statistiekdienst geladen is (Plausible of Umami); zie CLAUDE.md "Statistiek".
+// Bezoekersstatistiek: Google Analytics 4, alleen na "ja" in de cookiemelding (keuze in localStorage "wim-cookies").
+// Elke klik op een link of knop gaat als gebeurtenis "klik" mee (knoptekst + pagina). Zonder gaId gebeurt er niets.
 window.WIM_track = (name, props) => {
-  try { if (window.plausible) window.plausible(name, { props }); else if (window.umami) window.umami.track(name, props); } catch (e) { /* statistiek mag de site nooit breken */ }
+  try { if (window.gtag && window.WIM_GA_ON) window.gtag("event", name.toLowerCase(), props); } catch (e) { /* statistiek mag de site nooit breken */ }
 };
+(function () {
+  const id = window.WIM_SITE.gaId;
+  if (!id) return;
+  const get = () => { try { return localStorage.getItem("wim-cookies"); } catch (e) { return null; } };
+  const set = v => { try { localStorage.setItem("wim-cookies", v); } catch (e) { /* geen opslag: vraag het volgende keer opnieuw */ } };
+  const load = () => {
+    if (window.WIM_GA_ON) return;
+    window.WIM_GA_ON = true;
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag("js", new Date());
+    window.gtag("config", id, { anonymize_ip: true });
+    const sc = document.createElement("script"); sc.async = true; sc.src = "https://www.googletagmanager.com/gtag/js?id=" + id; document.head.append(sc);
+  };
+  const ask = () => {
+    if (document.getElementById("cookie")) return;
+    const box = document.createElement("div");
+    box.id = "cookie"; box.className = "cookie"; box.setAttribute("role", "dialog"); box.setAttribute("aria-labelledby", "cookie-h");
+    box.innerHTML = `<div class="cookie-in">
+      <p id="cookie-h" class="cookie-h">${t("Koekje erbij?", "Fancy a cookie?")}</p>
+      <p>${t("Wie 1.570 km fietst, verdient onderweg een koekje. Wij gebruiken cookies van Google Analytics om te zien welke pagina's en knoppen je gebruikt, zodat we de site beter maken. Geen reclame, niets doorverkocht.",
+        "Anyone cycling 1,570 km deserves a cookie along the way. We use Google Analytics cookies to see which pages and buttons you use, so we can make the site better. No ads, nothing sold on.")}</p>
+      <div class="cookie-b"><button type="button" class="btn" data-c="yes">${t("Ja, koekje erbij", "Yes, I'll have one")}</button><button type="button" class="btn ghost" data-c="no">${t("Nee, dank je", "No, thanks")}</button></div></div>`;
+    box.addEventListener("click", e => { const b = e.target.closest("[data-c]"); if (!b) return; set(b.dataset.c); if (b.dataset.c === "yes") load(); box.remove(); });
+    document.body.append(box);
+  };
+  const c = get();
+  if (c === "yes") load(); else if (c !== "no") ask();
+  // link in de voet om de keuze te wijzigen
+  const foot = document.querySelector(".site-foot__in > div:last-child ul");
+  if (foot) { const li = document.createElement("li"); li.innerHTML = `<a href="#" data-cookie>${t("Cookie-instellingen", "Cookie settings")}</a>`; foot.append(li);
+    li.querySelector("a").addEventListener("click", e => { e.preventDefault(); ask(); }); }
+})();
 document.addEventListener("click", e => {
   const el = e.target.closest("a, button");
   if (!el) return;
@@ -100,18 +134,25 @@ document.addEventListener("click", e => {
   window.WIM_track("Klik", { knop: label || el.className || "?", pagina: location.pathname });
 }, { capture: true });
 
-// Logostrook "Sluit je aan, net als deze bedrijven" (Sponsoren): sponsors uit data.js, logo's uit logos.js.
-// Vanaf 5 bedrijven loopt de strook langzaam door (niet bij "minder beweging"); daaronder staat hij stil.
+// Logoblok "Zij rijden al mee" (Sponsoren en artifact): sponsors uit data.js, logo's uit logos.js.
+// Eén logo tegelijk, schuift elke 3,5 s door; de laatste dia is "Jouw bedrijf hier?". Stil bij "minder beweging".
 (function () {
   const box = document.querySelector("[data-logos]");
   if (!box) return;
   const L0 = window.WIM_LOGOS || {}, D = window.WIM_DATA || { sponsors: [] };
   const names = [...new Set(D.sponsors.filter(s => s.name).map(s => s.name))];
   const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  const item = n => `<li class="logo-item">${L0[n] ? `<img src="${L0[n]}" alt="${esc(n)}" loading="lazy">` : `<span class="wordmark">${esc(n)}</span>`}</li>`;
-  const you = `<li class="logo-item you"><a href="#rekenhulp">${t("Jouw bedrijf hier?", "Your company here?")}</a></li>`;
-  const run = names.length >= 5 && !matchMedia("(prefers-reduced-motion: reduce)").matches;
-  box.innerHTML = run
-    ? `<div class="logo-run"><ul>${names.map(item).join("")}</ul><ul aria-hidden="true">${names.map(item).join("")}</ul></div>`
-    : `<ul class="logo-row">${names.map(item).join("")}${you}</ul>`;
+  const slides = names.map(n => `<div class="logo-slide">${L0[n] ? `<img src="${L0[n]}" alt="${esc(n)}">` : `<span class="wordmark">${esc(n)}</span>`}</div>`)
+    .concat(`<div class="logo-slide you"><a href="#rekenhulp"><b>${t("Jouw bedrijf hier?", "Your company here?")}</b><span>${t("Bereken je bijdrage", "Work out your contribution")}</span></a></div>`);
+  box.innerHTML = `<div class="logo-stage">${slides.join("")}</div><div class="logo-dots">${slides.map((_, i) => `<button type="button" aria-label="${i + 1} / ${slides.length}"></button>`).join("")}</div>`;
+  const S = [...box.querySelectorAll(".logo-slide")], B = [...box.querySelectorAll(".logo-dots button")];
+  let i = 0, timer = 0, hold = false;
+  const show = j => { i = (j + S.length) % S.length; S.forEach((s, k) => { s.classList.toggle("on", k === i); s.setAttribute("aria-hidden", String(k !== i)); }); B.forEach((b, k) => b.setAttribute("aria-current", String(k === i))); plan(); };
+  const plan = () => { clearTimeout(timer); if (!hold && S.length > 1 && !matchMedia("(prefers-reduced-motion: reduce)").matches) timer = setTimeout(() => show(i + 1), 3500); };
+  B.forEach((b, k) => b.addEventListener("click", () => show(k)));
+  box.addEventListener("pointerenter", () => { hold = true; plan(); });
+  box.addEventListener("pointerleave", () => { hold = false; plan(); });
+  box.addEventListener("focusin", () => { hold = true; plan(); });
+  box.addEventListener("focusout", () => { hold = false; plan(); });
+  show(0);
 })();
