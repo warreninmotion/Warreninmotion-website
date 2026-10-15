@@ -85,7 +85,8 @@ function bindCopy(root) {
   document.querySelectorAll("[data-sprint]").forEach(n => {
     const free = Math.max(0, S.sprintMax - D.eindsprint), e = D.eindsprint, d = D.diner;
     n.innerHTML = `<div class="big">${free} <small>${t(`van ${S.sprintMax} fietsplekken vrij`, `of ${S.sprintMax} riding places left`)}</small></div>
-      <div class="sub">${t(`${e} ${e === 1 ? "meefietser" : "meefietsers"} aangemeld · ${d} ${d === 1 ? "gast" : "gasten"} aan tafel bij het diner`, `${e} ${e === 1 ? "rider" : "riders"} signed up · ${d} ${d === 1 ? "guest" : "guests"} at the dinner`)}${upd ? t(` · bijgewerkt op ${upd}`, ` · updated ${upd}`) : ""}</div>`;
+      <div class="sub">${e ? t(`${e} ${e === 1 ? "meefietser" : "meefietsers"} aangemeld · ${d} ${d === 1 ? "gast" : "gasten"} aan tafel bij het diner`, `${e} ${e === 1 ? "rider" : "riders"} signed up · ${d} ${d === 1 ? "guest" : "guests"} at the dinner`)
+        : t("De inschrijving is net open. Wees er vroeg bij, want vol is vol.", "Sign-ups have just opened. Be quick: when it's full, it's full.")}${upd && e ? t(` · bijgewerkt op ${upd}`, ` · updated ${upd}`) : ""}</div>`;
   });
 })();
 
