@@ -162,7 +162,7 @@ Afleiden van `data.js`:
 ## Statistiek (Google Analytics 4, gratis)
 - `WIM_SITE.gaId` in `assets/site.js` = GA4-meet-ID: G-PW3QDXVHXW (property warreninmotion.nl, aangemaakt 16-10-2026).
   Leeg = geen statistiek en geen cookiemelding. Het artifact krijgt nooit GA (`build_artifact.py` maakt gaId leeg).
-- Cookiemelding "Koekje erbij?" (onderaan, groen/inkt): GA laadt pas na "Ja, koekje erbij"; keuze in localStorage
+- Cookiemelding "Koekje erbij?" (onderaan, groen/inkt; tekst: Warren verbrandt zo'n 40.000 kcal = ongeveer 800 koekjes, "Eentje voor jou?"): GA laadt pas na "Ja, koekje erbij"; keuze in localStorage
   `wim-cookies`; in de voet "Cookie-instellingen" om te wijzigen. Elke klik op link/knop = GA-gebeurtenis "klik"
   (knop, pagina).
 - Warren wil elke vrijdag een rapport: bezoekers, gemiddelde bezoektijd, populairste pagina's, gebruikte knoppen en
