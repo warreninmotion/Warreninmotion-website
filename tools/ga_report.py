@@ -142,7 +142,7 @@ def main():
         L += ["", "## Niet gebruikt", "", "Knoppen en links die er deze periode wel stonden, maar waar niemand op klikte "
               "(alleen pagina's met bezoek; kop en voet apart).", ""]
         kop = sorted(k for k in common if ("*", k) not in clicked)
-        if kop:
+        if kop and seen:
             L.append(f"- **Kop en voet:** {', '.join(kop)}")
         for p, labels in knoppen.items():
             if p not in seen:
