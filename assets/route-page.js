@@ -240,6 +240,7 @@
     if (i === cur) i = -1;
     if (cur >= 0) { const o = list.children[cur]; o.classList.remove("on"); o.querySelector(".stage-h").setAttribute("aria-expanded", "false"); $(`sb-${cur}`).hidden = true; $(`sb-${cur}`).innerHTML = ""; }
     cur = i; selClimb = null; gOver.innerHTML = ""; showViewer();
+    document.querySelector(".rgrid").classList.toggle("sel", i >= 0); // kaart groot of klein (beklimmingen eronder)
     gBase.querySelectorAll(".rseg").forEach(p => p.setAttribute("opacity", i < 0 || +p.dataset.i === i ? 1 : .35));
     prof.querySelectorAll(".pa").forEach(p => p.setAttribute("opacity", i < 0 || +p.dataset.i === i ? 1 : .35));
     history.replaceState(null, "", i >= 0 ? `#dag-${i + 1}` : location.pathname);

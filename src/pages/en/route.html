@@ -13,14 +13,21 @@ svg text{font-family:var(--body)}
 .cpanel{display:none}
 .rmap .reset{position:absolute;left:10px;top:10px;font:inherit;font-size:13px;font-weight:600;border:1px solid var(--fg);background:var(--bg);color:var(--fg);border-radius:999px;padding:5px 12px;cursor:pointer}
 .slist{display:grid;position:relative}
+/* Naast elkaar: een vast blok, de kaart staat stil. Zonder gekozen etappe is de kaart groot; kies je een etappe,
+   dan wordt de kaart kleiner en verschijnen de beklimmingen eronder. Alleen het etappevak scrollt. */
 @media (min-width:880px){
-  .rgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
-  .rleft{display:grid;gap:14px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);max-height:calc(100vh - 96px);grid-template-rows:auto minmax(0,1fr)}
-  .rmap{position:static;margin:0;padding:0}
-  .rmap svg{height:min(48vh,460px)}
+  .rgrid{--rh:min(78vh,720px);grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
+  .rleft{display:grid;gap:14px;height:var(--rh);grid-template-rows:minmax(0,1fr)}
+  .rmap{position:static;margin:0;padding:0;height:100%}
+  .rmap-in{height:100%}
+  .rmap svg{height:100%}
+  .rgrid.sel .rleft{grid-template-rows:auto minmax(0,1fr)}
+  .rgrid.sel .rmap,.rgrid.sel .rmap-in{height:auto}
+  .rgrid.sel .rmap svg{height:min(40vh,350px)}
   .cpanel{display:grid;gap:8px;align-content:start;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding-right:4px}
+  .rgrid:not(.sel) .cpanel{display:none}
   .cpanel-m{display:none}
-  .slist{max-height:calc(100vh - 110px);overflow-y:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-width:thin}
+  .slist{height:var(--rh);overflow-y:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-width:thin}
 }
 .stages{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--line)}
 .stage{border-bottom:1px solid var(--line);scroll-margin-top:calc(36vh + 84px)}

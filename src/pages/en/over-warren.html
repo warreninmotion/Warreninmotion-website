@@ -11,9 +11,16 @@
 .chapter{display:grid;gap:22px;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--line);padding-top:32px}
 @media (min-width:860px){.chapter{grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:48px}}
 .chapter h2{font-size:clamp(28px,4vw,38px)}
-.values{list-style:none;margin:0;padding:0;display:grid;gap:18px}
-.values li{display:grid;gap:2px}
-.values b{font-family:var(--display);font-weight:400;font-size:24px}
+.begon{display:grid;gap:24px;grid-template-columns:minmax(0,1fr);border-top:1px solid var(--line);padding-top:32px;align-items:center}
+@media (min-width:860px){.begon{grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:48px}}
+.begon-txt{display:grid;gap:14px;align-content:center}
+.begon h2{font-size:clamp(28px,4vw,38px)}
+.begon .ph{max-width:330px;justify-self:end}
+@media (max-width:859px){.begon .ph{justify-self:stretch;max-width:none}}
+.values{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:12px;border-top:1px solid var(--line);padding-top:14px}
+.values li{display:grid;grid-template-columns:190px minmax(0,1fr);gap:4px 16px;align-items:baseline}
+@media (max-width:520px){.values li{grid-template-columns:minmax(0,1fr)}}
+.values b{font-family:var(--display);font-weight:400;font-size:22px}
 .values span{color:var(--muted)}
 .logo-anim{margin:0;background:#F2EEE4;border:1px solid var(--line);border-radius:12px;overflow:hidden}
 .logo-anim img{display:block;width:100%;height:auto;aspect-ratio:2/1}
@@ -43,13 +50,17 @@
     <figure><img src="/assets/img/warren.jpg" width="896" height="1344" alt="Warren hanging from a pull-up bar in the gym, smiling at the camera"></figure>
   </div>
 
-  <section class="chapter" aria-labelledby="h-begon">
-    <div><h2 id="h-begon">How it started</h2><p class="muted" style="margin-top:12px">Warren in Motion did not start as a plan, but as a search: what makes me happy? The answer became a project that brings together everything Warren cares about.</p><figure class="ph" data-shot="warren-thuis" style="margin-top:18px;max-width:340px"></figure></div>
-    <ul class="values">
+  <section class="begon" aria-labelledby="h-begon">
+    <div class="begon-txt">
+      <h2 id="h-begon">How it started</h2>
+      <p class="muted">Warren in Motion did not start as a plan, but as a search: what makes me happy? The answer became a project that brings together everything Warren cares about.</p>
+      <ul class="values">
       <li><b>Energy</b><span>Creativity, freedom and adventure, and enjoying every step of the way.</span></li>
       <li><b>Sport and food</b><span>Two lifelong passions, finally aimed at the same goal.</span></li>
       <li><b>Bigger than himself</b><span>Using it all to help the people who need it most.</span></li>
     </ul>
+    </div>
+    <figure class="ph" data-shot="warren-thuis"></figure>
   </section>
 
   <section class="chapter" aria-labelledby="h-logo">
