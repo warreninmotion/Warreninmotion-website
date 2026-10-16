@@ -1,0 +1,178 @@
+/* Training: weekbalk, kaart "getraind op de route", weekverhaal (story) en weekverslag. */
+.tpage{--z1:#C9D8CE;--z2:#6F9A82;--z3:#E2B85C;--z4:#C9853A;--z5:#A4442E}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tpage{--z1:#3A5246;--z2:#6F9A82;--z3:#C9A24E;--z4:#D98B48;--z5:#E8805C}}
+:root[data-theme="dark"] .tpage{--z1:#3A5246;--z2:#6F9A82;--z3:#C9A24E;--z4:#D98B48;--z5:#E8805C}
+.z1{background:var(--z1)}.z2{background:var(--z2)}.z3{background:var(--z3)}.z4{background:var(--z4)}.z5{background:var(--z5)}
+
+/* Kop: tekst + totaal sinds de lancering, met de video ernaast */
+/* video even hoog als de tekst links: bovenkant gelijk met het kopje, onderkant gelijk met het cijferblok */
+.t-hero{display:grid;gap:24px;grid-template-columns:minmax(0,1fr)}
+.t-hero>div:first-child{display:flex;flex-direction:column}
+@media (min-width:860px){.t-hero{grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:40px;align-items:stretch}}
+.t-vid{margin:0;position:relative;border-radius:14px;overflow:hidden;background:#14201C;min-height:300px}
+.t-vid video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover}
+@media (max-width:859px){.t-vid{order:-1;height:min(62vw,340px);min-height:0}}
+.tot{display:grid;gap:10px;margin-top:auto;padding-top:0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px 14px}
+.tot-track{display:grid}
+.t-hero .lead{margin-bottom:22px}
+.tot-card{grid-area:1/1;display:grid;gap:6px;align-content:start;opacity:0;visibility:hidden;transform:translateX(12px);transition:opacity .35s,transform .35s,visibility .35s}
+.tot-card.on{opacity:1;visibility:visible;transform:none}
+@media (prefers-reduced-motion:reduce){.tot-card{transition:none;transform:none}}
+.tot-big{font-family:var(--display);font-size:clamp(54px,9vw,80px);line-height:.95;font-variant-numeric:lining-nums tabular-nums}
+.tot-big small{font-size:.36em;color:var(--muted)}
+.tot-lab{font-size:15px;color:var(--muted)}
+.tot-fact{font-size:17px;max-width:46ch;margin-top:6px}
+.tot-route{font-size:14px;color:var(--muted)}
+.tot-card.has-map{grid-template-columns:minmax(0,1fr) 110px;column-gap:16px}
+.tot-card.has-map>*{grid-column:1}
+.tot-card.has-map .tot-map{grid-column:2;grid-row:1/span 5;align-self:center}
+.tot-map{display:block;width:100%;height:auto;max-height:220px}
+@media (max-width:480px){.tot-card.has-map{grid-template-columns:minmax(0,1fr) 72px}}
+.tot-map text{font-family:var(--body)}
+.tot-nav{display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);padding-top:10px}
+.tot-nav>button{font:inherit;font-size:15px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--fg);cursor:pointer}
+.tot-dots{display:flex;gap:8px;flex:1;justify-content:center}
+.tot-dots button{width:9px;height:9px;padding:0;border-radius:50%;border:0;background:var(--line);cursor:pointer}
+.tot-dots button[aria-current="true"]{background:var(--groen);width:22px;border-radius:9px}
+.tot-dots button:focus-visible,.tot-nav>button:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
+
+/* Weekkalender: van de lancering tot de tocht, de laatste week staat open */
+.wstrip-wrap{display:grid;gap:8px}
+.wstrip-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px}
+.wstrip-nav{display:flex;gap:6px}
+.wstrip-nav button{font:inherit;font-size:15px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer}
+.wstrip-nav button:disabled{opacity:.35;cursor:default}
+.wstrip{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;scroll-snap-type:x proximity;scrollbar-width:thin}
+.cal-col{flex:0 0 auto;width:118px;display:grid;gap:6px;scroll-snap-align:start}
+.cal-m{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap;border-left:2px solid var(--line);padding-left:6px;min-height:18px}
+.cal{display:grid;gap:3px;align-content:start;text-align:left;font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 10px 12px;min-height:110px;width:100%;cursor:pointer}
+button.cal:hover{border-color:var(--muted)}
+button.cal[aria-pressed="true"]{border-color:var(--groen);box-shadow:inset 0 0 0 1.5px var(--groen)}
+button.cal:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
+.cal-wk{font-size:13px;font-weight:600}
+.cal-d{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.cal-km{font-family:var(--display);font-size:26px;line-height:1.1;font-variant-numeric:lining-nums tabular-nums;margin-top:8px;white-space:nowrap}
+.cal-s{font-size:12px;color:var(--muted)}
+.cal.plan .cal-km{font-size:19px;color:var(--muted);margin-top:12px}
+.cal.plan .cal-s,.cal.tour .cal-s{margin-top:auto}
+.cal-km small{font-family:var(--body);font-size:12px;color:var(--muted)}
+.cal.plan{background:transparent;border-style:dashed}
+.cal.now{border-style:solid;border-color:var(--muted)}
+.cal.tour{background:transparent;border:1.5px solid var(--brons)}
+.cal.tour .cal-s{color:var(--fg);font-weight:600}
+.zlegend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
+.zc{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+
+/* Weekpaneel: hoort bij de gekozen week in de kalender */
+.wpanel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px clamp(16px,3vw,32px);margin-top:-12px}
+.wweek,.wplan{display:grid;gap:28px;grid-template-columns:minmax(0,1fr);align-items:start}
+@media (min-width:860px){.wweek{grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:40px}.wplan{grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:40px}}
+.plan-side{display:grid;gap:10px}
+.plan-list{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--line)}
+.plan-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 12px;padding:9px 8px;border-bottom:1px solid var(--line);font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+.plan-list li b{color:var(--fg);font-weight:600;grid-column:1/-1}
+.plan-list li.on{background:var(--bg);box-shadow:inset 3px 0 0 var(--groen)}
+.plan-list li.tour b{color:var(--fg)}
+.winfo{display:grid;gap:18px;min-width:0}
+.wstats{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px;color:var(--muted)}
+.wstats b{color:var(--fg);font-family:var(--display);font-weight:400;font-size:30px;line-height:1}
+.wstats span{align-self:baseline}
+.zmix{display:grid;gap:8px}
+.zmix-bar{display:flex;height:14px;border-radius:999px;overflow:hidden;background:var(--line)}
+.zmix-bar i{display:block;height:100%}
+.zmix-leg{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:4px 14px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.zmix-leg b{color:var(--fg);font-weight:600}
+.winfo .prose p{color:var(--fg)}
+.winfo .sig{color:var(--muted);font-style:italic}
+.rides{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--line)}
+.rides li{border-bottom:1px solid var(--line)}
+.rides button{all:unset;box-sizing:border-box;display:grid;gap:6px;width:100%;padding:10px 4px;cursor:pointer}
+.rides button:focus-visible{outline:2px solid var(--brons);outline-offset:2px}
+.r-h{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 12px;font-size:15px}
+.r-h span{color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}
+.zbar{display:flex;height:10px;border-radius:999px;overflow:hidden;background:var(--line)}
+.zbar i{display:block;height:100%}
+.r-more{display:flex;flex-wrap:wrap;gap:2px 14px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.r-more b{color:var(--fg);font-weight:600}
+.rides li:not(.open) .r-more{display:none}
+
+/* Weekverhaal: staand 9:16, schaalt mee (alles in cqw), zelfde opmaak als de social-mediapost */
+.story{position:relative;width:100%;max-width:360px;aspect-ratio:9/16;margin:0 auto;border-radius:16px;overflow:hidden;background:#1E4034;color:#F2EEE4;container-type:inline-size;box-shadow:0 12px 30px rgba(20,32,28,.22);user-select:none;-webkit-user-select:none}
+.story .bars{position:absolute;z-index:3;left:4cqw;right:4cqw;top:3.5cqw;display:flex;gap:1.4cqw}
+.story .bars span{flex:1;height:.9cqw;min-height:2px;border-radius:9px;background:rgba(242,238,228,.3);overflow:hidden}
+.story .bars span i{display:block;height:100%;width:0;background:#F2EEE4}
+.story .slide{position:absolute;inset:0;padding:13cqw 8cqw 10cqw;display:flex;flex-direction:column;gap:3cqw;opacity:0;transition:opacity .35s;pointer-events:none}
+.story .slide.on{opacity:1}
+@media (prefers-reduced-motion:reduce){.story .slide{transition:none}}
+.story .s-eye{font-size:3.4cqw;letter-spacing:.22em;text-transform:uppercase;opacity:.8}
+.story .s-big{font-family:var(--display);font-size:25cqw;line-height:.9;font-variant-numeric:lining-nums tabular-nums}
+.story .s-big small{font-size:.32em}
+.story .s-h{font-family:var(--display);font-size:9cqw;line-height:1.05}
+.story .s-p{font-size:4.6cqw;line-height:1.4}
+.story .s-q{font-family:var(--display);font-size:6.6cqw;line-height:1.25}
+.story .s-q.small{font-size:5.6cqw}
+.story .s-sub{font-size:4.2cqw;opacity:.85}
+.story .s-line{width:12cqw;height:.8cqw;background:#C08A3E;border-radius:9px}
+.story .s-foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:3cqw;font-size:3.4cqw;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+.story .s-foot svg{width:13cqw;height:auto;color:#F2EEE4}
+.story .s-zones{display:grid;gap:5.5cqw;margin-top:5cqw}
+.story .s-zone{display:grid;grid-template-columns:27cqw 1fr 13cqw;align-items:center;gap:2.4cqw;font-size:4.2cqw;font-variant-numeric:tabular-nums}
+.story .s-zone b{font-weight:700}
+.story .s-zone .tr{height:7cqw;border-radius:9px;background:rgba(242,238,228,.14);overflow:hidden}
+.story .s-zone .tr i{display:block;height:100%;border-radius:9px}
+.story .s-zone span:last-child{text-align:right}
+.story .sz1{background:#C9D8CE}.story .sz2{background:#8FBF9F}.story .sz3{background:#E2B85C}.story .sz4{background:#D98B48}.story .sz5{background:#E8805C}
+.story .s-rides{display:grid;gap:5cqw;margin-top:5cqw}
+.story .s-ride{display:grid;gap:1.8cqw;font-size:4.4cqw}
+.story .s-ride div:first-child{display:flex;justify-content:space-between;gap:2cqw}
+.story .s-ride .zb{display:flex;height:4.4cqw;border-radius:9px;overflow:hidden;background:rgba(242,238,228,.14)}
+.story .s-ride .zb i{display:block;height:100%}
+.story .s-acts{display:grid;gap:3cqw;margin-top:3cqw;font-size:5cqw}
+.story .s-map{display:block;width:100%;flex:1 1 auto;min-height:0}
+.story .media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.story .slide.m{padding:0}
+.story .slide.m .cap{position:absolute;left:0;right:0;bottom:0;padding:18cqw 7cqw 8cqw;background:linear-gradient(transparent,rgba(20,32,28,.85));font-size:4.4cqw}
+.story .tap{position:absolute;z-index:2;top:0;bottom:0;background:transparent;border:0;padding:0;cursor:pointer}
+.story .tap.prev{left:0;width:35%}
+.story .tap.next{right:0;width:65%}
+.story .tap:focus-visible{outline:3px solid #C08A3E;outline-offset:-3px}
+.story .ctrl{position:absolute;z-index:4;right:3.5cqw;top:7cqw;width:10cqw;height:10cqw;min-width:30px;min-height:30px;border-radius:50%;border:0;background:rgba(20,32,28,.55);color:#F2EEE4;cursor:pointer;display:grid;place-items:center}
+.story .ctrl svg{width:45%;height:45%}
+.story-wrap{display:grid;gap:8px;justify-items:center}
+.story-wrap .hint{font-size:13px;color:var(--muted);text-align:center}
+.story .s-weeks{flex:1 1 auto;min-height:0;display:flex;align-items:flex-end;gap:2.4cqw;padding-top:4cqw}
+.story .s-weeks div{flex:1;display:grid;gap:1.6cqw;justify-items:center;font-size:3.2cqw;opacity:.55;font-variant-numeric:tabular-nums}
+.story .s-weeks div.on{opacity:1;font-weight:700}
+.story .s-weeks i{display:block;width:100%;max-width:12cqw;border-radius:1.2cqw 1.2cqw 0 0;background:#F2EEE4;min-height:.8cqw}
+.story .s-weeks div.on i{background:#C08A3E}
+.rides .r-h b::after{content:"";display:inline-block;width:6px;height:6px;margin-left:8px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:rotate(45deg) translateY(-3px);transition:transform .2s}
+.rides li.open .r-h b::after{transform:rotate(225deg) translateY(-1px)}
+
+/* Evenementen in de weekkalender */
+.cal-ev{font-size:11px;font-weight:600;color:var(--fg);line-height:1.25;border-top:1px solid var(--line);padding-top:5px;margin-top:6px}
+.cal.has-ev{border-color:var(--groen)}
+.ev-mini{list-style:none;margin:0;padding:10px 12px;border-left:3px solid var(--groen);background:var(--bg);border-radius:0 8px 8px 0;display:grid;gap:4px;font-size:15px}
+
+/* Evenementenkalender */
+.evs{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--line)}
+.ev{display:grid;grid-template-columns:76px minmax(0,1fr);gap:18px;padding:18px 0;border-bottom:1px solid var(--line)}
+.ev-date{display:grid;align-content:start;justify-items:center;text-align:center;border:1px solid var(--line);border-radius:10px;padding:8px 4px;background:var(--card)}
+.ev-day{font-family:var(--display);font-size:30px;line-height:1;font-variant-numeric:lining-nums}
+.ev-mon{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-top:4px}
+.ev-body{display:grid;gap:4px;align-content:start;max-width:64ch}
+.ev-body h3{font-size:22px}
+.ev-meta{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.ev-where{font-size:14px;color:var(--muted)}
+.ev-partner{font-size:14px}
+.ev .more{margin-top:4px}
+.ev.past{opacity:.55}
+
+/* Training in blokken */
+.r-bl{font-family:var(--body);font-size:12px;font-weight:600;color:var(--groen);border:1px solid currentColor;border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:2px}
+.blocks{display:flex;align-items:flex-start;gap:0}
+.blk{display:grid;gap:3px;min-width:0}
+.blk small{font-size:12px;color:var(--muted)}
+.pause{flex:0 0 18px;height:10px;background:repeating-linear-gradient(90deg,var(--muted) 0 2px,transparent 2px 5px);opacity:.5;margin:0 4px;align-self:start}
+.blocks-note{font-size:14px;color:var(--muted);border-left:3px solid var(--groen);padding:2px 0 2px 12px;max-width:62ch}
+.blocks-note b{color:var(--fg)}
+.story .zbs{display:flex;gap:2.4cqw}

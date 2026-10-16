@@ -1,0 +1,60 @@
+<div class="wrap tpage">
+  <div class="t-hero">
+    <div>
+      <div class="eyebrow">Training · op weg naar mei 2027</div>
+      <h1>Zo traint Warren</h1>
+      <p class="lead">Acht dagen achter elkaar gemiddeld bijna 200 km fietsen vraagt om een goede voorbereiding. Hier zie je wat Warren sinds de lancering heeft gedaan, en elke week komt er een nieuwe week bij.</p>
+      <section class="tot" aria-labelledby="tSince">
+        <div class="eyebrow" id="tSince"></div>
+        <div id="tTot"></div>
+      </section>
+    </div>
+    <figure class="t-vid">
+      <video id="tVid" muted loop playsinline preload="metadata" poster="/assets/video/training-poster.jpg" width="432" height="768" aria-label="Warren op de racefiets, gefilmd met een 360-camera"><source src="/assets/video/training.mp4" type="video/mp4"></video>
+    </figure>
+  </div>
+
+  <section class="wstrip-wrap" aria-labelledby="h-weeks">
+    <div class="wstrip-head">
+      <div><h2 id="h-weeks">Week voor week</h2><p class="small muted" id="tToGo"></p></div>
+      <div class="wstrip-nav"><button type="button" id="wPrev" aria-label="Vorige week">←</button><button type="button" id="wNext" aria-label="Volgende week">→</button></div>
+    </div>
+    <div class="wstrip" id="wStrip" role="group" aria-label="Weekkalender van de lancering tot de tocht"></div>
+  </section>
+
+  <section class="wpanel" id="wPanel" style="scroll-margin-top:84px">
+    <div class="wweek" id="wWeek">
+      <div class="story-wrap">
+        <div class="story" id="wStory" aria-roledescription="weekverhaal" aria-label="Weekverhaal"></div>
+        <p class="hint">Tik rechts voor verder, links voor terug.</p>
+      </div>
+      <div class="winfo">
+        <div><h2 id="wTitle" style="font-size:clamp(24px,3.6vw,30px)"></h2></div>
+        <div class="wstats" id="wStats"></div>
+        <div class="zmix" id="wZmix"></div>
+        <div class="prose" id="wText"></div>
+        <ul class="rides" id="wRides"></ul>
+        <p class="blocks-note" id="wBlocks" hidden></p>
+      </div>
+    </div>
+    <div class="wplan" id="wPlan" hidden>
+      <div class="plan-side"><div class="eyebrow">Het schema naar mei</div><ol class="plan-list" id="wPlanList"></ol></div>
+      <div class="winfo"><div class="eyebrow" id="wPlanEye"></div><h2 id="wPlanTitle" style="font-size:clamp(24px,3.6vw,30px)"></h2><div id="wPlanBody" class="winfo"></div></div>
+    </div>
+  </section>
+  <p class="small muted" id="tUpd" style="margin-top:-14px"></p>
+
+  <section class="sec" aria-labelledby="h-ev">
+    <div><h2 id="h-ev">Evenementen</h2><p class="muted" style="max-width:62ch;margin-top:6px">Hier rijdt Warren mee, vaak samen met bedrijven. Bij een aantal kun je zelf meedoen of komen aanmoedigen.</p></div>
+    <ol class="evs" id="tEvents"></ol>
+  </section>
+
+  <section class="sec" aria-labelledby="h-mee">
+    <h2 id="h-mee">Fiets je met ons mee?</h2>
+    <div class="btns" style="margin-top:0"><a class="btn" href="/sponsoren/">Sponsor als bedrijf</a><a class="btn ghost" href="/doneren/">Doneer als particulier</a></div>
+  </section>
+</div>
+<!--SCRIPT-->
+<script src="/training.js"></script>
+<script src="/events.js"></script>
+<script src="/assets/training-page.js"></script>

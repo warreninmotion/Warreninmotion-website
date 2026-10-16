@@ -1,0 +1,81 @@
+<style>
+.modes{display:grid;grid-template-columns:auto auto;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px;justify-self:start;max-width:100%}
+.modes button{font:inherit;font-size:15px;line-height:1.25;border:0;background:transparent;color:var(--muted);padding:9px 18px;border-radius:999px;cursor:pointer;min-height:40px}
+@media (max-width:560px){.modes{justify-self:stretch;grid-template-columns:1fr 1fr;border-radius:14px}.modes button{border-radius:10px;padding:9px 10px;font-size:14px}}
+.modes button[aria-pressed="true"]{background:var(--groen);color:var(--bg);font-weight:600}
+.demo{border-style:dashed}
+.demo b{font-weight:600}
+.spots{display:grid;gap:0;border-top:1px solid var(--line)}
+.spots>div{display:flex;justify-content:space-between;gap:12px;padding:10px 4px;border-bottom:1px solid var(--line);font-size:15px}
+.spots span:last-child{font-variant-numeric:tabular-nums;font-weight:600}
+.done{display:grid;gap:6px;text-align:center;padding:22px 16px;border:1.5px solid var(--groen);border-radius:10px;background:var(--card)}
+.done h2{font-size:clamp(28px,5vw,38px)}
+.done p{color:var(--muted)}
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+.ts-hero{display:grid;gap:24px;grid-template-columns:minmax(0,1fr);align-items:center}
+@media (min-width:860px){.ts-hero{grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:40px}}
+.ts-img{margin:0;border-radius:14px;overflow:hidden;aspect-ratio:16/10;background:#14201C}
+.ts-img img{display:block;width:100%;height:100%;object-fit:cover}
+</style>
+<div class="wrap">
+  <div class="ts-hero">
+  <header>
+    <div class="eyebrow">Progress · Lucca – Veenendaal</div>
+    <h1>Every kilometre counts</h1>
+    <p class="lead">Every €20 is a kilometre closer to Veenendaal. Companies ride up front with their own stretch of the route, in the order they joined. All individual donors together form the peloton behind them.</p>
+  </header>
+    <figure class="ts-img"><img src="/assets/img/bergweg.webp" width="1200" height="675" alt="A mountain road with hairpin bends through a green valley, seen from above"></figure>
+  </div>
+
+  <div class="modes" role="group" aria-label="Which view do you want to see">
+    <button type="button" id="modeReal" aria-pressed="true">Real progress</button>
+    <button type="button" id="modeFull" aria-pressed="false">See what success looks like</button>
+  </div>
+
+  <div class="demo" id="demo" hidden>
+    <span id="demoTxt">Example: these companies and amounts are made up. This is what it looks like when the whole route is filled.</span>
+    <button type="button" id="skipBtn">Skip</button>
+  </div>
+
+  <div class="done" id="done" hidden aria-live="polite">
+    <h2>We did it! Together to Veenendaal</h2>
+    <p><span id="doneTxt"></span> · every spot taken. This is still an example. Will you help make it real?</p>
+    <div class="btns" style="justify-content:center;margin-top:8px"><a class="btn" href="/en/sponsor/">Sponsor as a company</a><a class="btn ghost" href="/en/donate/">Donate as an individual</a></div>
+  </div>
+
+  <div class="grid">
+    <div class="mapbox"><svg id="map" role="img" aria-label="Route map from Lucca to Veenendaal"></svg></div>
+
+    <div style="display:grid;gap:36px;min-width:0">
+      <section class="stat" aria-live="polite">
+        <div class="eyebrow">Filled</div>
+        <div class="big"><span id="km">0</span> <small>of 1,570 km</small></div>
+        <div class="sub" id="eur"></div>
+        <div class="bar" id="bar"></div>
+        <div class="sub" id="next"></div>
+      </section>
+
+      <section id="sec-list" style="display:grid;gap:10px;min-width:0">
+        <h2>Breakaway and peloton</h2>
+        <p class="hint">Tap a name and watch that stretch light up on the map.</p>
+        <div class="listbox" id="listbox"><div class="list" id="list"></div></div>
+      </section>
+
+      <section style="display:grid;gap:10px">
+        <h2>Spots</h2>
+        <div class="spots" id="spots"></div>
+        <div class="sub" id="sprint" hidden></div>
+      </section>
+
+      <section style="display:grid;gap:12px">
+        <h2>Will you ride along too?</h2>
+        <div class="btns" style="margin-top:0"><a class="btn" href="/en/sponsor/">Sponsor as a company</a><a class="btn ghost" href="/en/donate/">Donate as an individual</a></div>
+      </section>
+
+      <p class="foot" id="foot"></p>
+    </div>
+  </div>
+</div>
+<canvas id="confetti" hidden aria-hidden="true"></canvas>
+<!--SCRIPT-->
+<script src="/assets/tussenstand.js"></script>

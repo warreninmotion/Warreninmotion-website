@@ -1,0 +1,77 @@
+<style>
+.give{display:grid;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:22px}
+.give .btn{font-size:17px;padding:12px 28px;justify-self:start}
+.amounts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin:0;border-top:1px solid var(--line)}
+@media (min-width:620px){.amounts{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.amounts>div{padding:12px 10px 12px 0;border-bottom:1px solid var(--line)}
+.amounts dt{font-family:var(--display);font-size:28px;line-height:1;font-variant-numeric:lining-nums tabular-nums}
+.amounts dd{margin:4px 0 0;font-size:14px;color:var(--muted)}
+#eindsprint{scroll-margin-top:84px}
+</style>
+<div class="wrap">
+  <div class="hero2">
+  <header>
+    <div class="eyebrow">Voor particulieren</div>
+    <h1>Doneer en rij mee</h1>
+    <p class="lead">Elke euro brengt het peloton dichter bij Veenendaal. Samen met alle andere donateurs rij je achter de bedrijven aan, en je donatie gaat naar Voedselbanken Nederland.</p>
+  </header>
+    <figure class="ph" data-shot="doneren-tas"></figure>
+  </div>
+
+  <section class="give" aria-labelledby="h-doneer">
+    <h2 id="h-doneer">Zo ver brengt jouw donatie het peloton</h2>
+    <dl class="amounts" aria-label="Wat je donatie betekent">
+      <div><dt>€5</dt><dd>250 meter</dd></div>
+      <div><dt>€20</dt><dd>1 kilometer</dd></div>
+      <div><dt>€50</dt><dd>2,5 kilometer · boodschappen voor 4 gezinnen</dd></div>
+      <div><dt>€100</dt><dd>5 kilometer · boodschappen voor 8 gezinnen</dd></div>
+    </dl>
+    <a class="btn" href="https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion" target="_blank" rel="noopener">Doneer nu</a>
+    <p class="muted small">Je doneert via de actiepagina van Warren in Motion bij Kom in actie voor de voedselbank. Elke week tellen we de donaties bij in de tussenstand.</p>
+    <div data-peloton></div>
+  </section>
+
+  <section class="sec" id="eindsprint" aria-labelledby="h-sprint">
+    <div class="eyebrow">Zaterdag 22 mei 2027</div>
+    <h2 id="h-sprint">Fiets de eindsprint mee of schuif aan</h2>
+    <p class="muted" style="max-width:62ch">Rij de laatste ruim 50 km mee, van Den Bosch naar de finish in Veenendaal. Daarna vieren we het samen: een diner, de cheque-overhandiging aan Voedselbanken Nederland en een feest.</p>
+    <figure class="ph" data-shot="doneren-groep"></figure>
+    <div data-sprint aria-live="polite"></div>
+    <div class="cards c2">
+      <div class="card">
+        <div class="eyebrow">Fiets mee</div>
+        <h3>Meefietsen</h3>
+        <div class="price">€150 <small>per persoon</small></div>
+        <ul class="incl">
+          <li>Samen de laatste ruim 50 km naar de finish</li>
+          <li>Het officiële Warren in Motion-fietsshirt, om te houden</li>
+          <li>Je plek bij het diner, de cheque-overhandiging en het feest</li>
+        </ul>
+        <p>Er zijn 50 fietsplekken, dus wees er op tijd bij.</p>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Schuif aan</div>
+        <h3>Alleen het diner</h3>
+        <div class="price">€100 <small>per persoon</small></div>
+        <ul class="incl">
+          <li>Een plek aan tafel bij het diner</li>
+          <li>De cheque-overhandiging aan Voedselbanken Nederland</li>
+          <li>Het feest na afloop</li>
+        </ul>
+      </div>
+    </div>
+    <dl class="rows">
+      <div><dt>Start</dt><dd><b>Den Bosch</b> · tijd en startplek volgen</dd></div>
+      <div><dt>Afstand</dt><dd><b>Ongeveer 54 km</b> · het laatste stuk van etappe 8</dd></div>
+      <div><dt>Finish</dt><dd><b>Veenendaal</b> · rond 18:00 (onder voorbehoud)</dd></div>
+      <div><dt>Diner</dt><dd><b>Direct na de finish</b> · locatie volgt</dd></div>
+    </dl>
+    <p class="muted">Meld je aan met een mailtje: je naam, met hoeveel personen je komt en of je meefietst of aanschuift.</p>
+    <div class="contact"><a class="btn" href="mailto:warreninmotion@outlook.com?subject=Eindsprint%20en%20diner">Meld je aan</a><span class="addr">warreninmotion@outlook.com</span><button type="button" class="copy">Kopieer</button></div>
+  </section>
+
+  <section class="sec" aria-labelledby="h-deel">
+    <h2 id="h-deel">Vertel het door</h2>
+    <p class="muted" style="max-width:62ch">Hoe meer mensen meedoen, hoe verder het peloton komt. Volg Warren op <a href="https://www.instagram.com/warreninmotion/" target="_blank" rel="noopener">Instagram</a> en <a href="https://www.tiktok.com/@warren.in.motion" target="_blank" rel="noopener">TikTok</a> en deel zijn berichten. Ken je een bedrijf dat ook wil meedoen? Stuur ze naar <a href="/sponsoren/">Sponsoren</a>.</p>
+  </section>
+</div>

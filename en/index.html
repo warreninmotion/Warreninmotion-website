@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Warren in Motion</title>
+<meta name="description" content="In May 2027 Warren cycles more than 1,500 km from Lucca to Veenendaal, through 7 countries, for the Dutch Food Banks. Sponsor as a company or donate as an individual.">
+<link rel="alternate" hreflang="nl" href="https://warreninmotion.nl/">
+<link rel="alternate" hreflang="en" href="https://warreninmotion.nl/en/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&amp;display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="site-head__in">
+    <a class="brand" href="/en/" aria-current="page"><svg class="mono" aria-hidden="true"></svg><span>Warren in Motion</span></a>
+    <a class="lang" href="/" hreflang="nl" lang="nl" aria-label="Lees deze pagina in het Nederlands"><svg class="flag" viewBox="0 0 9 6" aria-hidden="true"><path fill="#AE1C28" d="M0 0h9v2H0z"/><path fill="#fff" d="M0 2h9v2H0z"/><path fill="#21468B" d="M0 4h9v2H0z"/></svg><span>NL</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Main menu">
+      <ul>
+        <li><a href="/en/about/">About Warren</a></li>
+        <li><a href="/en/route/">The route</a></li>
+        <li><a href="/en/training/">Training</a></li>
+        <li><a href="/en/donate/" class="cta">Donate</a></li>
+        <li><a href="/en/sponsor/" class="cta">Sponsor</a></li>
+        <li><a href="/en/progress/">Progress</a></li>
+        <li><a href="/en/contact/">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<style>
+/* Kop als volle groene band: de campagne zelf, niet een kaartje */
+.band{background:#1E4034;color:#F2EEE4;margin:-28px -16px 0;padding:44px 16px 48px}
+.band .wrap{gap:0}
+.hero{display:grid;gap:32px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:860px){.hero{grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:48px;align-items:stretch}}
+.hero-txt{display:flex;flex-direction:column}
+.when{font-size:15px;color:rgba(242,238,228,.75)}
+.hero h1{font-size:clamp(44px,7.6vw,76px);line-height:1;margin-top:14px;color:#F2EEE4}
+.hero h1 em{font-style:italic}
+.hero .lead{color:rgba(242,238,228,.85);font-size:19px;max-width:52ch;margin-top:18px}
+.choose{display:grid;gap:12px;grid-template-columns:minmax(0,1fr);margin-top:auto;padding-top:32px}
+@media (min-width:600px){.choose{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.choice{display:grid;gap:4px;text-decoration:none;color:#F2EEE4;border:1.5px solid rgba(242,238,228,.35);border-radius:12px;padding:18px 20px;transition:background .15s,border-color .15s}
+.choice:hover{background:rgba(242,238,228,.08);border-color:#F2EEE4}
+.choice:focus-visible{outline:2px solid #C08A3E;outline-offset:3px}
+.choice .who{font-size:14px;color:rgba(242,238,228,.7)}
+.choice .what{font-family:var(--display);font-size:clamp(25px,3vw,30px);line-height:1.1;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.choice .what svg{width:22px;height:22px;flex:none;transition:transform .15s}
+.choice:hover .what svg{transform:translateX(4px)}
+.choice p{font-size:15px;color:rgba(242,238,228,.75);margin-top:4px}
+.choice.main{background:#F2EEE4;color:#14201C;border-color:#F2EEE4}
+.choice.main .who,.choice.main p{color:#5B6660}
+.choice.main:hover{background:#FFFFFF}
+@media (prefers-reduced-motion:reduce){.choice,.choice .what svg{transition:none}}
+.hero-vid{margin:0;position:relative;border-radius:14px;overflow:hidden;background:#14201C;min-height:420px}
+.hero-vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+@media (max-width:859px){.hero-vid{height:min(110vw,460px);min-height:0}}
+.snd{position:absolute;right:12px;top:12px;display:flex;align-items:center;gap:6px;font:inherit;font-size:13px;font-weight:600;border:0;border-radius:999px;padding:7px 12px;background:rgba(20,32,28,.78);color:#F2EEE4;cursor:pointer;z-index:1}
+.snd svg{width:16px;height:16px}
+.facts-band{border-bottom:1px solid var(--line)}
+.facts-band .facts{border-top:0}
+/* Kaart en quote naast elkaar: de kaart is altijd even hoog als de tekstkolom */
+.tale{display:grid;gap:32px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:860px){.tale{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:stretch}}
+.tale-map{margin:0;position:relative;min-height:420px}
+.tale-map svg{position:absolute;inset:0;width:100%;height:100%}
+.tale-map svg text{font-family:var(--body)}
+.tale-txt{display:flex;flex-direction:column;justify-content:center;gap:28px}
+/* Drie onderwerpen als blokken met een beeld op de achtergrond */
+.topics{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:860px){.topics{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.topic{position:relative;display:flex;align-items:flex-end;min-height:460px;border-radius:14px;overflow:hidden;background:#1E4034;color:#F2EEE4;text-decoration:none;isolation:isolate}
+@media (max-width:859px){.topic{min-height:400px}}
+.topic .ph{position:absolute;inset:0;aspect-ratio:auto!important;max-width:none;border-radius:0;z-index:-1}
+.topic .ph-tag{top:10px;bottom:auto}
+.topic-txt{display:grid;gap:8px;width:100%;padding:72px 22px 22px;background:linear-gradient(to top,rgba(20,32,28,.94) 0,rgba(20,32,28,.78) 55%,rgba(20,32,28,0) 100%)}
+.topic h3{font-size:clamp(24px,2.6vw,28px);color:#F2EEE4}
+.topic p{font-size:15px;color:rgba(242,238,228,.88)}
+.topic .num{font-family:var(--display);font-size:1.2em;color:#F2EEE4}
+.topic .more{color:#F2EEE4;text-decoration-color:rgba(242,238,228,.5)}
+.topic:hover .more{text-decoration-color:#F2EEE4}
+.topic:focus-visible{outline:2px solid var(--brons);outline-offset:3px}
+.quote{font-family:var(--display);font-size:clamp(24px,3.4vw,34px);line-height:1.25;max-width:30ch;border-left:3px solid var(--brons);padding-left:20px}
+.quote small{display:block;font-family:var(--body);font-size:15px;color:var(--muted);margin-top:10px}
+.mini{display:grid;gap:10px}
+.mini .line{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px}
+.mini .big{font-size:clamp(38px,7vw,54px)}
+.mini .bar{margin:18px 0 30px}
+</style>
+<section class="band">
+  <div class="wrap">
+  <header class="hero">
+    <div class="hero-txt">
+      <div class="when">15–22 May 2027 · from Lucca to Veenendaal</div>
+      <h1>Cycling 1,500+ km <em>for the food bank</em></h1>
+      <p class="lead">In May 2027 Warren van der Ploeg cycles from Lucca, Italy, home to Veenendaal in eight days. Everything he raises along the way goes to the Dutch Food Banks. Will you ride along?</p>
+      <nav class="choose" aria-label="Choose how you join in">
+        <a class="choice main" href="/en/sponsor/">
+          <span class="who">For companies</span>
+          <span class="what">Sponsor kilometres<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <p>€20 per km. Your name on the route, your logo on the jersey and the follow van.</p>
+        </a>
+        <a class="choice" href="/en/donate/">
+          <span class="who">For everyone</span>
+          <span class="what">Donate and ride along<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <p>€5 gets you 250 metres in the peloton. Or ride the final sprint with us.</p>
+        </a>
+      </nav>
+    </div>
+    <figure class="hero-vid">
+      <video id="lv" muted loop playsinline preload="metadata" poster="/assets/video/lancering-poster.jpg" width="464" height="832" aria-label="Warren in Motion launch video (in Dutch)">
+        <source src="/assets/video/lancering.mp4" type="video/mp4">
+      </video>
+      <button type="button" class="snd" id="snd" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/></svg><span>Sound on</span></button>
+    </figure>
+  </header>
+  </div>
+</section>
+
+<div class="wrap" style="margin-top:28px">
+  <section class="facts-band" aria-label="The ride in numbers">
+    <dl class="facts">
+      <div><dt>1,570</dt><dd>kilometres, from Lucca to Veenendaal</dd></div>
+      <div><dt>8</dt><dd>days on the bike</dd></div>
+      <div><dt>7</dt><dd>countries along the way</dd></div>
+      <div><dt>1,915 m</dt><dd>highest point, the Lukmanier Pass</dd></div>
+    </dl>
+  </section>
+
+  <section class="sec" aria-labelledby="h-verhaal">
+    <div class="tale">
+      <figure class="tale-map">
+        <svg id="homeMap" role="img" aria-label="The route from Lucca to Veenendaal in eight stages"></svg>
+      </figure>
+      <div class="tale-txt">
+        <h2 id="h-verhaal" class="quote">“Healthy food and exercise should be within reach for everyone, whatever your budget.”<small>— Warren van der Ploeg</small></h2>
+      <section class="mini" aria-labelledby="h-stand">
+        <div class="line"><h2 id="h-stand">Progress</h2><a class="more" href="/en/progress/">See who is riding along</a></div>
+        <div data-stand aria-live="polite"></div>
+      </section>
+      </div>
+    </div>
+  </section>
+
+  <section class="topics" aria-label="More about the ride">
+    <a class="topic" href="/en/donate/">
+      <figure class="ph" data-shot="home-koken"></figure>
+      <div class="topic-txt"><h3>Why the food bank</h3><p>In 2025 the Dutch food banks helped <span class="num">155,600</span> people, and the number of households grew by 10%. Every €12.50 gives a family groceries.</p><span class="more">Join in</span></div>
+    </a>
+    <a class="topic" href="/en/about/">
+      <figure class="ph" data-shot="home-frontaal"></figure>
+      <div class="topic-txt"><h3>Who is Warren?</h3><p>Athlete and foodie with a busy life, juggling work and home like you. He shows how healthy living fits into it, without complicated rules.</p><span class="more">Meet Warren</span></div>
+    </a>
+    <a class="topic" href="/en/route/">
+      <figure class="ph" data-shot="home-pedalen"></figure>
+      <div class="topic-txt"><h3>Eight days, seven countries</h3><p>Along the Ligurian coast, over the Lukmanier Pass and through the Ardennes, all the way home. Around 200 km a stage.</p><span class="more">See the route</span></div>
+    </a>
+  </section>
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="site-foot__in">
+    <div>
+      <svg class="mono" aria-hidden="true"></svg>
+      <p><b>Warren in Motion</b><br>Lucca → Veenendaal · 15–22 May 2027<br>For the Dutch Food Banks (Voedselbanken Nederland)</p>
+      <p style="margin-top:10px">Warren in Motion Foundation (in formation)</p>
+    </div>
+    <nav aria-label="Pages">
+      <ul>
+        <li><a href="/en/">Home</a></li>
+        <li><a href="/en/about/">About Warren</a></li>
+        <li><a href="/en/route/">The route</a></li>
+        <li><a href="/en/training/">Training</a></li>
+        <li><a href="/en/donate/" class="cta">Donate</a></li>
+        <li><a href="/en/sponsor/" class="cta">Sponsor</a></li>
+        <li><a href="/en/progress/">Progress</a></li>
+        <li><a href="/en/contact/">Contact</a></li>
+      </ul>
+    </nav>
+    <div>
+      <div class="socs"><a class="soc" href="https://www.instagram.com/warreninmotion/" target="_blank" rel="noopener" aria-label="Instagram @warreninmotion" title="Instagram · @warreninmotion"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a><a class="soc" href="https://www.tiktok.com/@warren.in.motion" target="_blank" rel="noopener" aria-label="TikTok @warren.in.motion" title="TikTok · @warren.in.motion"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a></div>
+      <ul>
+        <li><a href="mailto:warreninmotion@outlook.com">warreninmotion@outlook.com</a></li>
+        <li><a href="https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion" target="_blank" rel="noopener">Donate to the Dutch Food Banks</a></li>
+        <li><a href="/en/privacy/">Privacy and cookies</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/shots.js"></script>
+<script src="/assets/site.js"></script>
+<script src="/assets/route-data.js"></script>
+<script src="/assets/route.js"></script>
+<script src="/assets/home.js"></script>
+</body>
+</html>

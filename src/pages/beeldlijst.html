@@ -1,0 +1,30 @@
+<style>
+.shots{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));align-items:start}
+.shot{display:grid;gap:8px;align-content:start}
+.shot h2{font-size:20px;line-height:1.25}
+.shot p{font-size:14px;color:var(--muted)}
+.shot .st{font-size:13px;font-weight:600}
+.shot .st.ok{color:var(--groen)}
+.shot .ph{max-height:340px}
+</style>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Intern · niet in het menu</div>
+    <h1>Beeldlijst</h1>
+    <p class="lead">Alle foto's en video's die de site nog nodig heeft. Het nummer staat ook rechtsonder in het vervangbeeld op de pagina zelf. Aan het vlak zie je of het staand of liggend moet.</p>
+  </header>
+  <div class="shots" id="shots"></div>
+</div>
+<!--SCRIPT-->
+<script>
+(function () {
+  const S = window.WIM_SHOTS || {}, NAAM = { "/": "Home", "/over-warren/": "Over Warren", "/doneren/": "Doneren", "/sponsoren/": "Sponsoren", "/route/": "De route", "/contact/": "Contact", "/training/": "Training" };
+  document.getElementById("shots").innerHTML = Object.entries(S).map(([id, s], i) => {
+    const [w, h] = s.ratio.split("/").map(Number);
+    return `<article class="shot"><figure class="ph" data-shot="${id}"></figure>
+      <span class="st${s.src && !s.tijdelijk ? " ok" : ""}">${s.tijdelijk ? "Tijdelijk uit de lanceervideo, eigen opname welkom" : s.src ? "Binnen" : "Nog nodig"} · #${i + 1} · ${s.soort === "video" ? "video" : "foto"}, ${h > w ? "staand" : "liggend"} ${w}:${h}</span>
+      <h2>${s.wat[0]}</h2><p>${s.tip[0]}</p><p><a class="more" href="${s.pagina}">Op ${NAAM[s.pagina] || s.pagina}</a></p></article>`;
+  }).join("");
+  window.WIM_fillShots(document.getElementById("shots"));
+})();
+</script>

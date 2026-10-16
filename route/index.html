@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>De route · Warren in Motion</title>
+<meta name="description" content="Acht etappes van Lucca naar Veenendaal, 1.570 km door 7 landen, van 15 tot 22 mei 2027.">
+<link rel="alternate" hreflang="nl" href="https://warreninmotion.nl/route/">
+<link rel="alternate" hreflang="en" href="https://warreninmotion.nl/en/route/">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&amp;display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script>document.documentElement.classList.add("js")</script>
+</head>
+<body>
+<a class="skip" href="#main">Naar de inhoud</a>
+<header class="site-head">
+  <div class="site-head__in">
+    <a class="brand" href="/"><svg class="mono" aria-hidden="true"></svg><span>Warren in Motion</span></a>
+    <a class="lang" href="/en/route/" hreflang="en" lang="en" aria-label="Read this page in English"><svg class="flag" viewBox="0 0 60 30" aria-hidden="true"><clipPath id="fc"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="ft"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#fc)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#ft)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg><span>EN</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="site-nav" id="site-nav" aria-label="Hoofdmenu">
+      <ul>
+        <li><a href="/over-warren/">Over Warren</a></li>
+        <li><a href="/route/" aria-current="page">De route</a></li>
+        <li><a href="/training/">Training</a></li>
+        <li><a href="/doneren/" class="cta">Doneren</a></li>
+        <li><a href="/sponsoren/" class="cta">Sponsoren</a></li>
+        <li><a href="/tussenstand/">Tussenstand</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<style>
+/* Hellingklassen (zoals Garmin, in de huisstijl): hoe steiler, hoe donkerder; in donker thema hoe lichter */
+.rpage{--s1:#D6E4D3;--s2:#E8C66A;--s3:#C9853A;--s4:#A4442E;--s5:#5E1E1A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rpage{--s1:#2F4A3C;--s2:#8A7A3A;--s3:#C27E38;--s4:#E8805C;--s5:#F6B3A0}}
+:root[data-theme="dark"] .rpage{--s1:#2F4A3C;--s2:#8A7A3A;--s3:#C27E38;--s4:#E8805C;--s5:#F6B3A0}
+svg text{font-family:var(--body)}
+/* Kaart links (blijft staan), etappes rechts in een eigen scrollvak */
+.rgrid{display:grid;gap:24px;grid-template-columns:minmax(0,1fr)}
+.rmap{position:sticky;top:calc(env(safe-area-inset-top,0px) + 61px);z-index:2;background:var(--bg);margin:0 -16px;padding:6px 16px 8px}
+.rmap-in{position:relative;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.rmap svg{display:block;width:100%;height:36vh}
+.rleft{display:contents}
+.cpanel{display:none}
+.rmap .reset{position:absolute;left:10px;top:10px;font:inherit;font-size:13px;font-weight:600;border:1px solid var(--fg);background:var(--bg);color:var(--fg);border-radius:999px;padding:5px 12px;cursor:pointer}
+.slist{display:grid;position:relative}
+/* Naast elkaar: een vast blok, de kaart staat stil. Zonder gekozen etappe is de kaart groot; kies je een etappe,
+   dan wordt de kaart kleiner en verschijnen de beklimmingen eronder. Alleen het etappevak scrollt. */
+@media (min-width:880px){
+  .rgrid{--rh:min(78vh,720px);grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}
+  .rleft{display:grid;gap:14px;height:var(--rh);grid-template-rows:minmax(0,1fr)}
+  .rmap{position:static;margin:0;padding:0;height:100%}
+  .rmap-in{height:100%}
+  .rmap svg{height:100%}
+  .rgrid.sel .rleft{grid-template-rows:auto minmax(0,1fr)}
+  .rgrid.sel .rmap,.rgrid.sel .rmap-in{height:auto}
+  .rgrid.sel .rmap svg{height:min(40vh,350px)}
+  .cpanel{display:grid;gap:8px;align-content:start;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;padding-right:4px}
+  .rgrid:not(.sel) .cpanel{display:none}
+  .cpanel-m{display:none}
+  .slist{height:var(--rh);overflow-y:auto;overscroll-behavior:contain;padding-right:6px;scrollbar-width:thin}
+}
+.stages{list-style:none;margin:0;padding:0;display:grid;border-top:1px solid var(--line)}
+.stage{border-bottom:1px solid var(--line);scroll-margin-top:calc(36vh + 84px)}
+@media (min-width:880px){.stage{scroll-margin-top:0}}
+.stage-h{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:4px 12px;padding:14px 4px;cursor:pointer;align-items:baseline;width:100%;background:none;border:0;color:inherit;font:inherit;text-align:left}
+.stage-h:hover,.stage.on .stage-h{background:var(--card)}
+.stage-h:focus-visible{outline:2px solid var(--brons);outline-offset:-2px}
+.stage .nr{grid-row:span 3;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--groen);color:var(--groen);display:grid;place-items:center;font-size:14px;font-weight:600;align-self:start}
+.stage.on .nr{background:var(--groen);color:var(--bg)}
+.stage .d{font-size:13px;color:var(--muted)}
+.stage h3{font-size:21px}
+.stage .km{font-family:var(--display);font-size:22px;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap;grid-row:1 / span 2;grid-column:3;text-align:right}
+.stage .km small{display:block;font-family:var(--body);font-size:12px;color:var(--muted)}
+.stage .ele{grid-column:2 / span 2;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.stage .ele b{color:var(--fg);font-weight:600}
+.stage-b{padding:4px 4px 20px 56px;display:grid;gap:14px}
+@media (max-width:560px){.stage-b{padding-left:4px}}
+.stage-b .via{font-size:15px;color:var(--muted)}
+.stage-b .via b{color:var(--fg);font-weight:600}
+.rseg{transition:stroke-width .15s}
+.rseg.on{stroke-width:14px}
+@media (prefers-reduced-motion:reduce){.rseg{transition:none}}
+.prof{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 14px 8px;position:relative}
+.sprof{position:relative}
+.sprof svg{display:block;width:100%;height:auto}
+.prof-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.prof svg{display:block;width:100%;height:auto;min-width:640px}
+.prof .pa{cursor:pointer}
+.prof-legend{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:13px;color:var(--muted);margin-top:6px}
+.prof-legend b{color:var(--fg);font-weight:600}
+.tip{position:absolute;pointer-events:none;background:var(--fg);color:var(--bg);font-size:13px;line-height:1.35;padding:6px 10px;border-radius:6px;white-space:nowrap;transform:translate(-50%,-100%);font-variant-numeric:tabular-nums}
+.gl{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted)}
+.gl i{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px;border:1px solid var(--line)}
+.cat{font-size:11px;font-weight:700;letter-spacing:.04em;border:1.5px solid var(--fg);border-radius:999px;padding:0 8px;white-space:nowrap}
+.cp-t{font-family:var(--display);font-size:19px}
+.crows{display:grid;border-top:1px solid var(--line)}
+.crow{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:2px 10px;align-items:center;width:100%;text-align:left;font:inherit;color:inherit;background:none;border:0;border-bottom:1px solid var(--line);padding:9px 4px;cursor:pointer}
+.crow:hover,.crow.on{background:var(--card)}
+.crow:focus-visible{outline:2px solid var(--brons);outline-offset:-2px}
+.crow .no{grid-row:span 2;width:24px;height:24px;border-radius:50%;background:var(--fg);color:var(--bg);display:grid;place-items:center;font-size:12px;font-weight:700}
+.crow.on .no{background:var(--groen)}
+.crow b{font-weight:600;font-size:15px}
+.crow .m{grid-column:2;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.crow .go{grid-row:span 2;font-size:13px;color:var(--groen);font-weight:600;white-space:nowrap}
+.cview{position:absolute;inset:0;background:var(--card)}
+.cview svg{display:block;width:100%;height:100%}
+.cv-h{position:absolute;left:14px;top:12px;right:110px;display:grid;gap:2px;pointer-events:none}
+.cv-h b{font-family:var(--display);font-weight:400;font-size:22px;line-height:1.1}
+.cv-h span{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.rmap .tomap{position:absolute;right:10px;top:10px;font:inherit;font-size:13px;font-weight:600;border:1px solid var(--fg);background:var(--bg);color:var(--fg);border-radius:999px;padding:5px 12px;cursor:pointer;z-index:3}
+</style>
+<div class="wrap rpage">
+  <header>
+    <div class="eyebrow">De route</div>
+    <h1>Van Lucca naar Veenendaal</h1>
+    <p class="lead">1.570 km in acht etappes, door zeven landen. Langs de Ligurische kust, over de Alpen, door de Elzas en de Ardennen, en dan naar huis.</p>
+  </header>
+
+  <figure class="start-img">
+    <img src="/assets/img/lucca-anfiteatro.webp" width="900" height="450" alt="De Piazza dell'Anfiteatro in Lucca: een ovaal plein met gele huizen, groene luiken en terrasjes">
+    <figcaption><b>Hier begint het</b> · Piazza dell'Anfiteatro, Lucca · zaterdag 15 mei 2027</figcaption>
+  </figure>
+
+  <dl class="rows">
+    <div><dt>Start</dt><dd><b>Zaterdag 15 mei 2027</b> · Piazza dell'Anfiteatro, Lucca</dd></div>
+    <div><dt>Finish</dt><dd><b>Zaterdag 22 mei 2027</b> · Veenendaal, verwacht rond 18:00 (onder voorbehoud)</dd></div>
+    <div><dt>Live volgen</dt><dd data-live></dd></div>
+  </dl>
+
+  <section class="sec" aria-labelledby="h-zo">
+    <h2 id="h-zo">Zo rijdt Warren een etappe</h2>
+    <ul class="incl" style="max-width:68ch">
+      <li>Elke etappe van rond de 200 km in blokken van zo'n 50 km.</li>
+      <li>Stoppen alleen om te eten en voor sanitaire stops, bij de volgbus.</li>
+      <li>Tussen de etappes een noodzakelijk slaapblok, voor de veiligheid: veilig meedoen in het verkeer, scherp blijven in de afdalingen en snel reageren als er onverwacht iets gebeurt.</li>
+    </ul>
+  </section>
+
+  <section class="sec" aria-labelledby="h-profiel">
+    <h2 id="h-profiel">Hoogteprofiel van de hele tocht</h2>
+    <div class="prof">
+      <div class="prof-scroll"><svg id="prof" viewBox="0 0 1000 210" role="img" aria-label="Hoogteprofiel van de hele route, per etappe"></svg></div>
+      <div class="prof-legend" id="profLegend"></div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="h-etappes">
+    <h2 id="h-etappes">Acht etappes</h2>
+    <p class="muted small" style="margin-top:-6px">Kies een etappe en zoom in: je ziet het hoogteprofiel, de helling per stuk en alle beklimmingen. Klik op een klim voor zijn eigen profiel.</p>
+    <div class="rgrid">
+      <div class="rleft">
+        <div class="rmap"><div class="rmap-in">
+          <svg id="rmap" role="img" aria-label="Kaart van de route van Lucca naar Veenendaal"></svg>
+          <div class="cview" id="cview" hidden><svg id="cprof" role="img" aria-label="Hoogteprofiel van de gekozen beklimming"></svg><div class="cv-h" id="cvHead"></div><div class="tip" id="cvTip" hidden></div></div>
+          <button type="button" class="reset" id="reset" hidden>← Hele route</button>
+          <button type="button" class="tomap" id="toMap" hidden>Terug naar kaart</button>
+        </div></div>
+        <div class="cpanel" id="cpanel"><p class="muted small">Kies een etappe om de beklimmingen te zien.</p></div>
+      </div>
+      <div class="slist" id="slist"><ol class="stages" id="stages"></ol></div>
+    </div>
+  </section>
+
+  <p class="muted small">Afstanden, hoogtemeters en beklimmingen zijn berekend uit de GPS-route (Strava). Een beklimming is een stuk van minstens 1 km met gemiddeld 3% of meer en 80 m stijging; de categorie volgt de formule van Strava (lengte × helling). Het hoogste punt is de officiële hoogte van de Lukmanierpas. Onderweg kan er nog iets veranderen.</p>
+  <p><a class="more" href="/sponsoren/">Zet jouw bedrijfsnaam op een stuk van de route</a></p>
+</div>
+</main>
+
+<footer class="site-foot">
+  <div class="site-foot__in">
+    <div>
+      <svg class="mono" aria-hidden="true"></svg>
+      <p><b>Warren in Motion</b><br>Lucca → Veenendaal · 15–22 mei 2027<br>Ten bate van Voedselbanken Nederland</p>
+      <p style="margin-top:10px">Stichting Warren in Motion (in oprichting)</p>
+    </div>
+    <nav aria-label="Pagina's">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/over-warren/">Over Warren</a></li>
+        <li><a href="/route/">De route</a></li>
+        <li><a href="/training/">Training</a></li>
+        <li><a href="/doneren/" class="cta">Doneren</a></li>
+        <li><a href="/sponsoren/" class="cta">Sponsoren</a></li>
+        <li><a href="/tussenstand/">Tussenstand</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </nav>
+    <div>
+      <div class="socs"><a class="soc" href="https://www.instagram.com/warreninmotion/" target="_blank" rel="noopener" aria-label="Instagram @warreninmotion" title="Instagram · @warreninmotion"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg></a><a class="soc" href="https://www.tiktok.com/@warren.in.motion" target="_blank" rel="noopener" aria-label="TikTok @warren.in.motion" title="TikTok · @warren.in.motion"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a></div>
+      <ul>
+        <li><a href="mailto:warreninmotion@outlook.com">warreninmotion@outlook.com</a></li>
+        <li><a href="https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion" target="_blank" rel="noopener">Doneer aan Voedselbanken Nederland</a></li>
+        <li><a href="/privacy/">Privacy en cookies</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<script src="/data.js"></script>
+<script src="/shots.js"></script>
+<script src="/assets/site.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.20/topojson.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.9/datamaps.world.hires.min.js"></script>
+<script src="/assets/route-data.js"></script>
+<script src="/assets/route.js"></script>
+<script src="/assets/route-page.js"></script>
+</body>
+</html>
