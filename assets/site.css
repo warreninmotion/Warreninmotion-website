@@ -206,7 +206,7 @@ a.card .more{color:var(--groen)}
 .hero2>header,.ask2>div:first-child{align-self:center}
 .cookie-in a{color:#F2EEE4;text-decoration:underline}
 
-/* Tussenstand overal in een dunne bronzen band, met de maaltijden die het oplevert */
+/* Tussenstand overal in een dunne bronzen band, met het aantal gezinnen dat boodschappen krijgt */
 [data-stand],.stat{border:1.5px solid var(--brons);border-radius:14px;padding:18px 20px}
 .meals{font-size:16px;line-height:1.35;color:var(--fg);margin-top:8px}
 .meals b{font-family:var(--display);font-weight:400;font-size:1.4em;white-space:nowrap}

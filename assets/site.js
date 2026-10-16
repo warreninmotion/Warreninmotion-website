@@ -25,20 +25,20 @@ window.WIM_SITE = {
   gaId: "G-PW3QDXVHXW", // Google Analytics 4 meet-ID ("G-..."); leeg = geen statistiek en geen cookiemelding
   routeKm: 1570, // = Math.round(WIM_ROUTE.km) uit assets/route-data.js
   sprintMax: 50,
-  // Maaltijden: Voedselbanken Nederland (voedselbankennederland.nl, "Doneer"): €12,50 = boodschappen voor een gezin.
-  // Zo'n pakket is goed voor zo'n 5 maaltijden (voorzichtige schatting: 2 dagen, warme maaltijd, huishouden ±2,5 p.).
-  // Dus €2,50 per maaltijd: 1 km (€20) = 8 maaltijden, hoofddoel €30.000 = 12.000 maaltijden.
-  euroPerPakket: 12.5, maaltijdenPerPakket: 5,
+  // Gezinnen: Voedselbanken Nederland (voedselbankennederland.nl, "Doneer"): €12,50 = boodschappen voor een gezin.
+  // Aantal gezinnen = bedrag / 12,50 (afgerond naar beneden). 1 km (€20) = 1,6 gezin; hoofddoel €30.000 = 2.400 gezinnen.
+  euroPerGezin: 12.5,
   goals: [{ eur: 7500, label: t("Doel 1", "Goal 1") }, { eur: 15000, label: t("Doel 2", "Goal 2") }, { eur: 30000, label: t("Hoofddoel", "Main goal") }],
 };
 
-// Gezonde maaltijden bij de voedselbank voor een bedrag (gedeeld door Home, Tussenstand, Doneren, rekenhulp en artifact)
-window.WIM_meals = eur => Math.floor(eur / (window.WIM_SITE.euroPerPakket / window.WIM_SITE.maaltijdenPerPakket) + 1e-9);
-window.WIM_mealLine = (eur, uitleg) => {
-  const m = WIM_meals(eur), n = v => v.toLocaleString(window.WIM_LOC), S = window.WIM_SITE;
-  const txt = m ? t(`Goed voor zo'n <b>${n(m)} gezonde maaltijden</b> bij de voedselbank`, `Good for about <b>${n(m)} healthy meals</b> at the food bank`)
-    : t(`Elke kilometer is goed voor zo'n <b>${n(WIM_meals(20))} gezonde maaltijden</b> bij de voedselbank`, `Every kilometre is good for about <b>${n(WIM_meals(20))} healthy meals</b> at the food bank`);
-  return `<div class="meals">${txt}${uitleg ? `<small>${t(`Zo rekenen we: met €${S.euroPerPakket.toLocaleString(window.WIM_LOC, { minimumFractionDigits: 2 })} krijgt een gezin boodschappen van de voedselbank, goed voor zo'n ${S.maaltijdenPerPakket} maaltijden.`, `How we count: €${S.euroPerPakket.toLocaleString(window.WIM_LOC, { minimumFractionDigits: 2 })} gives a family groceries from the food bank, good for about ${S.maaltijdenPerPakket} meals.`)}</small>` : ""}</div>`;
+// Gezinnen die boodschappen krijgen van de voedselbank voor een bedrag (Home, Tussenstand, Doneren, rekenhulp en artifact)
+window.WIM_gezinnen = eur => Math.floor(eur / window.WIM_SITE.euroPerGezin + 1e-9);
+window.WIM_gezinLine = (eur, uitleg) => {
+  const g = WIM_gezinnen(eur), n = v => v.toLocaleString(window.WIM_LOC);
+  const p = window.WIM_SITE.euroPerGezin.toLocaleString(window.WIM_LOC, { minimumFractionDigits: 2 });
+  const txt = g ? t(`Daarmee krijgen <b>${n(g)} ${g === 1 ? "gezin" : "gezinnen"}</b> boodschappen van de voedselbank`, `That gives <b>${n(g)} ${g === 1 ? "family" : "families"}</b> groceries from the food bank`)
+    : t(`Met elke <b>€${p}</b> krijgt een gezin boodschappen van de voedselbank`, `Every <b>€${p}</b> gives a family groceries from the food bank`);
+  return `<div class="meals">${txt}${uitleg && g ? `<small>${t(`Met €${p} krijgt een gezin boodschappen van de voedselbank (Voedselbanken Nederland).`, `€${p} gives a family groceries from the food bank (the Dutch Food Banks).`)}</small>` : ""}</div>`;
 };
 
 function bindCopy(root) {
@@ -82,7 +82,7 @@ function bindCopy(root) {
     const nxt = S.goals.find(g => euro < g.eur), nB = D.sponsors.length;
     n.innerHTML = `<div class="big">€${fmt(euro)} <small>${t("opgehaald", "raised")}</small></div>
       <div class="sub"><b>${t(`${fmt(km)} van ${fmt(S.routeKm)} km`, `${fmt(km)} of ${fmt(S.routeKm)} km`)}</b> ${t("gevuld", "filled")} · ${t(`${nB} ${nB === 1 ? "bedrijf" : "bedrijven"}${pKm ? " en het peloton" : ""}`, `${nB} ${nB === 1 ? "company" : "companies"}${pKm ? " and the peloton" : ""}`)}</div>
-      ${WIM_mealLine(euro)}
+      ${WIM_gezinLine(euro)}
       <div class="bar"><div class="f" style="width:${pct(sKm)}"></div><div class="p" style="left:${pct(sKm)};width:${pct(pKm)}"></div>${S.goals.map(g => `<div class="tick" style="left:calc(${pct(g.eur / 20)} - 1px)"><span>€${fmt(g.eur)}</span></div>`).join("")}</div>
       <div class="sub">${nxt ? t(`Op naar <b>${nxt.label.toLowerCase()}: €${fmt(nxt.eur)}</b>. Nog ${fmt((nxt.eur - euro) / 20)} km te gaan.`, `Next up: <b>${nxt.label.toLowerCase()}, €${fmt(nxt.eur)}</b>. ${fmt((nxt.eur - euro) / 20)} km to go.`) : t(`<b>Het hoofddoel is gehaald!</b> Dank je wel, iedereen die meerijdt.`, `<b>The main goal is reached!</b> Thank you to everyone riding along.`)}${upd ? t(` Bijgewerkt op ${upd}.`, ` Updated ${upd}.`) : ""}</div>`;
   });
@@ -91,7 +91,7 @@ function bindCopy(root) {
   document.querySelectorAll("[data-peloton]").forEach(n => {
     const link = `<a href="${L("/tussenstand/")}">${t("Bekijk de tussenstand", "See the progress")}</a>`;
     n.innerHTML = D.pelotonEuro
-      ? `<div class="sub">${t(`Het peloton staat op <b>€${fmt(D.pelotonEuro)}</b>: samen al ${fmt(pKm)} km.`, `The peloton is at <b>€${fmt(D.pelotonEuro)}</b>: ${fmt(pKm)} km together so far.`)}${upd ? t(` Bijgewerkt op ${upd}.`, ` Updated ${upd}.`) : ""} ${link}</div>${WIM_mealLine(D.pelotonEuro)}`
+      ? `<div class="sub">${t(`Het peloton staat op <b>€${fmt(D.pelotonEuro)}</b>: samen al ${fmt(pKm)} km.`, `The peloton is at <b>€${fmt(D.pelotonEuro)}</b>: ${fmt(pKm)} km together so far.`)}${upd ? t(` Bijgewerkt op ${upd}.`, ` Updated ${upd}.`) : ""} ${link}</div>${WIM_gezinLine(D.pelotonEuro)}`
       : `<div class="sub">${t("Het peloton is net vertrokken. Rij jij als een van de eersten mee?", "The peloton has just set off. Will you be one of the first to ride along?")} ${link}</div>`;
   });
 

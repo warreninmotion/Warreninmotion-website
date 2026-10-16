@@ -90,12 +90,10 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
   ook shirt en volgbus mee vol); geen fictief voorbeeld elders op de site.
 - Links altijd absoluut (`/route/`, `/assets/...`); lokaal testen met `python3 -m http.server` in de repo-root.
 - De stand staat in `data.js` (`window.WIM_DATA`).
-- Maaltijden: overal waar de stand staat (Home, Tussenstand, peloton op Doneren, rekenhulp, artifact) staat ook wat het
-  oplevert in gezonde maaltijden bij de voedselbank (`WIM_meals`/`WIM_mealLine` in `site.js`). Bron: Voedselbanken
-  Nederland, €12,50 = boodschappen voor een gezin; schatting zo'n 5 maaltijden per pakket, dus €2,50 per maaltijd
-  (1 km = 8 maaltijden, €30.000 = 12.000). Getallen in `WIM_SITE` (euroPerPakket, maaltijdenPerPakket); het
-  maaltijdgetal is een schatting, nog te laten bevestigen door Voedselbanken Nederland. De stand staat in een dunne
-  bronzen band (rand, geen vlak).
+- Gezinnen: overal waar de stand staat (Home, Tussenstand, peloton op Doneren, rekenhulp, artifact) staat ook hoeveel
+  gezinnen er boodschappen van de voedselbank mee krijgen (`WIM_gezinnen`/`WIM_gezinLine` in `site.js`): bedrag / €12,50
+  (Voedselbanken Nederland: €12,50 = boodschappen voor een gezin; `WIM_SITE.euroPerGezin`). Geen maaltijden noemen
+  (geen officieel getal). 1 km = 1,6 gezin, €30.000 = 2.400 gezinnen. De stand staat in een dunne bronzen band (rand, geen vlak).
 
 ## HubSpot is leidend (BELANGRIJK)
 Alles over sponsors, kilometers, dinerplekken, shirtplekken, losse tickets en particuliere donaties staat in
