@@ -1,7 +1,9 @@
 """Weekrapport uit Google Analytics 4 (warreninmotion.nl) voor Warren, elke vrijdag.
 Gebruik (repo-root): python3 tools/ga_report.py [dagen]   (standaard 7; vergelijkt met de periode ervoor)
-Nodig: omgevingsvariabele GA_SERVICE_ACCOUNT_JSON (inhoud van de JSON-sleutel van het serviceaccount
-claude-rapport, rol Lezer op de property). Nooit in de repo of de chat zetten.
+Toegang: de JSON-sleutel van serviceaccount claude-rapport (rol Lezer op de property) staat als netwerkgeheim
+"GCP access token (with Service Account Key)" voor analyticsdata.googleapis.com in de omgeving: de proxy zet dan zelf
+het Authorization-kopje op elke aanvraag. Alleen als omgevingsvariabele GA_SERVICE_ACCOUNT_JSON bestaat, maakt
+het script zelf een token. De sleutel nooit in de repo of de chat zetten.
 Voor de knoppen: in GA4 de gebeurtenisparameters "knop" en "pagina" als aangepaste dimensies (bereik: gebeurtenis)
 registreren; site.js stuurt bij elke klik de gebeurtenis "klik" met die twee parameters.
 Schrijft Markdown naar stdout. Alleen standaardbibliotheek + cryptography."""
@@ -20,6 +22,8 @@ def b64(b):
 
 
 def token():
+    if not os.environ.get("GA_SERVICE_ACCOUNT_JSON"):
+        return ""  # netwerkgeheim: de proxy voegt het token toe
     from cryptography.hazmat.primitives import hashes, serialization
     from cryptography.hazmat.primitives.asymmetric import padding
     key = json.loads(os.environ["GA_SERVICE_ACCOUNT_JSON"])
@@ -39,7 +43,8 @@ TOKEN = None
 
 def run(dims, mets, limit=50, flt=None, ranges=None):
     global TOKEN
-    TOKEN = TOKEN or token()
+    if TOKEN is None:
+        TOKEN = token()
     req = {"dateRanges": ranges or [{"startDate": f"{DAYS}daysAgo", "endDate": "yesterday"}],
            "dimensions": [{"name": d} for d in dims], "metrics": [{"name": m} for m in mets], "limit": limit}
     if mets:
@@ -47,7 +52,7 @@ def run(dims, mets, limit=50, flt=None, ranges=None):
     if flt:
         req["dimensionFilter"] = flt
     r = urllib.request.Request(f"https://analyticsdata.googleapis.com/v1beta/properties/{PROPERTY}:runReport",
-                               json.dumps(req).encode(), {"Authorization": f"Bearer {TOKEN}", "Content-Type": "application/json"})
+                               json.dumps(req).encode(), {"Content-Type": "application/json", **({"Authorization": f"Bearer {TOKEN}"} if TOKEN else {})})
     try:
         with urllib.request.urlopen(r, context=ctx) as f:
             data = json.load(f)

@@ -169,7 +169,8 @@ Afleiden van `data.js`:
   vooral wat niet gebruikt wordt. Daarvoor: GA4 Data API met een serviceaccount (sleutel als geheime instelling van
   de omgeving), daarna een geplande taak op vrijdag.
   - Property-ID 559326726. Serviceaccount `claude-rapport` (Google Cloud-project "Warren in Motion API", Analytics
-    Data API aan), rol Lezer op de property. Sleutel als geheim `GA_SERVICE_ACCOUNT_JSON` in de omgeving (nooit in chat of repo).
+    Data API aan), rol Lezer op de property. Sleutel als netwerkgeheim "GCP access token (with Service Account Key)" voor analyticsdata.googleapis.com
+    (scope analytics.readonly; de proxy zet het token erbij), nooit in chat of repo.
   - Rapport: `python3 tools/ga_report.py [dagen]` (Markdown: bezoekers, bezoektijd, pagina's, knoppen, niet bezocht /
     niet geklikt, kanalen, apparaat, plaatsen). Knoppen vereisen aangepaste dimensies `knop` en `pagina` (gebeurtenis) in GA4.
 - Privacyverklaring op `/privacy/` en `/en/privacy/` (link in de voet en in de cookiemelding): cookies `_ga` en
