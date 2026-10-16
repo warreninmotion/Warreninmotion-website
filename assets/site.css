@@ -224,3 +224,46 @@ a.card .more{color:var(--groen)}
 .samen .btn{background:#F2EEE4;color:#14201C;border-color:#F2EEE4}
 .samen-q{margin:0;font-family:var(--display);font-size:clamp(22px,2.6vw,28px);line-height:1.3;border-left:3px solid var(--brons);padding-left:20px;color:#F2EEE4}
 .samen-q small{display:block;font-family:var(--body);font-size:14px;color:rgba(242,238,228,.7);margin-top:10px}
+
+/* Volgende stap onderaan de pagina */
+.next-step{max-width:1080px;margin:48px auto 0;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 28px;border-top:1px solid var(--line);padding-top:22px}
+.next-l{flex-basis:100%;font-size:14px;color:var(--muted)}
+.next-step a{font-family:var(--display);font-size:clamp(24px,3.4vw,32px);line-height:1.2;color:var(--fg);text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:6px;text-decoration-color:var(--brons)}
+.next-step a:hover{color:var(--groen)}
+
+/* Mobiel: vaste actiebalk onderin (Doneer / Sponsor), verschijnt na de kop */
+.actbar{display:none}
+@media (max-width:859px){
+  .actbar{display:grid;grid-template-columns:1fr 1fr;gap:8px;position:fixed;z-index:50;left:0;right:0;bottom:0;padding:10px max(12px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));background:var(--bg);border-top:1px solid var(--line);box-shadow:0 -6px 18px rgba(20,32,28,.08);transform:translateY(110%);transition:transform .25s ease}
+  .actbar.on{transform:none}
+  .actbar a{display:block;text-align:center;text-decoration:none;font-weight:600;font-size:15px;border-radius:999px;padding:11px 10px;background:var(--groen);color:var(--bg);border:1px solid var(--groen)}
+  .actbar a.alt{background:transparent;color:var(--fg);border-color:var(--fg)}
+  body.has-actbar .site-foot{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+}
+@media (prefers-reduced-motion:reduce){.actbar{transition:none}}
+
+/* Mobiel menu: Doneren en Sponsoren naast elkaar bovenaan, daarna de rest in verhaalvolgorde */
+@media (max-width:979px){
+  .site-nav ul{display:grid;grid-template-columns:1fr 1fr;column-gap:10px}
+  .site-nav ul li{grid-column:1/-1}
+  .site-nav ul li:has(a.cta){grid-column:auto;order:-1;padding:4px 0 10px}
+  .site-nav ul a.cta{display:block;text-align:center}
+}
+
+/* Uitklapblokken (Sponsoren: shirt en volgbus); op mobiel standaard dicht */
+details.fold>summary{list-style:none;cursor:pointer;display:grid;gap:4px;position:relative;padding-right:44px}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary::after{content:"";position:absolute;right:6px;top:50%;width:12px;height:12px;border-right:2px solid var(--fg);border-bottom:2px solid var(--fg);transform:translateY(-75%) rotate(45deg);transition:transform .2s}
+details.fold[open]>summary::after{transform:translateY(-25%) rotate(-135deg)}
+details.fold>summary:focus-visible{outline:2px solid var(--brons);outline-offset:4px;border-radius:4px}
+details.fold>summary .hint-open{font-size:14px;color:var(--groen);font-weight:600}
+details.fold[open]>summary .hint-open{display:none}
+details.fold>:not(summary){margin-top:14px}
+@media (min-width:900px){details.fold>summary{cursor:default;padding-right:0}details.fold>summary::after,details.fold>summary .hint-open{display:none}}
+
+/* Sponsoren: drie stappen bovenaan */
+.sp-steps{display:grid;gap:8px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:720px){.sp-steps{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.sp-steps a{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-weight:600;font-size:15px}
+.sp-steps a:hover{border-color:var(--groen)}
+.sp-steps span{flex:none;width:28px;height:28px;border-radius:50%;background:var(--groen);color:var(--bg);display:grid;place-items:center;font-size:14px}

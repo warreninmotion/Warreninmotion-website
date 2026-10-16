@@ -95,6 +95,24 @@
 .mini .line{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px}
 .mini .big{font-size:clamp(38px,7vw,54px)}
 .mini .bar{margin:18px 0 30px}
+/* Afsluitend keuzeblok onderaan */
+.endcta{background:#1E4034;color:#F2EEE4;border-radius:14px;padding:28px 20px}
+@media (min-width:860px){.endcta{padding:36px 40px}}
+.endcta h2{color:#F2EEE4}
+.endcta .choose{margin-top:0;padding-top:20px}
+/* Mobiel: eerst het verhaal (veegkaarten), dan citaat en stand, dan de kaart en tot slot de keuze */
+@media (max-width:859px){
+  .home-wrap>.topics{order:1}
+  .home-wrap>.facts-band{order:2}
+  .home-wrap>[aria-labelledby="h-verhaal"]{order:3}
+  .home-wrap>.endcta{order:4}
+  .tale-txt{order:-1}
+  .tale-map{min-height:300px}
+  .topics{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 -16px;padding:0 16px 4px;scroll-padding:0 16px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .topics::-webkit-scrollbar{display:none}
+  .topic{flex:0 0 84%;min-height:400px;scroll-snap-align:start}
+  .hero-vid{height:min(72vw,300px)}
+}
 </style>
 <section class="band">
   <div class="wrap">
@@ -126,7 +144,7 @@
   </div>
 </section>
 
-<div class="wrap" style="margin-top:28px">
+<div class="wrap home-wrap" style="margin-top:28px">
   <section class="facts-band" aria-label="The ride in numbers">
     <dl class="facts">
       <div><dt>1,570</dt><dd>kilometres, from Lucca to Veenendaal</dd></div>
@@ -164,6 +182,22 @@
       <figure class="ph" data-shot="home-pedalen"></figure>
       <div class="topic-txt"><h3>Eight days, seven countries</h3><p>Along the Ligurian coast, over the Lukmanier Pass and through the Ardennes, all the way home. Around 200 km a stage.</p><span class="more">See the route</span></div>
     </a>
+  </section>
+
+  <section class="endcta" aria-labelledby="h-mee">
+    <h2 id="h-mee">Choose how you join in</h2>
+    <nav class="choose" aria-label="Choose how you join in">
+        <a class="choice main" href="/en/sponsor/">
+          <span class="who">For companies</span>
+          <span class="what">Sponsor kilometres<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <p>€20 per km. Your name on the route, your logo on the jersey and the follow van.</p>
+        </a>
+        <a class="choice" href="/en/donate/">
+          <span class="who">For everyone</span>
+          <span class="what">Donate and ride along<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <p>€5 gets you 250 metres in the peloton. Or ride the final sprint with us.</p>
+        </a>
+      </nav>
   </section>
 </div>
 </main>

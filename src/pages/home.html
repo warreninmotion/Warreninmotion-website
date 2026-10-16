@@ -57,6 +57,24 @@
 .mini .line{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px}
 .mini .big{font-size:clamp(38px,7vw,54px)}
 .mini .bar{margin:18px 0 30px}
+/* Afsluitend keuzeblok onderaan */
+.endcta{background:#1E4034;color:#F2EEE4;border-radius:14px;padding:28px 20px}
+@media (min-width:860px){.endcta{padding:36px 40px}}
+.endcta h2{color:#F2EEE4}
+.endcta .choose{margin-top:0;padding-top:20px}
+/* Mobiel: eerst het verhaal (veegkaarten), dan citaat en stand, dan de kaart en tot slot de keuze */
+@media (max-width:859px){
+  .home-wrap>.topics{order:1}
+  .home-wrap>.facts-band{order:2}
+  .home-wrap>[aria-labelledby="h-verhaal"]{order:3}
+  .home-wrap>.endcta{order:4}
+  .tale-txt{order:-1}
+  .tale-map{min-height:300px}
+  .topics{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 -16px;padding:0 16px 4px;scroll-padding:0 16px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .topics::-webkit-scrollbar{display:none}
+  .topic{flex:0 0 84%;min-height:400px;scroll-snap-align:start}
+  .hero-vid{height:min(72vw,300px)}
+}
 </style>
 <section class="band">
   <div class="wrap">
@@ -88,7 +106,7 @@
   </div>
 </section>
 
-<div class="wrap" style="margin-top:28px">
+<div class="wrap home-wrap" style="margin-top:28px">
   <section class="facts-band" aria-label="De tocht in cijfers">
     <dl class="facts">
       <div><dt>1.570</dt><dd>kilometer, van Lucca naar Veenendaal</dd></div>
@@ -126,6 +144,22 @@
       <figure class="ph" data-shot="home-pedalen"></figure>
       <div class="topic-txt"><h3>Acht dagen, zeven landen</h3><p>Langs de Ligurische kust, over de Lukmanierpas en door de Ardennen naar huis. Elke etappe rond de 200 km.</p><span class="more">Bekijk de route</span></div>
     </a>
+  </section>
+
+  <section class="endcta" aria-labelledby="h-mee">
+    <h2 id="h-mee">Kies hoe je meedoet</h2>
+    <nav class="choose" aria-label="Kies hoe je meedoet">
+        <a class="choice main" href="/sponsoren/">
+          <span class="who">Voor bedrijven</span>
+          <span class="what">Sponsor kilometers<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <p>€20 per km. Je naam op de route, je logo op het shirt en de volgbus.</p>
+        </a>
+        <a class="choice" href="/doneren/">
+          <span class="who">Voor iedereen</span>
+          <span class="what">Doneer en rij mee<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <p>Met €5 rij je 250 meter mee in het peloton. Of fiets de eindsprint mee.</p>
+        </a>
+      </nav>
   </section>
 </div>
 <!--SCRIPT-->
