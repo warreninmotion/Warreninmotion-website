@@ -14,7 +14,7 @@ window.WIM_SHOTS = {
   "home-koken": { pagina: "/", soort: "foto", ratio: "4/5", src: "/assets/img/beeld/home-koken.webp", tijdelijk: true, alt: ["Warren wandelt door het bos", "Warren walking through the woods"],
     wat: ["Warren kookt een gezonde maaltijd (achtergrond van 'Waarom de voedselbank')", "Warren cooking a healthy meal (background for 'Why the food bank')"],
     tip: ["Handen, pan en verse groente; van bovenaf of schuin. Gewone keuken, geen studio.", "Hands, pan and fresh veg; from above or at an angle. An ordinary kitchen, no studio."] },
-  "warren-weg": { pagina: "/over-warren/", soort: "foto", ratio: "16/9", src: "/assets/img/beeld/warren-weg.webp", tijdelijk: true, alt: ["Warren lachend op de fiets", "Warren smiling on the bike"],
+  "warren-weg": { pagina: "/over-warren/", soort: "video", ratio: "16/9", src: "/assets/img/beeld/warren-weg.mp4", poster: "/assets/img/beeld/warren-weg.jpg", tijdelijk: true, alt: ["Warren fietst recht op je af", "Warren riding straight towards you"],
     wat: ["Warren fietst bij zonsopkomst van de camera weg", "Warren riding away from the camera at sunrise"],
     tip: ["Van achteren, lange weg, laag zonlicht. Mag ook als foto.", "From behind, a long road, low sun. A photo is fine too."] },
   "doneren-tas": { pagina: "/doneren/", soort: "foto", ratio: "4/5", src: "/assets/img/beeld/doneren-tas.webp", tijdelijk: true, alt: ["Warren voor zijn garage, naast zijn racefiets", "Warren by his garage, next to his road bike"],

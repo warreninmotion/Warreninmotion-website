@@ -215,7 +215,7 @@ Afleiden van `data.js`:
   nummer, soort, staand/liggend en wat er nodig is. Met `src` verschijnt het echte beeld.
 - Overzicht voor Warren: `/beeldlijst/` (intern, niet in het menu, noindex).
 - Tijdelijke beelden uit de lanceervideo (`assets/img/beeld/`, `tijdelijk: true` + `alt` in `shots.js`), alle 8 plekken:
-  home-koken (bos, 0:13), home-frontaal (fietskleding, 0:43), home-pedalen (video, 0:16–0:19), warren-weg (frontaal 0:43, foto), contact-portret (bos, 0:13.8, meer lichaam), doneren-tas (garage, 0:28),
+  home-koken (bos, 0:13), home-frontaal (fietskleding, 0:43), home-pedalen (video, 0:16–0:19), warren-weg (video uit de 360-video, frontaal 0:01–0:06), contact-portret (bos, 0:13.8, meer lichaam), doneren-tas (garage, 0:28),
   doneren-groep (video uit de 360-video `assets/video/training.mp4`-bron, frontaal 0:15–0:20, max. 820 px breed), sponsor-bezoek (schuur met fietsen, 0:31). Uitsnedes boven de ondertiteling van de video; vervangen door
   eigen opnames zodra die er zijn. Op warreninmotion.nl zelf tonen vervangbeelden zonder beeld geen label (alleen op
   testversies, met `?beelden` en op `/beeldlijst/`).
