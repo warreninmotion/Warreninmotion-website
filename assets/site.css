@@ -212,3 +212,4 @@ a.card .more{color:var(--groen)}
 .meals b{font-family:var(--display);font-weight:400;font-size:1.4em;white-space:nowrap}
 .meals small{display:block;font-size:13px;color:var(--muted);margin-top:4px}
 [data-peloton] .meals{margin-top:10px}
+.ph[data-shot="doneren-groep"]{max-width:720px} /* tijdelijk beeld uit de lanceervideo: niet breder dan de bron toelaat */
