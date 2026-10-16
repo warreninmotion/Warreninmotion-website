@@ -1,6 +1,6 @@
 # Warren in Motion: website (warreninmotion.nl)
 
-Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Veenendaal, 15–22 mei 2027,
+Statische website voor de fietstocht van Warren: Lucca (IT) → Veenendaal, 15–22 mei 2027,
 1.570 km (GPX: 1.569,6 km) in 8 etappes door 7 landen, voor Voedselbanken Nederland. €20 per km
 (hoofddoel €30.000; doel 1 €7.500, doel 2 €15.000).
 
@@ -39,6 +39,7 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
 - Paginascripts: `assets/home.js`, `assets/route-page.js`, `assets/tussenstand.js` (gedeeld door NL en EN).
 
 ## Schrijfstijl
+- Alleen de voornaam "Warren", nergens zijn achternaam (ook niet in citaten, titels, meta of het artifact).
 - Lezers: particulieren en ondernemers. Doel: een positief gevoel en zin om mee te doen.
 - Actief en direct, spreek de lezer aan met "je" ("Rij mee", "Kies je kilometers"). Warm, concreet en nuchter
   (brandbook): geen schreeuwerige superlatieven, niet belerend. Korte zinnen, eerst wat de lezer eraan heeft.
