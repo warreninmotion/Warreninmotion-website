@@ -48,6 +48,8 @@ Statische website voor de fietstocht van Warren: Lucca (IT) → Veenendaal, 15�
 ## Hosting
 - GitHub: warreninmotion/warreninmotion-website, branch `main`.
 - Netlify publiceert `main` automatisch (geen build-stap; gewone HTML/CSS/JS). Domein warreninmotion.nl staat bij TransIP.
+  Live sinds 16-10-2026. DNS bij TransIP (nameservers TransIP, "TransIP-instellingen" uit): A `@` → 75.2.60.5,
+  CNAME `www` → inquisitive-crisp-cf6075.netlify.app. Primary domain warreninmotion.nl; https via Let's Encrypt (automatisch verlengd).
 - Externe scripts alleen van cdnjs (d3 3.5.17, topojson 1.6.20, datamaps 0.5.9 voor de landkaart); fonts via Google Fonts.
   Enige uitzondering: Google Analytics (googletagmanager.com), en alleen na "ja" in de cookiemelding.
 
