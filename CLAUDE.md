@@ -168,6 +168,10 @@ Afleiden van `data.js`:
 - Warren wil elke vrijdag een rapport: bezoekers, gemiddelde bezoektijd, populairste pagina's, gebruikte knoppen en
   vooral wat niet gebruikt wordt. Daarvoor: GA4 Data API met een serviceaccount (sleutel als geheime instelling van
   de omgeving), daarna een geplande taak op vrijdag.
+  - Property-ID 559326726. Serviceaccount `claude-rapport` (Google Cloud-project "Warren in Motion API", Analytics
+    Data API aan), rol Lezer op de property. Sleutel als geheim `GA_SERVICE_ACCOUNT_JSON` in de omgeving (nooit in chat of repo).
+  - Rapport: `python3 tools/ga_report.py [dagen]` (Markdown: bezoekers, bezoektijd, pagina's, knoppen, niet bezocht /
+    niet geklikt, kanalen, apparaat, plaatsen). Knoppen vereisen aangepaste dimensies `knop` en `pagina` (gebeurtenis) in GA4.
 - Privacyverklaring op `/privacy/` en `/en/privacy/` (link in de voet en in de cookiemelding): cookies `_ga` en
   `_ga_PW3QDXVHXW` (2 jaar), gegevensbewaring 14 maanden, Google-signalen uit, gedetailleerde locatie- en apparaatgegevens aan (plaats, telefoon/computer). Kies je later "nee", dan wist de site
   de _ga-cookies. Verander je iets aan GA-instellingen, werk de verklaring bij (beide talen, datum).
