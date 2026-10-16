@@ -95,7 +95,7 @@ function render() {
   });
   const [fx, fy] = pts[pts.length - 1].p;
   svg.append(el("text", { x: fx + 12, y: fy + 25, "font-size": 13, fill: "var(--muted)" }, `Finish · km ${nl(ROUTE_KM)}`));
-  svg.append(el("text", { x: fx + 12, y: fy + 42, "font-size": 13, fill: "var(--muted)" }, t(`Eindsprint · ${riders} van ${SPRINT} plekken`, `Final sprint · ${riders} of ${SPRINT} places`)));
+  svg.append(el("text", { x: fx + 12, y: fy + 42, "font-size": 13, fill: "var(--muted)" }, riders ? t(`Eindsprint · ${riders} van ${SPRINT} plekken`, `Final sprint · ${riders} of ${SPRINT} places`) : t(`Eindsprint · ${SPRINT} plekken`, `Final sprint · ${SPRINT} places`)));
 
   svg.querySelectorAll(".seg").forEach(p => {
     p.addEventListener("mouseenter", () => hl(p.dataset.i));

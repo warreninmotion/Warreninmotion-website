@@ -51,13 +51,20 @@
 .done h2{font-size:clamp(28px,5vw,38px)}
 .done p{color:var(--muted)}
 #confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+.ts-hero{display:grid;gap:24px;grid-template-columns:minmax(0,1fr);align-items:center}
+@media (min-width:860px){.ts-hero{grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:40px}}
+.ts-img{margin:0;border-radius:14px;overflow:hidden;aspect-ratio:16/10;background:#14201C}
+.ts-img img{display:block;width:100%;height:100%;object-fit:cover}
 </style>
 <div class="wrap">
+  <div class="ts-hero">
   <header>
     <div class="eyebrow">Progress · Lucca – Veenendaal</div>
     <h1>Every kilometre counts</h1>
     <p class="lead">Every €20 is a kilometre closer to Veenendaal. Companies ride up front with their own stretch of the route, in the order they joined. All individual donors together form the peloton behind them.</p>
   </header>
+    <figure class="ts-img"><img src="/assets/img/bergweg.webp" width="1200" height="675" alt="A mountain road with hairpin bends through a green valley, seen from above"></figure>
+  </div>
 
   <div class="modes" role="group" aria-label="Which view do you want to see">
     <button type="button" id="modeReal" aria-pressed="true">Real progress</button>

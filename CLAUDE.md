@@ -199,6 +199,8 @@ Afleiden van `data.js`:
   sponsors er zijn en betaald hebben. Dus geen foto's "in het shirt" of "met de bus".
 - De route: foto van de Piazza dell'Anfiteatro (startplek) bovenaan (`assets/img/lucca-anfiteatro.webp`, aangeleverd door
   Warren; 900 px breed, bij voorkeur vervangen door een grotere of eigen foto).
+- Tussenstand ("Elke kilometer telt"): sfeerbeeld van een bergweg met haarspeldbochten naast de kop
+  (`assets/img/bergweg.webp`, rechtenvrij, aangeleverd door Warren). Het is géén plek op de route: nooit als zodanig benoemen.
 - Training: een training kan uit blokken bestaan (`blokken` in een rit, bv. 2× 50 km op één dag); de site telt dat als
   één training en laat de blokken met een pauze ertussen zien, met de uitleg dat etappes in mei ook in blokken gaan.
 - Geen grote nullen tonen ("0 aangemeld", "€0"): bij een lege stand een uitnodigende zin.
