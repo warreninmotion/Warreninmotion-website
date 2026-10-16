@@ -98,6 +98,27 @@ def footer(lang):
 </footer>'''
 
 
+# volgende stap onderaan de pagina: zo loopt de bezoeker het verhaal door zonder menu
+NEXT = {
+    # over-warren niet: die eindigt al met de groene band met knoppen naar Training en de route
+    "route": [("training", "Zo traint Warren voor deze tocht", "How Warren trains for this ride")],
+    # training en tussenstand eindigen al met de keuze sponsoren/doneren
+    "training": [("tussenstand", "Bekijk wie er al meerijdt", "See who is already riding along")],
+    "tussenstand": [("over-warren", "Maak kennis met Warren", "Meet Warren")],
+    "doneren": [("tussenstand", "Bekijk wie er al meerijdt", "See who is already riding along")],
+    "sponsoren": [("tussenstand", "Bekijk wie er al meerijdt", "See who is already riding along")],
+}
+
+
+def next_step(key, lang):
+    items = NEXT.get(key)
+    if not items:
+        return ""
+    lab = "Verder" if lang == "nl" else "Next"
+    links = "".join(f'<a href="{P(k, lang)}">{nl if lang == "nl" else en}</a>' for k, nl, en in items)
+    return f'\n<nav class="next-step" aria-label="{lab}"><span class="next-l">{lab}</span>{links}</nav>'
+
+
 def page(key, lang, title, desc, body, scripts="", head=""):
     out = pathlib.Path(P(key, lang).lstrip("/")) / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -120,7 +141,7 @@ def page(key, lang, title, desc, body, scripts="", head=""):
 {header(key, lang)}
 
 <main id="main">
-{body.strip()}
+{body.strip()}{next_step(key, lang)}
 </main>
 
 {footer(lang)}

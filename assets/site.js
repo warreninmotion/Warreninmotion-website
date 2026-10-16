@@ -182,6 +182,37 @@ document.addEventListener("click", e => {
   show(0);
 })();
 
+// Mobiel: vaste actiebalk onderin met Doneer en Sponsor, zichtbaar na de kop en niet als de cookiemelding of voet in beeld is
+(function () {
+  if (!document.querySelector(".site-head") || /beeldlijst|privacy/.test(location.pathname)) return;
+  const onDon = /\/(doneren|en\/donate)\//.test(location.pathname), onSp = /\/(sponsoren|en\/sponsor)\//.test(location.pathname);
+  const bar = document.createElement("nav");
+  bar.className = "actbar"; bar.setAttribute("aria-label", t("Doe mee", "Join in"));
+  bar.innerHTML = `<a href="${onDon ? window.WIM_SITE.donateUrl : L("/doneren/")}"${onDon ? ' target="_blank" rel="noopener"' : ""}>${t("Doneer", "Donate")}</a><a class="alt" href="${onSp ? "#rekenhulp" : L("/sponsoren/")}">${onSp ? t("Bereken je bijdrage", "Work it out") : t("Sponsor", "Sponsor")}</a>`;
+  document.body.append(bar); document.body.classList.add("has-actbar");
+  const foot = document.querySelector(".site-foot");
+  let footIn = false;
+  if (foot && "IntersectionObserver" in window) new IntersectionObserver(es => { footIn = es[0].isIntersecting; upd(); }).observe(foot);
+  const upd = () => bar.classList.toggle("on", window.scrollY > window.innerHeight * 0.6 && !footIn && !document.getElementById("cookie") && !document.querySelector(".site-head.open"));
+  document.querySelector(".menu-btn")?.addEventListener("click", () => setTimeout(upd));
+  addEventListener("scroll", upd, { passive: true }); addEventListener("resize", upd);
+  new MutationObserver(upd).observe(document.body, { childList: true });
+  upd();
+})();
+
+// Uitklapblokken: op computer open, op mobiel dicht; een link naar iets in een dicht blok klapt het open
+(function () {
+  const F = [...document.querySelectorAll("details.fold")];
+  if (!F.length) return;
+  const wide = matchMedia("(min-width:900px)");
+  const set = () => F.forEach(d => { const t0 = location.hash.length > 1 && document.getElementById(location.hash.slice(1)); d.open = wide.matches || !!(t0 && (d.contains(t0) || t0.contains(d))); });
+  set(); wide.addEventListener("change", set);
+  F.forEach(d => d.querySelector("summary").addEventListener("click", e => { if (wide.matches) e.preventDefault(); }));
+  const openFor = h => { try { const el = h && document.querySelector(h); const d = el && (el.closest("details.fold") || el.querySelector("details.fold")); if (d) d.open = true; } catch (e) { /* geen geldige selector */ } };
+  document.addEventListener("click", e => { const a = e.target.closest('a[href^="#"]'); if (a) openFor(a.getAttribute("href")); }, true);
+  addEventListener("hashchange", () => openFor(location.hash));
+})();
+
 // Vervangbeeld voor foto's en video's die nog komen (shots.js): vast beeld met rechtsonder wat er nodig is.
 window.WIM_fillShots = function (root) {
   const S = window.WIM_SHOTS;

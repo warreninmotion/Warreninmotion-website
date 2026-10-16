@@ -67,6 +67,8 @@
     </aside>
   </div>
 
+  <nav class="sp-steps" aria-label="In three steps"><a href="#rekenhulp"><span>1</span>Pick your kilometres</a><a href="#tenue"><span>2</span>Pick a jersey spot</a><a href="#calcMail"><span>3</span>Email Warren your choice</a></nav>
+
 
   <section class="sec" aria-labelledby="h-hoe">
     <h2 id="h-hoe">How it works</h2>
@@ -125,8 +127,7 @@
     </section>
 
     <section id="tenue" class="sec" style="min-width:0">
-      <div class="eyebrow">From 50 km</div>
-      <h2>Your logo on the jersey</h2>
+      <details class="fold" open><summary><div class="eyebrow">From 50 km</div><h2>Your logo on the jersey</h2><span class="hint-open">See the jersey</span></summary>
       <p class="hint">This is the real jersey. Your logo rides along on Warren's jersey, on the jerseys of all final-sprint riders and on the follow van. The yellow areas are for the main sponsor, the grey ones are available. Tap a spot for the price and to reserve it. First to email gets the spot.</p>
       <div class="kit">
         <div class="kit-bar">
@@ -143,13 +144,15 @@
         <div class="kit-legend"><span><i class="lg hoofd"></i>Main sponsor</span><span><i class="lg vrij"></i>Available</span><span><i class="lg optie"></i>On hold</span><span><i class="lg bezet"></i>Taken</span></div>
         <div class="kit-list" id="kitList"></div>
       </div>
+      </details>
     </section>
   </div>
 
   <section class="sec" aria-labelledby="h-bus">
-    <h2 id="h-bus">Your logo on the follow van</h2>
+    <details class="fold" open><summary><h2 id="h-bus">Your logo on the follow van</h2><span class="hint-open">See the follow van</span></summary>
     <p class="hint" style="max-width:62ch">The follow van rides all 1,570 km behind Warren, through 7 countries. Its texts are in English, so everyone along the way can see what we ride for. The main sponsor is big on the side, with all kilometre sponsors on two plates at the bottom of the doors.</p>
     <div class="kit bus"><div class="kit-toggle kit-col" role="tablist" aria-label="Side of the follow van"><button type="button" role="tab" id="busZij" aria-selected="true">Side</button><button type="button" role="tab" id="busAchter" aria-selected="false">Back</button></div><svg id="busSvg" viewBox="0 0 1100 520" role="img" aria-label="Follow van with magnetic panels and sponsor logos"></svg></div>
+    </details>
   </section>
 
   <section class="big-ask" aria-labelledby="h-hoofd">
@@ -161,6 +164,7 @@
     </div><figure class="ph" data-shot="sponsor-bezoek"></figure></div>
   </section>
 </div>
+<nav class="next-step" aria-label="Next"><span class="next-l">Next</span><a href="/en/progress/">See who is already riding along</a></nav>
 </main>
 
 <footer class="site-foot">

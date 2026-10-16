@@ -28,6 +28,8 @@
     </aside>
   </div>
 
+  <nav class="sp-steps" aria-label="In drie stappen"><a href="#rekenhulp"><span>1</span>Kies je kilometers</a><a href="#tenue"><span>2</span>Kies een plek op het shirt</a><a href="#calcMail"><span>3</span>Mail Warren je keuze</a></nav>
+
 
   <section class="sec" aria-labelledby="h-hoe">
     <h2 id="h-hoe">Zo werkt het</h2>
@@ -86,8 +88,7 @@
     </section>
 
     <section id="tenue" class="sec" style="min-width:0">
-      <div class="eyebrow">Vanaf 50 km</div>
-      <h2>Je logo op het shirt</h2>
+      <details class="fold" open><summary><div class="eyebrow">Vanaf 50 km</div><h2>Je logo op het shirt</h2><span class="hint-open">Bekijk het shirt</span></summary>
       <p class="hint">Dit is het echte shirt. Je logo rijdt mee op het shirt van Warren, op de shirts van alle meefietsers in de eindsprint én op de volgbus. De gele vlakken zijn voor de hoofdsponsor, de grijze zijn vrij. Tik op een plek voor de prijs en om hem te reserveren. Wie het eerst mailt, heeft de plek.</p>
       <div class="kit">
         <div class="kit-bar">
@@ -104,13 +105,15 @@
         <div class="kit-legend"><span><i class="lg hoofd"></i>Hoofdsponsor</span><span><i class="lg vrij"></i>Vrij</span><span><i class="lg optie"></i>In optie</span><span><i class="lg bezet"></i>Bezet</span></div>
         <div class="kit-list" id="kitList"></div>
       </div>
+      </details>
     </section>
   </div>
 
   <section class="sec" aria-labelledby="h-bus">
-    <h2 id="h-bus">Je logo op de volgbus</h2>
+    <details class="fold" open><summary><h2 id="h-bus">Je logo op de volgbus</h2><span class="hint-open">Bekijk de volgbus</span></summary>
     <p class="hint" style="max-width:62ch">De volgbus rijdt alle 1.570 km achter Warren aan, door 7 landen. De teksten zijn in het Engels, zodat iedereen onderweg ziet waarvoor we fietsen. De hoofdsponsor staat groot op de zijkant, alle sponsors met kilometers op twee platen onderaan de deuren.</p>
     <div class="kit bus"><div class="kit-toggle kit-col" role="tablist" aria-label="Kant van de volgbus"><button type="button" role="tab" id="busZij" aria-selected="true">Zijkant</button><button type="button" role="tab" id="busAchter" aria-selected="false">Achterkant</button></div><svg id="busSvg" viewBox="0 0 1100 520" role="img" aria-label="Volgbus met magneetpanelen en sponsorlogo's"></svg></div>
+    </details>
   </section>
 
   <section class="big-ask" aria-labelledby="h-hoofd">

@@ -48,10 +48,18 @@ Statische website voor de fietstocht van Warren: Lucca (IT) → Veenendaal, 15�
 ## Hosting
 - GitHub: warreninmotion/warreninmotion-website, branch `main`.
 - Netlify publiceert `main` automatisch (geen build-stap; gewone HTML/CSS/JS). Domein warreninmotion.nl staat bij TransIP.
+  Live sinds 16-10-2026. DNS bij TransIP (nameservers TransIP, "TransIP-instellingen" uit): A `@` → 75.2.60.5,
+  CNAME `www` → inquisitive-crisp-cf6075.netlify.app. Primary domain warreninmotion.nl; https via Let's Encrypt (automatisch verlengd).
+  Netlify Visitor access: productie Public, Deploy Previews Private (alleen voor Warrens Netlify-team zichtbaar).
 - Externe scripts alleen van cdnjs (d3 3.5.17, topojson 1.6.20, datamaps 0.5.9 voor de landkaart); fonts via Google Fonts.
   Enige uitzondering: Google Analytics (googletagmanager.com), en alleen na "ja" in de cookiemelding.
 
 ## Pagina's en bestanden
+- Flow op mobiel (16-10-2026): vaste actiebalk onderin (Doneer / Sponsor, `actbar` in `site.js`, alleen < 860 px, na de kop,
+  weg bij cookiemelding, open menu of voet); menu op mobiel met Doneren en Sponsoren naast elkaar bovenaan; onderaan pagina's
+  een "Verder"-link naar de logische volgende pagina (`NEXT` in `tools/build.py`); Home op mobiel: kop → drie veegkaarten →
+  cijfers → citaat en stand → kaart → afsluitend blok "Kies hoe je meedoet"; Sponsoren: drie stappen bovenaan
+  (`sp-steps`), shirt en volgbus als uitklapblok (`details.fold`, op mobiel dicht, op computer open).
 - Opbouw naar bezoeker: Home (`index.html`) is de landingspagina met twee keuzes: "Ik ben een bedrijf → Ik wil
   sponsoren" (`sponsoren/`) en "Ik ben particulier → Ik wil doneren" (`doneren/`, met daarin de eindsprint en het
   diner onder `#eindsprint`). Verder `tussenstand/`, `route/`, `over-warren/`, `contact/`.
