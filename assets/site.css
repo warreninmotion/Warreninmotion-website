@@ -138,6 +138,10 @@ a.card .more{color:var(--groen)}
 .site-foot ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 .site-foot a{color:var(--fg);text-decoration:none}
 .site-foot a:hover{text-decoration:underline;text-underline-offset:3px}
+.socs{display:flex;gap:10px;margin-bottom:14px}
+.site-foot a.soc{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--groen);color:var(--bg)}
+.site-foot a.soc:hover{background:var(--fg);text-decoration:none}
+.site-foot a.soc svg{width:21px;height:21px}
 @media (max-width:520px){.rows>div{grid-template-columns:92px minmax(0,1fr)}}
 /* Taalknop NL | EN */
 .lang{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--fg);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 10px 5px 7px;line-height:1;order:2}

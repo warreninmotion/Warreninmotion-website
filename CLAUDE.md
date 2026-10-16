@@ -119,8 +119,9 @@ Afleiden van `data.js`:
   shirt + diner/cheque/feest. Alleen diner €100.
 - Facturatie via Stichting Warren in Motion (in oprichting). Particulieren doneren via
   https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion
-- Contact op de site: warreninmotion@outlook.com · socials: Instagram en Facebook @warreninmotion, TikTok @warren.in.motion
-  (https://www.tiktok.com/@warren.in.motion).
+- Contact op de site: warreninmotion@outlook.com · socials: Instagram @warreninmotion, TikTok @warren.in.motion
+  (https://www.tiktok.com/@warren.in.motion). Facebook voorlopig niet tonen (account op Warrens naam, pagina nog leeg).
+  In de voet staan Instagram en TikTok als ronde icoonknoppen (`SOC`/`ICON` in `tools/build.py`).
 - Echte sponsors: Chiropractie Bennekom, 50 km (km 0–50), 1 dinerplek.
 
 ## Huisstijl (brandbook 2.0)
