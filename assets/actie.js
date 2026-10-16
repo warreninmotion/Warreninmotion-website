@@ -106,6 +106,9 @@ function render() {
   // stand
   document.getElementById("km").textContent = nl(totKm);
   document.getElementById("eur").innerHTML = t(`<b>${eur(totEur)}</b> opgehaald · ${nl(sKm)} km van bedrijven, ${nl(pKm)} km van het peloton`, `<b>${eur(totEur)}</b> raised · ${nl(sKm)} km from companies, ${nl(pKm)} km from the peloton`);
+  let ml = document.getElementById("meals");
+  if (!ml) { ml = document.createElement("div"); ml.id = "meals"; document.getElementById("eur").after(ml); }
+  ml.innerHTML = WIM_mealLine(totEur, true);
   const bar = document.getElementById("bar");
   bar.innerHTML = `<div class="f" style="width:${sKm / TOTAL * 100}%"></div><div class="p" style="left:${sKm / TOTAL * 100}%;width:${pKm / TOTAL * 100}%;${sKm ? "" : "border-radius:999px 0 0 999px;"}${totKm >= TOTAL ? "border-radius:0 999px 999px 0" : ""}"></div>` +
     GOALS.map((g, i) => `<div class="tick${i === 2 ? " end" : ""}" style="left:calc(${g.eur / 20 / TOTAL * 100}% - ${i === 2 ? 2 : 1}px)"><span>${eur(g.eur)}</span></div>`).join("");
@@ -414,6 +417,9 @@ function renderCalc() {
   document.getElementById("calcLines").innerHTML = lines.map(([a, b]) => `<div><span>${a}</span><span>${eur(b)}</span></div>`).join("");
   const total = kmEur + seatEur + kitEur;
   document.getElementById("calcTotal").textContent = eur(total);
+  let cm = document.getElementById("calcMeals");
+  if (!cm) { cm = document.createElement("div"); cm.id = "calcMeals"; cm.className = "calc-meals"; document.getElementById("calcTotal").closest(".calc-sum").append(cm); }
+  cm.innerHTML = t(`Je kilometers zijn goed voor zo'n <b>${nl(WIM_meals(kmEur))} gezonde maaltijden</b> bij de voedselbank.`, `Your kilometres are good for about <b>${nl(WIM_meals(kmEur))} healthy meals</b> at the food bank.`);
   const subj = `Sponsoring: ${nl(km)} km${k ? " + " + k.label : ""}`;
   const body = t(`Hoi Warren,\n\nWe rijden graag mee:\n- ${nl(km)} km (${eur(kmEur)})\n- ${calc.seats} ${calc.seats > 1 ? "plekken" : "plek"} aan tafel bij het diner (${eur(seatEur)})\n${k ? `- Shirtplek: ${k.label} (${eur(kitEur)})\n` : ""}Totaal: ${eur(total)}\n\nBedrijfsnaam:\nContactpersoon:\n`, `Hi Warren,\n\nWe would love to ride along:\n- ${nl(km)} km (${eur(kmEur)})\n- ${calc.seats} ${calc.seats > 1 ? "seats" : "seat"} at the dinner (${eur(seatEur)})\n${k ? `- Jersey spot: ${k.label} (${eur(kitEur)})\n` : ""}Total: ${eur(total)}\n\nCompany name:\nContact person:\n`);
   document.getElementById("calcMail").href = `mailto:${MAIL}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;

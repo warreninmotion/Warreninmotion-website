@@ -116,3 +116,6 @@ svg text{font-family:var(--body)}
 .seg{transition:stroke-width .15s}
 .seg.on{stroke-width:15}
 @media (prefers-reduced-motion:reduce){.seg{transition:none}}
+
+.calc-meals{border-left:3px solid var(--brons);padding:2px 0 2px 10px;font-size:14px;color:var(--muted);margin-top:4px}
+.calc-meals b{color:var(--fg);font-weight:600}

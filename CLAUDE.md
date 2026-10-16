@@ -58,8 +58,10 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
   Contact, plus taalknop met vlaggetje (🇬🇧 EN op Nederlandse pagina's, 🇳🇱 NL op Engelse; inline SVG in `tools/build.py`).
   Doneren en Sponsoren staan als groene knop in het menu (`CTA` in `tools/build.py`).
 - Home: groene band bovenaan (kop "Ruim 1.500 km fietsen voor de voedselbank", twee keuzes: Sponsor kilometers /
-  Doneer en rij mee, lanceringsvideo even hoog ernaast), daaronder kerncijfers, kaart met citaat van Warren
-  (concept, door Warren te bevestigen) en Wie/Route/Voedselbank, en de tussenstand.
+  Doneer en rij mee, lanceringsvideo even hoog ernaast), daaronder kerncijfers; dan de routekaart naast het citaat van
+  Warren (concept, door Warren te bevestigen) en de tussenstand, waarbij de kaart altijd even hoog is als die tekstkolom;
+  daaronder drie blokken naast elkaar met een beeld als achtergrond: Waarom de voedselbank (home-koken), Wie is Warren?
+  (home-frontaal), Acht dagen, zeven landen (home-pedalen).
 - Sponsoren: blok "Zij rijden al mee" rechts naast de kop (niet als band eronder): slider met één logo tegelijk
   (sponsors uit `data.js`, niet anoniem; logo's uit `logos.js` → `assets/logos/`, op wit; zonder logo de naam als
   woordmerk), laatste dia "Jouw bedrijf hier?". Ook zo in het artifact.
@@ -88,6 +90,12 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
   ook shirt en volgbus mee vol); geen fictief voorbeeld elders op de site.
 - Links altijd absoluut (`/route/`, `/assets/...`); lokaal testen met `python3 -m http.server` in de repo-root.
 - De stand staat in `data.js` (`window.WIM_DATA`).
+- Maaltijden: overal waar de stand staat (Home, Tussenstand, peloton op Doneren, rekenhulp, artifact) staat ook wat het
+  oplevert in gezonde maaltijden bij de voedselbank (`WIM_meals`/`WIM_mealLine` in `site.js`). Bron: Voedselbanken
+  Nederland, €12,50 = boodschappen voor een gezin; schatting zo'n 5 maaltijden per pakket, dus €2,50 per maaltijd
+  (1 km = 8 maaltijden, €30.000 = 12.000). Getallen in `WIM_SITE` (euroPerPakket, maaltijdenPerPakket); het
+  maaltijdgetal is een schatting, nog te laten bevestigen door Voedselbanken Nederland. De stand staat in een dunne
+  bronzen band (rand, geen vlak).
 
 ## HubSpot is leidend (BELANGRIJK)
 Alles over sponsors, kilometers, dinerplekken, shirtplekken, losse tickets en particuliere donaties staat in
@@ -162,7 +170,8 @@ Afleiden van `data.js`:
 ## Statistiek (Google Analytics 4, gratis)
 - `WIM_SITE.gaId` in `assets/site.js` = GA4-meet-ID: G-PW3QDXVHXW (property warreninmotion.nl, aangemaakt 16-10-2026).
   Leeg = geen statistiek en geen cookiemelding. Het artifact krijgt nooit GA (`build_artifact.py` maakt gaId leeg).
-- Cookiemelding "Koekje erbij?" (onderaan, groen/inkt; tekst: Warren verbrandt ruim 60.000 kcal = zo'n 1.250 koekjes (8 × (2.600 rust + 8 u × 650 zone 2)), "Eentje voor jou?"): GA laadt pas na "Ja, koekje erbij"; keuze in localStorage
+- Cookiemelding "Koekje erbij?" (onderaan, groen/inkt; alleen: Warren verbrandt ruim 60.000 kcal = zo'n 1.250 koekjes
+  (8 × (2.600 rust + 8 u × 650 zone 2)), "Eentje voor jou?" en een link naar de privacyverklaring; geen uitleg waarvoor): GA laadt pas na "Ja, koekje erbij"; keuze in localStorage
   `wim-cookies`; in de voet "Cookie-instellingen" om te wijzigen. Elke klik op link/knop = GA-gebeurtenis "klik"
   (knop, pagina).
 - Warren wil elke vrijdag een rapport: bezoekers, gemiddelde bezoektijd, populairste pagina's, gebruikte knoppen en

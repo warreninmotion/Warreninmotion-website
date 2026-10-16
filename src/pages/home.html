@@ -30,24 +30,30 @@
 .snd svg{width:16px;height:16px}
 .facts-band{border-bottom:1px solid var(--line)}
 .facts-band .facts{border-top:0}
-.strip3{display:grid;gap:12px;grid-template-columns:8fr 15fr 8fr;align-items:start}
-@media (max-width:640px){.strip3{grid-template-columns:1fr 1fr}.strip3 .ph:nth-child(2){grid-column:1/-1;order:-1}}
-.tale{display:grid;gap:32px;grid-template-columns:minmax(0,1fr);align-items:start}
-@media (min-width:860px){.tale{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px}}
-.tale-map{margin:0}
-.tale-map svg{display:block;width:100%;height:auto;max-height:640px}
-@media (max-width:859px){.tale-map svg{height:420px}}
+/* Kaart en quote naast elkaar: de kaart is altijd even hoog als de tekstkolom */
+.tale{display:grid;gap:32px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:860px){.tale{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:stretch}}
+.tale-map{margin:0;position:relative;min-height:420px}
+.tale-map svg{position:absolute;inset:0;width:100%;height:100%}
 .tale-map svg text{font-family:var(--body)}
-.story{display:grid;gap:30px;grid-template-columns:minmax(0,1fr)}
-.story>div{display:grid;gap:8px;align-content:start}
-.story h3{font-size:clamp(24px,3vw,30px)}
-.story p{color:var(--muted);font-size:16px;max-width:56ch}
-.story .num{font-family:var(--display);font-size:1.25em;color:var(--fg)}
-.who-row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:18px;align-items:start}
-.who-row img{width:96px;height:120px;object-fit:cover;border-radius:10px}
+.tale-txt{display:flex;flex-direction:column;justify-content:center;gap:28px}
+/* Drie onderwerpen als blokken met een beeld op de achtergrond */
+.topics{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:860px){.topics{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.topic{position:relative;display:flex;align-items:flex-end;min-height:460px;border-radius:14px;overflow:hidden;background:#1E4034;color:#F2EEE4;text-decoration:none;isolation:isolate}
+@media (max-width:859px){.topic{min-height:400px}}
+.topic .ph{position:absolute;inset:0;aspect-ratio:auto!important;max-width:none;border-radius:0;z-index:-1}
+.topic .ph-tag{top:10px;bottom:auto}
+.topic-txt{display:grid;gap:8px;width:100%;padding:72px 22px 22px;background:linear-gradient(to top,rgba(20,32,28,.94) 0,rgba(20,32,28,.78) 55%,rgba(20,32,28,0) 100%)}
+.topic h3{font-size:clamp(24px,2.6vw,28px);color:#F2EEE4}
+.topic p{font-size:15px;color:rgba(242,238,228,.88)}
+.topic .num{font-family:var(--display);font-size:1.2em;color:#F2EEE4}
+.topic .more{color:#F2EEE4;text-decoration-color:rgba(242,238,228,.5)}
+.topic:hover .more{text-decoration-color:#F2EEE4}
+.topic:focus-visible{outline:2px solid var(--brons);outline-offset:3px}
 .quote{font-family:var(--display);font-size:clamp(24px,3.4vw,34px);line-height:1.25;max-width:30ch;border-left:3px solid var(--brons);padding-left:20px}
 .quote small{display:block;font-family:var(--body);font-size:15px;color:var(--muted);margin-top:10px}
-.mini{display:grid;gap:6px;border-top:1px solid var(--line);padding-top:22px}
+.mini{display:grid;gap:10px}
 .mini .line{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px}
 .mini .big{font-size:clamp(38px,7vw,54px)}
 .mini .bar{margin:18px 0 30px}
@@ -92,45 +98,34 @@
     </dl>
   </section>
 
-  <div class="strip3">
-    <figure class="ph" data-shot="home-pedalen"></figure>
-    <figure class="ph" data-shot="home-frontaal"></figure>
-    <figure class="ph" data-shot="home-koken"></figure>
-  </div>
-
   <section class="sec" aria-labelledby="h-verhaal">
     <div class="tale">
-    <figure class="tale-map">
-      <svg id="homeMap" role="img" aria-label="De route van Lucca naar Veenendaal in acht etappes"></svg>
-    </figure>
-    <div class="story">
-      <h2 id="h-verhaal" class="quote">“Gezond eten en bewegen horen voor iedereen haalbaar te zijn, wat je budget ook is.”<small>— Warren van der Ploeg</small></h2>
-      <figure class="ph" data-shot="home-voedselbank"></figure>
-      <div>
-        <h3>Waarom de voedselbank</h3>
-        <p>In 2025 hielp de voedselbank <span class="num">155.600</span> mensen, en het aantal huishoudens groeide met 10%. Wat jij geeft, komt bij hen terecht.</p>
-        <a class="more" href="/doneren/">Doe mee</a>
+      <figure class="tale-map">
+        <svg id="homeMap" role="img" aria-label="De route van Lucca naar Veenendaal in acht etappes"></svg>
+      </figure>
+      <div class="tale-txt">
+        <h2 id="h-verhaal" class="quote">“Gezond eten en bewegen horen voor iedereen haalbaar te zijn, wat je budget ook is.”<small>— Warren van der Ploeg</small></h2>
+      <section class="mini" aria-labelledby="h-stand">
+        <div class="line"><h2 id="h-stand">Tussenstand</h2><a class="more" href="/tussenstand/">Bekijk wie er meerijdt</a></div>
+        <div data-stand aria-live="polite"></div>
+      </section>
       </div>
-      <div class="who-row">
-        <img src="/assets/img/warren.jpg" width="96" height="120" alt="" loading="lazy">
-        <div style="display:grid;gap:8px">
-          <h3>Wie is Warren?</h3>
-          <p>Sporter en foodie met een vol leven, net als jij druk met werk en thuis. Hij laat zien hoe gezond leven daarin past, zonder ingewikkelde regels.</p>
-          <a class="more" href="/over-warren/">Leer Warren kennen</a>
-        </div>
-      </div>
-      <div>
-        <h3>Acht dagen, zeven landen</h3>
-        <p>Langs de Ligurische kust, over de Lukmanierpas en door de Ardennen naar huis. Elke etappe rond de 200 km.</p>
-        <a class="more" href="/route/">Bekijk de route</a>
-      </div>
-    </div>
     </div>
   </section>
 
-  <section class="mini" aria-labelledby="h-stand">
-    <div class="line"><h2 id="h-stand">Tussenstand</h2><a class="more" href="/tussenstand/">Bekijk wie er meerijdt</a></div>
-    <div data-stand aria-live="polite"></div>
+  <section class="topics" aria-label="Meer over de tocht">
+    <a class="topic" href="/doneren/">
+      <figure class="ph" data-shot="home-koken"></figure>
+      <div class="topic-txt"><h3>Waarom de voedselbank</h3><p>In 2025 hielp de voedselbank <span class="num">155.600</span> mensen, en het aantal huishoudens groeide met 10%. Elke kilometer is goed voor zo'n 8 gezonde maaltijden.</p><span class="more">Doe mee</span></div>
+    </a>
+    <a class="topic" href="/over-warren/">
+      <figure class="ph" data-shot="home-frontaal"></figure>
+      <div class="topic-txt"><h3>Wie is Warren?</h3><p>Sporter en foodie met een vol leven, net als jij druk met werk en thuis. Hij laat zien hoe gezond leven daarin past, zonder ingewikkelde regels.</p><span class="more">Leer Warren kennen</span></div>
+    </a>
+    <a class="topic" href="/route/">
+      <figure class="ph" data-shot="home-pedalen"></figure>
+      <div class="topic-txt"><h3>Acht dagen, zeven landen</h3><p>Langs de Ligurische kust, over de Lukmanierpas en door de Ardennen naar huis. Elke etappe rond de 200 km.</p><span class="more">Bekijk de route</span></div>
+    </a>
   </section>
 </div>
 <!--SCRIPT-->
