@@ -7,9 +7,9 @@ import sys, pathlib
 FRAG = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else "src/pages")
 DONATE = "https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion"
 MAIL = "warreninmotion@outlook.com"
-SOC = [("Instagram", "https://www.instagram.com/warreninmotion/"),
-       ("TikTok", "https://www.tiktok.com/@warreninmotion"),
-       ("Facebook", "https://www.facebook.com/warreninmotion")]
+SOC = [("Instagram", "https://www.instagram.com/warreninmotion/", "@warreninmotion"),
+       ("TikTok", "https://www.tiktok.com/@warren.in.motion", "@warren.in.motion"),
+       ("Facebook", "https://www.facebook.com/warreninmotion", "@warreninmotion")]
 
 # sleutel: (NL-pad, EN-pad, NL-menunaam, EN-menunaam)
 PAGES = {
@@ -67,7 +67,7 @@ def header(cur, lang):
 
 def footer(lang):
     T = TXT[lang]
-    soc = "\n".join(f'        <li><a href="{u}" target="_blank" rel="noopener">{n} · @warreninmotion</a></li>' for n, u in SOC)
+    soc = "\n".join(f'        <li><a href="{u}" target="_blank" rel="noopener">{n} · {h}</a></li>' for n, u, h in SOC)
     return f'''<footer class="site-foot">
   <div class="site-foot__in">
     <div>
