@@ -91,7 +91,8 @@ function bindCopy(root) {
 })();
 
 // Bezoekersstatistiek: Google Analytics 4, alleen na "ja" in de cookiemelding (keuze in localStorage "wim-cookies").
-// Tekst: ±40.000 kcal voor de hele tocht (schatting: 1.570 km, ±9.560 hm, 8 dagen) / ±50 kcal per koekje = ±800 koekjes.
+// Tekst (berekening Warren): 8 dagen × (2.600 kcal ruststofwisseling + 8 uur × 650 kcal zone 2) = 62.400 kcal,
+// eerder meer door het klimmen; / ±50 kcal per koekje = ±1.250 koekjes.
 // Elke klik op een link of knop gaat als gebeurtenis "klik" mee (knoptekst + pagina). Zonder gaId gebeurt er niets.
 window.WIM_track = (name, props) => {
   try { if (window.gtag && window.WIM_GA_ON) window.gtag("event", name.toLowerCase(), props); } catch (e) { /* statistiek mag de site nooit breken */ }
@@ -124,8 +125,8 @@ window.WIM_track = (name, props) => {
     box.id = "cookie"; box.className = "cookie"; box.setAttribute("role", "dialog"); box.setAttribute("aria-labelledby", "cookie-h");
     box.innerHTML = `<div class="cookie-in">
       <p id="cookie-h" class="cookie-h">${t("Koekje erbij?", "Fancy a cookie?")}</p>
-      <p>${t("Van Lucca naar Veenendaal verbrandt Warren zo'n 40.000 kilocalorieën. Dat zijn ongeveer 800 koekjes. Eentje voor jou? Met jouw koekje, een cookie van Google Analytics, zien we welke pagina's en knoppen je gebruikt. Zo maken we de site beter. Geen reclame, niets doorverkocht.",
-        "From Lucca to Veenendaal, Warren burns around 40,000 calories. That's about 800 biscuits. Fancy one? Your cookie, from Google Analytics, shows us which pages and buttons you use. That helps us make the site better. No ads, nothing sold on.")} <a href="${L("/privacy/")}">${t("Meer over privacy", "More about privacy")}</a></p>
+      <p>${t("Van Lucca naar Veenendaal verbrandt Warren ruim 60.000 kilocalorieën. Dat zijn zo'n 1.250 koekjes. Eentje voor jou? Met jouw koekje, een cookie van Google Analytics, zien we welke pagina's en knoppen je gebruikt. Zo maken we de site beter. Geen reclame, niets doorverkocht.",
+        "From Lucca to Veenendaal, Warren burns more than 60,000 calories. That's about 1,250 biscuits. Fancy one? Your cookie, from Google Analytics, shows us which pages and buttons you use. That helps us make the site better. No ads, nothing sold on.")} <a href="${L("/privacy/")}">${t("Meer over privacy", "More about privacy")}</a></p>
       <div class="cookie-b"><button type="button" class="btn" data-c="yes">${t("Ja, koekje erbij", "Yes, I'll have one")}</button><button type="button" class="btn ghost" data-c="no">${t("Nee, dank je", "No, thanks")}</button></div></div>`;
     box.addEventListener("click", e => { const b = e.target.closest("[data-c]"); if (!b) return; set(b.dataset.c); if (b.dataset.c === "yes") load(); else off(); box.remove(); });
     document.body.append(box);
