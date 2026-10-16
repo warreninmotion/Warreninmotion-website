@@ -30,6 +30,8 @@
 .snd svg{width:16px;height:16px}
 .facts-band{border-bottom:1px solid var(--line)}
 .facts-band .facts{border-top:0}
+.strip3{display:grid;gap:12px;grid-template-columns:8fr 15fr 8fr;align-items:start}
+@media (max-width:640px){.strip3{grid-template-columns:1fr 1fr}.strip3 .ph:nth-child(2){grid-column:1/-1;order:-1}}
 .tale{display:grid;gap:32px;grid-template-columns:minmax(0,1fr);align-items:start}
 @media (min-width:860px){.tale{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px}}
 .tale-map{margin:0}
@@ -90,6 +92,12 @@
     </dl>
   </section>
 
+  <div class="strip3">
+    <figure class="ph" data-shot="home-pedalen"></figure>
+    <figure class="ph" data-shot="home-frontaal"></figure>
+    <figure class="ph" data-shot="home-koken"></figure>
+  </div>
+
   <section class="sec" aria-labelledby="h-verhaal">
     <div class="tale">
     <figure class="tale-map">
@@ -97,6 +105,7 @@
     </figure>
     <div class="story">
       <h2 id="h-verhaal" class="quote">“Gezond eten en bewegen horen voor iedereen haalbaar te zijn, wat je budget ook is.”<small>— Warren van der Ploeg</small></h2>
+      <figure class="ph" data-shot="home-voedselbank"></figure>
       <div>
         <h3>Waarom de voedselbank</h3>
         <p>In 2025 hielp de voedselbank <span class="num">155.600</span> mensen, en het aantal huishoudens groeide met 10%. Wat jij geeft, komt bij hen terecht.</p>

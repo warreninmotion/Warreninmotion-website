@@ -78,7 +78,7 @@ function bindCopy(root) {
     const link = `<a href="${L("/tussenstand/")}">${t("Bekijk de tussenstand", "See the progress")}</a>`;
     n.innerHTML = D.pelotonEuro
       ? `<div class="sub">${t(`Het peloton staat op <b>€${fmt(D.pelotonEuro)}</b>: samen al ${fmt(pKm)} km.`, `The peloton is at <b>€${fmt(D.pelotonEuro)}</b>: ${fmt(pKm)} km together so far.`)}${upd ? t(` Bijgewerkt op ${upd}.`, ` Updated ${upd}.`) : ""} ${link}</div>`
-      : `<div class="sub">${t("Het peloton staat nog op €0. Word jij de eerste die meerijdt?", "The peloton is still at €0. Will you be the first to ride along?")} ${link}</div>`;
+      : `<div class="sub">${t("Het peloton is net vertrokken. Rij jij als een van de eersten mee?", "The peloton has just set off. Will you be one of the first to ride along?")} ${link}</div>`;
   });
 
   // Eindsprint en diner
@@ -157,3 +157,27 @@ document.addEventListener("click", e => {
   box.addEventListener("focusout", () => { hold = false; plan(); });
   show(0);
 })();
+
+// Vervangbeeld voor foto's en video's die nog komen (shots.js): vast beeld met rechtsonder wat er nodig is.
+window.WIM_fillShots = function (root) {
+  const S = window.WIM_SHOTS;
+  if (!S) return;
+  const keys = Object.keys(S);
+  (root || document).querySelectorAll("[data-shot]").forEach(f => {
+    const s = S[f.dataset.shot]; if (!s) return;
+    const [w, h] = s.ratio.split("/").map(Number), stand = h > w;
+    f.style.aspectRatio = `${w} / ${h}`;
+    const wat = t(s.wat[0], s.wat[1]);
+    if (s.src) {
+      f.classList.add("real");
+      f.innerHTML = s.soort === "video"
+        ? `<video src="${s.src}"${s.poster ? ` poster="${s.poster}"` : ""} muted loop playsinline autoplay aria-label="${wat}"></video>`
+        : `<img src="${s.src}" alt="${wat}" loading="lazy">`;
+      return;
+    }
+    f.innerHTML = `<img src="/assets/img/placeholder.webp" alt="" loading="lazy">
+      <figcaption class="ph-tag"><span class="ph-n">#${keys.indexOf(f.dataset.shot) + 1}</span>
+      <span><b>${s.soort === "video" ? t("Video", "Video") : t("Foto", "Photo")} · ${stand ? t("staand", "portrait") : t("liggend", "landscape")} ${w}:${h}</b>${wat}</span></figcaption>`;
+  });
+};
+window.WIM_fillShots();

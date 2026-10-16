@@ -187,6 +187,18 @@ Afleiden van `data.js`:
   4. Sponsorovereenkomst (Claude Docs 2e6a02bc-9d80-45d6-b21f-570494f57c1c) nalopen als prijzen veranderen.
 - Bedragen van de hoofdsponsor nooit tonen.
 
+## Beelden (vervangbeelden en beeldlijst)
+- Waar een echte foto of video van Warren moet komen staat `<figure class="ph" data-shot="id">`. `shots.js`
+  (`WIM_SHOTS`) beschrijft per plek: soort (foto/video), verhouding (bepaalt staand of liggend), wat erop moet en een
+  tip. Zonder `src` toont de site het vaste vervangbeeld `assets/img/placeholder.webp` (vervaagd, groen) met rechtsonder
+  nummer, soort, staand/liggend en wat er nodig is. Met `src` verschijnt het echte beeld.
+- Overzicht voor Warren: `/beeldlijst/` (intern, niet in het menu, noindex).
+- De route: foto van de Piazza dell'Anfiteatro (startplek) bovenaan (`assets/img/lucca-anfiteatro.webp`, aangeleverd door
+  Warren; 900 px breed, bij voorkeur vervangen door een grotere of eigen foto).
+- Training: een training kan uit blokken bestaan (`blokken` in een rit, bv. 2× 50 km op één dag); de site telt dat als
+  één training en laat de blokken met een pauze ertussen zien, met de uitleg dat etappes in mei ook in blokken gaan.
+- Geen grote nullen tonen ("0 aangemeld", "€0"): bij een lege stand een uitnodigende zin.
+
 ## Ontwerpregels (tegen het "AI-gevoel")
 - Geen pijltjes (→) achter knoppen en links; links zijn onderstreept (`.more`). Het pijltje alleen in "Lucca → Veenendaal".
 - Eyebrows (labels boven koppen) spaarzaam en in gewone kleine letters, niet in hoofdletters met spatiëring.

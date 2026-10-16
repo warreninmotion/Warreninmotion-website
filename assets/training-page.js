@@ -2,14 +2,21 @@
 // weekverslag uit /training.js. Gedeeld door NL en EN. Gebruikt route.js voor de route (pts, at, path, STAGES).
 (function () {
   const T = window.WIM_TRAINING || { weeks: [] };
-  const WEEKS = T.weeks.slice().reverse(); // oud → nieuw
+  // trainingen in blokken: km, duur, hoogtemeters en zones uit de blokken (zones gewogen naar tijd)
+  const norm = r => {
+    if (!r.blokken) return r;
+    const B = r.blokken, min = B.reduce((s, b) => s + b.min, 0);
+    return { ...r, km: B.reduce((s, b) => s + b.km, 0), min, up: B.reduce((s, b) => s + (b.up || 0), 0),
+      zones: [0, 1, 2, 3, 4].map(i => Math.round(B.reduce((s, b) => s + b.zones[i] * b.min, 0) / min)) };
+  };
+  const WEEKS = T.weeks.slice().reverse().map(w => ({ ...w, ritten: w.ritten.map(norm) })); // oud → nieuw
   if (!WEEKS.length) return;
   const $ = id => document.getElementById(id);
   const n1 = v => (Math.round(v * 10) / 10).toLocaleString(WIM_LOC, { maximumFractionDigits: 1 });
   const hm = m => `${Math.floor(m / 60)}:${String(Math.round(m % 60)).padStart(2, "0")}`;
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const SOORT = { duur: t("Duurrit", "Endurance ride"), tempo: t("Temporit", "Tempo ride"), opbouw: t("Opbouwrit", "Progressive ride"), herstel: t("Herstelrit", "Recovery ride") };
+  const SOORT = { lang: t("Lange rit", "Long ride"), duur: t("Duurrit", "Endurance ride"), tempo: t("Temporit", "Tempo ride"), opbouw: t("Opbouwrit", "Progressive ride"), herstel: t("Herstelrit", "Recovery ride") };
   const ZN = [t("Herstel", "Recovery"), t("Duur", "Endurance"), "Tempo", t("Drempel", "Threshold"), t("Maximaal", "Maximum")];
   const ACT = {
     hiit: o => [`${o.aantal}× HIIT`, `${hm(o.min)} ${t("uur", "h")}`],
@@ -199,8 +206,9 @@
       <div class="s-zones">${z.map((m, j) => `<div class="s-zone"><span><b>Z${j + 1}</b> ${ZN[j].toLowerCase()}</span><span class="tr"><i class="sz${j + 1}" style="width:${m / zt * 100}%"></i></span><span>${hm(m)}</span></div>`).join("")}</div>
       ${foot}`);
     if (w.ritten.length) S.push(`<div class="s-eye">${t("De ritten", "The rides")}</div><div class="s-h">${t("Van deze week", "This week")}</div>
-      <div class="s-rides">${w.ritten.map(r => `<div class="s-ride"><div><span>${SOORT[r.soort] || r.soort}</span><span>${n1(r.km)} km</span></div>
-      <div class="zb">${r.zones.map((v, j) => v ? `<i class="sz${j + 1}" style="width:${v}%"></i>` : "").join("")}</div></div>`).join("")}</div>${foot}`);
+      <div class="s-rides">${w.ritten.map(r => `<div class="s-ride"><div><span>${SOORT[r.soort] || r.soort}${r.blokken ? ` · ${r.blokken.length}× ${n1(r.blokken[0].km)}` : ""}</span><span>${n1(r.km)} km</span></div>
+      ${r.blokken ? `<div class="zbs">${r.blokken.map(b => `<div class="zb" style="flex:${b.km}">${b.zones.map((v, j) => v ? `<i class="sz${j + 1}" style="width:${v}%"></i>` : "").join("")}</div>`).join("")}</div>`
+        : `<div class="zb">${r.zones.map((v, j) => v ? `<i class="sz${j + 1}" style="width:${v}%"></i>` : "").join("")}</div>`}</div>`).join("")}</div>${foot}`);
     const ws = words(w);
     if (ws.length) S.push(`<div class="s-eye">${t("Warren", "Warren")}</div><div class="s-q${ws[0].length > 190 ? " small" : ""}">“${ws[0]}”</div><div class="s-line"></div><div class="s-sub">— Warren</div>${foot}`);
     S.push(`<div class="s-eye">${t("Op weg naar mei 2027", "On the way to May 2027")}</div><div class="s-big" style="font-size:17cqw">${n1(cum[i])}<small> km</small></div>
@@ -303,11 +311,15 @@
       <div class="zmix-leg">${z.map((m, j) => `<span><i class="zc z${j + 1}"></i>Z${j + 1} <b>${hm(m)}</b> · ${Math.round(m / zt * 100)}%</span>`).join("")}</div>` : "";
     $("wText").innerHTML = words(w).map(p => `<p>${p}</p>`).join("") + `<p class="sig">— Warren</p>`;
     $("wRides").innerHTML = w.ritten.length ? w.ritten.map((r, k) => `<li><button type="button" aria-expanded="false">
-        <span class="r-h"><b>${SOORT[r.soort] || r.soort}</b><span>${n1(r.km)} km · ${hm(r.min)} ${t("uur", "h")} · ${n1(r.km / r.min * 60)} ${t("km/u", "km/h")}${r.binnen ? t(" · binnen", " · indoor") : t(" · buiten", " · outdoor")}</span></span>
-        <span class="zbar">${r.zones.map((v, j) => v ? `<i class="z${j + 1}" style="width:${v}%"></i>` : "").join("")}</span>
+        <span class="r-h"><b>${SOORT[r.soort] || r.soort}${r.blokken ? ` <span class="r-bl">${r.blokken.length} ${t("blokken", "blocks")}</span>` : ""}</b><span>${n1(r.km)} km · ${hm(r.min)} ${t("uur", "h")} · ${n1(r.km / r.min * 60)} ${t("km/u", "km/h")}${r.binnen ? t(" · binnen", " · indoor") : t(" · buiten", " · outdoor")}</span></span>
+        ${r.blokken ? `<span class="blocks">${r.blokken.map((b, k) => `<span class="blk" style="flex:${b.km}"><span class="zbar">${b.zones.map((v, j) => v ? `<i class="z${j + 1}" style="width:${v}%"></i>` : "").join("")}</span><small>${t("Blok", "Block")} ${k + 1} · ${n1(b.km)} km</small></span>`).join('<span class="pause" aria-hidden="true"></span>')}</span>`
+          : `<span class="zbar">${r.zones.map((v, j) => v ? `<i class="z${j + 1}" style="width:${v}%"></i>` : "").join("")}</span>`}
         <span class="r-more">${r.zones.map((v, j) => v ? `<span>Z${j + 1} <b>${hm(r.min * v / 100)}</b> (${v}%)</span>` : "").join("")}</span>
         </button></li>`).join("") : "";
     $("wRides").hidden = !w.ritten.length;
+    $("wBlocks").hidden = !w.ritten.some(r => r.blokken);
+    $("wBlocks").innerHTML = t("<b>Waarom in blokken?</b> Een etappe van rond de 200 km rijdt Warren straks ook in blokken, met korte pauzes om te eten en bij te komen. Zo train je het lijf op dag na dag ver fietsen.",
+      "<b>Why in blocks?</b> In May, Warren will ride each stage of around 200 km in blocks too, with short breaks to eat and recover. That trains the body for long distances day after day.");
     $("wRides").querySelectorAll("button").forEach(b => b.addEventListener("click", () => { const li = b.parentElement, o = !li.classList.contains("open"); li.classList.toggle("open", o); b.setAttribute("aria-expanded", String(o)); }));
     buildStory(i);
   }

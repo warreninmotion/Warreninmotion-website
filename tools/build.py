@@ -21,6 +21,7 @@ PAGES = {
     "training": ("/training/", "/en/training/", "Training", "Training"),
     "over-warren": ("/over-warren/", "/en/about/", "Over Warren", "About Warren"),
     "contact": ("/contact/", "/en/contact/", "Contact", "Contact"),
+    "beeldlijst": ("/beeldlijst/", "/en/", "Beeldlijst", "Shot list"),  # intern, niet in het menu
 }
 MENU = ["over-warren", "route", "training", "doneren", "sponsoren", "tussenstand", "contact"]
 TXT = {
@@ -119,7 +120,8 @@ def page(key, lang, title, desc, body, scripts="", head=""):
 {footer(lang)}
 
 <script src="/data.js"></script>
-{'<script src="/logos.js"></script>' + chr(10) if key == "sponsoren" else ""}<script src="/assets/site.js"></script>
+{'<script src="/logos.js"></script>' + chr(10) if key == "sponsoren" else ""}<script src="/shots.js"></script>
+<script src="/assets/site.js"></script>
 {scripts}</body>
 </html>
 '''
@@ -160,10 +162,13 @@ META = {
                  ("Training · Warren in Motion", "How Warren trains for more than 1,500 km from Lucca to Veenendaal: every week the kilometres cycled, the rides and the heart rate zones, with a short report."), "MAPLIBS", "TCSS"),
     "over-warren": (("Over Warren · Warren in Motion", "Wie Warren van der Ploeg is en waarom hij van Lucca naar Veenendaal fietst voor Voedselbanken Nederland."),
                     ("About Warren · Warren in Motion", "Who Warren van der Ploeg is and why he is cycling from Lucca to Veenendaal for the Dutch Food Banks."), "", ""),
+    "beeldlijst": (("Beeldlijst · Warren in Motion", "Welke foto's en video's er nog nodig zijn voor de site."),
+                   ("Shot list · Warren in Motion", "Which photos and videos the site still needs."), "", "NOINDEX"),
     "contact": (("Contact · Warren in Motion", "Mail Warren over sponsoring, doneren, de eindsprint, pers of meedoen."),
                 ("Contact · Warren in Motion", "Email Warren about sponsoring, donating, the final sprint, press or getting involved."), "", ""),
 }
-G = {"ACTIE": ACTIE, "ACSS": ACSS, "TCSS": TCSS, "MAPLIBS": MAPLIBS, "": ""}
+NOINDEX = '<meta name="robots" content="noindex">\n'
+G = {"NOINDEX": NOINDEX, "ACTIE": ACTIE, "ACSS": ACSS, "TCSS": TCSS, "MAPLIBS": MAPLIBS, "": ""}
 for key, (nl, en, pre, head) in META.items():
     for lang, (title, desc) in (("nl", nl), ("en", en)):
         name = key + ".html"
