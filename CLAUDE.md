@@ -65,6 +65,9 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
 - Sponsoren: blok "Zij rijden al mee" rechts naast de kop (niet als band eronder): slider met één logo tegelijk
   (sponsors uit `data.js`, niet anoniem; logo's uit `logos.js` → `assets/logos/`, op wit; zonder logo de naam als
   woordmerk), laatste dia "Jouw bedrijf hier?". Ook zo in het artifact.
+  Na "Zo werkt het" de groene band "Samen halen we het doel": Warren gaat met elke sponsor in gesprek om samen het
+  maximale uit de samenwerking te halen (citaat, knop "Plan een kennismaking"). Ook in het artifact. Het idee dat elke
+  sponsor drie bedrijven aandraagt met een warme ingang hoort NIET op de site (intern plan voor de targetlijst van 50).
 - Over Warren loopt als verhaal: wie hij is (met foto) → hoe het begon (tekst, met eronder over de breedte drie groene
   vlakken met icoon: Energie, Sport en eten, Groter dan hijzelf; later eventueel met achtergrondfoto) → dat verhaal zit in het
   logo (animatie + vijf stappen) → groene band "Waarom fietst Warren 1.570 km?" met door naar Training en de route.
