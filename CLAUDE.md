@@ -214,9 +214,9 @@ Afleiden van `data.js`:
   tip. Zonder `src` toont de site het vaste vervangbeeld `assets/img/placeholder.webp` (vervaagd, groen) met rechtsonder
   nummer, soort, staand/liggend en wat er nodig is. Met `src` verschijnt het echte beeld.
 - Overzicht voor Warren: `/beeldlijst/` (intern, niet in het menu, noindex).
-- Tijdelijke beelden uit de lanceervideo (`assets/img/beeld/`, `tijdelijk: true` + `alt` in `shots.js`), alle 8 plekken:
-  home-koken (bos, 0:13), home-frontaal (fietskleding, 0:43), home-pedalen (video, 0:16–0:19), warren-weg (video uit de 360-video, frontaal 0:01–0:06), contact-portret (bos, 0:13.8, meer lichaam), doneren-tas (garage, 0:28),
-  doneren-groep (video uit de 360-video `assets/video/training.mp4`-bron, frontaal 0:15–0:20, max. 820 px breed), sponsor-bezoek (schuur met fietsen, 0:31). Uitsnedes boven de ondertiteling van de video; vervangen door
+- Tijdelijke beelden uit de lanceervideo, de 360-video en twee fietsvideo's van Warren (16-10-2026: frontaal en weg vooruit) (`assets/img/beeld/`, `tijdelijk: true` + `alt` in `shots.js`), alle 8 plekken:
+  home-koken (bos, 0:13), home-frontaal (frontaal-video Warren, 0:09), home-pedalen (video weg vooruit, 0:04–0:10), warren-weg (video uit de 360-video, frontaal 0:01–0:06), contact-portret (bos, 0:13.8, meer lichaam), doneren-tas (frontaal-video Warren, 0:21),
+  doneren-groep (video uit de 360-video `assets/video/training.mp4`-bron, frontaal 0:15–0:20, max. 820 px breed), sponsor-bezoek (weg-video, 0:12). Uitsnedes boven de ondertiteling van de video; vervangen door
   eigen opnames zodra die er zijn. Op warreninmotion.nl zelf tonen vervangbeelden zonder beeld geen label (alleen op
   testversies, met `?beelden` en op `/beeldlijst/`).
 - Vraag alleen beelden die nu te maken zijn: het Warren in Motion-shirt en de beplakte volgbus bestaan pas als de

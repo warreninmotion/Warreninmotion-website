@@ -5,10 +5,10 @@
 // Is het beeld er? Zet src (en bij video poster) en het vervangbeeld verdwijnt vanzelf.
 // tijdelijk: true = tijdelijk beeld uit de lanceervideo (assets/img/beeld/), vervangen zodra er een eigen opname is.
 window.WIM_SHOTS = {
-  "home-pedalen": { pagina: "/", soort: "video", ratio: "4/5", src: "/assets/img/beeld/home-pedalen.mp4", poster: "/assets/img/beeld/home-pedalen.jpg", tijdelijk: true, alt: ["Warren op de racefiets", "Warren on his road bike"],
+  "home-pedalen": { pagina: "/", soort: "video", ratio: "4/5", src: "/assets/img/beeld/home-pedalen.mp4", poster: "/assets/img/beeld/home-pedalen.jpg", tijdelijk: true, alt: ["De weg vooruit, gezien vanaf de fiets", "The road ahead, seen from the bike"],
     wat: ["Detail: draaiende pedalen en Warrens schoenen (achtergrond van 'Acht dagen, zeven landen')", "Detail: spinning pedals and Warren's shoes (background for 'Eight days, seven countries')"],
     tip: ["Laag bij de grond, camera stil, Warren fietst door. 5 tot 10 seconden is genoeg.", "Low to the ground, camera still, Warren keeps pedalling. 5 to 10 seconds is enough."] },
-  "home-frontaal": { pagina: "/", soort: "foto", ratio: "4/5", src: "/assets/img/beeld/home-frontaal.webp", tijdelijk: true, alt: ["Warren lachend bij zijn racefiets", "Warren smiling with his road bike"],
+  "home-frontaal": { pagina: "/", soort: "foto", ratio: "4/5", src: "/assets/img/beeld/home-frontaal.webp", tijdelijk: true, alt: ["Warren fietst recht op je af", "Warren riding straight towards you"],
     wat: ["Frontaal: Warren fietst op je af (achtergrond van 'Wie is Warren?')", "Head-on: Warren riding towards you (background for 'Who is Warren?')"],
     tip: ["Staand, op een dijk of polderweg, veel lucht, in je eigen fietskleding. Onderin komt tekst: houd daar rust in beeld.", "Portrait, on a dyke or polder road, lots of sky, in your own cycling kit. Text goes at the bottom: keep that area calm."] },
   "home-koken": { pagina: "/", soort: "foto", ratio: "4/5", src: "/assets/img/beeld/home-koken.webp", tijdelijk: true, alt: ["Warren wandelt door het bos", "Warren walking through the woods"],
@@ -17,13 +17,13 @@ window.WIM_SHOTS = {
   "warren-weg": { pagina: "/over-warren/", soort: "video", ratio: "16/9", src: "/assets/img/beeld/warren-weg.mp4", poster: "/assets/img/beeld/warren-weg.jpg", tijdelijk: true, alt: ["Warren fietst recht op je af", "Warren riding straight towards you"],
     wat: ["Warren fietst bij zonsopkomst van de camera weg", "Warren riding away from the camera at sunrise"],
     tip: ["Van achteren, lange weg, laag zonlicht. Mag ook als foto.", "From behind, a long road, low sun. A photo is fine too."] },
-  "doneren-tas": { pagina: "/doneren/", soort: "foto", ratio: "4/5", src: "/assets/img/beeld/doneren-tas.webp", tijdelijk: true, alt: ["Warren voor zijn garage, naast zijn racefiets", "Warren by his garage, next to his road bike"],
+  "doneren-tas": { pagina: "/doneren/", soort: "foto", ratio: "4/5", src: "/assets/img/beeld/doneren-tas.webp", tijdelijk: true, alt: ["Warren op de racefiets, in fietskleding", "Warren on his road bike, in cycling kit"],
     wat: ["Voedselbank: een tas boodschappen wordt meegegeven", "Food bank: a bag of groceries being handed over"],
     tip: ["Focus op de tas en de handen, geen herkenbare klanten.", "Focus on the bag and the hands, no recognisable clients."] },
   "doneren-groep": { pagina: "/doneren/", soort: "video", ratio: "21/9", src: "/assets/img/beeld/doneren-groep.mp4", poster: "/assets/img/beeld/doneren-groep.jpg", tijdelijk: true, alt: ["Warren fietst recht op je af", "Warren riding straight towards you"],
     wat: ["Groep fietsers samen op de weg", "A group of cyclists riding together"],
     tip: ["Een groepsrit met vrienden of een club: zo ziet de eindsprint er straks uit.", "A group ride with friends or a club: that's what the final sprint will look like."] },
-  "sponsor-bezoek": { pagina: "/sponsoren/", soort: "foto", ratio: "3/2", src: "/assets/img/beeld/sponsor-bezoek.webp", tijdelijk: true, alt: ["Warren in zijn schuur tussen de fietsen", "Warren in his shed among the bikes"],
+  "sponsor-bezoek": { pagina: "/sponsoren/", soort: "foto", ratio: "3/2", src: "/assets/img/beeld/sponsor-bezoek.webp", tijdelijk: true, alt: ["Een lange weg met bomen, gezien vanaf de fiets", "A long tree-lined road, seen from the bike"],
     wat: ["Warren bij een sponsor: samen bij het bedrijf", "Warren with a sponsor: together at their business"],
     tip: ["Bijvoorbeeld bij Chiropractie Bennekom: handdruk of samen voor de deur, logo of naambord in beeld.", "For example at Chiropractie Bennekom: a handshake or together at the door, with their logo or sign in shot."] },
   "contact-portret": { pagina: "/contact/", soort: "foto", ratio: "4/5", src: "/assets/img/beeld/contact-portret.webp", tijdelijk: true, alt: ["Portret van Warren, lachend in het bos", "Portrait of Warren, smiling in the woods"],
