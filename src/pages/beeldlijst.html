@@ -22,7 +22,7 @@
   document.getElementById("shots").innerHTML = Object.entries(S).map(([id, s], i) => {
     const [w, h] = s.ratio.split("/").map(Number);
     return `<article class="shot"><figure class="ph" data-shot="${id}"></figure>
-      <span class="st${s.src ? " ok" : ""}">${s.src ? "Binnen" : "Nog nodig"} · #${i + 1} · ${s.soort === "video" ? "video" : "foto"}, ${h > w ? "staand" : "liggend"} ${w}:${h}</span>
+      <span class="st${s.src && !s.tijdelijk ? " ok" : ""}">${s.tijdelijk ? "Tijdelijk uit de lanceervideo, eigen opname welkom" : s.src ? "Binnen" : "Nog nodig"} · #${i + 1} · ${s.soort === "video" ? "video" : "foto"}, ${h > w ? "staand" : "liggend"} ${w}:${h}</span>
       <h2>${s.wat[0]}</h2><p>${s.tip[0]}</p><p><a class="more" href="${s.pagina}">Op ${NAAM[s.pagina] || s.pagina}</a></p></article>`;
   }).join("");
   window.WIM_fillShots(document.getElementById("shots"));

@@ -213,6 +213,11 @@ Afleiden van `data.js`:
   tip. Zonder `src` toont de site het vaste vervangbeeld `assets/img/placeholder.webp` (vervaagd, groen) met rechtsonder
   nummer, soort, staand/liggend en wat er nodig is. Met `src` verschijnt het echte beeld.
 - Overzicht voor Warren: `/beeldlijst/` (intern, niet in het menu, noindex).
+- Tijdelijke beelden uit de lanceervideo (`assets/img/beeld/`, `tijdelijk: true` + `alt` in `shots.js`): home-koken
+  (bos, 0:13), home-frontaal (in fietskleding, 0:43), home-pedalen (video, 0:16–0:19), warren-thuis (garage, 0:00),
+  warren-weg (video, 0:44), contact-portret (bos, 0:14). Uitsnedes boven de ondertiteling van de video; vervangen door
+  eigen opnames zodra die er zijn. Op warreninmotion.nl zelf tonen vervangbeelden zonder beeld geen label (alleen op
+  testversies, met `?beelden` en op `/beeldlijst/`).
 - Vraag alleen beelden die nu te maken zijn: het Warren in Motion-shirt en de beplakte volgbus bestaan pas als de
   sponsors er zijn en betaald hebben. Dus geen foto's "in het shirt" of "met de bus".
 - De route: foto van de Piazza dell'Anfiteatro (startplek) bovenaan (`assets/img/lucca-anfiteatro.webp`, aangeleverd door

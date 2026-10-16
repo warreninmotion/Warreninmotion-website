@@ -193,15 +193,18 @@ window.WIM_fillShots = function (root) {
     f.style.aspectRatio = `${w} / ${h}`;
     const wat = t(s.wat[0], s.wat[1]);
     if (s.src) {
+      const alt = s.alt ? t(s.alt[0], s.alt[1]) : wat;
       f.classList.add("real");
+      const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
       f.innerHTML = s.soort === "video"
-        ? `<video src="${s.src}"${s.poster ? ` poster="${s.poster}"` : ""} muted loop playsinline autoplay aria-label="${wat}"></video>`
-        : `<img src="${s.src}" alt="${wat}" loading="lazy">`;
+        ? `<video src="${s.src}"${s.poster ? ` poster="${s.poster}"` : ""} muted loop playsinline${still ? "" : " autoplay"} preload="metadata" aria-label="${alt}"></video>`
+        : `<img src="${s.src}" alt="${alt}" loading="lazy">`;
       return;
     }
-    f.innerHTML = `<img src="/assets/img/placeholder.webp" alt="" loading="lazy">
-      <figcaption class="ph-tag"><span class="ph-n">#${keys.indexOf(f.dataset.shot) + 1}</span>
-      <span><b>${s.soort === "video" ? t("Video", "Video") : t("Foto", "Photo")} · ${stand ? t("staand", "portrait") : t("liggend", "landscape")} ${w}:${h}</b>${wat}</span></figcaption>`;
+    // op warreninmotion.nl zelf geen label (alleen het vervangbeeld); op testversies en /beeldlijst/ wel
+    const tag = !/(^|\.)warreninmotion\.nl$/.test(location.hostname) || /beelden/.test(location.search) || f.closest("#shots");
+    f.innerHTML = `<img src="/assets/img/placeholder.webp" alt="" loading="lazy">` + (tag ? `<figcaption class="ph-tag"><span class="ph-n">#${keys.indexOf(f.dataset.shot) + 1}</span>
+      <span><b>${s.soort === "video" ? t("Video", "Video") : t("Foto", "Photo")} · ${stand ? t("staand", "portrait") : t("liggend", "landscape")} ${w}:${h}</b>${wat}</span></figcaption>` : "");
   });
 };
 window.WIM_fillShots();
