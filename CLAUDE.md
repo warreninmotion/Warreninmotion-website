@@ -204,6 +204,8 @@ Afleiden van `data.js`:
   (`assets/img/bergweg.webp`, rechtenvrij, aangeleverd door Warren). Het is géén plek op de route: nooit als zodanig benoemen.
 - Training: een training kan uit blokken bestaan (`blokken` in een rit, bv. 2× 50 km op één dag); de site telt dat als
   één training en laat de blokken met een pauze ertussen zien, met de uitleg dat etappes in mei ook in blokken gaan.
+- Niet benadrukken dat geld "niet via Warren" of "rechtstreeks" gaat: dat wekt juist wantrouwen. Gewoon: "gaat naar
+  Voedselbanken Nederland".
 - Geen grote nullen tonen ("0 aangemeld", "€0"): bij een lege stand een uitnodigende zin.
 
 ## Ontwerpregels (tegen het "AI-gevoel")
