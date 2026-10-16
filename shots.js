@@ -6,7 +6,7 @@
 window.WIM_SHOTS = {
   "home-pedalen": { pagina: "/", soort: "video", ratio: "4/5", src: "",
     wat: ["Detail: draaiende pedalen en Warrens schoenen", "Detail: spinning pedals and Warren's shoes"],
-    tip: ["Laag bij de grond, camera stil, Warren fietst rustig door. 5 tot 10 seconden is genoeg.", "Low to the ground, camera still, Warren keeps pedalling. 5 to 10 seconds is enough."] },
+    tip: ["Laag bij de grond, camera stil, Warren fietst door. 5 tot 10 seconden is genoeg.", "Low to the ground, camera still, Warren keeps pedalling. 5 to 10 seconds is enough."] },
   "home-frontaal": { pagina: "/", soort: "foto", ratio: "3/2", src: "",
     wat: ["Frontaal: Warren fietst op je af", "Head-on: Warren riding towards you"],
     tip: ["Op een dijk of polderweg, veel lucht, in je eigen fietskleding.", "On a dyke or polder road, lots of sky, in your own cycling kit."] },
@@ -17,7 +17,7 @@ window.WIM_SHOTS = {
     wat: ["Voedselbank van binnen: vrijwilligers vullen kratten", "Inside a food bank: volunteers filling crates"],
     tip: ["Vraag toestemming; laat geen klanten herkenbaar in beeld. Handen en kratten werken ook.", "Ask permission; no recognisable clients in shot. Hands and crates work too."] },
   "warren-thuis": { pagina: "/over-warren/", soort: "foto", ratio: "4/5", src: "",
-    wat: ["Warren ontspannen thuis, kijkt in de camera", "Warren relaxed at home, looking into the camera"],
+    wat: ["Warren thuis, kijkt recht in de camera", "Warren at home, looking straight into the camera"],
     tip: ["Daglicht, gewone kleding, een lach. Dit is het 'hoe het begon'-beeld.", "Daylight, everyday clothes, a smile. This is the 'how it started' picture."] },
   "warren-weg": { pagina: "/over-warren/", soort: "video", ratio: "16/9", src: "",
     wat: ["Warren fietst bij zonsopkomst van de camera weg", "Warren riding away from the camera at sunrise"],
@@ -33,5 +33,5 @@ window.WIM_SHOTS = {
     tip: ["Bijvoorbeeld bij Chiropractie Bennekom: handdruk of samen voor de deur, logo of naambord in beeld.", "For example at Chiropractie Bennekom: a handshake or together at the door, with their logo or sign in shot."] },
   "contact-portret": { pagina: "/contact/", soort: "foto", ratio: "4/5", src: "",
     wat: ["Portret: Warren lachend", "Portrait: Warren smiling"],
-    tip: ["Halflang, rustige achtergrond, gewone kleding of fietskleding, recht in de camera: 'mail me gerust'.", "Waist up, calm background, everyday or cycling clothes, straight into the camera: 'feel free to email me'."] },
+    tip: ["Halflang, effen achtergrond, gewone kleding of fietskleding, recht in de camera: 'mail me gerust'.", "Waist up, calm background, everyday or cycling clothes, straight into the camera: 'feel free to email me'."] },
 };

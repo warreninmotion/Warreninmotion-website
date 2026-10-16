@@ -148,7 +148,7 @@ Afleiden van `data.js`:
      totalen (bv. km → "dat is van Veenendaal naar Parijs"). Afstanden en feiten kloppen, niet overdrijven.
   3. Weekkalender: alle weken van de lancering tot de tocht (week 19, 2027); de laatste week met data staat open,
      eerdere weken terug te kijken. Toekomstige weken tonen het geplande schema (`plan` in `training.js`: fasen met
-     richtlijn-km en focus, rustweken ±60%); aanklikken toont het schema-overzicht. Tochtweek in brons.
+     richtlijn-km en focus, lichtere weken ±60%); aanklikken toont het schema-overzicht. Tochtweek in brons.
      `#week-41` opent een week. Het schema is een CONCEPT van 15-10-2026, nog door Warren te bevestigen.
   4. Per week het weekverhaal (staande 9:16-story: weekcijfers, foto's/video's, zones, ritten, citaat, voortgang)
      en het verslag met de ritten.
@@ -206,6 +206,10 @@ Afleiden van `data.js`:
   één training en laat de blokken met een pauze ertussen zien, met de uitleg dat etappes in mei ook in blokken gaan.
 - Niet benadrukken dat geld "niet via Warren" of "rechtstreeks" gaat: dat wekt juist wantrouwen. Gewoon: "gaat naar
   Voedselbanken Nederland".
+- Nergens ontspanning suggereren (geen "bijkomen", "uitrusten", "rustig aan", "genieten", "ontspannen", geen "nachten
+  slapen"): de tocht is een zware fysieke uitputtingsslag en dat verdient donaties. Stops zijn om te eten en voor
+  sanitaire stops. Slaap heet "noodzakelijk slaapblok", altijd vanuit veiligheid (verkeer, scherpte in de afdalingen,
+  reactievermogen bij onverwachte situaties). In het schema heet een rustweek "lichtere week"; Z1 heet "opwarmen".
 - Geen grote nullen tonen ("0 aangemeld", "€0"): bij een lege stand een uitnodigende zin.
 
 ## Ontwerpregels (tegen het "AI-gevoel")

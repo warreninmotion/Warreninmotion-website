@@ -16,8 +16,8 @@
   const hm = m => `${Math.floor(m / 60)}:${String(Math.round(m % 60)).padStart(2, "0")}`;
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const SOORT = { lang: t("Lange rit", "Long ride"), duur: t("Duurrit", "Endurance ride"), tempo: t("Temporit", "Tempo ride"), opbouw: t("Opbouwrit", "Progressive ride"), herstel: t("Herstelrit", "Recovery ride") };
-  const ZN = [t("Herstel", "Recovery"), t("Duur", "Endurance"), "Tempo", t("Drempel", "Threshold"), t("Maximaal", "Maximum")];
+  const SOORT = { lang: t("Lange rit", "Long ride"), duur: t("Duurrit", "Endurance ride"), tempo: t("Temporit", "Tempo ride"), opbouw: t("Opbouwrit", "Progressive ride"), herstel: t("Lichte rit", "Light ride") };
+  const ZN = [t("Opwarmen", "Warm-up"), t("Duur", "Endurance"), "Tempo", t("Drempel", "Threshold"), t("Maximaal", "Maximum")];
   const ACT = {
     hiit: o => [`${o.aantal}× HIIT`, `${hm(o.min)} ${t("uur", "h")}`],
     run: o => [t(`${o.aantal}× hardlopen`, `${o.aantal}× running`), `${n1(o.km)} km`],
@@ -110,7 +110,7 @@
   const isoMon = (y, w) => { const d = new Date(Date.UTC(y, 0, 4)); d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7) + (w - 1) * 7); return d; };
   const isoWeek = d => { const x = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate())); x.setUTCDate(x.getUTCDate() + 3 - ((x.getUTCDay() + 6) % 7)); const y = x.getUTCFullYear(); return [y, 1 + Math.round((x - isoMon(y, 1)) / 6048e5)]; };
   const mon = d => d.toLocaleDateString(WIM_LOC, { month: "short", timeZone: "UTC" }).replace(".", "");
-  // gepland schema per week (fase, richtlijn km, rustweek)
+  // gepland schema per week (fase, richtlijn km, lichtere week)
   const P = T.plan || { fasen: [], rust: [] };
   const cmp = (a, b) => a[0] - b[0] || a[1] - b[1];
   const planFor = (y, wk) => {
@@ -153,7 +153,7 @@
     let body, cls = "cal";
     if (c.data) { const km = wKm(c.data); body = `<span class="cal-km">${km ? n1(Math.round(km)) : "–"}<small>${km ? " km" : ""}</small></span><span class="cal-s">${t("Gefietst", "Cycled")}</span>`; }
     else if (c.tour) { cls += " tour"; body = `<span class="cal-km">${n1(ROUTE_KM)}<small> km</small></span><span class="cal-s">${t("De tocht", "The ride")}</span>`; }
-    else if (c.plan) { cls += " plan"; body = `<span class="cal-km">${kmTxt(c.plan.km)}</span><span class="cal-s">${c.plan.rust ? t("Rustweek", "Rest week") : t(c.plan.f.naam[0], c.plan.f.naam[1])}</span>`; }
+    else if (c.plan) { cls += " plan"; body = `<span class="cal-km">${kmTxt(c.plan.km)}</span><span class="cal-s">${c.plan.rust ? t("Lichtere week", "Lighter week") : t(c.plan.f.naam[0], c.plan.f.naam[1])}</span>`; }
     else { cls += " plan"; body = `<span class="cal-s">${t("Nog te gaan", "To come")}</span>`; }
     if (c.ev.length) { cls += " has-ev"; body += `<span class="cal-ev">${c.ev.map(e => tt(e.titel)).join(" · ")}</span>`; }
     if (isNow(c) && !c.data) cls += " now";
@@ -178,7 +178,7 @@
     } else if (p) {
       $("wPlanBody").innerHTML = `<div class="wstats"><span><b>${kmTxt(p.km)}</b>${p.km ? " " + t("op de fiets", "on the bike") : ""}</span><span>${t("Fase", "Phase")}: ${t(p.f.naam[0], p.f.naam[1])}</span></div>
         ${c.ev.length ? `<ul class="ev-mini">${c.ev.map(evMini).join("")}</ul>` : ""}
-        <div class="prose"><p>${t(p.f.focus[0], p.f.focus[1])}</p>${p.rust ? `<p>${t("Dit is een rustweek: minder kilometers, zodat het lijf de training kan verwerken.", "This is a rest week: fewer kilometres, so the body can absorb the training.")}</p>` : ""}
+        <div class="prose"><p>${t(p.f.focus[0], p.f.focus[1])}</p>${p.rust ? `<p>${t("Dit is een lichtere week: minder kilometers, zodat het lichaam de zware weken verwerkt en sterker wordt.", "This is a lighter week: fewer kilometres, so the body absorbs the hard weeks and gets stronger.")}</p>` : ""}
         <p class="small muted">${t("Het schema is een richtlijn. Na afloop van de week zie je hier wat Warren echt heeft gedaan.", "The plan is a guideline. Once the week is over, you'll see here what Warren actually did.")}</p></div>`;
     } else $("wPlanBody").innerHTML = "";
   }
@@ -318,8 +318,8 @@
         </button></li>`).join("") : "";
     $("wRides").hidden = !w.ritten.length;
     $("wBlocks").hidden = !w.ritten.some(r => r.blokken);
-    $("wBlocks").innerHTML = t("<b>Waarom in blokken?</b> Een etappe van rond de 200 km rijdt Warren straks ook in blokken, met korte pauzes om te eten en bij te komen. Zo train je het lijf op dag na dag ver fietsen.",
-      "<b>Why in blocks?</b> In May, Warren will ride each stage of around 200 km in blocks too, with short breaks to eat and recover. That trains the body for long distances day after day.");
+    $("wBlocks").innerHTML = t("<b>Waarom in blokken?</b> Een etappe van rond de 200 km rijdt Warren straks ook in blokken. Hij stopt alleen om te eten en voor sanitaire stops. Zo train je het lichaam op dag na dag ver fietsen.",
+      "<b>Why in blocks?</b> In May, Warren will ride each stage of around 200 km in blocks too. He only stops to eat and for toilet breaks. That trains the body for long distances day after day.");
     $("wRides").querySelectorAll("button").forEach(b => b.addEventListener("click", () => { const li = b.parentElement, o = !li.classList.contains("open"); li.classList.toggle("open", o); b.setAttribute("aria-expanded", String(o)); }));
     buildStory(i);
   }
