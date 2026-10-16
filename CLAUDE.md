@@ -193,6 +193,8 @@ Afleiden van `data.js`:
   tip. Zonder `src` toont de site het vaste vervangbeeld `assets/img/placeholder.webp` (vervaagd, groen) met rechtsonder
   nummer, soort, staand/liggend en wat er nodig is. Met `src` verschijnt het echte beeld.
 - Overzicht voor Warren: `/beeldlijst/` (intern, niet in het menu, noindex).
+- Vraag alleen beelden die nu te maken zijn: het Warren in Motion-shirt en de beplakte volgbus bestaan pas als de
+  sponsors er zijn en betaald hebben. Dus geen foto's "in het shirt" of "met de bus".
 - De route: foto van de Piazza dell'Anfiteatro (startplek) bovenaan (`assets/img/lucca-anfiteatro.webp`, aangeleverd door
   Warren; 900 px breed, bij voorkeur vervangen door een grotere of eigen foto).
 - Training: een training kan uit blokken bestaan (`blokken` in een rit, bv. 2× 50 km op één dag); de site telt dat als

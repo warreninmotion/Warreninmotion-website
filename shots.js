@@ -1,6 +1,7 @@
 // Beeldlijst: alle plekken waar nog een echte foto of video van Warren moet komen. Tot die tijd staat er het vaste
 // vervangbeeld (assets/img/placeholder.webp) met rechtsonder een label: welk beeld, staand of liggend en welke verhouding.
 // Gebruik in een pagina: <figure class="ph" data-shot="home-pedalen"></figure>. Overzicht voor Warren: /beeldlijst/.
+// Alleen beelden die nu te maken zijn: het shirt en de beplakte volgbus bestaan pas als de sponsors er zijn.
 // Is het beeld er? Zet src (en bij video poster) en het vervangbeeld verdwijnt vanzelf.
 window.WIM_SHOTS = {
   "home-pedalen": { pagina: "/", soort: "video", ratio: "4/5", src: "",
@@ -8,7 +9,7 @@ window.WIM_SHOTS = {
     tip: ["Laag bij de grond, camera stil, Warren fietst rustig door. 5 tot 10 seconden is genoeg.", "Low to the ground, camera still, Warren keeps pedalling. 5 to 10 seconds is enough."] },
   "home-frontaal": { pagina: "/", soort: "foto", ratio: "3/2", src: "",
     wat: ["Frontaal: Warren fietst op je af", "Head-on: Warren riding towards you"],
-    tip: ["Op een dijk of polderweg, veel lucht, Warren in het shirt van Warren in Motion.", "On a dyke or polder road, lots of sky, Warren in the Warren in Motion jersey."] },
+    tip: ["Op een dijk of polderweg, veel lucht, in je eigen fietskleding.", "On a dyke or polder road, lots of sky, in your own cycling kit."] },
   "home-koken": { pagina: "/", soort: "foto", ratio: "4/5", src: "",
     wat: ["Warren kookt een gezonde maaltijd", "Warren cooking a healthy meal"],
     tip: ["Handen, pan en verse groente; van bovenaf of schuin. Gewone keuken, geen studio.", "Hands, pan and fresh veg; from above or at an angle. An ordinary kitchen, no studio."] },
@@ -27,10 +28,10 @@ window.WIM_SHOTS = {
   "doneren-groep": { pagina: "/doneren/", soort: "foto", ratio: "21/9", src: "",
     wat: ["Groep fietsers samen op de weg", "A group of cyclists riding together"],
     tip: ["Een groepsrit met vrienden of een club: zo ziet de eindsprint er straks uit.", "A group ride with friends or a club: that's what the final sprint will look like."] },
-  "sponsor-shirt": { pagina: "/sponsoren/", soort: "foto", ratio: "3/2", src: "",
-    wat: ["Close-up: logo op het shirt tijdens het fietsen", "Close-up: logo on the jersey while riding"],
-    tip: ["Borst of rug van Warren, scherp op het logo, beweging op de achtergrond.", "Warren's chest or back, sharp on the logo, motion in the background."] },
+  "sponsor-bezoek": { pagina: "/sponsoren/", soort: "foto", ratio: "3/2", src: "",
+    wat: ["Warren bij een sponsor: samen bij het bedrijf", "Warren with a sponsor: together at their business"],
+    tip: ["Bijvoorbeeld bij Chiropractie Bennekom: handdruk of samen voor de deur, logo of naambord in beeld.", "For example at Chiropractie Bennekom: a handshake or together at the door, with their logo or sign in shot."] },
   "contact-portret": { pagina: "/contact/", soort: "foto", ratio: "4/5", src: "",
-    wat: ["Portret: Warren lachend in het shirt", "Portrait: Warren smiling in the jersey"],
-    tip: ["Halflang, rustige achtergrond, recht in de camera: 'mail me gerust'.", "Waist up, calm background, straight into the camera: 'feel free to email me'."] },
+    wat: ["Portret: Warren lachend", "Portrait: Warren smiling"],
+    tip: ["Halflang, rustige achtergrond, gewone kleding of fietskleding, recht in de camera: 'mail me gerust'.", "Waist up, calm background, everyday or cycling clothes, straight into the camera: 'feel free to email me'."] },
 };
