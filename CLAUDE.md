@@ -209,3 +209,6 @@ Afleiden van `data.js`:
 - Niet alles in beige kaartjes: liever volle groene banden, echte foto's/video en witruimte. Kaartjes alleen waar ze iets
   afbakenen (rekenhulp, weekpaneel).
 - Echte stem: citaten en teksten van Warren zelf in plaats van uitleg over Warren.
+- Strak uitlijnen: tekst naast een beeld of blok altijd verticaal centreren (align-items:center); staande beelden
+  naast korte tekst klein houden (±300 px breed). Is één kolom veel langer (rekenhulp naast het shirt), dan blijft de
+  kortere kolom met position:sticky in beeld in plaats van een leeg vlak.

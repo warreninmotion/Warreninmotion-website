@@ -40,6 +40,8 @@
 <style>
 .sp-grid{display:grid;gap:32px;grid-template-columns:minmax(0,1fr)}
 @media (min-width:900px){.sp-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}}
+/* rekenhulp blijft in beeld terwijl je door het shirt scrolt: geen leeg vlak, en je ziet je totaal meteen */
+@media (min-width:900px){#rekenhulp{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}}
 .how{counter-reset:how}
 .how .card{position:relative;padding-top:52px}
 .how .card::before{counter-increment:how;content:counter(how);position:absolute;top:16px;left:18px;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--groen);color:var(--groen);display:grid;place-items:center;font-size:14px;font-weight:600}
