@@ -169,7 +169,7 @@ Afleiden van `data.js`:
   vooral wat niet gebruikt wordt. Daarvoor: GA4 Data API met een serviceaccount (sleutel als geheime instelling van
   de omgeving), daarna een geplande taak op vrijdag.
 - Privacyverklaring op `/privacy/` en `/en/privacy/` (link in de voet en in de cookiemelding): cookies `_ga` en
-  `_ga_PW3QDXVHXW` (2 jaar), gegevensbewaring 14 maanden, Google-signalen uit. Kies je later "nee", dan wist de site
+  `_ga_PW3QDXVHXW` (2 jaar), gegevensbewaring 14 maanden, Google-signalen uit, gedetailleerde locatie- en apparaatgegevens aan (plaats, telefoon/computer). Kies je later "nee", dan wist de site
   de _ga-cookies. Verander je iets aan GA-instellingen, werk de verklaring bij (beide talen, datum).
 
 ## Home
