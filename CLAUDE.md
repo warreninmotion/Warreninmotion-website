@@ -65,7 +65,8 @@ Statische website voor de fietstocht van Warren van der Ploeg: Lucca (IT) → Ve
 - Sponsoren: blok "Zij rijden al mee" rechts naast de kop (niet als band eronder): slider met één logo tegelijk
   (sponsors uit `data.js`, niet anoniem; logo's uit `logos.js` → `assets/logos/`, op wit; zonder logo de naam als
   woordmerk), laatste dia "Jouw bedrijf hier?". Ook zo in het artifact.
-- Over Warren loopt als verhaal: wie hij is (met foto) → hoe het begon (drie drijfveren) → dat verhaal zit in het
+- Over Warren loopt als verhaal: wie hij is (met foto) → hoe het begon (tekst, met eronder over de breedte drie groene
+  vlakken met icoon: Energie, Sport en eten, Groter dan hijzelf; later eventueel met achtergrondfoto) → dat verhaal zit in het
   logo (animatie + vijf stappen) → groene band "Waarom fietst Warren 1.570 km?" met door naar Training en de route.
 - Evenementen in `events.js` (`WIM_EVENTS`): op de Training-pagina in de weekkalender en als blok "Evenementen";
   samenwerkingen met bedrijven krijgen `partner` (zichtbaarheid). Omloop van Zandvoort 21 maart 2027 is onder voorbehoud.
@@ -213,10 +214,9 @@ Afleiden van `data.js`:
   tip. Zonder `src` toont de site het vaste vervangbeeld `assets/img/placeholder.webp` (vervaagd, groen) met rechtsonder
   nummer, soort, staand/liggend en wat er nodig is. Met `src` verschijnt het echte beeld.
 - Overzicht voor Warren: `/beeldlijst/` (intern, niet in het menu, noindex).
-- Tijdelijke beelden uit de lanceervideo (`assets/img/beeld/`, `tijdelijk: true` + `alt` in `shots.js`), alle 9 plekken:
-  home-koken (bos, 0:13), home-frontaal (fietskleding, 0:43), home-pedalen (video, 0:16–0:19), warren-thuis (garage,
-  0:00), warren-weg (frontaal 0:43, foto), contact-portret (bos, 0:13.8, meer lichaam), doneren-tas (garage, 0:28),
-  doneren-groep (video helm, 0:16–0:19, max. 720 px breed), sponsor-bezoek (schuur met fietsen, 0:31). Uitsnedes boven de ondertiteling van de video; vervangen door
+- Tijdelijke beelden uit de lanceervideo (`assets/img/beeld/`, `tijdelijk: true` + `alt` in `shots.js`), alle 8 plekken:
+  home-koken (bos, 0:13), home-frontaal (fietskleding, 0:43), home-pedalen (video, 0:16–0:19), warren-weg (frontaal 0:43, foto), contact-portret (bos, 0:13.8, meer lichaam), doneren-tas (garage, 0:28),
+  doneren-groep (video uit de 360-video `assets/video/training.mp4`-bron, frontaal 0:15–0:20, max. 820 px breed), sponsor-bezoek (schuur met fietsen, 0:31). Uitsnedes boven de ondertiteling van de video; vervangen door
   eigen opnames zodra die er zijn. Op warreninmotion.nl zelf tonen vervangbeelden zonder beeld geen label (alleen op
   testversies, met `?beelden` en op `/beeldlijst/`).
 - Vraag alleen beelden die nu te maken zijn: het Warren in Motion-shirt en de beplakte volgbus bestaan pas als de
