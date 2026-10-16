@@ -26,15 +26,16 @@ PAGES = {
     "over-warren": ("/over-warren/", "/en/about/", "Over Warren", "About Warren"),
     "contact": ("/contact/", "/en/contact/", "Contact", "Contact"),
     "beeldlijst": ("/beeldlijst/", "/en/", "Beeldlijst", "Shot list"),  # intern, niet in het menu
+    "privacy": ("/privacy/", "/en/privacy/", "Privacy", "Privacy"),  # alleen in de voet
 }
 MENU = ["over-warren", "route", "training", "doneren", "sponsoren", "tussenstand", "contact"]
 TXT = {
     "nl": {"skip": "Naar de inhoud", "main": "Hoofdmenu", "pages": "Pagina's", "switch": ("en", "EN", "Read this page in English"),
            "foot": "Lucca → Veenendaal · 15–22 mei 2027<br>Ten bate van Voedselbanken Nederland",
-           "stichting": "Stichting Warren in Motion (in oprichting)", "donate": "Doneer aan Voedselbanken Nederland"},
+           "stichting": "Stichting Warren in Motion (in oprichting)", "donate": "Doneer aan Voedselbanken Nederland", "privacy": "Privacy en cookies"},
     "en": {"skip": "Skip to content", "main": "Main menu", "pages": "Pages", "switch": ("nl", "NL", "Lees deze pagina in het Nederlands"),
            "foot": "Lucca → Veenendaal · 15–22 May 2027<br>For the Dutch Food Banks (Voedselbanken Nederland)",
-           "stichting": "Warren in Motion Foundation (in formation)", "donate": "Donate to the Dutch Food Banks"},
+           "stichting": "Warren in Motion Foundation (in formation)", "donate": "Donate to the Dutch Food Banks", "privacy": "Privacy and cookies"},
 }
 # vlaggetjes voor de taalknop (inline SVG, werkt ook op Windows waar emoji-vlaggen ontbreken)
 FLAG = {
@@ -90,6 +91,7 @@ def footer(lang):
       <ul>
         <li><a href="mailto:{MAIL}">{MAIL}</a></li>
         <li><a href="{DONATE}" target="_blank" rel="noopener">{T["donate"]}</a></li>
+        <li><a href="{P("privacy", lang)}">{T["privacy"]}</a></li>
       </ul>
     </div>
   </div>
@@ -168,6 +170,8 @@ META = {
                     ("About Warren · Warren in Motion", "Who Warren van der Ploeg is and why he is cycling from Lucca to Veenendaal for the Dutch Food Banks."), "", ""),
     "beeldlijst": (("Beeldlijst · Warren in Motion", "Welke foto's en video's er nog nodig zijn voor de site."),
                    ("Shot list · Warren in Motion", "Which photos and videos the site still needs."), "", "NOINDEX"),
+    "privacy": (("Privacy en cookies · Warren in Motion", "Welke cookies en statistiek warreninmotion.nl gebruikt, waarvoor en hoe lang."),
+                ("Privacy and cookies · Warren in Motion", "Which cookies and statistics warreninmotion.nl uses, what for and for how long."), "", ""),
     "contact": (("Contact · Warren in Motion", "Mail Warren over sponsoring, doneren, de eindsprint, pers of meedoen."),
                 ("Contact · Warren in Motion", "Email Warren about sponsoring, donating, the final sprint, press or getting involved."), "", ""),
 }

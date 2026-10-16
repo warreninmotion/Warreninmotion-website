@@ -160,14 +160,17 @@ Afleiden van `data.js`:
   routes, kaarten, GPS of plaatsnamen, geen ruwe hartslagwaarden; ook niet herkenbaar in foto's of video's.
 
 ## Statistiek (Google Analytics 4, gratis)
-- `WIM_SITE.gaId` in `assets/site.js` = GA4-meet-ID ("G-..."). Leeg = geen statistiek en geen cookiemelding.
+- `WIM_SITE.gaId` in `assets/site.js` = GA4-meet-ID: G-PW3QDXVHXW (property warreninmotion.nl, aangemaakt 16-10-2026).
+  Leeg = geen statistiek en geen cookiemelding. Het artifact krijgt nooit GA (`build_artifact.py` maakt gaId leeg).
 - Cookiemelding "Koekje erbij?" (onderaan, groen/inkt): GA laadt pas na "Ja, koekje erbij"; keuze in localStorage
   `wim-cookies`; in de voet "Cookie-instellingen" om te wijzigen. Elke klik op link/knop = GA-gebeurtenis "klik"
   (knop, pagina).
 - Warren wil elke vrijdag een rapport: bezoekers, gemiddelde bezoektijd, populairste pagina's, gebruikte knoppen en
   vooral wat niet gebruikt wordt. Daarvoor: GA4 Data API met een serviceaccount (sleutel als geheime instelling van
   de omgeving), daarna een geplande taak op vrijdag.
-- Voor het aanzetten: korte privacyverklaring op de site (welke cookies, waarvoor, hoe lang).
+- Privacyverklaring op `/privacy/` en `/en/privacy/` (link in de voet en in de cookiemelding): cookies `_ga` en
+  `_ga_PW3QDXVHXW` (2 jaar), gegevensbewaring 14 maanden, Google-signalen uit. Kies je later "nee", dan wist de site
+  de _ga-cookies. Verander je iets aan GA-instellingen, werk de verklaring bij (beide talen, datum).
 
 ## Home
 - De lanceringsvideo (`assets/video/lancering.mp4`, 7,6 MB) speelt vanzelf zonder geluid zodra hij in beeld is, in een lus;

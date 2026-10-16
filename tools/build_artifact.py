@@ -3,7 +3,7 @@ Gebruik (vanuit de repo-root): python3 tools/build_artifact.py <uitvoermap>
 Daarna publiceren met de Artifact-tool: file_path <uitvoermap>/index.html, root <uitvoermap>, files = alle
 bestanden uit de map (zie de lijst die dit script print), url https://claude.ai/artifact/WNZQq2xvyEwfRpz45o7yDT.
 Bron: src/artifact/index.html; scripts, stijl, data en foto's komen uit de site zelf (paden relatief gemaakt)."""
-import sys, pathlib, shutil
+import sys, pathlib, shutil, re
 
 OUT = pathlib.Path(sys.argv[1])
 TEXT = ["data.js", "logos.js", "assets/site.css", "assets/actie.css", "assets/site.js",
@@ -16,7 +16,10 @@ if OUT.exists():
 shutil.copy("src/artifact/index.html", OUT / "index.html")
 for f in TEXT:
     # het artifact staat niet op de domeinroot: absolute /assets/-paden worden relatief
-    (OUT / f).write_text(pathlib.Path(f).read_text().replace('"/assets/', '"assets/'))
+    txt = pathlib.Path(f).read_text().replace('"/assets/', '"assets/')
+    if f == "assets/site.js":  # geen Google Analytics en geen cookiemelding in het artifact
+        txt = re.sub(r'gaId: "G-[A-Z0-9]+"', 'gaId: ""', txt)
+    (OUT / f).write_text(txt)
 for n in IMG:
     shutil.copy(f"assets/img/{n}.webp", OUT / f"assets/img/{n}.webp")
 (OUT / "assets/logos").mkdir()

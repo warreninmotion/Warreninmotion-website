@@ -8,7 +8,7 @@ window.WIM_MONO = `<path fill="none" stroke-width="17.67" stroke-linecap="round"
 window.WIM_LANG = (document.documentElement.lang || "nl").slice(0, 2) === "en" ? "en" : "nl";
 window.t = (nl, en) => window.WIM_LANG === "en" ? en : nl;
 window.WIM_LOC = window.WIM_LANG === "en" ? "en-GB" : "nl-NL";
-window.WIM_PATHS = { "/": "/en/", "/sponsoren/": "/en/sponsor/", "/doneren/": "/en/donate/", "/tussenstand/": "/en/progress/", "/route/": "/en/route/", "/training/": "/en/training/", "/over-warren/": "/en/about/", "/contact/": "/en/contact/" };
+window.WIM_PATHS = { "/": "/en/", "/sponsoren/": "/en/sponsor/", "/doneren/": "/en/donate/", "/tussenstand/": "/en/progress/", "/route/": "/en/route/", "/training/": "/en/training/", "/over-warren/": "/en/about/", "/contact/": "/en/contact/", "/privacy/": "/en/privacy/" };
 window.L = path => { if (window.WIM_LANG !== "en") return path; const [p, h] = path.split("#"); return (window.WIM_PATHS[p] || p) + (h ? "#" + h : ""); };
 // Datum uit data.js ("14 oktober 2026") in de huidige taal
 window.WIM_DATE = s => {
@@ -22,7 +22,7 @@ window.WIM_SITE = {
   mail: "warreninmotion@outlook.com",
   donateUrl: "https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion",
   liveUrl: "",
-  gaId: "", // Google Analytics 4 meet-ID ("G-..."); leeg = geen statistiek en geen cookiemelding
+  gaId: "G-PW3QDXVHXW", // Google Analytics 4 meet-ID ("G-..."); leeg = geen statistiek en geen cookiemelding
   routeKm: 1570, // = Math.round(WIM_ROUTE.km) uit assets/route-data.js
   sprintMax: 50,
   goals: [{ eur: 7500, label: t("Doel 1", "Goal 1") }, { eur: 15000, label: t("Doel 2", "Goal 2") }, { eur: 30000, label: t("Hoofddoel", "Main goal") }],
@@ -109,6 +109,14 @@ window.WIM_track = (name, props) => {
     window.gtag("config", id, { anonymize_ip: true });
     const sc = document.createElement("script"); sc.async = true; sc.src = "https://www.googletagmanager.com/gtag/js?id=" + id; document.head.append(sc);
   };
+  // nee na eerder ja: Analytics stilzetten en de _ga-cookies wissen
+  const off = () => {
+    window["ga-disable-" + id] = true; window.WIM_GA_ON = false;
+    const host = location.hostname.split(".").slice(-2).join(".");
+    document.cookie.split(";").map(c => c.split("=")[0].trim()).filter(n => /^_ga/.test(n)).forEach(n => {
+      for (const d of ["", "; domain=" + host, "; domain=." + host]) document.cookie = n + "=; Max-Age=0; path=/" + d;
+    });
+  };
   const ask = () => {
     if (document.getElementById("cookie")) return;
     const box = document.createElement("div");
@@ -116,17 +124,17 @@ window.WIM_track = (name, props) => {
     box.innerHTML = `<div class="cookie-in">
       <p id="cookie-h" class="cookie-h">${t("Koekje erbij?", "Fancy a cookie?")}</p>
       <p>${t("Wie 1.570 km fietst, verdient onderweg een koekje. Wij gebruiken cookies van Google Analytics om te zien welke pagina's en knoppen je gebruikt, zodat we de site beter maken. Geen reclame, niets doorverkocht.",
-        "Anyone cycling 1,570 km deserves a cookie along the way. We use Google Analytics cookies to see which pages and buttons you use, so we can make the site better. No ads, nothing sold on.")}</p>
+        "Anyone cycling 1,570 km deserves a cookie along the way. We use Google Analytics cookies to see which pages and buttons you use, so we can make the site better. No ads, nothing sold on.")} <a href="${L("/privacy/")}">${t("Meer over privacy", "More about privacy")}</a></p>
       <div class="cookie-b"><button type="button" class="btn" data-c="yes">${t("Ja, koekje erbij", "Yes, I'll have one")}</button><button type="button" class="btn ghost" data-c="no">${t("Nee, dank je", "No, thanks")}</button></div></div>`;
-    box.addEventListener("click", e => { const b = e.target.closest("[data-c]"); if (!b) return; set(b.dataset.c); if (b.dataset.c === "yes") load(); box.remove(); });
+    box.addEventListener("click", e => { const b = e.target.closest("[data-c]"); if (!b) return; set(b.dataset.c); if (b.dataset.c === "yes") load(); else off(); box.remove(); });
     document.body.append(box);
   };
   const c = get();
   if (c === "yes") load(); else if (c !== "no") ask();
   // link in de voet om de keuze te wijzigen
   const foot = document.querySelector(".site-foot__in > div:last-child ul");
-  if (foot) { const li = document.createElement("li"); li.innerHTML = `<a href="#" data-cookie>${t("Cookie-instellingen", "Cookie settings")}</a>`; foot.append(li);
-    li.querySelector("a").addEventListener("click", e => { e.preventDefault(); ask(); }); }
+  if (foot) { const li = document.createElement("li"); li.innerHTML = `<a href="#" data-cookie>${t("Cookie-instellingen", "Cookie settings")}</a>`; foot.append(li); }
+  document.addEventListener("click", e => { if (e.target.closest("[data-cookie]")) { e.preventDefault(); ask(); } });
 })();
 document.addEventListener("click", e => {
   const el = e.target.closest("a, button");

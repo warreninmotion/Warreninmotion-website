@@ -204,3 +204,4 @@ a.card .more{color:var(--groen)}
 
 /* Uitlijning: tekst naast beeld staat altijd verticaal gecentreerd (geen tekst bovenaan met een gat eronder) */
 .hero2>header,.ask2>div:first-child{align-self:center}
+.cookie-in a{color:#F2EEE4;text-decoration:underline}
