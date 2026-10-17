@@ -70,8 +70,8 @@ function bindCopy(root) {
   // Live volgen: link zodra liveUrl gevuld is
   document.querySelectorAll("[data-live]").forEach(n => {
     n.innerHTML = S.liveUrl
-      ? `<a class="btn" href="${S.liveUrl}" target="_blank" rel="noopener">${t("Volg Warren live", "Follow Warren live")}</a>`
-      : `<span class="muted">${t("Vanaf zaterdag 15 mei 2027 volg je Warren hier live, kilometer voor kilometer.", "From Saturday 15 May 2027 you can follow Warren live here, kilometre by kilometre.")}</span>`;
+      ? `<a class="btn" href="${S.liveUrl}" target="_blank" rel="noopener">${t("Volg me live", "Follow me live")}</a>`
+      : `<span class="muted">${t("Vanaf zaterdag 15 mei 2027 volg je me hier live, kilometer voor kilometer.", "From Saturday 15 May 2027 you can follow me live here, kilometre by kilometre.")}</span>`;
   });
 
   // Stand: echte kilometers van bedrijven en het peloton, op de echte route
@@ -139,8 +139,8 @@ window.WIM_track = (name, props) => {
     box.id = "cookie"; box.className = "cookie"; box.setAttribute("role", "dialog"); box.setAttribute("aria-labelledby", "cookie-h");
     box.innerHTML = `<div class="cookie-in">
       <p id="cookie-h" class="cookie-h">${t("Koekje erbij?", "Fancy a cookie?")}</p>
-      <p>${t("Van Lucca naar Veenendaal verbrandt Warren ruim 60.000 kilocalorieën. Dat zijn zo'n 1.250 koekjes. Eentje voor jou?",
-        "From Lucca to Veenendaal, Warren burns more than 60,000 calories. That's about 1,250 biscuits. Fancy one?")} <a href="${L("/privacy/")}">${t("Meer over privacy", "More about privacy")}</a></p>
+      <p>${t("Van Lucca naar Veenendaal verbrand ik ruim 60.000 kilocalorieën. Dat zijn zo'n 1.250 koekjes. Eentje voor jou?",
+        "From Lucca to Veenendaal, I burn more than 60,000 calories. That's about 1,250 biscuits. Fancy one?")} <a href="${L("/privacy/")}">${t("Meer over privacy", "More about privacy")}</a></p>
       <div class="cookie-b"><button type="button" class="btn" data-c="yes">${t("Ja, koekje erbij", "Yes, I'll have one")}</button><button type="button" class="btn ghost" data-c="no">${t("Nee, dank je", "No, thanks")}</button></div></div>`;
     box.addEventListener("click", e => { const b = e.target.closest("[data-c]"); if (!b) return; set(b.dataset.c); if (b.dataset.c === "yes") load(); else off(); box.remove(); });
     document.body.append(box);

@@ -40,6 +40,8 @@ Statische website voor de fietstocht van Warren: Lucca (IT) → Veenendaal, 15�
 
 ## Schrijfstijl
 - Alleen de voornaam "Warren", nergens zijn achternaam (ook niet in citaten, titels, meta of het artifact).
+- De hele site (en het artifact) is in de ik-vorm: Warren spreekt zelf ("ik fiets", "mail me", menu "Over mij"/"About me").
+  Alleen alt-teksten van foto's en interne pagina's (beeldlijst) mogen "Warren" in de derde persoon noemen; citaten houden "— Warren".
 - Lezers: particulieren en ondernemers. Doel: een positief gevoel en zin om mee te doen.
 - Actief en direct, spreek de lezer aan met "je" ("Rij mee", "Kies je kilometers"). Warm, concreet en nuchter
   (brandbook): geen schreeuwerige superlatieven, niet belerend. Korte zinnen, eerst wat de lezer eraan heeft.

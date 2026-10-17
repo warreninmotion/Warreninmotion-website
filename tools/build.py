@@ -23,7 +23,7 @@ PAGES = {
     "tussenstand": ("/tussenstand/", "/en/progress/", "Tussenstand", "Progress"),
     "route": ("/route/", "/en/route/", "De route", "The route"),
     "training": ("/training/", "/en/training/", "Training", "Training"),
-    "over-warren": ("/over-warren/", "/en/about/", "Over Warren", "About Warren"),
+    "over-warren": ("/over-warren/", "/en/about/", "Over mij", "About me"),
     "contact": ("/contact/", "/en/contact/", "Contact", "Contact"),
     "beeldlijst": ("/beeldlijst/", "/en/", "Beeldlijst", "Shot list"),  # intern, niet in het menu
     "privacy": ("/privacy/", "/en/privacy/", "Privacy", "Privacy"),  # alleen in de voet
@@ -101,10 +101,10 @@ def footer(lang):
 # volgende stap onderaan de pagina: zo loopt de bezoeker het verhaal door zonder menu
 NEXT = {
     # over-warren niet: die eindigt al met de groene band met knoppen naar Training en de route
-    "route": [("training", "Zo traint Warren voor deze tocht", "How Warren trains for this ride")],
+    "route": [("training", "Zo train ik voor deze tocht", "How I train for this ride")],
     # training en tussenstand eindigen al met de keuze sponsoren/doneren
     "training": [("tussenstand", "Bekijk wie er al meerijdt", "See who is already riding along")],
-    "tussenstand": [("over-warren", "Maak kennis met Warren", "Meet Warren")],
+    "tussenstand": [("over-warren", "Maak kennis met mij", "Get to know me")],
     "doneren": [("tussenstand", "Bekijk wie er al meerijdt", "See who is already riding along")],
     "sponsoren": [("tussenstand", "Bekijk wie er al meerijdt", "See who is already riding along")],
 }
@@ -175,8 +175,8 @@ def frag(name, lang):
 
 
 META = {
-    "home": (("Warren in Motion", "Warren fietst in mei 2027 ruim 1.500 km van Lucca naar Veenendaal, door 7 landen, voor Voedselbanken Nederland. Sponsor als bedrijf of doneer als particulier."),
-             ("Warren in Motion", "In May 2027 Warren cycles more than 1,500 km from Lucca to Veenendaal, through 7 countries, for the Dutch Food Banks. Sponsor as a company or donate as an individual."), "", ""),
+    "home": (("Warren in Motion", "Ik ben Warren en in mei 2027 fiets ik ruim 1.500 km van Lucca naar Veenendaal, door 7 landen, voor Voedselbanken Nederland. Sponsor als bedrijf of doneer als particulier."),
+             ("Warren in Motion", "I'm Warren, and in May 2027 I cycle more than 1,500 km from Lucca to Veenendaal, through 7 countries, for the Dutch Food Banks. Sponsor as a company or donate as an individual."), "", ""),
     "sponsoren": (("Sponsor als bedrijf · Warren in Motion", "Koop kilometers van de route Lucca–Veenendaal voor €20 per km, met je logo op het shirt en de volgbus. Alles gaat naar Voedselbanken Nederland."),
                   ("Sponsor as a company · Warren in Motion", "Buy kilometres of the Lucca–Veenendaal route for €20 per km, with your logo on the jersey and the follow van. Everything goes to the Dutch Food Banks."), "ACTIE", "ACSS"),
     "doneren": (("Doneer en rij mee · Warren in Motion", "Doneer aan Voedselbanken Nederland en rij mee in het peloton, of fiets op 22 mei 2027 de eindsprint mee van Den Bosch naar Veenendaal."),
@@ -185,16 +185,16 @@ META = {
                     ("Progress · Warren in Motion", "The real progress of Warren in Motion: which companies and how many individuals are riding along on the Lucca–Veenendaal route."), "ACTIE", "ACSS"),
     "route": (("De route · Warren in Motion", "Acht etappes van Lucca naar Veenendaal, 1.570 km door 7 landen, van 15 tot 22 mei 2027."),
               ("The route · Warren in Motion", "Eight stages from Lucca to Veenendaal, 1,570 km through 7 countries, from 15 to 22 May 2027."), "MAPLIBS", ""),
-    "training": (("Training · Warren in Motion", "Zo traint Warren voor ruim 1.500 km van Lucca naar Veenendaal: elke week de gefietste kilometers, de ritten en de hartslagzones, met een kort verslag."),
-                 ("Training · Warren in Motion", "How Warren trains for more than 1,500 km from Lucca to Veenendaal: every week the kilometres cycled, the rides and the heart rate zones, with a short report."), "MAPLIBS", "TCSS"),
-    "over-warren": (("Over Warren · Warren in Motion", "Wie Warren is en waarom hij van Lucca naar Veenendaal fietst voor Voedselbanken Nederland."),
-                    ("About Warren · Warren in Motion", "Who Warren is and why he is cycling from Lucca to Veenendaal for the Dutch Food Banks."), "", ""),
+    "training": (("Training · Warren in Motion", "Zo train ik voor ruim 1.500 km van Lucca naar Veenendaal: elke week mijn gefietste kilometers, ritten en hartslagzones, met een kort verslag."),
+                 ("Training · Warren in Motion", "How I train for more than 1,500 km from Lucca to Veenendaal: every week my kilometres cycled, rides and heart rate zones, with a short report."), "MAPLIBS", "TCSS"),
+    "over-warren": (("Over mij · Warren in Motion", "Wie ik ben en waarom ik van Lucca naar Veenendaal fiets voor Voedselbanken Nederland."),
+                    ("About me · Warren in Motion", "Who I am and why I am cycling from Lucca to Veenendaal for the Dutch Food Banks."), "", ""),
     "beeldlijst": (("Beeldlijst · Warren in Motion", "Welke foto's en video's er nog nodig zijn voor de site."),
                    ("Shot list · Warren in Motion", "Which photos and videos the site still needs."), "", "NOINDEX"),
     "privacy": (("Privacy en cookies · Warren in Motion", "Welke cookies en statistiek warreninmotion.nl gebruikt, waarvoor en hoe lang."),
                 ("Privacy and cookies · Warren in Motion", "Which cookies and statistics warreninmotion.nl uses, what for and for how long."), "", ""),
-    "contact": (("Contact · Warren in Motion", "Mail Warren over sponsoring, doneren, de eindsprint, pers of meedoen."),
-                ("Contact · Warren in Motion", "Email Warren about sponsoring, donating, the final sprint, press or getting involved."), "", ""),
+    "contact": (("Contact · Warren in Motion", "Mail me over sponsoring, doneren, de eindsprint, pers of meedoen."),
+                ("Contact · Warren in Motion", "Email me about sponsoring, donating, the final sprint, press or getting involved."), "", ""),
 }
 NOINDEX = '<meta name="robots" content="noindex">\n'
 G = {"NOINDEX": NOINDEX, "ACTIE": ACTIE, "ACSS": ACSS, "TCSS": TCSS, "MAPLIBS": MAPLIBS, "": ""}

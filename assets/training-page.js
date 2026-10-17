@@ -35,11 +35,11 @@
   const words = w => t(w.tekst, w.text) || [];
   const MONO = `<svg viewBox="273.3 154.1 294.8 141.8" aria-hidden="true">${window.WIM_MONO}</svg>`;
 
-  // Waar zou Warren op de route zijn met deze kilometers?
+  // Waar zou ik op de route zijn met deze kilometers? (ik-vorm: de site spreekt als Warren)
   function onRoute(km) {
     if (km >= ROUTE_KM) return t(`Dat is al ${n1(km / ROUTE_KM)} keer de hele route van Lucca naar Veenendaal.`, `That is already ${n1(km / ROUTE_KM)} times the whole route from Lucca to Veenendaal.`);
     const s = STAGES.find(x => km <= x.b) || STAGES[STAGES.length - 1];
-    return t(`Op de route zou Warren nu in etappe ${s.dag} zijn, tussen ${s.van} en ${s.naar}.`, `On the route, Warren would now be in stage ${s.dag}, between ${s.van} and ${s.naar}.`);
+    return t(`Op de route zou ik nu in etappe ${s.dag} zijn, tussen ${s.van} en ${s.naar}.`, `On the route, I would now be in stage ${s.dag}, between ${s.van} and ${s.naar}.`);
   }
 
   // ── Totaal sinds de lancering: één cijfer tegelijk, met een weetje ─────────
@@ -179,7 +179,7 @@
       $("wPlanBody").innerHTML = `<div class="wstats"><span><b>${kmTxt(p.km)}</b>${p.km ? " " + t("op de fiets", "on the bike") : ""}</span><span>${t("Fase", "Phase")}: ${t(p.f.naam[0], p.f.naam[1])}</span></div>
         ${c.ev.length ? `<ul class="ev-mini">${c.ev.map(evMini).join("")}</ul>` : ""}
         <div class="prose"><p>${t(p.f.focus[0], p.f.focus[1])}</p>${p.rust ? `<p>${t("Dit is een lichtere week: minder kilometers, zodat het lichaam de zware weken verwerkt en sterker wordt.", "This is a lighter week: fewer kilometres, so the body absorbs the hard weeks and gets stronger.")}</p>` : ""}
-        <p class="small muted">${t("Het schema is een richtlijn. Na afloop van de week zie je hier wat Warren echt heeft gedaan.", "The plan is a guideline. Once the week is over, you'll see here what Warren actually did.")}</p></div>`;
+        <p class="small muted">${t("Het schema is een richtlijn. Na afloop van de week zie je hier wat ik echt heb gedaan.", "The plan is a guideline. Once the week is over, you'll see here what I actually did.")}</p></div>`;
     } else $("wPlanBody").innerHTML = "";
   }
 
@@ -318,8 +318,8 @@
         </button></li>`).join("") : "";
     $("wRides").hidden = !w.ritten.length;
     $("wBlocks").hidden = !w.ritten.some(r => r.blokken);
-    $("wBlocks").innerHTML = t("<b>Waarom in blokken?</b> Een etappe van rond de 200 km rijdt Warren straks ook in blokken. Hij stopt alleen om te eten en voor sanitaire stops. Zo train je het lichaam op dag na dag ver fietsen.",
-      "<b>Why in blocks?</b> In May, Warren will ride each stage of around 200 km in blocks too. He only stops to eat and for toilet breaks. That trains the body for long distances day after day.");
+    $("wBlocks").innerHTML = t("<b>Waarom in blokken?</b> Een etappe van rond de 200 km rijd ik straks ook in blokken. Ik stop alleen om te eten en voor sanitaire stops. Zo train je het lichaam op dag na dag ver fietsen.",
+      "<b>Why in blocks?</b> In May, I will ride each stage of around 200 km in blocks too. I only stop to eat and for toilet breaks. That trains the body for long distances day after day.");
     $("wRides").querySelectorAll("button").forEach(b => b.addEventListener("click", () => { const li = b.parentElement, o = !li.classList.contains("open"); li.classList.toggle("open", o); b.setAttribute("aria-expanded", String(o)); }));
     buildStory(i);
   }
