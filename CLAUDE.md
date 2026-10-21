@@ -211,13 +211,7 @@ Afleiden van `data.js`:
 - Wijzigingen klein houden en na elke wijziging pushen naar `main` (Netlify zet het live).
 - Altijd zowel licht als donker thema en telefoonbreedte (~390 px) controleren.
 - Alles gelijk houden (VAST, na elke wijziging aan de site, zonder dat Warren erom vraagt):
-  1. Artifact "Elke kilometer telt" (https://claude.ai/artifact/WNZQq2xvyEwfRpz45o7yDT): de sponsorpagina waarmee
-     Warren werft tot de website klaar is (kaart die volloopt, kopgroep en peloton, rekenhulp, shirt, volgbus,
-     hoofdsponsor, kort iets voor particulieren). Bron `src/artifact/index.html`; scripts, stijl, data en foto's komen
-     uit de site. Bouwen met `python3 tools/build_artifact.py <scratchpad>/art` en publiceren met Artifact (eerst read,
-     dan publish met url, file_path `<map>/index.html`, root `<map>`, files = de lijst die het script print). Opnieuw
-     publiceren na elke wijziging aan sponsoren, shirt, bus, rekenhulp of `data.js`. Teksten gelijk houden met
-     `src/pages/sponsoren.html`.
+  1. (Vervallen 21-10-2026: het artifact "Elke kilometer telt" wordt niet meer gebruikt en niet meer bijgewerkt; de website is de enige sponsorpagina.)
   2. Sponsorplan in Claude Docs (https://claude.ai/code/artifact/bbac9212-164a-4162-b1b0-2ead9f626499) bijwerken
      als prijzen, plekken of afspraken veranderen; as-of datum bijwerken.
   3. Project-doc `claude/sponsoring/sponsorplan.md` (en zo nodig `werkwijze-sponsors.md`) gelijk trekken.
