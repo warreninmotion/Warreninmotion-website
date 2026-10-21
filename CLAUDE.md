@@ -53,6 +53,8 @@ Statische website voor de fietstocht van Warren: Lucca (IT) → Veenendaal, 15�
   Live sinds 16-10-2026. DNS bij TransIP (nameservers TransIP, "TransIP-instellingen" uit): A `@` → 75.2.60.5,
   CNAME `www` → inquisitive-crisp-cf6075.netlify.app. Primary domain warreninmotion.nl; https via Let's Encrypt (automatisch verlengd).
   Netlify Visitor access: productie Public, Deploy Previews Private (alleen voor Warrens Netlify-team zichtbaar).
+- Icoon in browser en Google: `/favicon.ico` (16/32/48), `/assets/favicon.svg`, `/assets/favicon-192.png`, `/assets/favicon-512.png`,
+  `/apple-touch-icon.png` (gemaakt uit favicon.svg), links in `tools/build.py`; op Home JSON-LD (WebSite + Organization met logo).
 - Externe scripts alleen van cdnjs (d3 3.5.17, topojson 1.6.20, datamaps 0.5.9 voor de landkaart); fonts via Google Fonts.
   Enige uitzondering: Google Analytics (googletagmanager.com), en alleen na "ja" in de cookiemelding.
 
