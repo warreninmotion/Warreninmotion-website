@@ -119,6 +119,11 @@ def next_step(key, lang):
     return f'\n<nav class="next-step" aria-label="{lab}"><span class="next-l">{lab}</span>{links}</nav>'
 
 
+# Voor Google: naam van de site en het logo (zoekresultaten tonen dan "Warren in Motion" met het monogram)
+LD = """<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"Warren in Motion","url":"https://warreninmotion.nl/"},{"@type":"Organization","name":"Warren in Motion","url":"https://warreninmotion.nl/","logo":"https://warreninmotion.nl/assets/favicon-512.png","sameAs":["https://www.instagram.com/warreninmotion/","https://www.tiktok.com/@warren.in.motion"]}]}</script>
+"""
+
+
 def page(key, lang, title, desc, body, scripts="", head=""):
     out = pathlib.Path(P(key, lang).lstrip("/")) / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -130,7 +135,11 @@ def page(key, lang, title, desc, body, scripts="", head=""):
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-{alt}<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+{alt}<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+{LD if key == "home" else ""}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&amp;display=swap">

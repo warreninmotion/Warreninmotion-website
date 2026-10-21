@@ -53,6 +53,8 @@ Statische website voor de fietstocht van Warren: Lucca (IT) → Veenendaal, 15�
   Live sinds 16-10-2026. DNS bij TransIP (nameservers TransIP, "TransIP-instellingen" uit): A `@` → 75.2.60.5,
   CNAME `www` → inquisitive-crisp-cf6075.netlify.app. Primary domain warreninmotion.nl; https via Let's Encrypt (automatisch verlengd).
   Netlify Visitor access: productie Public, Deploy Previews Private (alleen voor Warrens Netlify-team zichtbaar).
+- Icoon in browser en Google: `/favicon.ico` (16/32/48), `/assets/favicon.svg`, `/assets/favicon-192.png`, `/assets/favicon-512.png`,
+  `/apple-touch-icon.png` (gemaakt uit favicon.svg), links in `tools/build.py`; op Home JSON-LD (WebSite + Organization met logo).
 - Externe scripts alleen van cdnjs (d3 3.5.17, topojson 1.6.20, datamaps 0.5.9 voor de landkaart); fonts via Google Fonts.
   Enige uitzondering: Google Analytics (googletagmanager.com), en alleen na "ja" in de cookiemelding.
 
@@ -65,13 +67,13 @@ Statische website voor de fietstocht van Warren: Lucca (IT) → Veenendaal, 15�
 - Opbouw naar bezoeker: Home (`index.html`) is de landingspagina met twee keuzes: "Ik ben een bedrijf → Ik wil
   sponsoren" (`sponsoren/`) en "Ik ben particulier → Ik wil doneren" (`doneren/`, met daarin de eindsprint en het
   diner onder `#eindsprint`). Verder `tussenstand/`, `route/`, `over-warren/`, `contact/`.
-- Menu (van links naar rechts, in leesvolgorde): Over Warren · De route · Training · Doneren · Sponsoren · Tussenstand ·
+- Menu (van links naar rechts, in leesvolgorde): Over mij · De route · Training · Doneren · Sponsoren · Tussenstand ·
   Contact, plus taalknop met vlaggetje (🇬🇧 EN op Nederlandse pagina's, 🇳🇱 NL op Engelse; inline SVG in `tools/build.py`).
   Doneren en Sponsoren staan als groene knop in het menu (`CTA` in `tools/build.py`).
 - Home: groene band bovenaan (kop "Ruim 1.500 km fietsen voor de voedselbank", twee keuzes: Sponsor kilometers /
   Doneer en rij mee, lanceringsvideo even hoog ernaast), daaronder kerncijfers; dan de routekaart naast het citaat van
   Warren (concept, door Warren te bevestigen) en de tussenstand, waarbij de kaart altijd even hoog is als die tekstkolom;
-  daaronder drie blokken naast elkaar met een beeld als achtergrond: Waarom de voedselbank (home-koken), Wie is Warren?
+  daaronder drie blokken naast elkaar met een beeld als achtergrond: Waarom de voedselbank (home-koken), Wie ben ik?
   (home-frontaal), Acht dagen, zeven landen (home-pedalen).
 - Sponsoren: blok "Zij rijden al mee" rechts naast de kop (niet als band eronder): slider met één logo tegelijk
   (sponsors uit `data.js`, niet anoniem; logo's uit `logos.js` → `assets/logos/`, op wit; zonder logo de naam als
@@ -80,8 +82,8 @@ Statische website voor de fietstocht van Warren: Lucca (IT) → Veenendaal, 15�
   maximale uit de samenwerking te halen (citaat, knop "Plan een kennismaking"). Ook in het artifact. Het idee dat elke
   sponsor drie bedrijven aandraagt met een warme ingang hoort NIET op de site (intern plan voor de targetlijst van 50).
 - Over Warren loopt als verhaal: wie hij is (met foto) → hoe het begon (tekst, met eronder over de breedte drie groene
-  vlakken met icoon: Energie, Sport en eten, Groter dan hijzelf; later eventueel met achtergrondfoto) → dat verhaal zit in het
-  logo (animatie + vijf stappen) → groene band "Waarom fietst Warren 1.570 km?" met door naar Training en de route.
+  vlakken met icoon: Energie, Sport en eten, Groter dan ikzelf; later eventueel met achtergrondfoto) → dat verhaal zit in het
+  logo (animatie + vijf stappen) → groene band "Waarom fiets ik 1.570 km?" met door naar Training en de route.
 - Evenementen in `events.js` (`WIM_EVENTS`): op de Training-pagina in de weekkalender en als blok "Evenementen";
   samenwerkingen met bedrijven krijgen `partner` (zichtbaarheid). Omloop van Zandvoort 21 maart 2027 is onder voorbehoud.
   Week 16 (april 2027): Warren rijdt met de auto terug en fietst onderweg de zwaarste klim, de Lukmanierpas (niet de hele route).
@@ -164,7 +166,7 @@ Afleiden van `data.js`:
   1. Kop: tekst en totaalblok links, rechts de 360-video, precies even hoog (boven- en onderkant gelijk); video
      `assets/video/training.mp4` zonder geluid, speelt vanzelf als hij in beeld is (niet bij "minder beweging").
      Het totaal sinds de lancering is een slider: km (met de route en "op de route zou
-     Warren nu in etappe X zijn"), trainingen, uren, kcal en hoogtemeters (alleen als > 0).
+     ik nu in etappe X zijn"), trainingen, uren, kcal en hoogtemeters (alleen als > 0).
   2. Onder elk totaal een weetje (`weetjes` in `training.js`). Elke week vernieuwen zodat het past bij de nieuwe
      totalen (bv. km → "dat is van Veenendaal naar Parijs"). Afstanden en feiten kloppen, niet overdrijven.
   3. Weekkalender: alle weken van de lancering tot de tocht (week 19, 2027); de laatste week met data staat open,
@@ -183,7 +185,7 @@ Afleiden van `data.js`:
 ## Statistiek (Google Analytics 4, gratis)
 - `WIM_SITE.gaId` in `assets/site.js` = GA4-meet-ID: G-PW3QDXVHXW (property warreninmotion.nl, aangemaakt 16-10-2026).
   Leeg = geen statistiek en geen cookiemelding. Het artifact krijgt nooit GA (`build_artifact.py` maakt gaId leeg).
-- Cookiemelding "Koekje erbij?" (onderaan, groen/inkt; alleen: Warren verbrandt ruim 60.000 kcal = zo'n 1.250 koekjes
+- Cookiemelding "Koekje erbij?" (onderaan, groen/inkt; alleen: "verbrand ik ruim 60.000 kcal" = zo'n 1.250 koekjes
   (8 × (2.600 rust + 8 u × 650 zone 2)), "Eentje voor jou?" en een link naar de privacyverklaring; geen uitleg waarvoor): GA laadt pas na "Ja, koekje erbij"; keuze in localStorage
   `wim-cookies`; in de voet "Cookie-instellingen" om te wijzigen. Elke klik op link/knop = GA-gebeurtenis "klik"
   (knop, pagina).
