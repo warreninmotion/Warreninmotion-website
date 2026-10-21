@@ -19,7 +19,7 @@ window.WIM_DATE = s => {
 
 // Vaste gegevens. liveUrl = Garmin LiveTrack-link, zodra die er is.
 window.WIM_SITE = {
-  mail: "warreninmotion@outlook.com",
+  mail: "steun@warreninmotion.nl",
   donateUrl: "https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion",
   liveUrl: "",
   gaId: "G-PW3QDXVHXW", // Google Analytics 4 meet-ID ("G-..."); leeg = geen statistiek en geen cookiemelding
