@@ -6,7 +6,7 @@ import sys, pathlib
 
 FRAG = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else "src/pages")
 DONATE = "https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion"
-MAIL = "warreninmotion@outlook.com"
+MAIL = "steun@warreninmotion.nl"
 SOC = [("Instagram", "https://www.instagram.com/warreninmotion/", "@warreninmotion"),
        ("TikTok", "https://www.tiktok.com/@warren.in.motion", "@warren.in.motion")]  # Facebook voorlopig niet (pagina nog leeg)
 # iconen voor de voet (eenvoudige glyphs in currentColor)

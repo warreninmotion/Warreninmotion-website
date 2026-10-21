@@ -167,7 +167,7 @@ function hl(i) {
 }
 
 // ── Tenue: sponsorplekken ───────────────────────────────────────────────────
-const MAIL = "warreninmotion@outlook.com";
+const MAIL = "steun@warreninmotion.nl";
 const PRICE = { hoofd: 1000, middel: 500, klein: 250 };
 const SIZE = { hoofd: t("Hoofdsponsor", "Main sponsor"), middel: t("Middel", "Medium"), klein: t("Klein", "Small") };
 // Plekken op het echte Owayo-ontwerp; x, y, w, h in procenten van de foto.
