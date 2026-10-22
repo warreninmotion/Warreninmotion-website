@@ -178,6 +178,8 @@ Afleiden van `data.js`:
 - Foto's en video's per week: `media: [{ type: "foto"|"video", src, alt, altEn, cap, capEn, poster }]` in de week;
   bestanden in `assets/training/` (foto's webp, max. 1080 px breed; video mp4 H.264, zonder geluid, max. 15 s en
   ±3 MB, met poster).
+- Geplande taak "Training-pagina bijwerken" (trig_01UJS2rLrUSxXNctYH3J5F3r): elke zondag 20:37 (Amsterdam) zet een
+  nieuwe sessie de afgelopen week uit Strava in `training.js` (met weetjes en weekverhaal) en pusht naar `main`.
 - Weken lopen ma–zo (ISO-week); alleen afgeronde weken. Ritten op lengte sorteren, niet op volgorde.
 - Alleen weekcijfers delen (intern, niet op de site vermelden): nooit datum, dag of tijdstip per training, geen
   routes, kaarten, GPS of plaatsnamen, geen ruwe hartslagwaarden; ook niet herkenbaar in foto's of video's.
