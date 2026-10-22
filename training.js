@@ -6,7 +6,7 @@
 // km, duur en zones van de training worden dan uit de blokken berekend. Zo gaat het in mei ook: etappes in blokken.
 // weetjes: bij elk totaal een leuk weetje; elke week vernieuwen zodat het bij de nieuwe totalen past.
 window.WIM_TRAINING = {
-  updated: "15 oktober 2026",
+  updated: "22 oktober 2026",
   tot: { week: 19, jaar: 2027 }, // de tocht: week 19 van 2027 (15–22 mei)
   // Gepland schema voor de weken die nog komen. CONCEPT (15-10-2026), opgesteld door Claude: nog door Warren bevestigen.
   // km = richtlijn per week [van, tot]; lichtere weken ("rust") krijgen ongeveer 60% daarvan.
@@ -33,14 +33,36 @@ window.WIM_TRAINING = {
     rust: [[2026, 45], [2026, 49], [2027, 5], [2027, 9], [2027, 13]],
   },
   weetjes: {
-    km: ["Dat is verder dan van Veenendaal naar Brussel. En al 15% van de afstand van Lucca naar huis.",
-      "That is further than from Veenendaal to Brussels. And already 15% of the distance from Lucca to home."],
-    trainingen: ["Gemiddeld elke dag een training.", "A training session every day on average."],
-    uren: ["Ongeveer zo lang als een vlucht van Amsterdam naar Bangkok.", "About as long as a flight from Amsterdam to Bangkok."],
-    kcal: ["Goed voor zo'n 30 pannenkoeken. Gezond eten hoort er dus gewoon bij.", "Good for about 30 pancakes. So healthy eating is part of the job."],
-    hm: ["", ""],
+    km: ["Dat is ongeveer de afstand van Veenendaal naar Parijs over de weg. En bijna een derde van de route van Lucca naar huis.",
+      "That is about the distance from Veenendaal to Paris by road. And almost a third of the route from Lucca to home."],
+    trainingen: ["Ruim een training per dag.", "More than one training session a day."],
+    uren: ["Samen een heel etmaal: dag en nacht doorgetraind.", "Together a full day and night of training."],
+    kcal: ["Goed voor zo'n 55 pannenkoeken. Gezond eten hoort er dus gewoon bij.", "Good for about 55 pancakes. So healthy eating is part of the job."],
+    hm: ["Ongeveer zo hoog als de Eiffeltoren. Op de Lukmanierpas wordt dat een stuk meer.",
+      "About as high as the Eiffel Tower. On the Lukmanier Pass it will be a lot more."],
   },
   weeks: [
+    {
+      week: 42, jaar: 2026, van: "12 oktober 2026", tot: "18 oktober 2026", kcal: 6719,
+      ritten: [
+        { soort: "lang", binnen: true, blokken: [
+          { km: 50.0, min: 99, up: 0, zones: [3, 97, 0, 0, 0] },
+          { km: 30.0, min: 56, up: 0, zones: [5, 70, 23, 2, 0] } ] },
+        { soort: "duur", km: 60.0, min: 122, up: 0, binnen: true, zones: [33, 67, 0, 0, 0] },
+        { soort: "duur", km: 55.8, min: 124, up: 178, binnen: false, zones: [3, 97, 0, 0, 0] },
+        { soort: "duur", km: 30.9, min: 71, up: 154, binnen: false, zones: [11, 88, 1, 0, 0] },
+        { soort: "herstel", km: 26.7, min: 60, up: 0, binnen: false, zones: [0, 0, 0, 0, 0] }, // geen hartslag gemeten
+      ],
+      overig: [{ soort: "hiit", aantal: 3, min: 162 }],
+      tekst: [
+        "Weer een stap verder: vijf trainingen op de fiets en ruim 253 kilometer, iets meer dan vorige week. Voor het eerst reed ik ook buiten, met de eerste hoogtemeters erbij. De langste dag was 80 km in twee blokken, van 50 en 30 km.",
+        "Bijna alles reed ik in zone 2, de duurzone. Daar groeit het fundament voor de lange dagen in mei. Het laatste blok liep op naar een stevige finale. Daarnaast deed ik drie HIIT-sessies voor kracht en explosiviteit.",
+      ],
+      text: [
+        "Another step forward: five sessions on the bike and more than 253 kilometres, a bit more than last week. For the first time I also rode outdoors, with the first metres of climbing. The longest day was 80 km in two blocks, of 50 and 30 km.",
+        "Almost everything was in zone 2, the endurance zone. That is where the foundation for the long days in May grows. The last block built up to a solid finish. On top of that I did three HIIT sessions for strength and power.",
+      ],
+    },
     {
       week: 41, jaar: 2026, van: "5 oktober 2026", tot: "11 oktober 2026", kcal: 7844,
       ritten: [
