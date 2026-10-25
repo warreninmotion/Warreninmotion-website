@@ -6,7 +6,7 @@
 // km, duur en zones van de training worden dan uit de blokken berekend. Zo gaat het in mei ook: etappes in blokken.
 // weetjes: bij elk totaal een leuk weetje; elke week vernieuwen zodat het bij de nieuwe totalen past.
 window.WIM_TRAINING = {
-  updated: "22 oktober 2026",
+  updated: "25 oktober 2026",
   tot: { week: 19, jaar: 2027 }, // de tocht: week 19 van 2027 (15–22 mei)
   // Gepland schema voor de weken die nog komen. CONCEPT (15-10-2026), opgesteld door Claude: nog door Warren bevestigen.
   // km = richtlijn per week [van, tot]; lichtere weken ("rust") krijgen ongeveer 60% daarvan.
@@ -33,15 +33,33 @@ window.WIM_TRAINING = {
     rust: [[2026, 45], [2026, 49], [2027, 5], [2027, 9], [2027, 13]],
   },
   weetjes: {
-    km: ["Dat is ongeveer de afstand van Veenendaal naar Parijs over de weg. En bijna een derde van de route van Lucca naar huis.",
-      "That is about the distance from Veenendaal to Paris by road. And almost a third of the route from Lucca to home."],
+    km: ["Verder dan van Veenendaal naar Parijs over de weg. En al ruim 40 procent van de route van Lucca naar huis.",
+      "Further than from Veenendaal to Paris by road. And already more than 40 per cent of the route from Lucca to home."],
     trainingen: ["Ruim een training per dag.", "More than one training session a day."],
-    uren: ["Samen een heel etmaal: dag en nacht doorgetraind.", "Together a full day and night of training."],
-    kcal: ["Goed voor zo'n 55 pannenkoeken. Gezond eten hoort er dus gewoon bij.", "Good for about 55 pancakes. So healthy eating is part of the job."],
-    hm: ["Ongeveer zo hoog als de Eiffeltoren. Op de Lukmanierpas wordt dat een stuk meer.",
-      "About as high as the Eiffel Tower. On the Lukmanier Pass it will be a lot more."],
+    uren: ["Bijna anderhalf etmaal: dag en nacht doorgetraind, en dan nog een halve dag erbij.", "Almost a day and a half: a full day and night of training, plus half a day more."],
+    kcal: ["Goed voor zo'n 80 pannenkoeken. Gezond eten hoort er dus gewoon bij.", "Good for about 80 pancakes. So healthy eating is part of the job."],
+    hm: ["Ruim twee en een half keer de Eiffeltoren. Op de Lukmanierpas, 1.915 m hoog, wordt dat een stuk meer.",
+      "More than two and a half times the Eiffel Tower. On the Lukmanier Pass, 1,915 m high, it will be a lot more."],
   },
   weeks: [
+    {
+      week: 43, jaar: 2026, van: "19 oktober 2026", tot: "25 oktober 2026", kcal: 6903,
+      ritten: [
+        { soort: "lang", binnen: false, blokken: [ // eerste blok buiten, tweede binnen
+          { km: 50.2, min: 115, up: 204, zones: [5, 95, 0, 0, 0] },
+          { km: 50.0, min: 102, up: 0, zones: [0, 100, 0, 0, 0] } ] },
+        { soort: "duur", km: 51.9, min: 116, up: 377, binnen: false, zones: [1, 64, 35, 0, 0] },
+      ],
+      overig: [{ soort: "hiit", aantal: 3, min: 230 }, { soort: "padel", aantal: 2, min: 149 }],
+      tekst: [
+        "Deze week minder kilometers op de fiets, wel meer afwisseling: twee trainingen en ruim 152 kilometer, met 581 hoogtemeters. De langste dag was 100 km in twee blokken van 50: het eerste buiten, het tweede binnen op de trainer. Allebei vrijwel helemaal in zone 2, de duurzone.",
+        "De andere rit was korter maar steviger, met ruim een derde in zone 3 en de meeste hoogtemeters van de week. Daarnaast deed ik drie HIIT-sessies voor kracht en explosiviteit en speelde ik twee keer padel. Zo train ik ook snelheid en wendbaarheid, naast de duurkilometers.",
+      ],
+      text: [
+        "Fewer kilometres on the bike this week, but more variety: two sessions and more than 152 kilometres, with 581 metres of climbing. The longest day was 100 km in two blocks of 50: the first outdoors, the second indoors on the trainer. Both almost entirely in zone 2, the endurance zone.",
+        "The other ride was shorter but harder, with more than a third in zone 3 and most of the week's climbing. On top of that I did three HIIT sessions for strength and power, and played padel twice. That way I also train speed and agility, alongside the endurance kilometres.",
+      ],
+    },
     {
       week: 42, jaar: 2026, van: "12 oktober 2026", tot: "18 oktober 2026", kcal: 6719,
       ritten: [

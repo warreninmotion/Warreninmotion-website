@@ -22,6 +22,7 @@
     hiit: o => [`${o.aantal}× HIIT`, `${hm(o.min)} ${t("uur", "h")}`],
     run: o => [t(`${o.aantal}× hardlopen`, `${o.aantal}× running`), `${n1(o.km)} km`],
     walk: o => [t(`${o.aantal}× wandelen`, `${o.aantal}× walking`), `${n1(o.km)} km`],
+    padel: o => [`${o.aantal}× padel`, `${hm(o.min)} ${t("uur", "h")}`],
   };
   const range = w => {
     const [a, b] = [WIM_DATE(w.van), WIM_DATE(w.tot)].map(s => s.split(" "));
