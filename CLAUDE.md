@@ -61,7 +61,7 @@ Statische website voor de fietstocht van Warren: Lucca (IT) → Veenendaal, 15�
 ## Pagina's en bestanden
 - Flow op mobiel (16-10-2026): vaste actiebalk onderin (Doneer / Sponsor, `actbar` in `site.js`, alleen < 860 px, na de kop,
   weg bij cookiemelding, open menu of voet); menu op mobiel met Doneren en Sponsoren naast elkaar bovenaan; onderaan pagina's
-  een "Verder"-link naar de logische volgende pagina (`NEXT` in `tools/build.py`); Home op mobiel: kop → tussenstand → drie veegkaarten →
+  een "Verder"-link naar de logische volgende pagina (`NEXT` in `tools/build.py`); Home op mobiel: kop met keuzes → tussenstand → lanceringsvideo (verplaatst door `home.js`) → drie veegkaarten →
   cijfers → citaat → kaart → afsluitend blok "Kies hoe je meedoet"; Sponsoren: drie stappen bovenaan
   (`sp-steps`), shirt en volgbus als uitklapblok (`details.fold`, op mobiel dicht, op computer open).
 - Opbouw naar bezoeker: Home (`index.html`) is de landingspagina met twee keuzes: "Ik ben een bedrijf → Ik wil
