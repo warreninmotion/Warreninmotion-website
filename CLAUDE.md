@@ -104,7 +104,9 @@ Statische website voor de fietstocht van Warren: Lucca (IT) â†’ Veenendaal, 15â€
   (Tussenstand en Sponsoren). Toont `CUR` (standaard de echte stand uit `data.js`).
 - Tussenstand heeft twee knoppen: "Echte tussenstand" (standaard) en "Zo ziet het eruit als het gelukt is": een
   verzonnen volle route (`FULL` in `tussenstand/index.html`) die zich opbouwt en eindigt met confetti. Het
-  voorbeeld speelt nooit vanzelf af en staat altijd gemarkeerd als verzonnen. Verder alleen in het artifact (daar lopen
+  voorbeeld speelt alleen vanzelf af als je via de tussenstand op Home komt (`/tussenstand/#voorbeeld`, wens Warren 27-10-2026;
+  de stand op Home is klikbaar) en staat altijd gemarkeerd als verzonnen: de melding en de knop "Sla over" in brons
+  (uitzondering op de bronsregel, wens Warren). Verder alleen in het artifact (daar lopen
   ook shirt en volgbus mee vol); geen fictief voorbeeld elders op de site.
 - Links altijd absoluut (`/route/`, `/assets/...`); lokaal testen met `python3 -m http.server` in de repo-root.
 - De stand staat in `data.js` (`window.WIM_DATA`).
