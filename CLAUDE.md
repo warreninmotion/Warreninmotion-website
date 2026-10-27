@@ -61,8 +61,8 @@ Statische website voor de fietstocht van Warren: Lucca (IT) → Veenendaal, 15�
 ## Pagina's en bestanden
 - Flow op mobiel (16-10-2026): vaste actiebalk onderin (Doneer / Sponsor, `actbar` in `site.js`, alleen < 860 px, na de kop,
   weg bij cookiemelding, open menu of voet); menu op mobiel met Doneren en Sponsoren naast elkaar bovenaan; onderaan pagina's
-  een "Verder"-link naar de logische volgende pagina (`NEXT` in `tools/build.py`); Home op mobiel: kop → drie veegkaarten →
-  cijfers → citaat en stand → kaart → afsluitend blok "Kies hoe je meedoet"; Sponsoren: drie stappen bovenaan
+  een "Verder"-link naar de logische volgende pagina (`NEXT` in `tools/build.py`); Home op mobiel: kop met keuzes → tussenstand → lanceringsvideo (verplaatst door `home.js`) → drie veegkaarten →
+  cijfers → citaat → kaart → afsluitend blok "Kies hoe je meedoet"; Sponsoren: drie stappen bovenaan
   (`sp-steps`), shirt en volgbus als uitklapblok (`details.fold`, op mobiel dicht, op computer open).
 - Opbouw naar bezoeker: Home (`index.html`) is de landingspagina met twee keuzes: "Ik ben een bedrijf → Ik wil
   sponsoren" (`sponsoren/`) en "Ik ben particulier → Ik wil doneren" (`doneren/`, met daarin de eindsprint en het
@@ -71,8 +71,9 @@ Statische website voor de fietstocht van Warren: Lucca (IT) → Veenendaal, 15�
   Contact, plus taalknop met vlaggetje (🇬🇧 EN op Nederlandse pagina's, 🇳🇱 NL op Engelse; inline SVG in `tools/build.py`).
   Doneren en Sponsoren staan als groene knop in het menu (`CTA` in `tools/build.py`).
 - Home: groene band bovenaan (kop "Ruim 1.500 km fietsen voor de voedselbank", twee keuzes: Sponsor kilometers /
-  Doneer en rij mee, lanceringsvideo even hoog ernaast), daaronder kerncijfers; dan de routekaart naast het citaat van
-  Warren (concept, door Warren te bevestigen) en de tussenstand, waarbij de kaart altijd even hoog is als die tekstkolom;
+  Doneer en rij mee, lanceringsvideo even hoog ernaast), direct daaronder de tussenstand over de volle breedte (wens Warren
+  25-10-2026: mensen komen vooral daarvoor), dan kerncijfers; dan de routekaart naast het citaat van
+  Warren (concept, door Warren te bevestigen), waarbij de kaart altijd even hoog is als die tekstkolom;
   daaronder drie blokken naast elkaar met een beeld als achtergrond: Waarom de voedselbank (home-koken), Wie ben ik?
   (home-frontaal), Acht dagen, zeven landen (home-pedalen).
 - Sponsoren: blok "Zij rijden al mee" rechts naast de kop (niet als band eronder): slider met één logo tegelijk

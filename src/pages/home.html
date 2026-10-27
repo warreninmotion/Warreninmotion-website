@@ -57,13 +57,17 @@
 .mini .line{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px 16px}
 .mini .big{font-size:clamp(38px,7vw,54px)}
 .mini .bar{margin:18px 0 30px}
+/* Tussenstand direct onder de kop: daar komen de meeste bezoekers voor */
+.stand-sec{padding-bottom:8px}
+.stand-sec .bar{margin-bottom:34px}
 /* Afsluitend keuzeblok onderaan */
 .endcta{background:#1E4034;color:#F2EEE4;border-radius:14px;padding:28px 20px}
 @media (min-width:860px){.endcta{padding:36px 40px}}
 .endcta h2{color:#F2EEE4}
 .endcta .choose{margin-top:0;padding-top:20px}
-/* Mobiel: eerst het verhaal (veegkaarten), dan citaat en stand, dan de kaart en tot slot de keuze */
+/* Mobiel: eerst de stand, dan het verhaal (veegkaarten), cijfers, citaat en kaart en tot slot de keuze */
 @media (max-width:859px){
+  .home-wrap>.stand-sec,.home-wrap>.hero-vid{order:0}
   .home-wrap>.topics{order:1}
   .home-wrap>.facts-band{order:2}
   .home-wrap>[aria-labelledby="h-verhaal"]{order:3}
@@ -107,6 +111,11 @@
 </section>
 
 <div class="wrap home-wrap" style="margin-top:28px">
+  <section class="mini stand-sec" aria-labelledby="h-stand">
+    <div class="line"><h2 id="h-stand">Tussenstand</h2><a class="more" href="/tussenstand/">Bekijk wie er meerijdt</a></div>
+    <div data-stand aria-live="polite"></div>
+  </section>
+
   <section class="facts-band" aria-label="De tocht in cijfers">
     <dl class="facts">
       <div><dt>1.570</dt><dd>kilometer, van Lucca naar Veenendaal</dd></div>
@@ -123,10 +132,6 @@
       </figure>
       <div class="tale-txt">
         <h2 id="h-verhaal" class="quote">“Gezond eten en bewegen horen voor iedereen haalbaar te zijn, wat je budget ook is.”<small>— Warren</small></h2>
-      <section class="mini" aria-labelledby="h-stand">
-        <div class="line"><h2 id="h-stand">Tussenstand</h2><a class="more" href="/tussenstand/">Bekijk wie er meerijdt</a></div>
-        <div data-stand aria-live="polite"></div>
-      </section>
       </div>
     </div>
   </section>

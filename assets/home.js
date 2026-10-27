@@ -6,6 +6,10 @@
   b.addEventListener("click", () => { v.muted = !v.muted; if (!v.muted && v.paused) v.play(); sync(); });
   v.addEventListener("volumechange", sync);
   v.muted = true;
+  // Op de telefoon staat de video onder de tussenstand (wens Warren 26-10-2026); op de computer naast de kop
+  const fig = v.closest(".hero-vid"), home = fig.parentNode, stand = document.querySelector(".stand-sec"), mq = matchMedia("(max-width:859px)");
+  const place = () => mq.matches ? stand.after(fig) : home.append(fig);
+  place(); mq.addEventListener("change", place);
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) { v.controls = true; return; } // geen autoplay bij minder beweging
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) v.play().catch(() => {}); else if (v.muted) v.pause(); }), { threshold: .35 });
   io.observe(v);
