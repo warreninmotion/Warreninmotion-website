@@ -103,6 +103,9 @@
 /* Tussenstand direct onder de kop: daar komen de meeste bezoekers voor */
 .stand-sec{padding-bottom:8px}
 .stand-sec .bar{margin-bottom:34px}
+.stand-link{display:block;color:inherit;text-decoration:none;border-radius:14px;transition:box-shadow .15s}
+.stand-link:hover{box-shadow:0 0 0 2px var(--brons)}
+@media (prefers-reduced-motion:reduce){.stand-link{transition:none}}
 /* Afsluitend keuzeblok onderaan */
 .endcta{background:#1E4034;color:#F2EEE4;border-radius:14px;padding:28px 20px}
 @media (min-width:860px){.endcta{padding:36px 40px}}
@@ -155,8 +158,8 @@
 
 <div class="wrap home-wrap" style="margin-top:28px">
   <section class="mini stand-sec" aria-labelledby="h-stand">
-    <div class="line"><h2 id="h-stand">Progress</h2><a class="more" href="/en/progress/">See who is riding along</a></div>
-    <div data-stand aria-live="polite"></div>
+    <div class="line"><h2 id="h-stand">Progress</h2><a class="more" href="/en/progress/#voorbeeld">See who is riding along</a></div>
+    <a class="stand-link" href="/en/progress/#voorbeeld" tabindex="-1"><div data-stand aria-live="polite"></div></a>
   </section>
 
   <section class="facts-band" aria-label="The ride in numbers">

@@ -113,3 +113,5 @@ function confetti() {
 }
 $("doneTxt").textContent = t(`${nl(ROUTE_KM)} km gevuld · ${eur(ROUTE_KM * 20)} voor Voedselbanken Nederland`, `${nl(ROUTE_KM)} km filled · ${eur(ROUTE_KM * 20)} for the Dutch Food Banks`);
 renderSpots();
+// Vanaf Home (klik op de tussenstand, /tussenstand/#voorbeeld) start meteen het voorbeeld (wens Warren 27-10-2026)
+if (location.hash === "#voorbeeld") setMode(true);
