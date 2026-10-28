@@ -1,8 +1,6 @@
 <style>
 .sp-grid{display:grid;gap:32px;grid-template-columns:minmax(0,1fr)}
 @media (min-width:900px){.sp-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}}
-/* rekenhulp blijft in beeld terwijl je door het shirt scrolt: geen leeg vlak, en je ziet je totaal meteen */
-@media (min-width:900px){#rekenhulp{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}}
 .how{counter-reset:how}
 .how .card{position:relative;padding-top:52px}
 .how .card::before{counter-increment:how;content:counter(how);position:absolute;top:16px;left:18px;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--groen);color:var(--groen);display:grid;place-items:center;font-size:14px;font-weight:600}
@@ -28,7 +26,7 @@
     </aside>
   </div>
 
-  <nav class="sp-steps" aria-label="In three steps"><a href="#rekenhulp"><span>1</span>Pick your kilometres</a><a href="#tenue"><span>2</span>Pick a jersey spot</a><a href="#calcMail"><span>3</span>Email me your choice</a></nav>
+  <nav class="sp-steps" aria-label="In four steps"><a href="#rekenhulp"><span>1</span>Pick your kilometres</a><a href="#stap-diner"><span>2</span>Pick your seats at the sponsor party and dinner</a><a href="#tenue"><span>3</span>Pick a jersey spot</a><a href="#stap-totaal"><span>4</span>See your contribution and email me</a></nav>
 
 
   <section class="sec" aria-labelledby="h-hoe">
@@ -36,7 +34,7 @@
     <div class="cards c3 how">
       <div class="card"><h3>Pick your kilometres</h3><p>From 10 to 100 km, at €20 per kilometre. From 50 km you can also pick a spot for your logo on the jersey.</p></div>
       <div class="card"><h3>Ride along, visibly</h3><p>Your stretch of the route carries your name: in the <a href="/en/progress/">progress overview</a> and on the follow van, which rides all 1,570 km.</p></div>
-      <div class="card"><h3>Celebrate with us</h3><p>On Saturday 22 May we wrap up together with a dinner, the cheque presentation to the Dutch Food Banks and a party. Every sponsorship includes at least one dinner seat (€100).</p></div>
+      <div class="card"><h3>Celebrate with us</h3><p>On Saturday 22 May we wrap up together with the sponsor party: a dinner, the cheque presentation to the Dutch Food Banks and a party. Every sponsorship includes at least one seat at the table (€100).</p></div>
     </div>
   </section>
 
@@ -61,8 +59,9 @@
               <span id="calcKmHint" class="calc-hint">€20 per km, from 10 to 100 km. Want more than 100 km? Become main sponsor and we put a package together.</span>
             </div>
           </li>
-          <li><b>Pick your seats at the table</b>
-            <div class="seg" role="radiogroup" aria-label="Seats at the dinner">
+          <li id="stap-diner"><b>Pick your seats at the sponsor party and dinner</b>
+            <span>On Saturday 22 May 2027 we celebrate the finish in Veenendaal with all sponsors: dinner together, handing the cheque to the Dutch Food Banks and a party. A seat costs €100 per person.</span>
+            <div class="seg" role="radiogroup" aria-label="Seats at the sponsor party and dinner">
               <button type="button" role="radio" aria-checked="true" data-seats="1" id="seat1">1 seat · €100</button>
               <button type="button" role="radio" aria-checked="false" data-seats="2" id="seat2">2 seats · €200</button>
             </div>
@@ -75,7 +74,7 @@
               <span id="calcKitHint" class="calc-hint"></span>
             </div>
           </li>
-          <li id="stap-totaal"><b>Your contribution</b>
+          <li id="stap-totaal"><b>Your contribution: email me your choice</b>
             <div class="calc-sum" aria-live="polite">
               <div class="calc-lines" id="calcLines"></div>
               <div class="calc-total"><span>Total</span><span id="calcTotal">€1.100</span></div>
@@ -103,7 +102,7 @@
         <div class="kit-stage" id="kitStage"><div class="shot" id="kitShot"><img id="kitImg" src="/assets/img/shirt-voor.webp" alt="Warren in Motion jersey, front, with the sponsor spots" width="1064" height="1143"></div></div>
         <div class="kit-panel" id="kitPanel"></div>
         <div class="kit-legend"><span><i class="lg hoofd"></i>Main sponsor</span><span><i class="lg vrij"></i>Available</span><span><i class="lg optie"></i>On hold</span><span><i class="lg bezet"></i>Taken</span></div>
-        <div class="kit-list" id="kitList"></div>
+        <details class="kit-more"><summary>All spots and prices</summary><div class="kit-list" id="kitList"></div></details>
       </div>
       </details>
     </section>

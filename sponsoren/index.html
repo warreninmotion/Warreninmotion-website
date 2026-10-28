@@ -44,8 +44,6 @@
 <style>
 .sp-grid{display:grid;gap:32px;grid-template-columns:minmax(0,1fr)}
 @media (min-width:900px){.sp-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}}
-/* rekenhulp blijft in beeld terwijl je door het shirt scrolt: geen leeg vlak, en je ziet je totaal meteen */
-@media (min-width:900px){#rekenhulp{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}}
 .how{counter-reset:how}
 .how .card{position:relative;padding-top:52px}
 .how .card::before{counter-increment:how;content:counter(how);position:absolute;top:16px;left:18px;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--groen);color:var(--groen);display:grid;place-items:center;font-size:14px;font-weight:600}
@@ -71,7 +69,7 @@
     </aside>
   </div>
 
-  <nav class="sp-steps" aria-label="In drie stappen"><a href="#rekenhulp"><span>1</span>Kies je kilometers</a><a href="#tenue"><span>2</span>Kies een plek op het shirt</a><a href="#calcMail"><span>3</span>Mail me je keuze</a></nav>
+  <nav class="sp-steps" aria-label="In vier stappen"><a href="#rekenhulp"><span>1</span>Kies je kilometers</a><a href="#stap-diner"><span>2</span>Kies je plekken bij het sponsorfeest en diner</a><a href="#tenue"><span>3</span>Kies een plek op het shirt</a><a href="#stap-totaal"><span>4</span>Bekijk je bijdrage en mail me</a></nav>
 
 
   <section class="sec" aria-labelledby="h-hoe">
@@ -79,7 +77,7 @@
     <div class="cards c3 how">
       <div class="card"><h3>Kies je kilometers</h3><p>Van 10 tot 100 km, voor €20 per kilometer. Vanaf 50 km kies je ook een plek voor je logo op het shirt.</p></div>
       <div class="card"><h3>Rij zichtbaar mee</h3><p>Jouw stuk van de route krijgt jouw naam: in de <a href="/tussenstand/">tussenstand</a> en op de volgbus, die alle 1.570 km meerijdt.</p></div>
-      <div class="card"><h3>Vier het mee</h3><p>Op zaterdag 22 mei sluiten we samen af met een diner, de cheque-overhandiging aan Voedselbanken Nederland en een feest. Bij elke sponsoring hoort minstens één dinerplek (€100).</p></div>
+      <div class="card"><h3>Vier het mee</h3><p>Op zaterdag 22 mei sluiten we samen af met het sponsorfeest: een diner, de cheque-overhandiging aan Voedselbanken Nederland en een feest. Bij elke sponsoring hoort minstens één plek aan tafel (€100).</p></div>
     </div>
   </section>
 
@@ -104,8 +102,9 @@
               <span id="calcKmHint" class="calc-hint">€20 per km, van 10 tot 100 km. Wil je meer dan 100 km? Word dan hoofdsponsor: we stellen samen een pakket op.</span>
             </div>
           </li>
-          <li><b>Kies je plekken aan tafel</b>
-            <div class="seg" role="radiogroup" aria-label="Plekken bij het diner">
+          <li id="stap-diner"><b>Kies je plekken bij het sponsorfeest en diner</b>
+            <span>Zaterdag 22 mei 2027 vieren we de finish in Veenendaal met alle sponsors: samen eten, de cheque overhandigen aan Voedselbanken Nederland en een feest. Een plek kost €100 per persoon.</span>
+            <div class="seg" role="radiogroup" aria-label="Plekken bij het sponsorfeest en diner">
               <button type="button" role="radio" aria-checked="true" data-seats="1" id="seat1">1 plek · €100</button>
               <button type="button" role="radio" aria-checked="false" data-seats="2" id="seat2">2 plekken · €200</button>
             </div>
@@ -118,7 +117,7 @@
               <span id="calcKitHint" class="calc-hint"></span>
             </div>
           </li>
-          <li id="stap-totaal"><b>Jouw bijdrage</b>
+          <li id="stap-totaal"><b>Jouw bijdrage: mail me je keuze</b>
             <div class="calc-sum" aria-live="polite">
               <div class="calc-lines" id="calcLines"></div>
               <div class="calc-total"><span>Totaal</span><span id="calcTotal">€1.100</span></div>
@@ -146,7 +145,7 @@
         <div class="kit-stage" id="kitStage"><div class="shot" id="kitShot"><img id="kitImg" src="/assets/img/shirt-voor.webp" alt="Shirt Warren in Motion, voorkant, met de sponsorplekken" width="1064" height="1143"></div></div>
         <div class="kit-panel" id="kitPanel"></div>
         <div class="kit-legend"><span><i class="lg hoofd"></i>Hoofdsponsor</span><span><i class="lg vrij"></i>Vrij</span><span><i class="lg optie"></i>In optie</span><span><i class="lg bezet"></i>Bezet</span></div>
-        <div class="kit-list" id="kitList"></div>
+        <details class="kit-more"><summary>Alle plekken en prijzen</summary><div class="kit-list" id="kitList"></div></details>
       </div>
       </details>
     </section>
