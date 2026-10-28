@@ -311,6 +311,18 @@ if ($("kitStage")) {
   Object.values(VIEWS).forEach(v => { const i = new Image(); i.src = v.img; });
   let kitW = 0;
   addEventListener("resize", () => { const w = $("kitStage").clientWidth; if (w !== kitW) { kitW = w; drawKit(); } });
+  // op de computer is het shirtblok even hoog als de rekenhulp ernaast, zodat je gewoon doorscrolt
+  const card = document.querySelector(".calc-card"), kit = document.querySelector("#tenue .kit");
+  const fitKit = () => {
+    if (!card || !kit) return;
+    kit.style.minHeight = "";
+    if (innerWidth < 900) return;
+    const d = card.getBoundingClientRect().bottom - kit.getBoundingClientRect().bottom;
+    if (d > 0) kit.style.minHeight = `${kit.offsetHeight + d}px`;
+  };
+  if (card && kit && "ResizeObserver" in window) { const ro = new ResizeObserver(fitKit); ro.observe(card); ro.observe($("kitPanel")); }
+  addEventListener("resize", fitKit);
+  document.querySelectorAll("#tenue details").forEach(d => d.addEventListener("toggle", fitKit));
 }
 // ── Volgbus ─────────────────────────────────────────────────────────────────
 // Foto's van de Mercedes-Benz Citan (achtergrond verwijderd, assets/img/bus-zij.webp en bus-achter.webp),
@@ -412,7 +424,7 @@ function renderCalc() {
     ? t(`Nog ${free.length} plekken vrij. <a class="inl" href="#tenue">Bekijk ze op het shirt</a>.`, `${free.length} spots available. <a class="inl" href="#tenue">See them on the jersey</a>.`)
     : t(`Schuif naar 50 km of meer en kies een plek op het shirt.`, `Slide to 50 km or more to pick a jersey spot.`);
   const k = KIT.find(x => x.id === calc.kit), kitEur = k ? PRICE[k.size] : 0, seatEur = calc.seats * 100;
-  const lines = [[`${nl(km)} km × €20`, kmEur], [t(`${calc.seats} ${calc.seats > 1 ? "plekken" : "plek"} aan tafel`, `${calc.seats} ${calc.seats > 1 ? "seats" : "seat"} at the dinner`), seatEur]];
+  const lines = [[`${nl(km)} km × €20`, kmEur], [t(`${calc.seats} ${calc.seats > 1 ? "plekken" : "plek"} sponsorfeest en diner`, `${calc.seats} ${calc.seats > 1 ? "seats" : "seat"} sponsor party and dinner`), seatEur]];
   if (k) lines.push([t(`Shirt: ${k.label}`, `Jersey: ${k.label}`), kitEur]);
   document.getElementById("calcLines").innerHTML = lines.map(([a, b]) => `<div><span>${a}</span><span>${eur(b)}</span></div>`).join("");
   const total = kmEur + seatEur + kitEur;
@@ -421,7 +433,7 @@ function renderCalc() {
   if (!cm) { cm = document.createElement("div"); cm.id = "calcMeals"; cm.className = "calc-meals"; document.getElementById("calcTotal").closest(".calc-sum").append(cm); }
   cm.innerHTML = t(`Met je kilometers krijgen <b>${nl(WIM_gezinnen(kmEur))} gezinnen</b> boodschappen van de voedselbank.`, `Your kilometres give <b>${nl(WIM_gezinnen(kmEur))} families</b> groceries from the food bank.`);
   const subj = `Sponsoring: ${nl(km)} km${k ? " + " + k.label : ""}`;
-  const body = t(`Hoi Warren,\n\nWe rijden graag mee:\n- ${nl(km)} km (${eur(kmEur)})\n- ${calc.seats} ${calc.seats > 1 ? "plekken" : "plek"} aan tafel bij het diner (${eur(seatEur)})\n${k ? `- Shirtplek: ${k.label} (${eur(kitEur)})\n` : ""}Totaal: ${eur(total)}\n\nBedrijfsnaam:\nContactpersoon:\n`, `Hi Warren,\n\nWe would love to ride along:\n- ${nl(km)} km (${eur(kmEur)})\n- ${calc.seats} ${calc.seats > 1 ? "seats" : "seat"} at the dinner (${eur(seatEur)})\n${k ? `- Jersey spot: ${k.label} (${eur(kitEur)})\n` : ""}Total: ${eur(total)}\n\nCompany name:\nContact person:\n`);
+  const body = t(`Hoi Warren,\n\nWe rijden graag mee:\n- ${nl(km)} km (${eur(kmEur)})\n- ${calc.seats} ${calc.seats > 1 ? "plekken" : "plek"} bij het sponsorfeest en diner (${eur(seatEur)})\n${k ? `- Shirtplek: ${k.label} (${eur(kitEur)})\n` : ""}Totaal: ${eur(total)}\n\nBedrijfsnaam:\nContactpersoon:\n`, `Hi Warren,\n\nWe would love to ride along:\n- ${nl(km)} km (${eur(kmEur)})\n- ${calc.seats} ${calc.seats > 1 ? "seats" : "seat"} at the sponsor party and dinner (${eur(seatEur)})\n${k ? `- Jersey spot: ${k.label} (${eur(kitEur)})\n` : ""}Total: ${eur(total)}\n\nCompany name:\nContact person:\n`);
   document.getElementById("calcMail").href = `mailto:${MAIL}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
 }
 on("calcKm", "input", e => { calc.km = +e.target.value; renderCalc(); });
