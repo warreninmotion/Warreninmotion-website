@@ -2,12 +2,32 @@
   <div class="hero2">
   <header>
     <div class="eyebrow">Contact</div>
-    <h1>Mail me</h1>
-    <p class="lead">Wil je sponsoren, meefietsen of iets vragen? Mail me gerust, ik help je graag verder.</p>
-    <div class="contact" style="margin-top:16px"><a class="btn" href="mailto:steun@warreninmotion.nl">Mail me</a><span class="addr">steun@warreninmotion.nl</span><button type="button" class="copy">Kopieer</button></div>
+    <h1>Stuur me een bericht</h1>
+    <p class="lead">Wil je sponsoren, meefietsen of iets vragen? Laat hier een bericht achter, ik lees alles zelf en reageer zo snel als ik kan.</p>
+    <div class="contact" style="margin-top:16px"><a class="btn" href="#bericht">Stuur een bericht</a></div>
   </header>
     <figure class="ph" data-shot="contact-portret"></figure>
   </div>
+
+  <section class="sec" id="bericht" aria-labelledby="h-bericht">
+    <h2 id="h-bericht">Stuur me een bericht</h2>
+    <form class="card cform" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/contact/?verzonden">
+      <input type="hidden" name="form-name" value="contact">
+      <input type="hidden" name="taal" value="nl">
+      <p hidden><label>Laat dit leeg <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+      <div class="cf-2">
+        <label>Je naam<input name="naam" autocomplete="name" required maxlength="120"></label>
+        <label>Je e-mailadres<input type="email" name="email" autocomplete="email" required maxlength="200"></label>
+      </div>
+      <div class="cf-2">
+        <label>Telefoon (als je liever gebeld wordt)<input type="tel" name="telefoon" autocomplete="tel" maxlength="40"></label>
+        <label>Waarover?<select name="onderwerp"><option value="sponsoren">Sponsoren als bedrijf</option><option value="doneren">Doneren</option><option value="eindsprint">Eindsprint of diner</option><option value="pers">Pers of interview</option><option value="anders">Iets anders</option></select></label>
+      </div>
+      <label>Je bericht<textarea name="bericht" rows="6" required maxlength="5000"></textarea></label>
+      <div class="cf-foot"><button class="btn" type="submit">Verstuur</button><p class="small muted">Ik gebruik je gegevens alleen om je te antwoorden. Zie de <a href="/privacy/">privacyverklaring</a>.</p></div>
+      <p class="cf-msg" role="status" aria-live="polite"></p>
+    </form>
+  </section>
 
   <section class="sec" aria-labelledby="h-waarvoor">
     <h2 id="h-waarvoor">Zo kun jij helpen</h2>
@@ -15,7 +35,7 @@
       <a class="card" href="/sponsoren/"><div class="eyebrow">Bedrijven</div><h3>Kilometers sponsoren</h3><p>Koop je eigen stuk van de route voor €20 per km, en kies eventueel een plek op het shirt. De rekenhulp zet je mail meteen klaar.</p><span class="more">Naar de rekenhulp</span></a>
       <a class="card" href="/doneren/"><div class="eyebrow">Particulieren</div><h3>Doneren</h3><p>Elk bedrag telt en gaat naar Voedselbanken Nederland. Samen met alle donateurs rij je mee in het peloton.</p><span class="more">Doneer</span></a>
       <a class="card" href="/doneren/#eindsprint"><div class="eyebrow">Za 22 mei 2027</div><h3>Meefietsen en/of dineren</h3><p>Fiets de laatste ruim 50 km mee vanaf Den Bosch, schuif aan bij het diner, of doe allebei.</p><span class="more">Meld je aan</span></a>
-      <a class="card" href="mailto:steun@warreninmotion.nl?subject=Pers"><div class="eyebrow">Pers en meer</div><h3>Pers, ideeën of meehelpen</h3><p>Een interview, een goed idee of wil je op een andere manier helpen? Laat het me weten.</p><span class="more">Mail me</span></a>
+      <a class="card" href="/contact/?over=pers#bericht"><div class="eyebrow">Pers en meer</div><h3>Pers, ideeën of meehelpen</h3><p>Een interview, een goed idee of wil je op een andere manier helpen? Laat het me weten.</p><span class="more">Stuur een bericht</span></a>
     </div>
   </section>
 
@@ -32,3 +52,26 @@
     <p class="muted" style="max-width:62ch">Stichting Warren in Motion (in oprichting) stuurt de facturen voor sponsoring. Particulieren doneren via de actiepagina van Kom in actie voor de voedselbank.</p>
   </section>
 </div>
+<!--SCRIPT-->
+<script>
+// Contactformulier: Netlify Forms bewaart elk bericht (te lezen in het Netlify-dashboard, onder Forms)
+(function () {
+  var f = document.querySelector("form.cform"); if (!f) return;
+  var en = document.documentElement.lang === "en", msg = f.querySelector(".cf-msg");
+  var t = function (a, b) { return en ? b : a; };
+  var over = new URLSearchParams(location.search).get("over");
+  if (over && f.onderwerp.querySelector('option[value="' + over + '"]')) f.onderwerp.value = over;
+  if (location.search.indexOf("verzonden") > -1) done();
+  function done() {
+    f.innerHTML = '<h3>' + t("Dank je wel, je bericht is binnen", "Thank you, your message has arrived") + '</h3><p>' +
+      t("Ik lees het zelf en reageer zo snel als ik kan.", "I read it myself and will get back to you as soon as I can.") + '</p>';
+  }
+  f.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var b = f.querySelector("button"); b.disabled = true; msg.textContent = t("Even versturen…", "Sending…");
+    fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(new FormData(f)).toString() })
+      .then(function (r) { if (!r.ok) throw r; done(); })
+      .catch(function () { b.disabled = false; msg.textContent = t("Dat lukte niet. Probeer het nog eens, of stuur me een bericht via Instagram.", "That didn't work. Please try again, or message me on Instagram."); });
+  });
+})();
+</script>
