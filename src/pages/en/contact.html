@@ -10,22 +10,22 @@
   </div>
 
   <section class="sec" id="bericht" aria-labelledby="h-bericht">
-    <h2 id="h-bericht">Send me a message</h2>
-    <form class="card cform" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/en/contact/?verzonden">
+    <h2 id="h-bericht" class="sr-only">Your message</h2>
+    <form class="card cform" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" data-netlify-recaptcha="true" action="/en/contact/?verzonden#bericht">
       <input type="hidden" name="form-name" value="contact">
       <input type="hidden" name="taal" value="en">
       <p hidden><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
-      <div class="cf-2">
+      <div class="cf-3">
         <label>Your name<input name="naam" autocomplete="name" required maxlength="120"></label>
         <label>Your email address<input type="email" name="email" autocomplete="email" required maxlength="200"></label>
-      </div>
-      <div class="cf-2">
         <label>Phone (if you'd rather I call)<input type="tel" name="telefoon" autocomplete="tel" maxlength="40"></label>
-        <label>What about?<select name="onderwerp"><option value="sponsoren">Sponsoring as a company</option><option value="doneren">Donating</option><option value="eindsprint">Final sprint or dinner</option><option value="pers">Press or interview</option><option value="anders">Something else</option></select></label>
       </div>
       <label>Your message<textarea name="bericht" rows="6" required maxlength="5000"></textarea></label>
-      <div class="cf-foot"><button class="btn" type="submit">Send</button><p class="small muted">I only use your details to reply to you. See the <a href="/en/privacy/">privacy statement</a>.</p></div>
-      <p class="cf-msg" role="status" aria-live="polite"></p>
+      <div class="cf-foot">
+        <div class="cf-robot" data-netlify-recaptcha="true"></div>
+        <button class="btn" type="submit">Send</button>
+        <p class="small muted">I only use your details to reply to you. See the <a href="/en/privacy/">privacy statement</a>.</p>
+      </div>
     </form>
   </section>
 
@@ -35,7 +35,7 @@
       <a class="card" href="/en/sponsor/"><div class="eyebrow">Companies</div><h3>Sponsor kilometres</h3><p>Buy your own stretch of the route at €20 per km, and pick a jersey spot if you like. The calculator prepares your email right away.</p><span class="more">To the calculator</span></a>
       <a class="card" href="/en/donate/"><div class="eyebrow">Individuals</div><h3>Donate</h3><p>Every amount counts and goes to the Dutch Food Banks. Together with all donors you ride along in the peloton.</p><span class="more">Donate</span></a>
       <a class="card" href="/en/donate/#eindsprint"><div class="eyebrow">Sat 22 May 2027</div><h3>Ride along and/or join the dinner</h3><p>Ride the last 50-plus km from Den Bosch, join us for dinner, or do both.</p><span class="more">Sign up</span></a>
-      <a class="card" href="/en/contact/?over=pers#bericht"><div class="eyebrow">Press and more</div><h3>Press, ideas or helping out</h3><p>An interview, a great idea or another way to help? Let me know.</p><span class="more">Send a message</span></a>
+      <a class="card" href="/en/contact/#bericht"><div class="eyebrow">Press and more</div><h3>Press, ideas or helping out</h3><p>An interview, a great idea or another way to help? Let me know.</p><span class="more">Send a message</span></a>
     </div>
   </section>
 
@@ -54,24 +54,11 @@
 </div>
 <!--SCRIPT-->
 <script>
-// Contactformulier: Netlify Forms bewaart elk bericht (te lezen in het Netlify-dashboard, onder Forms)
+// Contactformulier: Netlify Forms bewaart elk bericht (Netlify-dashboard, onder Forms); na versturen komt de bezoeker terug met ?verzonden
 (function () {
-  var f = document.querySelector("form.cform"); if (!f) return;
-  var en = document.documentElement.lang === "en", msg = f.querySelector(".cf-msg");
-  var t = function (a, b) { return en ? b : a; };
-  var over = new URLSearchParams(location.search).get("over");
-  if (over && f.onderwerp.querySelector('option[value="' + over + '"]')) f.onderwerp.value = over;
-  if (location.search.indexOf("verzonden") > -1) done();
-  function done() {
-    f.innerHTML = '<h3>' + t("Dank je wel, je bericht is binnen", "Thank you, your message has arrived") + '</h3><p>' +
-      t("Ik lees het zelf en reageer zo snel als ik kan.", "I read it myself and will get back to you as soon as I can.") + '</p>';
-  }
-  f.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var b = f.querySelector("button"); b.disabled = true; msg.textContent = t("Even versturen…", "Sending…");
-    fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(new FormData(f)).toString() })
-      .then(function (r) { if (!r.ok) throw r; done(); })
-      .catch(function () { b.disabled = false; msg.textContent = t("Dat lukte niet. Probeer het nog eens, of stuur me een bericht via Instagram.", "That didn't work. Please try again, or message me on Instagram."); });
-  });
+  var f = document.querySelector("form.cform"); if (!f || location.search.indexOf("verzonden") < 0) return;
+  var en = document.documentElement.lang === "en";
+  f.innerHTML = "<h3>" + (en ? "Thank you, your message has arrived" : "Dank je wel, je bericht is binnen") + "</h3><p>" +
+    (en ? "I read it myself and will get back to you as soon as I can." : "Ik lees het zelf en reageer zo snel als ik kan.") + "</p>";
 })();
 </script>
