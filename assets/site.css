@@ -267,3 +267,16 @@ details.fold>:not(summary){margin-top:14px}
 .sp-steps a{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--fg);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-weight:600;font-size:15px}
 .sp-steps a:hover{border-color:var(--groen)}
 .sp-steps span{flex:none;width:28px;height:28px;border-radius:50%;background:var(--groen);color:var(--bg);display:grid;place-items:center;font-size:14px}
+
+/* Contactformulier (Netlify Forms), over de volle breedte zoals de blokken eronder */
+.cform{gap:16px;padding:22px}
+.cform label{display:grid;gap:6px;font-size:14px;font-weight:600}
+.cform input,.cform textarea{font:inherit;font-weight:400;font-size:16px;color:var(--fg);background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px 12px;width:100%;min-width:0}
+.cform textarea{resize:vertical;min-height:150px}
+.cform input:focus-visible,.cform textarea:focus-visible{outline:2px solid var(--brons);outline-offset:1px}
+.cf-3{display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:720px){.cf-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.cf-foot{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+.cf-foot p{flex:1 1 220px}
+.cf-robot:empty{display:none}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}

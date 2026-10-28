@@ -202,8 +202,8 @@ META = {
                    ("Shot list · Warren in Motion", "Which photos and videos the site still needs."), "", "NOINDEX"),
     "privacy": (("Privacy en cookies · Warren in Motion", "Welke cookies en statistiek warreninmotion.nl gebruikt, waarvoor en hoe lang."),
                 ("Privacy and cookies · Warren in Motion", "Which cookies and statistics warreninmotion.nl uses, what for and for how long."), "", ""),
-    "contact": (("Contact · Warren in Motion", "Mail me over sponsoring, doneren, de eindsprint, pers of meedoen."),
-                ("Contact · Warren in Motion", "Email me about sponsoring, donating, the final sprint, press or getting involved."), "", ""),
+    "contact": (("Contact · Warren in Motion", "Stuur me een bericht over sponsoring, doneren, de eindsprint, pers of meedoen."),
+                ("Contact · Warren in Motion", "Send me a message about sponsoring, donating, the final sprint, press or getting involved."), "", ""),
 }
 NOINDEX = '<meta name="robots" content="noindex">\n'
 G = {"NOINDEX": NOINDEX, "ACTIE": ACTIE, "ACSS": ACSS, "TCSS": TCSS, "MAPLIBS": MAPLIBS, "": ""}
