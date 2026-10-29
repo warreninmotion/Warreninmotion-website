@@ -209,11 +209,17 @@ Afleiden van `data.js`:
   de _ga-cookies. Verander je iets aan GA-instellingen, werk de verklaring bij (beide talen, datum).
 
 ## Home
-- De lanceringsvideo (`assets/video/lancering.mp4`, 7,6 MB) speelt vanzelf zonder geluid zodra hij in beeld is, in een lus;
+- (Gaat eraf in de release van 16-11-2026, zie `claude/release-maandag.md`.) De lanceringsvideo (`assets/video/lancering.mp4`, 7,6 MB) speelt vanzelf zonder geluid zodra hij in beeld is, in een lus;
   geluid alleen via de knop "Geluid aan". Geen autoplay bij "minder beweging".
 
 ## Werkwijze
-- Wijzigingen klein houden en na elke wijziging pushen naar `main` (Netlify zet het live).
+- Eén release per week, op maandagochtend (besluit Warren 29-10-2026, Netlify-credits): alles wat we besluiten gaat
+  als opdracht in `claude/release-maandag.md` en wordt op branch `claude/awesome-carson-21ymps` gezet; nooit tussendoor
+  naar `main` pushen. De geplande taak "Maandagrelease" (trig_01UJS2rLrUSxXNctYH3J5F3r, maandag 08:37 Amsterdam) zet de
+  trainingsweek erbij, voert de lijst uit en merget in één keer naar `main` (één deploy = 15 credits).
+- Netlify Free: 300 credits per cyclus (vernieuwing op de 13e); productiedeploy 15 credits, bandbreedte telt mee.
+  Zijn de credits op, dan gaat de site offline. "Netlify-credits check" (trig_01HfUV3Bmy3JvtBNkzSxZgDL, vrijdag) meldt
+  of we op schema lopen. Zware bestanden (video's) zo klein mogelijk houden.
 - Altijd zowel licht als donker thema en telefoonbreedte (~390 px) controleren.
 - Alles gelijk houden (VAST, na elke wijziging aan de site, zonder dat Warren erom vraagt):
   1. (Vervallen 21-10-2026: het artifact "Elke kilometer telt" wordt niet meer gebruikt en niet meer bijgewerkt; de website is de enige sponsorpagina.)
