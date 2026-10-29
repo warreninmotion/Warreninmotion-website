@@ -181,8 +181,9 @@ Afleiden van `data.js`:
 - Foto's en video's per week: `media: [{ type: "foto"|"video", src, alt, altEn, cap, capEn, poster }]` in de week;
   bestanden in `assets/training/` (foto's webp, max. 1080 px breed; video mp4 H.264, zonder geluid, max. 15 s en
   ±3 MB, met poster).
-- Geplande taak "Training-pagina bijwerken" (trig_01UJS2rLrUSxXNctYH3J5F3r): elke zondag 20:37 (Amsterdam) zet een
-  nieuwe sessie de afgelopen week uit Strava in `training.js` (met weetjes en weekverhaal) en pusht naar `main`.
+- Geplande taak "Maandagrelease website" (trig_01MVn5jtJQRYBHP2rG9ypBhZ): elke maandag 08:37 (Amsterdam) zet een
+  nieuwe sessie de afgelopen week(en) uit Strava in `training.js` (met weetjes en weekverhaal), voert de opdrachten uit
+  `claude/release-maandag.md` uit en zet alles in één keer live (vóór 16-11-2026 alleen naar de branch).
 - Weken lopen ma–zo (ISO-week); alleen afgeronde weken. Ritten op lengte sorteren, niet op volgorde.
 - Alleen weekcijfers delen (intern, niet op de site vermelden): nooit datum, dag of tijdstip per training, geen
   routes, kaarten, GPS of plaatsnamen, geen ruwe hartslagwaarden; ook niet herkenbaar in foto's of video's.
@@ -215,7 +216,7 @@ Afleiden van `data.js`:
 ## Werkwijze
 - Eén release per week, op maandagochtend (besluit Warren 29-10-2026, Netlify-credits): alles wat we besluiten gaat
   als opdracht in `claude/release-maandag.md` en wordt op branch `claude/awesome-carson-21ymps` gezet; nooit tussendoor
-  naar `main` pushen. De geplande taak "Maandagrelease" (trig_01UJS2rLrUSxXNctYH3J5F3r, maandag 08:37 Amsterdam) zet de
+  naar `main` pushen. De geplande taak "Maandagrelease" (trig_01MVn5jtJQRYBHP2rG9ypBhZ, maandag 08:37 Amsterdam) zet de
   trainingsweek erbij, voert de lijst uit en merget in één keer naar `main` (één deploy = 15 credits).
 - Netlify Free: 300 credits per cyclus (vernieuwing op de 13e); productiedeploy 15 credits, bandbreedte telt mee.
   Zijn de credits op, dan gaat de site offline. "Netlify-credits check" (trig_01HfUV3Bmy3JvtBNkzSxZgDL, vrijdag) meldt
