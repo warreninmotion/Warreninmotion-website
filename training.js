@@ -6,7 +6,7 @@
 // km, duur en zones van de training worden dan uit de blokken berekend. Zo gaat het in mei ook: etappes in blokken.
 // weetjes: bij elk totaal een leuk weetje; elke week vernieuwen zodat het bij de nieuwe totalen past.
 window.WIM_TRAINING = {
-  updated: "25 oktober 2026",
+  updated: "16 november 2026",
   tot: { week: 19, jaar: 2027 }, // de tocht: week 19 van 2027 (15–22 mei)
   // Gepland schema voor de weken die nog komen. CONCEPT (15-10-2026), opgesteld door Claude: nog door Warren bevestigen.
   // km = richtlijn per week [van, tot]; lichtere weken ("rust") krijgen ongeveer 60% daarvan.
@@ -33,15 +33,73 @@ window.WIM_TRAINING = {
     rust: [[2026, 45], [2026, 49], [2027, 5], [2027, 9], [2027, 13]],
   },
   weetjes: {
-    km: ["Verder dan van Veenendaal naar Parijs over de weg. En al ruim 40 procent van de route van Lucca naar huis.",
-      "Further than from Veenendaal to Paris by road. And already more than 40 per cent of the route from Lucca to home."],
+    km: ["Al ruim 80 procent van de route van Lucca naar huis. En meer dan twee keer van Veenendaal naar Berlijn over de weg.",
+      "Already more than 80 per cent of the route from Lucca to home. And more than twice the drive from Veenendaal to Berlin."],
     trainingen: ["Ruim een training per dag.", "More than one training session a day."],
-    uren: ["Bijna anderhalf etmaal: dag en nacht doorgetraind, en dan nog een halve dag erbij.", "Almost a day and a half: a full day and night of training, plus half a day more."],
-    kcal: ["Goed voor zo'n 80 pannenkoeken. Gezond eten hoort er dus gewoon bij.", "Good for about 80 pancakes. So healthy eating is part of the job."],
-    hm: ["Ruim twee en een half keer de Eiffeltoren. Op de Lukmanierpas, 1.915 m hoog, wordt dat een stuk meer.",
-      "More than two and a half times the Eiffel Tower. On the Lukmanier Pass, 1,915 m high, it will be a lot more."],
+    uren: ["Bijna drie etmalen: drie dagen en nachten achter elkaar doorgetraind.", "Almost three full days: three days and nights of training in a row."],
+    kcal: ["Goed voor zo'n 150 pannenkoeken. Gezond eten hoort er dus gewoon bij.", "Good for about 150 pancakes. So healthy eating is part of the job."],
+    hm: ["Bijna vier keer de Eiffeltoren. Op de Lukmanierpas, 1.915 m hoog, wordt dat een stuk meer.",
+      "Almost four times the Eiffel Tower. On the Lukmanier Pass, 1,915 m high, it will be a lot more."],
   },
   weeks: [
+    {
+      week: 46, jaar: 2026, van: "9 november 2026", tot: "15 november 2026", kcal: 4629,
+      ritten: [
+        { soort: "tempo", km: 60.8, min: 124, up: 157, binnen: false, zones: [2, 43, 53, 2, 0] },
+        { soort: "duur", km: 40.1, min: 83, up: 0, binnen: true, zones: [35, 64, 1, 0, 0] },
+        { soort: "duur", km: 32.1, min: 65, up: 0, binnen: true, zones: [42, 58, 0, 0, 0] },
+      ],
+      overig: [{ soort: "hiit", aantal: 1, min: 31 }, { soort: "padel", aantal: 1, min: 61 }, { soort: "run", aantal: 1, km: 7.2, min: 40 }],
+      tekst: [
+        "Minder kilometers deze week: drie trainingen op de fiets en 133 kilometer. Ik was een paar dagen weg zonder fiets, dus trok ik de hardloopschoenen aan voor ruim 7 kilometer.",
+        "De buitenrit was de zwaarste van de week, met meer dan de helft in zone 3 en 157 hoogtemeters. De twee ritten binnen reed ik in zone 1 en 2. Daarnaast deed ik een HIIT-sessie en speelde ik padel.",
+      ],
+      text: [
+        "Fewer kilometres this week: three sessions on the bike and 133 kilometres. I was away for a few days without my bike, so I put on my running shoes for just over 7 kilometres.",
+        "The outdoor ride was the hardest of the week, with more than half in zone 3 and 157 metres of climbing. I rode the two indoor sessions in zones 1 and 2. On top of that I did one HIIT session and played padel.",
+      ],
+    },
+    {
+      week: 45, jaar: 2026, van: "2 november 2026", tot: "8 november 2026", kcal: 8293,
+      ritten: [
+        { soort: "lang", binnen: true, blokken: [
+          { km: 55.0, min: 113, up: 0, zones: [46, 54, 0, 0, 0] },
+          { km: 55.0, min: 108, up: 0, zones: [2, 97, 1, 0, 0] } ] },
+        { soort: "duur", km: 50.4, min: 101, up: 0, binnen: true, zones: [9, 91, 0, 0, 0] },
+        { soort: "duur", km: 50.0, min: 100, up: 0, binnen: true, zones: [0, 0, 0, 0, 0] }, // geen hartslag gemeten
+        { soort: "herstel", km: 28.3, min: 60, up: 0, binnen: true, zones: [96, 4, 0, 0, 0] },
+      ],
+      overig: [{ soort: "hiit", aantal: 2, min: 92 }, { soort: "padel", aantal: 3, min: 221 }],
+      tekst: [
+        "Vier trainingen op de fiets en ruim 238 kilometer, allemaal binnen op de trainer. De langste dag was 110 km in twee blokken van 55: het eerste vooral in zone 1 en 2, het tweede vrijwel helemaal in zone 2, de duurzone.",
+        "Bij één rit mat ik geen hartslag, die staat dus zonder zones. Naast de fiets deed ik twee HIIT-sessies en speelde ik drie keer padel. Zo groeien kracht en snelheid mee met de duurkilometers.",
+      ],
+      text: [
+        "Four sessions on the bike and more than 238 kilometres, all indoors on the trainer. The longest day was 110 km in two blocks of 55: the first mostly in zones 1 and 2, the second almost entirely in zone 2, the endurance zone.",
+        "On one ride I did not measure my heart rate, so it has no zones. Off the bike I did two HIIT sessions and played padel three times. That way strength and speed grow along with the endurance kilometres.",
+      ],
+    },
+    {
+      week: 44, jaar: 2026, van: "26 oktober 2026", tot: "1 november 2026", kcal: 6687,
+      ritten: [
+        { soort: "lang", binnen: false, blokken: [ // eerste blok buiten, tweede binnen (materiaalpech)
+          { km: 63.0, min: 144, up: 138, zones: [2, 98, 0, 0, 0] },
+          { km: 37.0, min: 81, up: 0, zones: [10, 90, 0, 0, 0] } ] },
+        { soort: "duur", km: 50.0, min: 110, up: 0, binnen: true, zones: [0, 0, 0, 0, 0] }, // hartslagmeting viel weg
+        { soort: "duur", km: 43.3, min: 96, up: 67, binnen: false, zones: [3, 97, 0, 0, 0] },
+        { soort: "herstel", km: 27.5, min: 60, up: 0, binnen: true, zones: [48, 52, 0, 0, 0] },
+        { soort: "opbouw", km: 23.6, min: 50, up: 0, binnen: true, zones: [43, 18, 22, 15, 2] }, // FTP-test
+      ],
+      overig: [{ soort: "hiit", aantal: 3, min: 198 }],
+      tekst: [
+        "Vijf trainingen op de fiets en ruim 244 kilometer, met 205 hoogtemeters. Ik deed een FTP-test om mijn trainingszones opnieuw te bepalen: oplopend tot een harde finale. De langste dag was 100 km in twee blokken: 63 km buiten en na materiaalpech de rest binnen op de trainer.",
+        "De andere ritten reed ik vooral in zone 2, de duurzone. Bij één rit viel de hartslagmeting weg, die staat dus zonder zones. Daarnaast deed ik drie HIIT-sessies voor kracht en explosiviteit.",
+      ],
+      text: [
+        "Five sessions on the bike and more than 244 kilometres, with 205 metres of climbing. I did an FTP test to set my training zones again: building up to a hard finish. The longest day was 100 km in two blocks: 63 km outdoors and, after a mechanical, the rest indoors on the trainer.",
+        "I rode the other sessions mostly in zone 2, the endurance zone. On one ride the heart rate signal dropped out, so it has no zones. On top of that I did three HIIT sessions for strength and power.",
+      ],
+    },
     {
       week: 43, jaar: 2026, van: "19 oktober 2026", tot: "25 oktober 2026", kcal: 6903,
       ritten: [

@@ -8,20 +8,12 @@ als opdracht te staan. De geplande taak "Maandagrelease" voert de lijst uit, zet
 Regels:
 - Alleen opdrachten waar Warren ja op heeft gezegd. Twijfel = niet doen, terugvragen.
 - Tussendoor nooit naar `main` pushen. Wijzigingen staan op branch `claude/awesome-carson-21ymps`.
-- Netlify-credits: 300 per cyclus, vernieuwing op de 13e. Eerste maandagrelease: **16 november 2026**
+- Netlify-credits: 300 per cyclus, vernieuwing op de 15e. Eerste maandagrelease: **16 november 2026**
   (de credits van de cyclus tot 13 november zijn op).
 
-## Open opdrachten (volgende release: maandag 16 november 2026)
+## Open opdrachten (volgende release: maandag 23 november 2026)
 
-1. **Lanceringsvideo van Home af** (besluit Warren 29-10-2026, kost te veel bandbreedte; 7,6 MB per bezoek).
-   - `src/pages/home.html` en `src/pages/en/home.html`: de `<video id="lv">` vervangen door een foto, even hoog
-     als nu naast de keuzes. Voorlopig `assets/video/lancering-poster.jpg` (als webp naar `assets/img/`), tot er
-     een eigen mooie foto is (Warren maakt die; zet hem dan in `shots.js` als plek `home-kop`).
-   - Knop "Geluid aan" en de videologica in `assets/home.js` weghalen; op mobiel schuift nu de foto mee.
-   - `assets/video/lancering.mp4` uit de repo verwijderen (de poster blijft als foto).
-   - CLAUDE.md (sectie Home en Pagina's) bijwerken.
-2. **Training: alle ontbrekende weken** (vanaf week 44) uit Strava, volgens de werkwijze in CLAUDE.md (Training).
-3. **Werkafspraak in CLAUDE.md** (staat al op de branch): maandagrelease in plaats van "na elke wijziging pushen".
+1. **Training:** de week van 16 t/m 22 november uit Strava.
 
 ## Ideeën, nog niet besloten (niet uitvoeren)
 
@@ -31,3 +23,8 @@ Regels:
 ## Gedaan
 
 (De geplande taak zet hier per release de datum en wat er live ging.)
+
+- **16-11-2026** (handmatig door Hendricus; de geplande run van 08:37 zette niets klaar):
+  - Training: weken 44, 45 en 46 uit Strava, weetjes vernieuwd (totaal 1.265,9 km, 45 trainingen).
+  - Home: lanceringsvideo vervangen door een foto (`assets/img/home-kop.webp`); `lancering.mp4` verwijderd.
+  - CLAUDE.md: werkafspraak maandagrelease, sectie Home, credits vernieuwen op de 15e.

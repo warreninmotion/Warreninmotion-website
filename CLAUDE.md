@@ -61,7 +61,7 @@ Statische website voor de fietstocht van Warren: Lucca (IT) → Veenendaal, 15�
 ## Pagina's en bestanden
 - Flow op mobiel (16-10-2026): vaste actiebalk onderin (Doneer / Sponsor, `actbar` in `site.js`, alleen < 860 px, na de kop,
   weg bij cookiemelding, open menu of voet); menu op mobiel met Doneren en Sponsoren naast elkaar bovenaan; onderaan pagina's
-  een "Verder"-link naar de logische volgende pagina (`NEXT` in `tools/build.py`); Home op mobiel: kop met keuzes → tussenstand → lanceringsvideo (verplaatst door `home.js`) → drie veegkaarten →
+  een "Verder"-link naar de logische volgende pagina (`NEXT` in `tools/build.py`); Home op mobiel: kop met keuzes → tussenstand → foto (verplaatst door `home.js`) → drie veegkaarten →
   cijfers → citaat → kaart → afsluitend blok "Kies hoe je meedoet"; Sponsoren: drie stappen bovenaan
   (`sp-steps`), shirt en volgbus als uitklapblok (`details.fold`, op mobiel dicht, op computer open).
 - Opbouw naar bezoeker: Home (`index.html`) is de landingspagina met twee keuzes: "Ik ben een bedrijf → Ik wil
@@ -71,7 +71,7 @@ Statische website voor de fietstocht van Warren: Lucca (IT) → Veenendaal, 15�
   Contact, plus taalknop met vlaggetje (🇬🇧 EN op Nederlandse pagina's, 🇳🇱 NL op Engelse; inline SVG in `tools/build.py`).
   Doneren en Sponsoren staan als groene knop in het menu (`CTA` in `tools/build.py`).
 - Home: groene band bovenaan (kop "Ruim 1.500 km fietsen voor de voedselbank", twee keuzes: Sponsor kilometers /
-  Doneer en rij mee, lanceringsvideo even hoog ernaast), direct daaronder de tussenstand over de volle breedte (wens Warren
+  Doneer en rij mee, foto even hoog ernaast), direct daaronder de tussenstand over de volle breedte (wens Warren
   25-10-2026: mensen komen vooral daarvoor), dan kerncijfers; dan de routekaart naast het citaat van
   Warren (concept, door Warren te bevestigen), waarbij de kaart altijd even hoog is als die tekstkolom;
   daaronder drie blokken naast elkaar met een beeld als achtergrond: Waarom de voedselbank (home-koken), Wie ben ik?
@@ -210,15 +210,17 @@ Afleiden van `data.js`:
   de _ga-cookies. Verander je iets aan GA-instellingen, werk de verklaring bij (beide talen, datum).
 
 ## Home
-- (Gaat eraf in de release van 16-11-2026, zie `claude/release-maandag.md`.) De lanceringsvideo (`assets/video/lancering.mp4`, 7,6 MB) speelt vanzelf zonder geluid zodra hij in beeld is, in een lus;
-  geluid alleen via de knop "Geluid aan". Geen autoplay bij "minder beweging".
+- Sinds de release van 16-11-2026 staat naast de kop een foto (`assets/img/home-kop.webp`, uit de poster van de
+  lanceringsvideo) in plaats van de lanceringsvideo (te veel bandbreedte: 7,6 MB per bezoek). Op de telefoon schuift de
+  foto onder de tussenstand (`assets/home.js`). Maakt Warren een eigen mooie foto, zet die dan in `shots.js` als plek
+  `home-kop` en vervang het bestand.
 
 ## Werkwijze
 - Eén release per week, op maandagochtend (besluit Warren 29-10-2026, Netlify-credits): alles wat we besluiten gaat
   als opdracht in `claude/release-maandag.md` en wordt op branch `claude/awesome-carson-21ymps` gezet; nooit tussendoor
   naar `main` pushen. De geplande taak "Maandagrelease" (trig_01ThjS8ofPB9WwDjJJJtHnZJ, maandag 08:37 Amsterdam) zet de
   trainingsweek erbij, voert de lijst uit en merget in één keer naar `main` (één deploy = 15 credits).
-- Netlify Free: 300 credits per cyclus (vernieuwing op de 13e); productiedeploy 15 credits, bandbreedte telt mee.
+- Netlify Free: 300 credits per cyclus (vernieuwing op de 15e); productiedeploy 15 credits, bandbreedte telt mee.
   Zijn de credits op, dan gaat de site offline. "Netlify-credits check" (trig_01HfUV3Bmy3JvtBNkzSxZgDL, vrijdag) meldt
   of we op schema lopen. Zware bestanden (video's) zo klein mogelijk houden.
 - Altijd zowel licht als donker thema en telefoonbreedte (~390 px) controleren.
