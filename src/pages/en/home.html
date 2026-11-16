@@ -24,10 +24,8 @@
 .choice.main:hover{background:#FFFFFF}
 @media (prefers-reduced-motion:reduce){.choice,.choice .what svg{transition:none}}
 .hero-vid{margin:0;position:relative;border-radius:14px;overflow:hidden;background:#14201C;min-height:420px}
-.hero-vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-vid img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 @media (max-width:859px){.hero-vid{height:min(110vw,460px);min-height:0}}
-.snd{position:absolute;right:12px;top:12px;display:flex;align-items:center;gap:6px;font:inherit;font-size:13px;font-weight:600;border:0;border-radius:999px;padding:7px 12px;background:rgba(20,32,28,.78);color:#F2EEE4;cursor:pointer;z-index:1}
-.snd svg{width:16px;height:16px}
 .facts-band{border-bottom:1px solid var(--line)}
 .facts-band .facts{border-top:0}
 /* Kaart en quote naast elkaar: de kaart is altijd even hoog als de tekstkolom */
@@ -104,10 +102,7 @@
       </nav>
     </div>
     <figure class="hero-vid">
-      <video id="lv" muted loop playsinline preload="metadata" poster="/assets/video/lancering-poster.jpg" width="464" height="832" aria-label="Warren in Motion launch video (in Dutch)">
-        <source src="/assets/video/lancering.mp4" type="video/mp4">
-      </video>
-      <button type="button" class="snd" id="snd" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/></svg><span>Sound on</span></button>
+      <img id="lv" src="/assets/img/home-kop.webp" alt="Warren next to his road bike in front of the garage" width="464" height="832" fetchpriority="high">
     </figure>
   </header>
   </div>

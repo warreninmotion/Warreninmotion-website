@@ -1,18 +1,11 @@
-// Lanceringsvideo: speelt vanzelf zonder geluid zodra hij in beeld is; geluid alleen als de bezoeker het aanzet.
+// Foto naast de kop (was de lanceringsvideo, eraf op 16-11-2026: te veel bandbreedte).
+// Op de telefoon staat hij onder de tussenstand (wens Warren 26-10-2026); op de computer naast de kop.
 (function () {
-  const v = document.getElementById("lv"), b = document.getElementById("snd");
-  const ICON_OFF = '<path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/>', ICON_ON = '<path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/>';
-  const sync = () => { b.setAttribute("aria-pressed", String(!v.muted)); b.querySelector("span").textContent = v.muted ? t("Geluid aan", "Sound on") : t("Geluid uit", "Sound off"); b.querySelector("svg").innerHTML = v.muted ? ICON_OFF : ICON_ON; };
-  b.addEventListener("click", () => { v.muted = !v.muted; if (!v.muted && v.paused) v.play(); sync(); });
-  v.addEventListener("volumechange", sync);
-  v.muted = true;
-  // Op de telefoon staat de video onder de tussenstand (wens Warren 26-10-2026); op de computer naast de kop
-  const fig = v.closest(".hero-vid"), home = fig.parentNode, stand = document.querySelector(".stand-sec"), mq = matchMedia("(max-width:859px)");
+  const fig = document.querySelector(".hero-vid");
+  if (!fig) return;
+  const home = fig.parentNode, stand = document.querySelector(".stand-sec"), mq = matchMedia("(max-width:859px)");
   const place = () => mq.matches ? stand.after(fig) : home.append(fig);
   place(); mq.addEventListener("change", place);
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) { v.controls = true; return; } // geen autoplay bij minder beweging
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) v.play().catch(() => {}); else if (v.muted) v.pause(); }), { threshold: .35 });
-  io.observe(v);
 })();
 
 // Routetekening zonder landkaart: alleen de lijn, de etappes en de belangrijkste plaatsen
