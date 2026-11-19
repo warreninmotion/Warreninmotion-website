@@ -55,13 +55,15 @@ function render() {
   // plaatsen
   const towns = { "Lucca": "r", "Novi Ligure": "l", "Locarno": "l", "Lukmanier": "l", "Sargans": "r", "Mulhouse": "r", "Bad Bergzabern": "r", "Arlon": "l", "Lommel": "r", "Den Bosch": "l", "Veenendaal": "r" };
 
+  // kant en hoogte van de doellabels op de kaart, per doel uit WIM_SITE.goals
+  const goalSide = [{ s: "r", dy: 6 }, { s: "l", dy: 20 }, { s: "r", dy: -8 }, { s: "r", dy: 14 }];
   // kilometerstreepjes: elke 50 km een streepje, elke 100 km een getal aan de vrije kant
   const avoid = [];
   for (const q of pts) if (towns[q.name]) {
     const r = towns[q.name] === "r", n = q.name === "Lukmanier" ? 17 : q.name.length, w = n * 9;
     for (let f = 0; f <= 1; f += .25) avoid.push({ p: [q.p[0] + (r ? 1 : -1) * (12 + w * f), q.p[1]], k: -999 });
   }
-  [[7500, "r", 140], [15000, "l", 130], [30000, "r", 170]].forEach(([e, s, w]) => { const [x, y] = at(e / 20); for (let f = 0; f <= 1; f += .25) avoid.push({ p: [x + (s === "r" ? 1 : -1) * (16 + w * f), y + 10], k: -999 }); });
+  GOALS.map((g, i) => [g.eur, goalSide[i % goalSide.length].s, (g.label.length + 9) * 8.5]).forEach(([e, s, w]) => { const [x, y] = at(e / 20); for (let f = 0; f <= 1; f += .25) avoid.push({ p: [x + (s === "r" ? 1 : -1) * (16 + w * f), y + 10], k: -999 }); });
   for (const [n, la, lo] of countries) { const [x, y] = xy(la, lo), w = n.length * 11; for (let f = -.5; f <= .5; f += .25) avoid.push({ p: [x + w * f, y - 5], k: -999 }); }
   for (let k = 0; k <= REAL; k += 8) avoid.push({ p: at(k), k });
   for (let k = 50; k < REAL - 20; k += 50) {
@@ -69,7 +71,8 @@ function render() {
     const L = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1, nx = -(b[1] - a[1]) / L, ny = (b[0] - a[0]) / L;
     const major = k % 100 === 0, h = major ? 9 : 6;
     svg.append(el("line", { x1: p[0] - nx * h, y1: p[1] - ny * h, x2: p[0] + nx * h, y2: p[1] + ny * h, stroke: "var(--fg)", "stroke-width": major ? 1.8 : 1.2, opacity: major ? .75 : .45 }));
-    if (!major || k === 1500) continue;
+    // geen kilometergetal vlak bij een doel: daar staat het doellabel
+    if (!major || k === 1500 || GOALS.some(g => Math.abs(g.eur / 20 - k) <= 50)) continue;
     let best = null;
     for (const s of [1, -1]) {
       const q = [p[0] + nx * s * 24, p[1] + ny * s * 24];
@@ -85,10 +88,9 @@ function render() {
     svg.append(el("circle", { cx: x, cy: y, r: pass ? 3 : 4.5, fill: "var(--bg)", stroke: "var(--fg)", "stroke-width": 2 }));
     svg.append(el("text", { x: x + (r ? 12 : -12), y: y + 6, "text-anchor": r ? "start" : "end", "font-size": 18, fill: "var(--fg)", "font-style": pass ? "italic" : "normal" }, pass ? t("Lukmanier 1.915 m", "Lukmanier 1,915 m") : q.name));
   }
-  // doelen op de route
-  const goalSide = [{ s: "r", dy: 6 }, { s: "l", dy: 20 }, { s: "r", dy: 14 }];
+  // doelen op de route (goalSide staat bovenaan render)
   GOALS.forEach((g, i) => {
-    const [x, y] = at(g.eur / 20), o = goalSide[i], r = o.s === "r";
+    const [x, y] = at(g.eur / 20), o = goalSide[i % goalSide.length], r = o.s === "r";
     const reached = totEur >= g.eur;
     svg.append(el("circle", { cx: x, cy: y, r: 9, fill: reached ? "var(--fg)" : "var(--bg)", stroke: "var(--fg)", "stroke-width": 2 }));
     svg.append(el("text", { x: x + (r ? 16 : -16), y: y + o.dy, "text-anchor": r ? "start" : "end", "font-size": 15, "font-weight": 600, fill: "var(--fg)" }, `${g.label} · ${eur(g.eur)}`));
@@ -111,14 +113,12 @@ function render() {
   ml.innerHTML = WIM_gezinLine(totEur, true);
   const bar = document.getElementById("bar");
   bar.innerHTML = `<div class="f" style="width:${sKm / TOTAL * 100}%"></div><div class="p" style="left:${sKm / TOTAL * 100}%;width:${pKm / TOTAL * 100}%;${sKm ? "" : "border-radius:999px 0 0 999px;"}${totKm >= TOTAL ? "border-radius:0 999px 999px 0" : ""}"></div>` +
-    GOALS.map((g, i) => `<div class="tick${i === 2 ? " end" : ""}" style="left:calc(${g.eur / 20 / TOTAL * 100}% - ${i === 2 ? 2 : 1}px)"><span>${eur(g.eur)}</span></div>`).join("");
-  const nxt = GOALS.find(g => totEur < g.eur);
-  document.getElementById("next").innerHTML = nxt
-    ? t(`Op naar <b>${nxt.label.toLowerCase()}: ${eur(nxt.eur)}</b>. Nog ${nl((nxt.eur - totEur) / 20)} km te gaan.`, `Next up: <b>${nxt.label.toLowerCase()}, ${eur(nxt.eur)}</b>. ${nl((nxt.eur - totEur) / 20)} km to go.`)
-    : t(`<b>De hele route is gevuld!</b> Dank je wel, iedereen die meerijdt.`, `<b>The whole route is filled!</b> Thank you to everyone riding along.`);
+    GOALS.map((g, i) => { const last = i === GOALS.length - 1; return `<div class="tick${last ? " end" : ""}" style="left:calc(${g.eur / 20 / TOTAL * 100}% - ${last ? 2 : 1}px)"><span>${eur(g.eur)}</span></div>`; }).join("");
+  // doelenladder: het eerste nog niet gehaalde doel is het actuele doel (WIM_ladder in site.js)
+  document.getElementById("next").innerHTML = WIM_ladder(totEur);
   document.getElementById("sprint").innerHTML = st.eindsprint || st.diner
     ? t(`Eindsprint: <b>${st.eindsprint} van ${SPRINT} plekken bezet</b>, en ${st.diner} ${st.diner === 1 ? "gast" : "gasten"} aan tafel bij het diner.`, `Final sprint: <b>${st.eindsprint} of ${SPRINT} places taken</b>, and ${st.diner} ${st.diner === 1 ? "guest" : "guests"} at the dinner table.`)
-    : t(`Eindsprint: alle 50 plekken nog vrij. Fiets mee van Den Bosch naar Veenendaal!`, `Final sprint: all 50 places still open. Ride with us from Den Bosch to Veenendaal!`);
+    : t(`Eindsprint: fiets de laatste etappe mee van Den Bosch naar Veenendaal. <a href="${L("/meefietsen/")}">Meld je aan</a>`, `Final sprint: ride the last stage with me from Den Bosch to Veenendaal. <a href="${L("/meefietsen/")}">Sign up</a>`);
 
   // lijst
   const list = document.getElementById("list");

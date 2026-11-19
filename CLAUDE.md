@@ -2,7 +2,7 @@
 
 Statische website voor de fietstocht van Warren: Lucca (IT) → Veenendaal, 15–22 mei 2027,
 1.570 km (GPX: 1.569,6 km) in 8 etappes door 7 landen, voor Voedselbanken Nederland. €20 per km
-(hoofddoel €30.000; doel 1 €7.500, doel 2 €15.000).
+(doelenladder, besluit Warren 19-11-2026: €7.500 · €15.000 · €22.500 · €30.000).
 
 ## 1.500 km is de hook, de site toont echte data (BELANGRIJK)
 - "1.500 km" is het marketinggetal (social media, slogans, volgbus). Op de site mag het in koppen en lopende
@@ -110,6 +110,16 @@ Statische website voor de fietstocht van Warren: Lucca (IT) → Veenendaal, 15�
   ook shirt en volgbus mee vol); geen fictief voorbeeld elders op de site.
 - Links altijd absoluut (`/route/`, `/assets/...`); lokaal testen met `python3 -m http.server` in de repo-root.
 - De stand staat in `data.js` (`window.WIM_DATA`).
+- Doelenladder: de bedragen staan ALLEEN in `WIM_SITE.goals` (`assets/site.js`): Eerste doel €7.500, Tweede €15.000,
+  Derde €22.500, Einddoel €30.000. `WIM_ladder(euro)` toont het eerste nog niet gehaalde doel als actueel doel en de rest
+  als volgende stappen (Home `[data-stand]`, Tussenstand `#next`, Sponsoren `[data-ladder]`); kaart en balk lezen dezelfde lijst.
+- Meefietsen (`/meefietsen/`, `/en/ride-along/`, bedankpagina's `/meefietsen/bedankt/` en `/en/ride-along/thanks/`, noindex):
+  laatste etappe za 22 mei 2027, Den Bosch → Veenendaal (ruim 50 km, via de Kerkewijk het centrum in; "dezelfde dag als de
+  wielerronde", geen beloftes over de finishstraat). €50 incl. fietsshirt, diner optioneel +€100; nu nog niets betalen.
+  Aanmelden via Netlify Forms (formulier `meefietsen`, honeypot `bot-field`, veld `taal`). Eerste 50 = deelnemerslijst,
+  vanaf 51 tweede groep die we proberen te regelen, daarna reservelijst. Nog GEEN live teller "nog X plekken" (pas na
+  live koppeling). Privacyverklaring heeft een blok `#meefietsen`. Links vanaf Home, De route, Doneren en Contact;
+  `/eindsprint/` stuurt door naar `/meefietsen/`.
 - Gezinnen: overal waar de stand staat (Home, Tussenstand, peloton op Doneren, rekenhulp, artifact) staat ook hoeveel
   gezinnen er boodschappen van de voedselbank mee krijgen (`WIM_gezinnen`/`WIM_gezinLine` in `site.js`): bedrag / €12,50
   (Voedselbanken Nederland: €12,50 = boodschappen voor een gezin; `WIM_SITE.euroPerGezin`). Geen maaltijden noemen
@@ -141,8 +151,8 @@ Afleiden van `data.js`:
   geel = hoofdsponsor (borst, bovenrug, beide zijkanten); 12 grijze plekken: 3 balken voor en 2 balken rug €500,
   3 achterzakken en 4 mouwvlakken (2 per mouw) €250 (voorstel 14-10-2026, nog niet bevestigd door Warren).
   Geen plekken op de broek. Logo staat op shirt Warren, shirts meefietsers en volgbus.
-- Eindsprint za 22 mei 2027, Den Bosch → Veenendaal (ruim 50 km, GPX ±54 km), max 50 plekken, €150 = meefietsen + officieel
-  shirt + diner/cheque/feest. Alleen diner €100.
+- Eindsprint za 22 mei 2027, Den Bosch → Veenendaal (ruim 50 km, GPX ±54 km), max 50 plekken (daarna tweede groep), €50 = meefietsen + fietsshirt;
+  diner erbij +€100 (besluit Warren 19-11-2026, was €150 all-in). Alleen diner €100.
 - Facturatie via Stichting Warren in Motion (in oprichting). Particulieren doneren via
   https://www.kominactievoordevoedselbank.nl/fundraisers/warreninmotion
 - Contact op de site: steun@warreninmotion.nl · socials: Instagram @warreninmotion, TikTok @warren.in.motion

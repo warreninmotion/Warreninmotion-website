@@ -104,6 +104,11 @@
 .stand-link{display:block;color:inherit;text-decoration:none;border-radius:14px;transition:box-shadow .15s}
 .stand-link:hover{box-shadow:0 0 0 2px var(--brons)}
 @media (prefers-reduced-motion:reduce){.stand-link{transition:none}}
+/* Meefietsen: laatste etappe */
+.ride-sec{display:grid;gap:20px;grid-template-columns:minmax(0,1fr);align-items:center;border:1.5px solid var(--line);border-radius:14px;padding:24px 20px}
+@media (min-width:860px){.ride-sec{grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:40px;padding:32px 36px}}
+.ride-sec p{color:var(--muted);max-width:60ch;margin-top:10px}
+.ride-sec .btns{margin-top:0}
 /* Afsluitend keuzeblok onderaan */
 .endcta{background:#1E4034;color:#F2EEE4;border-radius:14px;padding:28px 20px}
 @media (min-width:860px){.endcta{padding:36px 40px}}
@@ -115,7 +120,8 @@
   .home-wrap>.topics{order:1}
   .home-wrap>.facts-band{order:2}
   .home-wrap>[aria-labelledby="h-verhaal"]{order:3}
-  .home-wrap>.endcta{order:4}
+  .home-wrap>.ride-sec{order:4}
+  .home-wrap>.endcta{order:5}
   .tale-txt{order:-1}
   .tale-map{min-height:300px}
   .topics{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 -16px;padding:0 16px 4px;scroll-padding:0 16px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
@@ -190,6 +196,15 @@
       <figure class="ph" data-shot="home-pedalen"></figure>
       <div class="topic-txt"><h3>Acht dagen, zeven landen</h3><p>Langs de Ligurische kust, over de Lukmanierpas en door de Ardennen naar huis. Elke etappe rond de 200 km.</p><span class="more">Bekijk de route</span></div>
     </a>
+  </section>
+
+  <section class="ride-sec" aria-labelledby="h-ride">
+    <div>
+      <div class="eyebrow">Zaterdag 22 mei 2027</div>
+      <h2 id="h-ride">Fiets de laatste etappe mee</h2>
+      <p>Van Den Bosch naar Veenendaal, ruim 50 km samen naar de finish. €50 inclusief fietsshirt, en je betaalt nu nog niets.</p>
+    </div>
+    <div class="btns"><a class="btn" href="/meefietsen/">Meld je aan</a><a class="more" href="/meefietsen/">Zo werkt het</a></div>
   </section>
 
   <section class="endcta" aria-labelledby="h-mee">
