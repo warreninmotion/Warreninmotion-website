@@ -20,7 +20,7 @@ const STAGES = [
   { dag: 7, datum: t("vr 21 mei", "Fri 21 May"), van: "Arlon", naar: "Lommel", landen: t("België", "Belgium"),
     via: t("Op en neer door de Ardennen via Bastogne en Luik, en dan de Kempen in.", "Up and down through the Ardennes via Bastogne and Liège, then into the Campine.") },
   { dag: 8, datum: t("za 22 mei", "Sat 22 May"), van: "Lommel", naar: "Veenendaal", landen: t("België → Nederland", "Belgium → Netherlands"),
-    via: t("De laatste dag. Vanaf Den Bosch fietsen tot 50 meefietsers mee in de eindsprint naar de finish in Veenendaal.", "The final day. From Den Bosch, up to 50 riders join the final sprint to the finish in Veenendaal.") },
+    via: t("De laatste dag. Vanaf Den Bosch fietsen meefietsers de laatste ruim 50 km mee naar de finish in Veenendaal, via de Kerkewijk het centrum in.", "The final day. From Den Bosch, riders join me for the last 50-plus km to the finish in Veenendaal, into the town centre via the Kerkewijk.") },
 ];
 const K = 120, PADL = 120, PADR = 100, PADT = 34, PADB = 34;
 const LON0 = 5.3, LON1 = 10.5, LAT1 = 52.05, LAT0 = 43.8, CX = 0.669;
