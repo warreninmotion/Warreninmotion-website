@@ -14,6 +14,11 @@ Regels:
 ## Open opdrachten (volgende release: maandag 23 november 2026)
 
 1. **Training:** de week van 16 t/m 22 november uit Strava.
+2. **Meefietsen + diner en Bikebear-kopfoto (ja Warren 19-11-2026, 16:36):** merge de branch van PR #12 (meefietsen-pagina,
+   doelenladder) met daarop de commit "Meefietsen: alleen het diner reserveren …" (branch `claude/meefietsen-diner`) mee in
+   deze release. Moet live staan vóór het persbericht van di 24-11 09:00 (link warreninmotion.nl/meefietsen). Na de merge
+   op productie controleren: /meefietsen/ (drie keuzes, ?keuze=diner), /en/ride-along/, Doneren "Alleen het diner" linkt
+   naar het formulier, kopfoto op Home, en één testinzending per taal in Netlify Forms (daarna verwijderen).
 
 ## Ideeën, nog niet besloten (niet uitvoeren)
 
