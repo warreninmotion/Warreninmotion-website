@@ -45,6 +45,10 @@
 .mf-fig{max-width:100%!important}
 .mf-plek{border:1.5px solid var(--brons);border-radius:14px;padding:18px 20px;display:grid;gap:8px}
 .mf-plek p{max-width:68ch}
+.cform .mf-keuze{gap:10px}
+.mf-fiets{display:grid;gap:16px}
+.mf-fiets[hidden]{display:none}
+.cards .card .more{margin-top:auto}
 </style>
 <div class="wrap">
   <header>
@@ -52,6 +56,7 @@
     <h1>Fiets de laatste etappe mee</h1>
     <p class="lead">Van Den Bosch naar de finish in Veenendaal: ruim 50 km, samen. Ik heb er dan al ruim 1.500 km op zitten, dus ik kan je steun goed gebruiken.</p>
     <div class="btns"><a class="btn" href="#aanmelden">Meld je aan</a><a class="btn ghost" href="/route/#dag-8">Bekijk etappe 8</a></div>
+    <p class="small muted">Fiets je niet mee? <a href="/meefietsen/?keuze=diner#aanmelden">Reserveer dan een plek bij het diner</a>.</p>
   </header>
 
   <figure class="ph mf-fig" data-shot="doneren-groep"></figure>
@@ -78,7 +83,7 @@
 
   <section class="sec" aria-labelledby="h-prijs">
     <h2 id="h-prijs">Wat het kost</h2>
-    <div class="cards c2">
+    <div class="cards c3">
       <div class="card">
         <div class="eyebrow">Fiets mee</div>
         <h3>Meefietsen</h3>
@@ -87,15 +92,28 @@
           <li>Samen de laatste ruim 50 km naar de finish</li>
           <li>Het Warren in Motion-fietsshirt, om te houden</li>
         </ul>
+        <a class="more" href="/meefietsen/?keuze=meefietsen#aanmelden" data-keuze="meefietsen">Kies meefietsen</a>
       </div>
       <div class="card">
-        <div class="eyebrow">Optioneel</div>
-        <h3>Schuif aan bij het diner</h3>
-        <div class="price">+€100 <small>per persoon</small></div>
+        <div class="eyebrow">Fiets mee en schuif aan</div>
+        <h3>Meefietsen + diner</h3>
+        <div class="price">€150 <small>per persoon (€50 + €100)</small></div>
+        <ul class="incl">
+          <li>Alles van meefietsen, met het fietsshirt</li>
+          <li>Een plek aan tafel bij het diner na de finish</li>
+          <li>Erbij als we de opbrengst overhandigen aan Voedselbanken Nederland</li>
+        </ul>
+        <a class="more" href="/meefietsen/?keuze=meefietsen-diner#aanmelden" data-keuze="meefietsen-diner">Kies meefietsen + diner</a>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Schuif aan</div>
+        <h3>Alleen het diner</h3>
+        <div class="price">€100 <small>per persoon</small></div>
         <ul class="incl">
           <li>Een plek aan tafel bij het diner na de finish</li>
           <li>Erbij als we de opbrengst overhandigen aan Voedselbanken Nederland</li>
         </ul>
+        <a class="more" href="/meefietsen/?keuze=diner#aanmelden" data-keuze="diner">Kies alleen het diner</a>
       </div>
     </div>
     <p class="muted"><b style="color:var(--fg)">Je betaalt nu nog niets.</b> Na je aanmelding nemen we contact met je op over de betaling.</p>
@@ -103,7 +121,7 @@
 
   <section class="mf-plek" aria-labelledby="h-plek">
     <h2 id="h-plek">50 plekken</h2>
-    <p class="muted">De eerste 50 aanmeldingen staan op de deelnemerslijst. Meld je je daarna aan, dan sta je bij een tweede groep die we proberen te regelen. Pas daarna komt er een reservelijst: zegt er iemand af, dan krijg je bericht.</p>
+    <p class="muted">De eerste 50 aanmeldingen om mee te fietsen staan op de deelnemerslijst. Meld je je daarna aan, dan sta je bij een tweede groep die we proberen te regelen. Pas daarna komt er een reservelijst: zegt er iemand af, dan krijg je bericht. Kom je alleen naar het diner, dan tel je niet mee voor de 50 fietsplekken.</p>
   </section>
 
   <section class="sec" id="aanmelden" aria-labelledby="h-aanmelden">
@@ -117,21 +135,30 @@
         <label>Je e-mailadres<input type="email" name="email" autocomplete="email" required maxlength="200"></label>
         <label>Je telefoonnummer<input type="tel" name="telefoon" autocomplete="tel" required maxlength="40"></label>
       </div>
-      <div class="cf-2">
-        <label>Maat fietsshirt
-          <select name="maat" required>
-            <option value="">Kies je maat</option>
-            <option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>XXXL</option>
-          </select>
-        </label>
-        <fieldset>
-          <legend>Je fiets</legend>
-          <label class="chk"><input type="radio" name="fiets" value="eigen fiets" required> Ik heb een eigen fiets</label>
-          <label class="chk"><input type="radio" name="fiets" value="fiets huren"> Ik wil een fiets huren</label>
-        </fieldset>
+      <fieldset class="mf-keuze">
+        <legend>Waar meld je je voor aan?</legend>
+        <label class="chk"><input type="radio" name="keuze" value="meefietsen" required> <span>Meefietsen <span class="opt">€50, incl. fietsshirt</span></span></label>
+        <label class="chk"><input type="radio" name="keuze" value="meefietsen-diner"> <span>Meefietsen + diner <span class="opt">€150 (€50 + €100)</span></span></label>
+        <label class="chk"><input type="radio" name="keuze" value="diner"> <span>Alleen het diner <span class="opt">€100</span></span></label>
+      </fieldset>
+      <input type="hidden" name="diner" value="">
+      <input type="hidden" name="fietsplek" value="">
+      <div class="mf-fiets" data-fiets>
+        <div class="cf-2">
+          <label>Maat fietsshirt
+            <select name="maat" required>
+              <option value="">Kies je maat</option>
+              <option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>XXXL</option>
+            </select>
+          </label>
+          <fieldset>
+            <legend>Je fiets</legend>
+            <label class="chk"><input type="radio" name="fiets" value="eigen fiets" required> Ik heb een eigen fiets</label>
+            <label class="chk"><input type="radio" name="fiets" value="fiets huren"> Ik wil een fiets huren</label>
+          </fieldset>
+        </div>
+        <label class="chk"><input type="checkbox" name="eigen-risico" value="ja" required> <span>Ik fiets op eigen risico.</span></label>
       </div>
-      <label class="chk"><input type="checkbox" name="diner" value="ja"> <span>Ik schuif ook aan bij het diner na de finish <span class="opt">(+€100, nu nog niet betalen)</span></span></label>
-      <label class="chk"><input type="checkbox" name="eigen-risico" value="ja" required> <span>Ik fiets op eigen risico.</span></label>
       <label class="chk"><input type="checkbox" name="toestemming" value="ja" required> <span>Ik geef toestemming om mijn gegevens te gebruiken voor deze aanmelding, zoals staat in de <a href="/privacy/#meefietsen">privacyverklaring</a>.</span></label>
       <div class="cf-foot">
         <button class="btn" type="submit">Meld me aan</button>
@@ -140,6 +167,7 @@
     </form>
   </section>
 </div>
+<script src="/assets/meefietsen.js" defer></script>
 <nav class="next-step" aria-label="Verder"><span class="next-l">Verder</span><a href="/route/">Bekijk de hele route</a></nav>
 </main>
 

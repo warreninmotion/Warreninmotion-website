@@ -2,15 +2,19 @@
   <header>
     <div class="eyebrow">Meefietsen · zaterdag 22 mei 2027</div>
     <h1>Dank je wel, je bent aangemeld</h1>
-    <p class="lead">Je aanmelding is binnen. Wat fijn dat je het laatste stuk met me meefietst.</p>
+    <p class="lead" data-alleen="fiets">Je aanmelding is binnen. Wat fijn dat je het laatste stuk met me meefietst.</p>
+    <p class="lead" data-alleen="diner" hidden>Je aanmelding is binnen. Wat fijn dat je aanschuift bij het diner.</p>
   </header>
   <section class="sec" aria-labelledby="h-nu">
     <h2 id="h-nu">Wat er nu gebeurt</h2>
     <ul class="incl">
       <li>Je betaalt nu nog niets. We nemen contact met je op over de betaling en de details van de dag.</li>
-      <li>De eerste 50 aanmeldingen staan op de deelnemerslijst. Ben je later, dan sta je bij de tweede groep die we proberen te regelen, en hoor je van ons.</li>
+      <li data-alleen="fiets">De eerste 50 aanmeldingen om mee te fietsen staan op de deelnemerslijst. Ben je later, dan sta je bij de tweede groep die we proberen te regelen, en hoor je van ons.</li>
+      <li data-alleen="metdiner" hidden>Je plek aan tafel bij het diner na de finish is ook genoteerd.</li>
+      <li data-alleen="diner" hidden>Je plek aan tafel bij het diner na de finish is genoteerd. De locatie volgt; we houden je op de hoogte.</li>
       <li>Kun je toch niet? Mail dan even naar <a href="mailto:steun@warreninmotion.nl">steun@warreninmotion.nl</a>, dan kan iemand anders je plek krijgen.</li>
     </ul>
     <div class="btns"><a class="btn" href="/doneren/">Doneer aan de voedselbank</a><a class="btn ghost" href="/tussenstand/">Bekijk de tussenstand</a></div>
   </section>
 </div>
+<script src="/assets/meefietsen.js" defer></script>

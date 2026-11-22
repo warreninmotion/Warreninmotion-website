@@ -115,7 +115,11 @@ Statische website voor de fietstocht van Warren: Lucca (IT) → Veenendaal, 15�
   als volgende stappen (Home `[data-stand]`, Tussenstand `#next`, Sponsoren `[data-ladder]`); kaart en balk lezen dezelfde lijst.
 - Meefietsen (`/meefietsen/`, `/en/ride-along/`, bedankpagina's `/meefietsen/bedankt/` en `/en/ride-along/thanks/`, noindex):
   laatste etappe za 22 mei 2027, Den Bosch → Veenendaal (ruim 50 km, via de Kerkewijk het centrum in; "dezelfde dag als de
-  wielerronde", geen beloftes over de finishstraat). €50 incl. fietsshirt, diner optioneel +€100; nu nog niets betalen.
+  wielerronde", geen beloftes over de finishstraat). Drie keuzes (besluit Warren 19-11-2026): meefietsen €50 incl. fietsshirt,
+  meefietsen + diner €150 (€50 + €100), alleen het diner €100; nu nog niets betalen. Bij "alleen het diner" vallen maat,
+  fiets en eigen risico weg en telt de aanmelding niet mee voor de 50 fietsplekken (veld `fietsplek` ja/nee, `keuze`,
+  `diner`; `assets/meefietsen.js`). Zonder JS blijven de fietsvelden verplicht en zijn `diner`/`fietsplek` leeg: `keuze` is leidend bij het verwerken. Vooraf kiezen met `?keuze=meefietsen|meefietsen-diner|diner#aanmelden`; Doneren
+  linkt "Alleen het diner" naar `?keuze=diner` (één plek voor aanmeldingen, geen mailknop meer).
   Aanmelden via Netlify Forms (formulier `meefietsen`, honeypot `bot-field`, veld `taal`). Eerste 50 = deelnemerslijst,
   vanaf 51 tweede groep die we proberen te regelen, daarna reservelijst. Nog GEEN live teller "nog X plekken" (pas na
   live koppeling). Privacyverklaring heeft een blok `#meefietsen`. Links vanaf Home, De route, Doneren en Contact;
@@ -220,10 +224,12 @@ Afleiden van `data.js`:
   de _ga-cookies. Verander je iets aan GA-instellingen, werk de verklaring bij (beide talen, datum).
 
 ## Home
-- Sinds de release van 16-11-2026 staat naast de kop een foto (`assets/img/home-kop.webp`, uit de poster van de
-  lanceringsvideo) in plaats van de lanceringsvideo (te veel bandbreedte: 7,6 MB per bezoek). Op de telefoon schuift de
-  foto onder de tussenstand (`assets/home.js`). Maakt Warren een eigen mooie foto, zet die dan in `shots.js` als plek
-  `home-kop` en vervang het bestand.
+- Naast de kop staat een foto (`assets/img/home-kop.webp`, 464×832 webp). Sinds 19-11-2026 (PR meefietsen-diner) is dat de
+  partnerfoto van Warren op zijn nieuwe racefiets bij Bikebear Veenendaal (10-11-2026, IMG_4727; bron Dropbox
+  "Warren in Motion/Klaar om te posten/2026-11-14_instagram_bikebear_foto.jpg", dezelfde foto als bij het persbericht,
+  gepland 24-11). Uitsnede x 69–822 van 1080×1350; `object-position` 50% 72% (computer), 50% 61% (telefoon < 560 px) en
+  50% 46% (560–859 px, brede strook: gezichten gaan voor) zodat Warren, Ton en de fiets zo goed mogelijk in beeld blijven. Daarvoor: de still uit de lanceringsvideo (16-11-2026, in plaats van de video: 7,6 MB per bezoek).
+  Op de telefoon schuift de foto onder de tussenstand (`assets/home.js`).
 
 ## Werkwijze
 - Eén release per week, op maandagochtend (besluit Warren 29-10-2026, Netlify-credits): alles wat we besluiten gaat
