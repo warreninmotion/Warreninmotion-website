@@ -281,3 +281,38 @@ details.fold>:not(summary){margin-top:14px}
 .cf-foot p{flex:1 1 220px}
 .cf-robot:empty{display:none}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Doelenladder (WIM_ladder in site.js): actueel doel met een bronzen rand, gehaalde doelen groen, volgende stappen stil */
+.ladder{display:grid;gap:10px;margin-top:4px}
+.lad-h{font-size:16px;color:var(--fg)}
+.lad-h b{font-family:var(--display);font-weight:400;font-size:1.35em}
+.ladder ol{list-style:none;margin:0;padding:0;display:grid;gap:8px;grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (min-width:620px){.ladder ol{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.ladder li{display:grid;gap:2px;border:1px solid var(--line);border-radius:10px;padding:8px 12px;min-width:0}
+.ladder li b{font-family:var(--display);font-weight:400;font-size:22px;line-height:1.1;color:var(--fg);font-variant-numeric:lining-nums tabular-nums}
+.lad-l{font-size:13px;color:var(--muted)}
+.lad-s{font-size:13px;color:var(--muted)}
+.ladder li.now{border:1.5px solid var(--brons)}
+.ladder li.now .lad-s{color:var(--fg);font-weight:600}
+.ladder li.done{background:var(--groen);border-color:var(--groen)}
+.ladder li.done b,.ladder li.done span{color:var(--bg)}
+.ladder li.later{opacity:.8}
+/* in de groene band op Sponsoren */
+.samen .ladder li{border-color:rgba(242,238,228,.3)}
+.samen .ladder li b,.samen .lad-h,.samen .lad-h b{color:#F2EEE4}
+.samen .lad-l,.samen .lad-s{color:rgba(242,238,228,.75)}
+.samen .ladder li.now{border-color:#C08A3E}
+.samen .ladder li.now .lad-s{color:#F2EEE4}
+.samen .ladder li.done{background:#F2EEE4;border-color:#F2EEE4}
+.samen .ladder li.done b,.samen .ladder li.done span{color:#1E4034}
+
+/* Formulier: keuzelijst, keuzerondjes en vinkjes (Meefietsen) */
+.cform select{font:inherit;font-weight:400;font-size:16px;color:var(--fg);background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:10px 12px;width:100%;min-width:0}
+.cform select:focus-visible{outline:2px solid var(--brons);outline-offset:1px}
+.cform fieldset{border:0;margin:0;padding:0;display:grid;gap:8px;min-width:0}
+.cform legend{font-size:14px;font-weight:600;padding:0;margin-bottom:6px}
+.cform label.chk{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start;font-weight:400;font-size:15px}
+.cform label.chk input{width:20px;height:20px;margin:1px 0 0;padding:0;accent-color:var(--groen)}
+.cform .opt{color:var(--muted);font-weight:400}
+.cf-2{display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:720px){.cf-2{grid-template-columns:repeat(2,minmax(0,1fr))}}

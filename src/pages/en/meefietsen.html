@@ -1,0 +1,128 @@
+<style>
+#aanmelden{scroll-margin-top:84px}
+.mf-fig{max-width:100%!important}
+.mf-plek{border:1.5px solid var(--brons);border-radius:14px;padding:18px 20px;display:grid;gap:8px}
+.mf-plek p{max-width:68ch}
+.cform .mf-keuze{gap:10px}
+.mf-fiets{display:grid;gap:16px}
+.mf-fiets[hidden]{display:none}
+.cards .card .more{margin-top:auto}
+</style>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Saturday 22 May 2027 · the last stage</div>
+    <h1>Ride the last stage with me</h1>
+    <p class="lead">From Den Bosch to the finish in Veenendaal: over 50 km, together. By then I'll have more than 1,500 km in my legs, so I can really use your support.</p>
+    <div class="btns"><a class="btn" href="#aanmelden">Sign up</a><a class="btn ghost" href="/en/route/#dag-8">See stage 8</a></div>
+    <p class="small muted">Not riding? <a href="/en/ride-along/?keuze=diner#aanmelden">Book a seat at the dinner instead</a>.</p>
+  </header>
+
+  <figure class="ph mf-fig" data-shot="doneren-groep"></figure>
+
+  <section class="samen" aria-labelledby="h-samen">
+    <div class="samen-txt">
+      <h2 id="h-samen">Nobody gets left behind</h2>
+      <p>You don't need to be a racing cyclist. We ride to Veenendaal as one group and cross the line together. It's a great cycling party, all of us, for the Dutch Food Banks.</p>
+      <div class="btns"><a class="btn" href="#aanmelden">I'm in</a></div>
+    </div>
+    <blockquote class="samen-q">“After a distance like that, I can use all the support I can get to reach the finish line. Will you ride the last part with me?”<small>— Warren</small></blockquote>
+  </section>
+
+  <section class="sec" aria-labelledby="h-dag">
+    <h2 id="h-dag">How the day works</h2>
+    <dl class="rows">
+      <div><dt>Date</dt><dd><b>Saturday 22 May 2027</b> · the same day as the Veenendaal–Veenendaal cycling race</dd></div>
+      <div><dt>Start</dt><dd><b>Den Bosch</b> · time and meeting point to follow</dd></div>
+      <div><dt>Distance</dt><dd><b>Over 50 km</b> · the final part of stage 8</dd></div>
+      <div><dt>Finish</dt><dd><b>Veenendaal</b> · into the town centre via the Kerkewijk, around 18:00 (to be confirmed)</dd></div>
+      <div><dt>Dinner</dt><dd><b>After the finish</b> · where we hand over the proceeds to the Dutch Food Banks; venue to follow</dd></div>
+    </dl>
+  </section>
+
+  <section class="sec" aria-labelledby="h-prijs">
+    <h2 id="h-prijs">What it costs</h2>
+    <div class="cards c3">
+      <div class="card">
+        <div class="eyebrow">Ride along</div>
+        <h3>Ride with me</h3>
+        <div class="price">€50 <small>per person</small></div>
+        <ul class="incl">
+          <li>The last 50-plus km to the finish, together</li>
+          <li>The Warren in Motion cycling jersey, yours to keep</li>
+        </ul>
+        <a class="more" href="/en/ride-along/?keuze=meefietsen#aanmelden" data-keuze="meefietsen">Choose ride along</a>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Ride and dine</div>
+        <h3>Ride along + dinner</h3>
+        <div class="price">€150 <small>per person (€50 + €100)</small></div>
+        <ul class="incl">
+          <li>Everything in ride along, jersey included</li>
+          <li>A seat at the dinner table after the finish</li>
+          <li>Be there when we hand over the proceeds to the Dutch Food Banks</li>
+        </ul>
+        <a class="more" href="/en/ride-along/?keuze=meefietsen-diner#aanmelden" data-keuze="meefietsen-diner">Choose ride along + dinner</a>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Join the table</div>
+        <h3>Dinner only</h3>
+        <div class="price">€100 <small>per person</small></div>
+        <ul class="incl">
+          <li>A seat at the dinner table after the finish</li>
+          <li>Be there when we hand over the proceeds to the Dutch Food Banks</li>
+        </ul>
+        <a class="more" href="/en/ride-along/?keuze=diner#aanmelden" data-keuze="diner">Choose dinner only</a>
+      </div>
+    </div>
+    <p class="muted"><b style="color:var(--fg)">You don't pay anything yet.</b> After you sign up, we'll get in touch about payment.</p>
+  </section>
+
+  <section class="mf-plek" aria-labelledby="h-plek">
+    <h2 id="h-plek">50 places</h2>
+    <p class="muted">The first 50 sign-ups to ride are on the rider list. Sign up after that and you join a second group we're trying to set up. Only after that is there a waiting list: if someone drops out, you'll hear from us. Coming to the dinner only? Then you don't count towards the 50 riding places.</p>
+  </section>
+
+  <section class="sec" id="aanmelden" aria-labelledby="h-aanmelden">
+    <h2 id="h-aanmelden">Sign up</h2>
+    <form class="card cform" name="meefietsen" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/en/ride-along/thanks/">
+      <input type="hidden" name="form-name" value="meefietsen">
+      <input type="hidden" name="taal" value="en">
+      <p hidden><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+      <div class="cf-3">
+        <label>Your name<input name="naam" autocomplete="name" required maxlength="120"></label>
+        <label>Your email address<input type="email" name="email" autocomplete="email" required maxlength="200"></label>
+        <label>Your phone number<input type="tel" name="telefoon" autocomplete="tel" required maxlength="40"></label>
+      </div>
+      <fieldset class="mf-keuze">
+        <legend>What are you signing up for?</legend>
+        <label class="chk"><input type="radio" name="keuze" value="meefietsen" required> <span>Ride along <span class="opt">€50, jersey included</span></span></label>
+        <label class="chk"><input type="radio" name="keuze" value="meefietsen-diner"> <span>Ride along + dinner <span class="opt">€150 (€50 + €100)</span></span></label>
+        <label class="chk"><input type="radio" name="keuze" value="diner"> <span>Dinner only <span class="opt">€100</span></span></label>
+      </fieldset>
+      <input type="hidden" name="diner" value="">
+      <input type="hidden" name="fietsplek" value="">
+      <div class="mf-fiets" data-fiets>
+        <div class="cf-2">
+          <label>Jersey size
+            <select name="maat" required>
+              <option value="">Choose your size</option>
+              <option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>XXXL</option>
+            </select>
+          </label>
+          <fieldset>
+            <legend>Your bike</legend>
+            <label class="chk"><input type="radio" name="fiets" value="eigen fiets" required> I have my own bike</label>
+            <label class="chk"><input type="radio" name="fiets" value="fiets huren"> I'd like to rent a bike</label>
+          </fieldset>
+        </div>
+        <label class="chk"><input type="checkbox" name="eigen-risico" value="ja" required> <span>I ride at my own risk.</span></label>
+      </div>
+      <label class="chk"><input type="checkbox" name="toestemming" value="ja" required> <span>I agree to my details being used for this sign-up, as set out in the <a href="/en/privacy/#meefietsen">privacy statement</a>.</span></label>
+      <div class="cf-foot">
+        <button class="btn" type="submit">Sign me up</button>
+        <p class="small muted">You don't pay anything yet. We'll get in touch about payment.</p>
+      </div>
+    </form>
+  </section>
+</div>
+<script src="/assets/meefietsen.js" defer></script>

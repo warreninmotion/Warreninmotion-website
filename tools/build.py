@@ -27,6 +27,8 @@ PAGES = {
     "contact": ("/contact/", "/en/contact/", "Contact", "Contact"),
     "beeldlijst": ("/beeldlijst/", "/en/", "Beeldlijst", "Shot list"),  # intern, niet in het menu
     "privacy": ("/privacy/", "/en/privacy/", "Privacy", "Privacy"),  # alleen in de voet
+    "meefietsen": ("/meefietsen/", "/en/ride-along/", "Meefietsen", "Ride along"),  # laatste etappe; link vanaf Home, Doneren, De route
+    "meefietsen-bedankt": ("/meefietsen/bedankt/", "/en/ride-along/thanks/", "Bedankt", "Thank you"),  # na het formulier (Netlify Forms)
 }
 MENU = ["over-warren", "route", "training", "doneren", "sponsoren", "tussenstand", "contact"]
 TXT = {
@@ -107,6 +109,8 @@ NEXT = {
     "tussenstand": [("over-warren", "Maak kennis met mij", "Get to know me")],
     "doneren": [("tussenstand", "Bekijk wie er al meerijdt", "See who is already riding along")],
     "sponsoren": [("tussenstand", "Bekijk wie er al meerijdt", "See who is already riding along")],
+    "meefietsen": [("route", "Bekijk de hele route", "See the whole route")],
+    "meefietsen-bedankt": [("route", "Bekijk de hele route", "See the whole route")],
 }
 
 
@@ -202,6 +206,10 @@ META = {
                    ("Shot list · Warren in Motion", "Which photos and videos the site still needs."), "", "NOINDEX"),
     "privacy": (("Privacy en cookies · Warren in Motion", "Welke cookies en statistiek warreninmotion.nl gebruikt, waarvoor en hoe lang."),
                 ("Privacy and cookies · Warren in Motion", "Which cookies and statistics warreninmotion.nl uses, what for and for how long."), "", ""),
+    "meefietsen": (("Fiets de laatste etappe mee · Warren in Motion", "Fiets op zaterdag 22 mei 2027 met me mee van Den Bosch naar Veenendaal: ruim 50 km, €50 inclusief fietsshirt. Meld je nu aan, betalen doe je later."),
+                   ("Ride the last stage with me · Warren in Motion", "Ride with me from Den Bosch to Veenendaal on Saturday 22 May 2027: over 50 km, €50 including a cycling jersey. Sign up now, pay later."), "", ""),
+    "meefietsen-bedankt": (("Je bent aangemeld · Warren in Motion", "Dank je wel voor je aanmelding om de laatste etappe mee te fietsen."),
+                           ("You're signed up · Warren in Motion", "Thank you for signing up to ride the last stage with me."), "", "NOINDEX"),
     "contact": (("Contact · Warren in Motion", "Stuur me een bericht over sponsoring, doneren, de eindsprint, pers of meedoen."),
                 ("Contact · Warren in Motion", "Send me a message about sponsoring, donating, the final sprint, press or getting involved."), "", ""),
 }
