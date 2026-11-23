@@ -8,7 +8,7 @@ window.WIM_MONO = `<path fill="none" stroke-width="17.67" stroke-linecap="round"
 window.WIM_LANG = (document.documentElement.lang || "nl").slice(0, 2) === "en" ? "en" : "nl";
 window.t = (nl, en) => window.WIM_LANG === "en" ? en : nl;
 window.WIM_LOC = window.WIM_LANG === "en" ? "en-GB" : "nl-NL";
-window.WIM_PATHS = { "/": "/en/", "/sponsoren/": "/en/sponsor/", "/doneren/": "/en/donate/", "/tussenstand/": "/en/progress/", "/route/": "/en/route/", "/training/": "/en/training/", "/over-warren/": "/en/about/", "/contact/": "/en/contact/", "/privacy/": "/en/privacy/" };
+window.WIM_PATHS = { "/": "/en/", "/sponsoren/": "/en/sponsor/", "/doneren/": "/en/donate/", "/tussenstand/": "/en/progress/", "/route/": "/en/route/", "/training/": "/en/training/", "/over-warren/": "/en/about/", "/contact/": "/en/contact/", "/privacy/": "/en/privacy/", "/meefietsen/": "/en/ride-along/", "/meefietsen/bedankt/": "/en/ride-along/thanks/" };
 window.L = path => { if (window.WIM_LANG !== "en") return path; const [p, h] = path.split("#"); return (window.WIM_PATHS[p] || p) + (h ? "#" + h : ""); };
 // Datum uit data.js ("14 oktober 2026") in de huidige taal
 window.WIM_DATE = s => {
@@ -28,7 +28,30 @@ window.WIM_SITE = {
   // Gezinnen: Voedselbanken Nederland (voedselbankennederland.nl, "Doneer"): €12,50 = boodschappen voor een gezin.
   // Aantal gezinnen = bedrag / 12,50 (afgerond naar beneden). 1 km (€20) = 1,6 gezin; hoofddoel €30.000 = 2.400 gezinnen.
   euroPerGezin: 12.5,
-  goals: [{ eur: 7500, label: t("Doel 1", "Goal 1") }, { eur: 15000, label: t("Doel 2", "Goal 2") }, { eur: 30000, label: t("Hoofddoel", "Main goal") }],
+  // Doelenladder (besluit Warren 19-11-2026): DE ENIGE PLEK met de doelbedragen. Home, Tussenstand, Sponsoren en de
+  // kaart lezen allemaal hieruit; het eerste doel dat nog niet gehaald is, is het actuele doel.
+  goals: [
+    { eur: 7500, label: t("Eerste doel", "First goal") },
+    { eur: 15000, label: t("Tweede doel", "Second goal") },
+    { eur: 22500, label: t("Derde doel", "Third goal") },
+    { eur: 30000, label: t("Einddoel", "Final goal") },
+  ],
+};
+
+// Doelenladder: het eerste nog niet gehaalde doel is het actuele doel, de rest volgt als volgende stappen.
+// Gebruikt door de stand op Home, de Tussenstand (actie.js) en [data-ladder] (Sponsoren).
+window.WIM_ladder = euro => {
+  const G = window.WIM_SITE.goals, n = v => (Math.round(v * 10) / 10).toLocaleString(window.WIM_LOC, { maximumFractionDigits: 1 });
+  const cur = G.findIndex(g => euro < g.eur);
+  const items = G.map((g, i) => {
+    const st = cur < 0 || i < cur ? "done" : i === cur ? "now" : "later";
+    const s = st === "done" ? t("gehaald", "reached") : st === "now" ? t(`nog ${n((g.eur - euro) / 20)} km te gaan`, `${n((g.eur - euro) / 20)} km to go`) : i === cur + 1 ? t("volgende stap", "next step") : t("daarna", "after that");
+    return `<li class="${st}"${st === "now" ? ' aria-current="step"' : ""}><span class="lad-l">${g.label}</span><b>€${n(g.eur)}</b><span class="lad-s">${s}</span></li>`;
+  }).join("");
+  const head = cur < 0
+    ? t("<b>Alle doelen zijn gehaald!</b> Dank je wel, iedereen die meerijdt.", "<b>Every goal is reached!</b> Thank you to everyone riding along.")
+    : t(`<b>${G[cur].label}: €${n(G[cur].eur)}</b>`, `<b>${G[cur].label}: €${n(G[cur].eur)}</b>`);
+  return `<div class="ladder"><p class="lad-h">${head}</p><ol>${items}</ol></div>`;
 };
 
 // Gezinnen die boodschappen krijgen van de voedselbank voor een bedrag (Home, Tussenstand, Doneren, rekenhulp en artifact)
@@ -79,13 +102,16 @@ function bindCopy(root) {
   const km = Math.min(S.routeKm, sKm + pKm), euro = sKm * 20 + D.pelotonEuro;
   document.querySelectorAll("[data-stand]").forEach(n => {
     const pct = v => (v / S.routeKm * 100).toFixed(2) + "%";
-    const nxt = S.goals.find(g => euro < g.eur), nB = D.sponsors.length;
+    const nB = D.sponsors.length;
     n.innerHTML = `<div class="big">€${fmt(euro)} <small>${t("opgehaald", "raised")}</small></div>
       <div class="sub"><b>${t(`${fmt(km)} van ${fmt(S.routeKm)} km`, `${fmt(km)} of ${fmt(S.routeKm)} km`)}</b> ${t("gevuld", "filled")} · ${t(`${nB} ${nB === 1 ? "bedrijf" : "bedrijven"}${pKm ? " en het peloton" : ""}`, `${nB} ${nB === 1 ? "company" : "companies"}${pKm ? " and the peloton" : ""}`)}</div>
       ${WIM_gezinLine(euro)}
-      <div class="bar"><div class="f" style="width:${pct(sKm)}"></div><div class="p" style="left:${pct(sKm)};width:${pct(pKm)}"></div>${S.goals.map(g => `<div class="tick" style="left:calc(${pct(g.eur / 20)} - 1px)"><span>€${fmt(g.eur)}</span></div>`).join("")}</div>
-      <div class="sub">${nxt ? t(`Op naar <b>${nxt.label.toLowerCase()}: €${fmt(nxt.eur)}</b>. Nog ${fmt((nxt.eur - euro) / 20)} km te gaan.`, `Next up: <b>${nxt.label.toLowerCase()}, €${fmt(nxt.eur)}</b>. ${fmt((nxt.eur - euro) / 20)} km to go.`) : t(`<b>Het hoofddoel is gehaald!</b> Dank je wel, iedereen die meerijdt.`, `<b>The main goal is reached!</b> Thank you to everyone riding along.`)}${upd ? t(` Bijgewerkt op ${upd}.`, ` Updated ${upd}.`) : ""}</div>`;
+      <div class="bar"><div class="f" style="width:${pct(sKm)}"></div><div class="p" style="left:${pct(sKm)};width:${pct(pKm)}"></div>${S.goals.map((g, i) => `<div class="tick${i === S.goals.length - 1 ? " end" : ""}" style="left:calc(${pct(g.eur / 20)} - 1px)"><span>€${fmt(g.eur)}</span></div>`).join("")}</div>
+      ${WIM_ladder(euro)}${upd ? `<div class="sub">${t(`Bijgewerkt op ${upd}.`, `Updated ${upd}.`)}</div>` : ""}`;
   });
+
+  // Doelenladder los (Sponsoren)
+  document.querySelectorAll("[data-ladder]").forEach(n => { n.innerHTML = WIM_ladder(euro); });
 
   // Peloton: alle particuliere donaties samen
   document.querySelectorAll("[data-peloton]").forEach(n => {
@@ -95,12 +121,10 @@ function bindCopy(root) {
       : `<div class="sub">${t("Het peloton is net vertrokken. Rij jij als een van de eersten mee?", "The peloton has just set off. Will you be one of the first to ride along?")} ${link}</div>`;
   });
 
-  // Eindsprint en diner
+  // Meefietsen (laatste etappe) en diner. Nog geen live teller van vrije plekken: die komt pas als de aanmeldingen
+  // live gekoppeld zijn (besluit Warren 19-11-2026). Tot die tijd alleen de regel over de deelnemerslijst en de tweede groep.
   document.querySelectorAll("[data-sprint]").forEach(n => {
-    const free = Math.max(0, S.sprintMax - D.eindsprint), e = D.eindsprint, d = D.diner;
-    n.innerHTML = `<div class="big">${free} <small>${t(`van ${S.sprintMax} fietsplekken vrij`, `of ${S.sprintMax} riding places left`)}</small></div>
-      <div class="sub">${e ? t(`${e} ${e === 1 ? "meefietser" : "meefietsers"} aangemeld · ${d} ${d === 1 ? "gast" : "gasten"} aan tafel bij het diner`, `${e} ${e === 1 ? "rider" : "riders"} signed up · ${d} ${d === 1 ? "guest" : "guests"} at the dinner`)
-        : t("De inschrijving is net open. Wees er vroeg bij, want vol is vol.", "Sign-ups have just opened. Be quick: when it's full, it's full.")}${upd && e ? t(` · bijgewerkt op ${upd}`, ` · updated ${upd}`) : ""}</div>`;
+    n.innerHTML = `<div class="sub">${t(`Er zijn ${S.sprintMax} plekken: de eerste ${S.sprintMax} aanmeldingen staan op de deelnemerslijst. Meld je je daarna aan, dan sta je bij een tweede groep die we proberen te regelen.`, `There are ${S.sprintMax} places: the first ${S.sprintMax} sign-ups are on the rider list. Sign up after that and you join a second group we're trying to set up.`)} <a href="${L("/meefietsen/")}">${t("Meld je aan", "Sign up")}</a></div>`;
   });
 })();
 
@@ -184,7 +208,7 @@ document.addEventListener("click", e => {
 
 // Mobiel: vaste actiebalk onderin met Doneer en Sponsor, zichtbaar na de kop en niet als de cookiemelding of voet in beeld is
 (function () {
-  if (!document.querySelector(".site-head") || /beeldlijst|privacy/.test(location.pathname)) return;
+  if (!document.querySelector(".site-head") || /beeldlijst|privacy|bedankt|thanks/.test(location.pathname)) return;
   const onDon = /\/(doneren|en\/donate)\//.test(location.pathname), onSp = /\/(sponsoren|en\/sponsor)\//.test(location.pathname);
   const bar = document.createElement("nav");
   bar.className = "actbar"; bar.setAttribute("aria-label", t("Doe mee", "Join in"));
