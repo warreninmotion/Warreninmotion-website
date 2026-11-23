@@ -14,11 +14,9 @@ Regels:
 ## Open opdrachten (volgende release: maandag 23 november 2026)
 
 1. **Training:** de week van 16 t/m 22 november uit Strava.
-2. **Meefietsen + diner en Bikebear-kopfoto (ja Warren 19-11-2026, 16:36):** merge de branch van PR #12 (meefietsen-pagina,
-   doelenladder) met daarop de commit "Meefietsen: alleen het diner reserveren …" (branch `claude/meefietsen-diner`) mee in
-   deze release. Moet live staan vóór het persbericht van di 24-11 09:00 (link warreninmotion.nl/meefietsen). Na de merge
-   op productie controleren: /meefietsen/ (drie keuzes, ?keuze=diner), /en/ride-along/, Doneren "Alleen het diner" linkt
-   naar het formulier, kopfoto op Home, en één testinzending per taal in Netlify Forms (daarna verwijderen).
+2. **Meefietsen: alleen nog de testinzending.** De pagina staat al live (zie Gedaan, 23-11): de branch
+   `claude/meefietsen-diner` NIET opnieuw mergen. Wat rest: één testinzending per taal in Netlify Forms
+   (/meefietsen/ en /en/ride-along/), nakijken dat ze binnenkomen en daarna verwijderen.
 
 ## Ideeën, nog niet besloten (niet uitvoeren)
 
@@ -29,6 +27,13 @@ Regels:
 
 (De geplande taak zet hier per release de datum en wat er live ging.)
 
+- **23-11-2026, 07:54** (handmatig door Hendricus, ja Warren 23-11 07:50: pagina live vóór het persbericht van di 24-11;
+  kostte een eigen deploy, los van de maandagrelease van 08:37):
+  - Meefietsen-pagina en doelenladder (PR #12) met "alleen het diner" (drie keuzes) en de Bikebear-kopfoto op Home,
+    via PR #13 (`claude/meefietsen-diner` → `main`).
+  - Op productie gecontroleerd 07:55: /meefietsen/ en /en/ride-along/ geven 200, /meefietsen en /eindsprint sturen door,
+    bedankpagina en `assets/meefietsen.js` 200, formulier door Netlify herkend, Home en Doneren linken naar de pagina
+    (Doneren "alleen het diner" naar `?keuze=diner#aanmelden`), nieuwe kopfoto op Home.
 - **16-11-2026** (handmatig door Hendricus; de geplande run van 08:37 zette niets klaar):
   - Training: weken 44, 45 en 46 uit Strava, weetjes vernieuwd (totaal 1.265,9 km, 45 trainingen).
   - Home: lanceringsvideo vervangen door een foto (`assets/img/home-kop.webp`); `lancering.mp4` verwijderd.
