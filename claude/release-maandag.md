@@ -11,9 +11,9 @@ Regels:
 - Netlify-credits: 300 per cyclus, vernieuwing op de 15e. Eerste maandagrelease: **16 november 2026**
   (de credits van de cyclus tot 13 november zijn op).
 
-## Open opdrachten (volgende release: maandag 23 november 2026)
+## Open opdrachten (volgende release: maandag 30 november 2026)
 
-1. **Training:** de week van 16 t/m 22 november uit Strava.
+1. **Training:** de week van 23 t/m 29 november uit Strava (week 48; de rit van ma 23-11 hoort daarbij).
 2. **Meefietsen: alleen nog de testinzending.** De pagina staat al live (zie Gedaan, 23-11): de branch
    `claude/meefietsen-diner` NIET opnieuw mergen. Wat rest: één testinzending per taal in Netlify Forms
    (/meefietsen/ en /en/ride-along/), nakijken dat ze binnenkomen en daarna verwijderen.
@@ -27,6 +27,13 @@ Regels:
 
 (De geplande taak zet hier per release de datum en wat er live ging.)
 
+- **24-11-2026** (handmatig door Hendricus, op verzoek van Warren: de release van ma 23-11 was niet gedaan; één deploy):
+  - Training: week 47 (16 t/m 22 november, ziekteweek) uit Strava: 1 rit van 17,7 km (trainer, 28% Z1 / 72% Z2),
+    1× HIIT 88 min, 1× padel 125 min, 2.058 kcal. Totaal nu 1.283,6 km, 48 trainingen, 72 uur, 43.133 kcal,
+    1.275 hoogtemeters; weetje trainingen aangepast ("Bijna elke dag een training"), de rest klopt nog.
+  - Verwachte aankomst in Veenendaal nu **tussen 14:00 en 15:00** (voorlopig, onder voorbehoud) en vertrek uit Den Bosch
+    rond 12:00 (besluit Warren 24-11): op Meefietsen, Doneren (blok Eindsprint) en De route, in NL en EN; CLAUDE.md bijgewerkt.
+    Eerder stond overal rond 18:00 na de prijsuitreiking.
 - **23-11-2026, 07:54** (handmatig door Hendricus, ja Warren 23-11 07:50: pagina live vóór het persbericht van di 24-11;
   kostte een eigen deploy, los van de maandagrelease van 08:37):
   - Meefietsen-pagina en doelenladder (PR #12) met "alleen het diner" (drie keuzes) en de Bikebear-kopfoto op Home,

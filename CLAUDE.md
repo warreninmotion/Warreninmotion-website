@@ -13,8 +13,8 @@ Statische website voor de fietstocht van Warren: Lucca (IT) → Veenendaal, 15�
 
 ## De tocht
 - Start za 15 mei 2027, Piazza dell'Anfiteatro, Lucca (tijd nog niet bekend).
-- Finish za 22 mei 2027, Veenendaal, verwacht rond 18:00 na de prijsuitreiking van Veenendaal–Veenendaal
-  (pending: op de site altijd "onder voorbehoud").
+- Finish za 22 mei 2027, Veenendaal, verwacht tussen 14:00 en 15:00 (besluit Warren 24-11-2026; vertrek eindsprint Den Bosch rond 12:00;
+  voorlopige bandbreedte, op de site altijd "onder voorbehoud"; eerder stond hier rond 18:00 na de prijsuitreiking van Veenendaal–Veenendaal).
 - Bron van de route: de 8 GPX-bestanden uit Strava (etappe 5 = optie A, wijnroute met klim, 198,7 km).
   `assets/route-data.js` (`WIM_ROUTE`) is daaruit gegenereerd: spoor, km per etappe, hoogteprofiel, stijging en
   daling (drempel 2 m, komt overeen met Garmin). Niet met de hand aanpassen; bij een nieuwe GPX opnieuw genereren met
