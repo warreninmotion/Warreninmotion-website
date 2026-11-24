@@ -14,9 +14,21 @@ Regels:
 ## Open opdrachten (volgende release: maandag 30 november 2026)
 
 1. **Training:** de week van 23 t/m 29 november uit Strava (week 48; de rit van ma 23-11 hoort daarbij).
-2. **Meefietsen: alleen nog de testinzending.** De pagina staat al live (zie Gedaan, 23-11): de branch
-   `claude/meefietsen-diner` NIET opnieuw mergen. Wat rest: één testinzending per taal in Netlify Forms
-   (/meefietsen/ en /en/ride-along/), nakijken dat ze binnenkomen en daarna verwijderen.
+2. **Meefietsformulier Engels repareren (ja Warren 24-11 12:53: pas live bij deze release, niet tussendoor).**
+   NL is al gerepareerd en live (PR #15: NL-formulier `meefietsen` → Nederlandse bedankpagina). Nog te doen: in
+   `src/pages/en/meefietsen.html` het verborgen veld `<input type="hidden" name="form-name" value="meefietsen">` op
+   `value="meefietsen-en"` zetten (het `name="meefietsen-en"` op de `<form>` staat al), `python3 tools/build.py`,
+   NIET de gegenereerde bestanden met de hand aanpassen. Na de deploy testen met nepdata ("TEST niet verwerken"):
+   NL en EN, elk één inzending; NL moet op `/meefietsen/bedankt/` Nederlandse tekst geven, EN op
+   `/en/ride-along/thanks/` Engelse tekst. Oorzaak: Netlify koppelt de inzending aan de waarde van `form-name`;
+   zolang die voor EN `meefietsen` zegt, krijgt een Engelse inzending de Nederlandse bedankpagina.
+   Daarna **contactformulier** (`contact`, NL en EN dezelfde naam en hetzelfde `form-name`) testen: vermoedelijk
+   dezelfde fout (NL-melding op de Engelse bevestiging); zo ja, splitsen als `contact-en` en Warren melden.
+   Let op: een nieuwe formuliernaam krijgt mogelijk niet automatisch dezelfde e-mailmelding naar steun@ in Netlify.
+3. **Meefietsen: testinzendingen opruimen.** De pagina staat al live (zie Gedaan, 23-11): de branch
+   `claude/meefietsen-diner` NIET opnieuw mergen. Op 24-11 zijn vijf testinzendingen gedaan (naam begint met
+   "TEST", test@example.com): drie vóór en twee ná de NL-fix. Wat rest: in Netlify Forms nakijken dat ze binnenkomen
+   (en of er een melding naar steun@ komt) en ze daarna verwijderen; Warren moet daarvoor zelf inloggen.
 
 ## Ideeën, nog niet besloten (niet uitvoeren)
 
