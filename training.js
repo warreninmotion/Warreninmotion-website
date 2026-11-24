@@ -6,7 +6,7 @@
 // km, duur en zones van de training worden dan uit de blokken berekend. Zo gaat het in mei ook: etappes in blokken.
 // weetjes: bij elk totaal een leuk weetje; elke week vernieuwen zodat het bij de nieuwe totalen past.
 window.WIM_TRAINING = {
-  updated: "16 november 2026",
+  updated: "24 november 2026",
   tot: { week: 19, jaar: 2027 }, // de tocht: week 19 van 2027 (15–22 mei)
   // Gepland schema voor de weken die nog komen. CONCEPT (15-10-2026), opgesteld door Claude: nog door Warren bevestigen.
   // km = richtlijn per week [van, tot]; lichtere weken ("rust") krijgen ongeveer 60% daarvan.
@@ -35,13 +35,28 @@ window.WIM_TRAINING = {
   weetjes: {
     km: ["Al ruim 80 procent van de route van Lucca naar huis. En meer dan twee keer van Veenendaal naar Berlijn over de weg.",
       "Already more than 80 per cent of the route from Lucca to home. And more than twice the drive from Veenendaal to Berlin."],
-    trainingen: ["Ruim een training per dag.", "More than one training session a day."],
+    trainingen: ["Bijna elke dag een training.", "Almost a training session every day."],
     uren: ["Bijna drie etmalen: drie dagen en nachten achter elkaar doorgetraind.", "Almost three full days: three days and nights of training in a row."],
     kcal: ["Goed voor zo'n 150 pannenkoeken. Gezond eten hoort er dus gewoon bij.", "Good for about 150 pancakes. So healthy eating is part of the job."],
     hm: ["Bijna vier keer de Eiffeltoren. Op de Lukmanierpas, 1.915 m hoog, wordt dat een stuk meer.",
       "Almost four times the Eiffel Tower. On the Lukmanier Pass, 1,915 m high, it will be a lot more."],
   },
   weeks: [
+    {
+      week: 47, jaar: 2026, van: "16 november 2026", tot: "22 november 2026", kcal: 2058,
+      ritten: [
+        { soort: "herstel", km: 17.7, min: 37, up: 0, binnen: true, zones: [28, 72, 0, 0, 0] },
+      ],
+      overig: [{ soort: "hiit", aantal: 1, min: 88 }, { soort: "padel", aantal: 1, min: 125 }],
+      tekst: [
+        "Een zwakke week: ik was ziek, dus bleef het bij één korte rit van bijna 18 kilometer op de trainer, rustig en vrijwel helemaal in zone 1 en 2. Herstellen gaat voor kilometers maken.",
+        "Daarnaast deed ik één HIIT-sessie en speelde ik één keer padel. Het schema ging niet door zoals gepland.",
+      ],
+      text: [
+        "A weak week: I was ill, so it stayed at one short ride of almost 18 kilometres on the trainer, easy and almost entirely in zones 1 and 2. Recovering comes before making kilometres.",
+        "On top of that I did one HIIT session and played padel once. The plan did not go as scheduled.",
+      ],
+    },
     {
       week: 46, jaar: 2026, van: "9 november 2026", tot: "15 november 2026", kcal: 4629,
       ritten: [
