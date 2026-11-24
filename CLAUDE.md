@@ -120,7 +120,7 @@ Statische website voor de fietstocht van Warren: Lucca (IT) → Veenendaal, 15�
   fiets en eigen risico weg en telt de aanmelding niet mee voor de 50 fietsplekken (veld `fietsplek` ja/nee, `keuze`,
   `diner`; `assets/meefietsen.js`). Zonder JS blijven de fietsvelden verplicht en zijn `diner`/`fietsplek` leeg: `keuze` is leidend bij het verwerken. Vooraf kiezen met `?keuze=meefietsen|meefietsen-diner|diner#aanmelden`; Doneren
   linkt "Alleen het diner" naar `?keuze=diner` (één plek voor aanmeldingen, geen mailknop meer).
-  Aanmelden via Netlify Forms (formulier `meefietsen`, honeypot `bot-field`, veld `taal`). Eerste 50 = deelnemerslijst,
+  Aanmelden via Netlify Forms (NL formulier `meefietsen`, EN formulier `meefietsen-en`: elke taal een eigen naam, anders gebruikt Netlify één bedankpagina voor beide; honeypot `bot-field`, veld `taal`). Eerste 50 = deelnemerslijst,
   vanaf 51 tweede groep die we proberen te regelen, daarna reservelijst. Nog GEEN live teller "nog X plekken" (pas na
   live koppeling). Privacyverklaring heeft een blok `#meefietsen`. Links vanaf Home, De route, Doneren en Contact;
   `/eindsprint/` stuurt door naar `/meefietsen/`.
