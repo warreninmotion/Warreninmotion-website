@@ -21,7 +21,7 @@
     });
   }
 
-  const form = document.querySelector('form[name="meefietsen"]');
+  const form = document.querySelector('form[name^="meefietsen"]');
   if (!form) return;
   const blok = form.querySelector("[data-fiets]"), base = form.getAttribute("action").split("?")[0];
   const zet = () => {
